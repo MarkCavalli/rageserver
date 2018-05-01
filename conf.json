@@ -1,0 +1,10 @@
+{
+	"maxplayers" : 100,
+	"name" : "RAGE:MP Evolution Server", 
+	"gamemode" : "freeroam", 
+	"stream-distance" : 500.0,
+	"announce" : false,
+	"port": 22005,
+	"encryption": true
+
+}
