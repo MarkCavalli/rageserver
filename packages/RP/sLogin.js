@@ -22,8 +22,8 @@ function showError(player) {
 
 async function showLoginCef(player) {
     player.call("cShowLoginCef", ["package://RP/Browsers/Login/login.html"]);
-    const d = await misc.query(`SELECT password FROM users WHERE username = '${player.name}'`);
-    player.password = d[0].password;
+    const d = await misc.query(`SELECT * FROM users WHERE username = '${player.name}'`);
+    player.tempData = d[0];
 }
 
 function showRegisterCef(player) {
@@ -69,7 +69,7 @@ mp.events.add(
 
     "sTryLogin" : async (player, pass) => {
         const hash = hashPassword(pass);
-		if (hash !== player.password) {
+		if (hash !== player.tempData.password) {
             return showError(player);
         }
         showSuccess(player);
@@ -100,7 +100,8 @@ function savePlayerAccount(player) {
 
 async function loadPlayerAccount(player) {
     player.loggedIn = true;
-    const d = await misc.query(`SELECT * FROM users WHERE username = '${player.name}'`);
-    misc.setPlayerPosFromJSON(player, d[0].position);
-    player.dimension = d[0].dim;
+    const pData = player.tempData;
+    misc.setPlayerPosFromJSON(player, pData.position);
+    player.dimension = pData.dim;
+    player.call("cMoneyUpdate", [pData.money]);
 }
