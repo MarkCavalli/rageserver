@@ -60,3 +60,11 @@ function setPlayerPosFromJSON(player, json) {
 	player.heading = d.rot;
 }
 module.exports.setPlayerPosFromJSON = setPlayerPosFromJSON;
+
+function isValueNumber(value) {
+	if (typeof value !== "number") {
+		return false;
+	}
+	return true;
+}
+module.exports.isValueNumber = isValueNumber;
