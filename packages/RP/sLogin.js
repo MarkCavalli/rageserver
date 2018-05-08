@@ -32,7 +32,7 @@ function showRegisterCef(player) {
 mp.events.add(
 {
     "playerReady" : async (player) => {
-        player.position = new mp.Vector3(3222, 5376, 20);
+        player.spawn(new mp.Vector3(3222, 5376, 20));
         player.dimension = 1001;
         const d = await misc.query(`SELECT * FROM users WHERE username = '${player.name}'`);
         if (!d[0]) {
@@ -80,6 +80,11 @@ mp.events.add(
         misc.log.debug(`${player.name} disconnected in`);
     },
 
+    "playerDeath" : (player, reason, killer) => { // Temporary Respawn;
+        player.spawn(new mp.Vector3(player.position));
+        player.health = 90;
+    },
+
 });
 
 mp.events.addCommand(
@@ -88,6 +93,16 @@ mp.events.addCommand(
         savePlayerAccount(player);
         player.outputChatBox(`Account successfully saved!`);
     }, 
+
+    'v' : (player, fullText, model) => {  // Temporary vehicle spawning
+		let vehicle = mp.vehicles.new(model, player.position,
+		{
+            heading: player.heading,
+            color: [[156, 156, 156],[156, 156, 156]],
+		});
+        player.putIntoVehicle(vehicle, -1);
+        misc.log.debug(`${player.name} spawned ${model}`);
+	},
     
 });       
     
