@@ -20,10 +20,8 @@ function showError(player) {
     player.call("cInjectCef", [str]);
 }
 
-async function showLoginCef(player) {
+function showLoginCef(player) {
     player.call("cShowLoginCef", ["package://RP/Browsers/Login/login.html"]);
-    const d = await misc.query(`SELECT * FROM users WHERE username = '${player.name}'`);
-    player.tempData = d[0];
 }
 
 function showRegisterCef(player) {
@@ -35,16 +33,13 @@ mp.events.add(
     "playerReady" : async (player) => {
         player.position = new mp.Vector3(3222, 5376, 20);
         player.dimension = 1001;
-        player.heading = 207;
-        const d = await misc.query(`SELECT username FROM users`);
-        for (let i = 0; i < d.length; i++) {
-			if (d[i].username === player.name) {
-				showLoginCef(player);
-				break;
-			}
-			else if (d[d.length - 1].username !== player.name && i === d.length - 1) {
-                showRegisterCef(player);
-			}
+        const d = await misc.query(`SELECT * FROM users WHERE username = '${player.name}'`);
+        if (!d[0]) {
+            showRegisterCef(player);
+        }
+        else if(d[0].username === player.name) {
+            showLoginCef(player);
+            player.tempData = d[0];
         }
     },
         

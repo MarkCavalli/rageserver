@@ -2,3 +2,5 @@
 /bridge/*
 .listcache
 server.exe
+node.dll
+conf.json
