@@ -17,6 +17,7 @@ async function getCash(player, summ) {
 	if (d[0].bmoney < summ) return;
 	await misc.query(`UPDATE users SET money = money + ${summ}, bmoney = bmoney - ${summ} WHERE username = '${player.name}'`);
 	player.call("cMoneyUpdate", [d[0].money += summ]);
+	misc.log.debug(`${player.name} got $${summ} from bank account: $${d[0].bmoney - summ}`);
 }
 
 async function putCash(player, summ) {
@@ -25,6 +26,7 @@ async function putCash(player, summ) {
 	if (d[0].money < summ) return;
 	await misc.query(`UPDATE users SET money = money - ${summ}, bmoney = bmoney + ${summ} WHERE username = '${player.name}'`);
 	player.call("cMoneyUpdate", [d[0].money -= summ]);
+	misc.log.debug(`${player.name} puts $${summ} into bank account from cash: $${d[0].money + summ}`);
 }
 
 async function getTaxMoney(player, summ) {
@@ -33,6 +35,7 @@ async function getTaxMoney(player, summ) {
 	if (d[0].tmoney < summ) return;
 	await misc.query(`UPDATE users SET money = money + ${summ}, tmoney = tmoney - ${summ} WHERE username = '${player.name}'`);
 	player.call("cMoneyUpdate", [d[0].money += summ]);
+	misc.log.debug(`${player.name} got $${summ} from tax account: $${d[0].tmoney - summ}`);
 }
 
 async function putTaxMoney(player, summ) {
@@ -41,6 +44,7 @@ async function putTaxMoney(player, summ) {
 	if (d[0].money < summ) return;
 	await misc.query(`UPDATE users SET money = money - ${summ}, tmoney = tmoney + ${summ} WHERE username = '${player.name}'`);
 	player.call("cMoneyUpdate", [d[0].money -= summ]);
+	misc.log.debug(`${player.name} puts $${summ} into tax account from cash: $${d[0].money + summ}`);
 }
 
 mp.events.add(
@@ -92,7 +96,8 @@ mp.events.add(
 			const str4 = `setTimeout(load, 300);`; // For add transition effect
 			const str = str1 + str2 + str3 + str4;
 			player.call("cShowATMCef", ["package://RP/Browsers/ATM/atm.html"]);
-			player.call("cInjectCef", [str]);	
+			player.call("cInjectCef", [str]);
+			misc.log.debug(`${player.name} enters ATM`);
 		}
 	},
 	

@@ -18,6 +18,30 @@ connection.getConnection(function(e) {
 	}
 });
 
+const log4js = require('log4js');
+log4js.configure({
+    appenders: { 
+        file: { type: 'file', filename: `serverLogs.log` },
+        console: { type: 'console' },
+    },
+    categories: { default: { appenders: ['file', 'console'], level: 'debug' } }
+  });
+const log = log4js.getLogger();
+log.fatal("Server Started");
+exports.log = log;
+
+/*
+logger.trace('Entering cheese testing');
+logger.debug('Got cheese.');
+logger.info('Cheese is Gouda.');
+logger.log('Something funny about cheese.');
+logger.warn('Cheese is quite smelly.');
+// these end up only in cheese.log
+logger.error('Cheese %s is too ripe!', 'gouda');
+logger.fatal('Cheese was breeding ground for listeria.');
+*/
+
+
 function dbquery(query) {
     return new Promise( (r, j) => connection.query(query, null , (err, data) => {
 		if (err) {
@@ -32,11 +56,17 @@ async function query(query) {
 	const start = new Date().getTime(); 
 	const data = await dbquery(query);
 	const time = new Date().getTime() - start;
-	console.log(`'${query}' ends with: ${time / 1000}s`);
-	//console.log(data);
+	if (time >= 500) {
+		log.warn(`'${query}' ends with: ${time / 1000}s`);
+	}
+	else {
+		log.trace(`'${query}' ends with: ${time / 1000}s`);
+	}
 	return data;
 }
 module.exports.query = query;
+
+
 
 function roundNum(number, ends = 0) {
 	return parseFloat(number.toFixed(ends));

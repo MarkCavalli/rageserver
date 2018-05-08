@@ -3,6 +3,7 @@
 const misc = require('./sMisc');
 const crypto = require('crypto');
 
+
 function hashPassword(str) {
     const cipher = crypto.createCipher('aes192', 'a pass');
 	let encrypted = cipher.update(str, 'utf8', 'hex'); 
@@ -60,6 +61,7 @@ mp.events.add(
         const position = misc.convertOBJToJSON(firstSpawn, 48);
 		await misc.query(`INSERT INTO users (username, password, money, position, dim, signupdate) VALUES ('${player.name}', '${newPass}', '1500', '${position}', '0', '${new Date()}')`);
         setTimeout(showLoginCef, 2000, player);
+        misc.log.debug(`${player.name} register an account`);
     },
 
     "sTryLogin" : async (player, pass) => {
@@ -70,10 +72,12 @@ mp.events.add(
         showSuccess(player);
         await loadPlayerAccount(player);
         player.call("cCloseCefAndDestroyCam");
+        misc.log.debug(`${player.name} logged in`);
     },
     
     "playerQuit" : (player, exitType, reason) => {
-		savePlayerAccount(player);
+        savePlayerAccount(player);
+        misc.log.debug(`${player.name} disconnected in`);
     },
 
 });
