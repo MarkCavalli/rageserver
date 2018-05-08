@@ -58,7 +58,7 @@ mp.events.add(
             z: 32,
         }
         const position = misc.convertOBJToJSON(firstSpawn, 48);
-		await misc.query(`INSERT INTO users (username, password, money, position, dim) VALUES ('${player.name}', '${newPass}', '1500', '${position}', '0')`);
+		await misc.query(`INSERT INTO users (username, password, money, position, dim, signupdate) VALUES ('${player.name}', '${newPass}', '1500', '${position}', '0', '${new Date()}')`);
         setTimeout(showLoginCef, 2000, player);
     },
 
@@ -90,7 +90,7 @@ mp.events.addCommand(
 function savePlayerAccount(player) {
     if (!player.loggedIn) return;
     const position = misc.convertOBJToJSON(player.position, player.heading, 0.1);
-    misc.query(`UPDATE users SET position = '${position}', dim = '${player.dimension}' WHERE username = '${player.name}'`);
+    misc.query(`UPDATE users SET position = '${position}', dim = '${player.dimension}', lastlogindate = '${new Date()}' WHERE username = '${player.name}'`);
 }
 
 async function loadPlayerAccount(player) {
