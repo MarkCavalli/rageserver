@@ -1,0 +1,5 @@
+"use strict"
+
+mp.keys.bind(69, false, function() {     // E
+    mp.events.callRemote('sKeys-E');
+});

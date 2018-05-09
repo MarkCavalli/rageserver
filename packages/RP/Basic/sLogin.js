@@ -1,6 +1,6 @@
 "use strict"
 
-const misc = require('./sMisc');
+const misc = require('../sMisc');
 const crypto = require('crypto');
 
 
@@ -40,7 +40,7 @@ mp.events.add(
         }
         else if(d[0].username === player.name) {
             showLoginCef(player);
-            player.tempData = d[0];
+            player.info = d[0];
         }
     },
         
@@ -63,12 +63,12 @@ mp.events.add(
         setTimeout(showLoginCef, 2000, player);
         misc.log.debug(`${player.name} register an account`);
         const data = await misc.query(`SELECT * FROM users WHERE username = '${player.name}'`);
-        player.tempData = data[0];
+        player.info = data[0];
     },
 
     "sTryLogin" : async (player, pass) => {
         const hash = hashPassword(pass);
-		if (hash !== player.tempData.password) {
+		if (hash !== player.info.password) {
             return showError(player);
         }
         showSuccess(player);
@@ -100,24 +100,54 @@ mp.events.addCommand(
 		let vehicle = mp.vehicles.new(model, player.position,
 		{
             heading: player.heading,
-            color: [[156, 156, 156],[156, 156, 156]],
-		});
+        });
+        vehicle.setColor(misc.getRandomInt(0, 159), misc.getRandomInt(0, 159));
         player.putIntoVehicle(vehicle, -1);
         misc.log.debug(`${player.name} spawned ${model}`);
+    },
+    
+    'pos' : (player, fullText, model) => { 
+        if (player.info.adminLvl < 1) {
+            return;
+        }
+        const pos = player.position;
+        let rot;
+        if (player.vehicle) {
+            rot = player.vehicle.rotation.z
+        }
+        else {
+            rot = player.heading;
+        }
+        const str = `x: ${misc.roundNum(pos.x, 3)}, y: ${misc.roundNum(pos.y, 3)}, z: ${misc.roundNum(pos.x, 3)}, rot: ${misc.roundNum(rot, 2)}`;
+        player.outputChatBox(str);
+        misc.log.debug(str);
 	},
     
 });       
     
+
+
+
 function savePlayerAccount(player) {
-    if (!player.loggedIn) return;
+    if (!player.info.loggedIn) return;
     const position = misc.convertOBJToJSON(player.position, player.heading, 0.1);
     misc.query(`UPDATE users SET position = '${position}', dim = '${player.dimension}', lastlogindate = '${new Date()}' WHERE username = '${player.name}'`);
 }
 
 async function loadPlayerAccount(player) {
-    player.loggedIn = true;
-    const pData = player.tempData;
-    misc.setPlayerPosFromJSON(player, pData.position);
-    player.dimension = pData.dim;
-    player.call("cMoneyUpdate", [pData.money]);
+    const d = player.info;
+    player.info = {
+        loggedIn: true,
+        id: d.id,
+        money: d.money,
+        bmoney: d.bmoney,
+        tmoney: d.tmoney,
+        canOpen: {
+            ATM: false,
+        },
+        adminLvl: d.adminlvl,
+    }
+    misc.setPlayerPosFromJSON(player, d.position);
+    player.dimension = d.dim;
+    player.call("cMoneyUpdate", [d.money]);
 }

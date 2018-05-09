@@ -1,4 +1,6 @@
-require('./sLogin');
+require('./Basic//sLogin');
 require('./sMisc');
-require('./sMoney');
-require('./sChat');
+require('./Basic//sMoney');
+require('./Basic//sChat');
+require('./Basic//sTime');
+require('./Basic/sWeather');

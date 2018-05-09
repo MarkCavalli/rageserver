@@ -1,8 +1,15 @@
 "use strict"
 
-const misc = require('./sMisc');
+const misc = require('../sMisc');
+const time = require('./sTime');
 
 mp.events.add('playerChat', (player, message) => {
+	if (message === ")") {
+		return sayME(player, "is smiling");
+	}
+	if (message === "))") {
+		return sayME(player, "is laughing");
+	}
 	sayRP(player, message);
 });
 
@@ -10,11 +17,12 @@ function sayRP(player, text, anon = false) {
 	mp.players.forEachInRange(player.position, 10, (client) => {
 		let dist = client.dist(player.position);
 		let color = getColorInRange("white", dist);
+		const currentTime = time.getTime();
 		if (anon) {
-			client.outputChatBox(`!{${color}}Someone: ${text}.`);
+			client.outputChatBox(`!{${color}}[${currentTime}] Someone: ${text}.`);
 		}
 		else {
-			client.outputChatBox(`!{${color}}${player.name}[${player.id}]: ${text}.`);
+			client.outputChatBox(`!{${color}}[${currentTime}] ${player.name}[${player.id}]: ${text}.`);
 		}
 	});
 }
@@ -24,7 +32,7 @@ function getColorInRange(type, dist) {
 	switch (type) {
 		case "white":
 			if (0 <= dist && dist < 2) {
-				color = "#EEEEEE";
+				color = "white";
 			}
 			else if (2 <= dist && dist < 4) {
 				color = "#CECECE";
@@ -78,11 +86,12 @@ function sayME(player, text, anon = false) {
 	mp.players.forEachInRange(player.position, 10, (client) => {
 		let dist = client.dist(player.position);
 		let color = getColorInRange("purple", dist);
+		const currentTime = time.getTime();
 		if (anon) {
-			client.outputChatBox(`!{${color}}Someone: ${text}.`);
+			client.outputChatBox(`!{${color}}[${currentTime}] Someone: ${text}.`);
 		}
 		else {
-			client.outputChatBox(`!{${color}}${player.name} ${text}.`);
+			client.outputChatBox(`!{${color}}[${currentTime}] ${player.name} ${text}.`);
 		}
 	});
 }
@@ -91,11 +100,12 @@ function sayDO(player, text, anon = false) {
 	mp.players.forEachInRange(player.position, 10, (client) => {
 		let dist = client.dist(player.position);
 		let color = getColorInRange("purple", dist);
+		const currentTime = time.getTime();
 		if (anon) {
-			client.outputChatBox(`!{${color}}${text}.`);
+			client.outputChatBox(`!{${color}}[${currentTime}] ${text}.`);
 		}
 		else {
-			client.outputChatBox(`!{${color}}${text} | ${player.name}.`);
+			client.outputChatBox(`!{${color}}[${currentTime}] ${text} | ${player.name}.`);
 		}
 	});
 }

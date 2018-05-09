@@ -10,11 +10,11 @@ const connection =  mysql.createPool({
 
 connection.getConnection(function(e) {
 	if (e) 	{
-		console.log("DATABASE IS NOT WORKING");
+		log.error("DATABASE IS NOT WORKING");
 		throw e;
 	}
 	else 	{
-		console.log(`DATABASE IS WORKING`);
+		log.debug(`DATABASE IS WORKING`);
 	}
 });
 
@@ -36,7 +36,6 @@ logger.debug('Got cheese.');
 logger.info('Cheese is Gouda.');
 logger.log('Something funny about cheese.');
 logger.warn('Cheese is quite smelly.');
-// these end up only in cheese.log
 logger.error('Cheese %s is too ripe!', 'gouda');
 logger.fatal('Cheese was breeding ground for listeria.');
 */
@@ -45,7 +44,7 @@ logger.fatal('Cheese was breeding ground for listeria.');
 function dbquery(query) {
     return new Promise( (r, j) => connection.query(query, null , (err, data) => {
 		if (err) {
-			console.log(query);
+			log.error(query);
 			return j(err);
 		}
 		r(data);
@@ -98,3 +97,8 @@ function isValueNumber(value) {
 	return true;
 }
 module.exports.isValueNumber = isValueNumber;
+
+function getRandomInt(min = 0, max = 100) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+module.exports.getRandomInt = getRandomInt;
