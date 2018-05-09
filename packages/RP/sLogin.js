@@ -62,6 +62,8 @@ mp.events.add(
 		await misc.query(`INSERT INTO users (username, password, money, position, dim, signupdate) VALUES ('${player.name}', '${newPass}', '1500', '${position}', '0', '${new Date()}')`);
         setTimeout(showLoginCef, 2000, player);
         misc.log.debug(`${player.name} register an account`);
+        const data = await misc.query(`SELECT * FROM users WHERE username = '${player.name}'`);
+        player.tempData = data[0];
     },
 
     "sTryLogin" : async (player, pass) => {
@@ -77,7 +79,7 @@ mp.events.add(
     
     "playerQuit" : (player, exitType, reason) => {
         savePlayerAccount(player);
-        misc.log.debug(`${player.name} disconnected in`);
+        misc.log.debug(`${player.name} disconnected`);
     },
 
     "playerDeath" : (player, reason, killer) => { // Temporary Respawn;
