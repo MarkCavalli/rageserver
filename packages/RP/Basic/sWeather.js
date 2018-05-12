@@ -58,17 +58,20 @@ function changeToSunWeather() {
 	if (rnd <= 30) {
 		next = 0;
 	}
-	else if (30 < rnd && rnd <= 60) {
+	else if (30 < rnd && rnd <= 55) {
 		next = 1;
 	}
-	else if (60 < rnd && rnd <= 75) {
+	else if (55 < rnd && rnd <= 65) {
 		next = 2;
 	}
-	else if (75 < rnd && rnd <= 90) {
+	else if (65 < rnd && rnd <= 75) {
 		next = 3;
 	}
-	else if (90 < rnd) {
+	else if (75 < rnd && rnd <= 85) {
 		next = 4;
+	}
+	else if (85 < rnd) {
+		next = 5;
 	}
  	return changeWeatherTo(next);
 }

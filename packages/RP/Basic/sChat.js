@@ -24,6 +24,7 @@ function sayRP(player, text, anon = false) {
 		else {
 			client.outputChatBox(`!{${color}}[${currentTime}] ${player.name}[${player.id}]: ${text}.`);
 		}
+		misc.log.debug(`${player.name}[${player.id}]: ${text}.`);
 	});
 }
 
@@ -93,6 +94,7 @@ function sayME(player, text, anon = false) {
 		else {
 			client.outputChatBox(`!{${color}}[${currentTime}] ${player.name} ${text}.`);
 		}
+		misc.log.debug(`${player.name} ${text}.`);
 	});
 }
 	
@@ -107,5 +109,6 @@ function sayDO(player, text, anon = false) {
 		else {
 			client.outputChatBox(`!{${color}}[${currentTime}] ${text} | ${player.name}.`);
 		}
+		misc.log.debug(`${text} | ${player.name}.`);
 	});
 }

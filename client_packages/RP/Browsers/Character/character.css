@@ -1,0 +1,209 @@
+﻿html {
+  height: 100%;
+  font-family: Segoe UI;
+  font-weight: 100;
+  font-size: 14pt;
+  color: #555;
+  text-align: center;
+}
+
+.b1 {
+  width: 20vw;
+  height: 100vh;
+  background: #DDD;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+.b1-title {
+  width: 100%;
+  background: dodgerblue;
+  color: white;
+  padding: 3vh 0;
+  font-size: 2vh;
+}
+
+.fm-b {
+  display: flex;
+  font-size: 2.5vh;
+}
+
+.fm-b_arrow {
+  width: 8vh;
+  padding-top: 1.0vh;
+  color: dodgerblue;
+  transition: 0.3s;
+}
+
+.fm-b_arrow:hover {
+  background: dodgerblue;
+  color: white;
+}
+
+.fm-b_main {
+  width: 100%;
+  line-height: 1vh;
+  padding-top: 1.5vh;
+  color: dodgerblue;
+}
+
+.fm-b_main p {
+  font-size: 1.2vh;
+  color: #777;
+}
+
+.fm-input-b {
+  height: 20.5vh;
+  position: relative;
+  background: #ddd;
+}
+
+.fm-input-b input:focus {
+  outline: none;
+}
+
+.fm-input-b input:before {
+  content: "";
+  background: white;
+  width: 20vh;
+  height: 1px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.fm-input-b input[type=range] {
+  -webkit-appearance: none;
+  width: 20vh;
+  transform: rotate(90deg);
+  position: relative;
+  top: 2.5vh;
+}
+
+.fm-input-b input[type=range]::-webkit-slider-runnable-track {
+  height: 15vh;
+  background: #ddd;
+}
+
+.fm-input-b input[type=range]::-webkit-slider-thumb {
+  height: 5vh;
+  width: 5vh;
+  background: white;
+  -webkit-appearance: none;
+  margin-top: 5vh;
+  border-radius: 50%;
+}
+
+.fm-b_main input:focus {
+  outline: none;
+}
+
+.fm-b_main input:before {
+  content: "";
+  background: white;
+  width: 20vh;
+  height: 1px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.fm-b_main input[type=range] {
+  -webkit-appearance: none;
+  width: 20vh;
+  position: relative;
+}
+
+.fm-b_main input[type=range]::-webkit-slider-runnable-track {
+  height: 5vh;
+  background: #ddd;
+}
+
+.fm-b_main input[type=range]::-webkit-slider-thumb {
+  height: 5vh;
+  width: 5vh;
+  background: white;
+  -webkit-appearance: none;
+  border-radius: 50%;
+}
+
+.b1-done {
+  background: forestgreen;
+  padding: 1vh 0;
+ position: absolute;
+ left: 0;
+ bottom: 0;
+ transition: 0.3s;
+}
+
+.b1-done:hover {
+  background: dodgerblue;
+}
+
+.b1-done {
+  background: forestgreen;
+  padding: 1vh 0;
+ position: absolute;
+ left: 0;
+ bottom: 0;
+ transition: 0.3s;
+}
+
+.b1-done:hover {
+  background: dodgerblue;
+}
+
+
+
+
+.b1-face-item {
+	height: 4vh;
+	position: relative;
+	margin-bottom: 0.5vh;
+}
+
+.b1-face-item > input:focus {
+  outline: none;
+}
+
+.b1-face-item > input:before {
+  content: "";
+  background: white;
+  width: 18vw;
+  height: 1px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.b1-face-item > input[type=range] {
+  -webkit-appearance: none;
+  width: 18vw;
+  position: relative;
+}
+
+.b1-face-item > input[type=range]::-webkit-slider-runnable-track {
+  height: 2vh;
+  background: #ddd;
+}
+
+.b1-face-item > input[type=range]::-webkit-slider-thumb {
+  height: 2vh;
+  width: 5vh;
+  background: white;
+  -webkit-appearance: none;
+  background: url(range.png) center;
+  background-size: cover;
+}
+
+.b1-face-item > p {
+	display: block;
+  font-size: 1.3vh;
+  color: #777;
+  position: absolute;
+  bottom: -1.0vh;
+  left: 0;
+  text-align: center;
+  width: 100%;
+}

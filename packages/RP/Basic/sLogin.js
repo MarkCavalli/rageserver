@@ -1,6 +1,7 @@
 "use strict"
 
 const misc = require('../sMisc');
+const charCreator = require('../Character/sCharacterCreator');
 const crypto = require('crypto');
 
 
@@ -34,7 +35,7 @@ mp.events.add(
     "playerReady" : async (player) => {
         player.spawn(new mp.Vector3(3222, 5376, 20));
         player.dimension = 1001;
-        const d = await misc.query(`SELECT * FROM users WHERE username = '${player.name}'`);
+        const d = await misc.query(`SELECT username, password FROM users WHERE username = '${player.name}'`);
         if (!d[0]) {
             showRegisterCef(player);
         }
@@ -42,6 +43,7 @@ mp.events.add(
             showLoginCef(player);
             player.info = d[0];
         }
+        misc.log.debug(`${player.name} connected`);
     },
         
     "sTryRegister" : async (player, pass) => {
@@ -59,11 +61,15 @@ mp.events.add(
             z: 32,
         }
         const position = misc.convertOBJToJSON(firstSpawn, 48);
-		await misc.query(`INSERT INTO users (username, password, money, position, dim, signupdate) VALUES ('${player.name}', '${newPass}', '1500', '${position}', '0', '${new Date()}')`);
+        const query1 = misc.query(`INSERT INTO users (username, password, money, position, dim, signupdate) VALUES ('${player.name}', '${newPass}', '1500', '${position}', '0', '${new Date()}')`);
+        const query2 = charCreator.insertNewUser();
+        await Promise.all([query1, query2]);
         setTimeout(showLoginCef, 2000, player);
         misc.log.debug(`${player.name} register an account`);
-        const data = await misc.query(`SELECT * FROM users WHERE username = '${player.name}'`);
-        player.info = data[0];
+        player.info = {
+            username: player.name,
+            password: newPass,
+        };
     },
 
     "sTryLogin" : async (player, pass) => {
@@ -73,13 +79,12 @@ mp.events.add(
         }
         showSuccess(player);
         await loadPlayerAccount(player);
-        player.call("cCloseCefAndDestroyCam");
+        await charCreator.loadPlayerAppearance(player);
         misc.log.debug(`${player.name} logged in`);
     },
     
     "playerQuit" : (player, exitType, reason) => {
         savePlayerAccount(player);
-        misc.log.debug(`${player.name} disconnected`);
     },
 
     "playerDeath" : (player, reason, killer) => { // Temporary Respawn;
@@ -101,7 +106,8 @@ mp.events.addCommand(
 		{
             heading: player.heading,
         });
-        vehicle.setColor(misc.getRandomInt(0, 159), misc.getRandomInt(0, 159));
+        const color = misc.getRandomInt(0, 159);
+        vehicle.setColor(color, color);
         player.putIntoVehicle(vehicle, -1);
         misc.log.debug(`${player.name} spawned ${model}`);
     },
@@ -126,28 +132,28 @@ mp.events.addCommand(
 });       
     
 
-
-
 function savePlayerAccount(player) {
     if (!player.info.loggedIn) return;
     const position = misc.convertOBJToJSON(player.position, player.heading, 0.1);
     misc.query(`UPDATE users SET position = '${position}', dim = '${player.dimension}', lastlogindate = '${new Date()}' WHERE username = '${player.name}'`);
+    misc.log.debug(`${player.name} disconnected`);
 }
 
 async function loadPlayerAccount(player) {
-    const d = player.info;
+    const d = await misc.query(`SELECT * FROM users WHERE username = '${player.name}'`);
     player.info = {
         loggedIn: true,
-        id: d.id,
-        money: d.money,
-        bmoney: d.bmoney,
-        tmoney: d.tmoney,
+        id: d[0].id,
+        money: d[0].money,
+        bmoney: d[0].bmoney,
+        tmoney: d[0].tmoney,
         canOpen: {
             ATM: false,
         },
-        adminLvl: d.adminlvl,
+        adminLvl: d[0].adminlvl,
     }
-    misc.setPlayerPosFromJSON(player, d.position);
-    player.dimension = d.dim;
-    player.call("cMoneyUpdate", [d.money]);
+    misc.setPlayerPosFromJSON(player, d[0].position);
+    player.dimension = d[0].dim;
+    player.call("cMoneyUpdate", [d[0].money]);
+    player.call("cCloseCefAndDestroyCam");
 }

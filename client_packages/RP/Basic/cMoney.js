@@ -1,6 +1,6 @@
 "use strict"
 
-const misc = require('RP/cMisc');
+const misc = require('/RP/cMisc');
 const player = mp.players.local;
 let money;
 

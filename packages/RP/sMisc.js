@@ -98,6 +98,14 @@ function isValueNumber(value) {
 }
 module.exports.isValueNumber = isValueNumber;
 
+function isValueString(value) {
+	if (typeof value !== "string") {
+		return false;
+	}
+	return true;
+}
+module.exports.isValueString = isValueString;
+
 function getRandomInt(min = 0, max = 100) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }

@@ -1,6 +1,6 @@
 "use strict"
 
-const misc = require('RP/cMisc');
+const misc = require('/RP/cMisc');
 const player = mp.players.local;
 
 function showCef(url) {
@@ -8,7 +8,6 @@ function showCef(url) {
 	misc.createCam(3223, 5349, 14, 0, 0, 218, 20);
 	misc.openCef(url);
 }
-
 
 mp.events.add(
 {

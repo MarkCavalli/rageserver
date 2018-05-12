@@ -6,7 +6,7 @@ let camera = null;
 
 
 // CEF //
-function prepareToCef(blurred) {
+function prepareToCef(blurred = null) {
 	mp.gui.cursor.visible = true;
 	mp.game.ui.displayRadar(false);
 	mp.gui.chat.show(false);

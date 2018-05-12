@@ -83,6 +83,7 @@ mp.events.add(
 		},
 
 		"sKeys-E" : (player) => {
+			if (!player.info || !player.info.hasOwnProperty('loggedIn')) return;
 			if (player.info.canOpen.ATM) {
 				openATMMenu(player);
 			}
@@ -90,6 +91,8 @@ mp.events.add(
 		
 		
 	});
+
+
 
 
 
