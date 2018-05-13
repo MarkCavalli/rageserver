@@ -9,6 +9,22 @@ async function getMoney(player) {
 };
 module.exports.getMoney = getMoney;
 
+async function changeMoney(player, value) {
+	if (typeof value !== "number") {
+		misc.log.error(`changeMoney | Money is not a number: ${value}`);
+		return false;
+	}
+	if (player.info.money + value < 0 || value === 0) {
+		return false
+	}
+	await misc.query(`UPDATE users SET money = money + ${value} WHERE username = '${player.name}'`);
+	player.call("cMoneyUpdate", [player.info.money + value]);
+	return true;
+};
+module.exports.changeMoney = changeMoney;
+
+
+
 
 
 async function getCash(player, summ) {
@@ -65,32 +81,33 @@ function logATMOperation(player, before) {
 }
 
 mp.events.add(
-	{		
-		"sGetCash" : (player, summ) => {
-			getCash(player, summ);
-		},
+{		
+	"sGetCash" : (player, summ) => {
+		getCash(player, summ);
+	},
 
-		"sPutCash" : (player, summ) => {
-			putCash(player, summ);
-		},
+	"sPutCash" : (player, summ) => {
+		putCash(player, summ);
+	},
 
-		"sGetTaxMoney" : (player, summ) => {
-			getTaxMoney(player, summ);
-		},
+	"sGetTaxMoney" : (player, summ) => {
+		getTaxMoney(player, summ);
+	},
 
-		"sPutTaxMoney" : (player, summ) => {
-			putTaxMoney(player, summ);
-		},
+	"sPutTaxMoney" : (player, summ) => {
+		putTaxMoney(player, summ);
+	},
 
-		"sKeys-E" : (player) => {
-			if (!player.info || !player.info.hasOwnProperty('loggedIn')) return;
-			if (player.info.canOpen.ATM) {
-				openATMMenu(player);
-			}
-		},
-		
-		
-	});
+	"sKeys-E" : (player) => {
+		if (!player.info || !player.info.loggedIn) return;
+		//if (!player.info || !player.info.hasOwnProperty('loggedIn')) return;
+		if (player.info.canOpen.ATM) {
+			openATMMenu(player);
+		}
+	},
+	
+	
+});
 
 
 

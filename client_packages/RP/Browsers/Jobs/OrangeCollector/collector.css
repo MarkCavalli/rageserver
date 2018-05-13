@@ -1,0 +1,55 @@
+﻿html {
+  min-height: 100%;
+  background: url(background.jpg) no-repeat scroll left bottom;
+  background-size: cover;
+  font-family: Segoe UI;
+  font-weight: 100;
+  font-size: 14pt;
+  text-align: center;
+  color: #555;
+}
+
+.button {
+  background-color: #eee;
+  margin: 15px 0;
+  padding: 5px 30px;
+  border-radius: 5px;
+  transition: 0.3s;
+  text-transform: uppercase;
+}
+
+.button:hover {
+  background-color: orange;
+}
+
+.buttons {
+  position: fixed;
+  bottom: 5%;
+  left: 5%;
+  width: 460px;
+}
+
+.message {
+  position: fixed;
+  top: 10%;
+  left: 5%;
+  width: 400px;
+  padding: 30px;
+  background-color: #eee;
+  border-radius: 5px;
+}
+
+.b3-close {
+  background: coral;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 6vh;
+  height: 3vh;
+  font-size: 2vh;
+  transition: 0.3s;
+}
+
+.b3-close:hover {
+  background: tomato;
+}

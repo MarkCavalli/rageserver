@@ -84,6 +84,7 @@ mp.events.add(
     },
     
     "playerQuit" : (player, exitType, reason) => {
+        if (!player.info || !player.info.loggedIn) return;
         savePlayerAccount(player);
     },
 
@@ -97,6 +98,9 @@ mp.events.add(
 mp.events.addCommand(
 {
     'save' : (player) => {
+        if (player.info.adminLvl < 1) {
+            return;
+        }
         savePlayerAccount(player);
         player.outputChatBox(`Account successfully saved!`);
     }, 
@@ -124,7 +128,7 @@ mp.events.addCommand(
         else {
             rot = player.heading;
         }
-        const str = `x: ${misc.roundNum(pos.x, 3)}, y: ${misc.roundNum(pos.y, 3)}, z: ${misc.roundNum(pos.x, 3)}, rot: ${misc.roundNum(rot, 2)}`;
+        const str = `x: ${misc.roundNum(pos.x, 3)}, y: ${misc.roundNum(pos.y, 3)}, z: ${misc.roundNum(pos.z, 3)}, rot: ${misc.roundNum(rot, 2)}`;
         player.outputChatBox(str);
         misc.log.debug(str);
 	},
@@ -133,7 +137,6 @@ mp.events.addCommand(
     
 
 function savePlayerAccount(player) {
-    if (!player.info.loggedIn) return;
     const position = misc.convertOBJToJSON(player.position, player.heading, 0.1);
     misc.query(`UPDATE users SET position = '${position}', dim = '${player.dimension}', lastlogindate = '${new Date()}' WHERE username = '${player.name}'`);
     misc.log.debug(`${player.name} disconnected`);
@@ -151,6 +154,9 @@ async function loadPlayerAccount(player) {
             ATM: false,
         },
         adminLvl: d[0].adminlvl,
+        activeJob: {
+            name: false,
+        },
     }
     misc.setPlayerPosFromJSON(player, d[0].position);
     player.dimension = d[0].dim;
