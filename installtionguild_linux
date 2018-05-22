@@ -1,0 +1,16 @@
+
+1:Put all files in your project.
+2:Do npm install by cmd in main directory with "server" excutable script.
+3:Server using MySQL as a database.so you have to import sql file in to your database.In database management make one like "ragerp"
+4:Import sql scructure file into it(can be downloaded on https://cloud.mail.ru/public/GQQF/Df5cTXEiY)
+5:Run "npm install" in your server's main directory.
+6:Go into /packages/RP/sMisc.js to edit the way to connect to your database.
+
+const connection =  mysql.createPool({
+        host                    :       "localhost",
+        user                    :       "YOURDATABASEUSERNAME",
+        password                :       "YOURPASSWORD",
+        database                :       "ragerp",
+});
+
+THEN ENJOY.
