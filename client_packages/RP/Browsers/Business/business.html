@@ -1,0 +1,174 @@
+﻿<html>
+	<link rel="stylesheet" href="business.css">
+	<body>
+		<div id="app">
+      <div class="b3-close" v-on:click="exit">X</div>
+      <div class="b1-logo logoLoading" id="logo">
+         <div class="logo">
+            <img src="../fleeca.png" height="150vh">
+            <div class="b1-tax">tax department</div>
+         </div>
+      </div>
+   
+      <div class="b2">
+         <div class="b2-gs">
+            <div class="b2-gs-item b2-title">{{ showTitle() }}</div>
+         </div>
+         <div class="b2-gs">
+            <div class="b2-gs-item" v-if="showBalanceBlock">
+               <div class="gs-main gs-dollar-before">{{ showBalance() }}</div>
+               <div class="gs-info">balance</div>
+            </div>
+            <div class="b2-gs-item">
+               <div class="gs-main gs-dollar-before">{{ showPrice() }}</div>
+               <div class="gs-info">price</div>
+            </div>
+            <div class="b2-gs-item">
+               <div class="gs-main">{{ showOwner() }}</div>
+               <div class="gs-info">owner</div>
+            </div>
+            <div class="b2-gs-item ">
+               <div class="gs-main gs-dollar-before">{{ showTax() }}</div>
+               <div class="gs-info">tax</div>
+            </div>
+            <div class="b2-gs-item" v-if="showMarginBlock">
+               <div class="gs-main gs-percent-after">{{ margin }}</div>
+               <div class="gs-info">margin</div>
+            </div>
+         </div>
+   
+         <div class="b2-buttons">
+            <div class="b2-button" v-if="showBuyBtn" v-on:click="changeBuyConfirms">
+               <div class="b2-cb b2-cb_left" v-if="showBuyConfirms">X</div>Buy business
+               <div class="b2-cb b2-cb_right" v-if="showBuyConfirms" v-on:click="buy">V</div>
+            </div>
+            <div class="b2-button" v-if="showSellBtn" v-on:click="changeSellConfirms">
+               <div class="b2-cb b2-cb_left" v-if="showSellConfirms">X</div>Sell business
+               <div class="b2-cb b2-cb_right" v-if="showSellConfirms" v-on:click="sell">V</div>
+            </div>
+            <div class="b2-button" v-if="showMarginBtn">
+               <div class="b2-cb b2-cb_left" v-on:click="changeMargin(-10)">- 10</div>
+               <div class="b2-cb b2-cb_left" style="left: 7vh;" v-on:click="changeMargin(-1)">- 1</div>Change Margin
+               <div class="b2-cb b2-cb_right" style="right: 7vh;" v-on:click="changeMargin(1)">+ 1</div>
+               <div class="b2-cb b2-cb_right" v-on:click="changeMargin(10)">+ 10</div>
+            </div>
+            <div class="b2-button" v-if="showBalanceBtn" v-on:click="takeBalanceMoney">
+               Take all money from balance account
+            </div>
+         </div>
+      </div>
+   </div>
+   
+		  <script src="../vue.js"></script>
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+	el: '#app',
+	data: {
+		id: 1,
+		title: "",
+		showBalanceBlock: false,
+		balance: 0,
+		price: 0,
+		owner: null,
+		margin: 0,
+		marginLowLimit: 0,
+		marginHighLimit: 200,
+		showMarginBlock: false,
+		showBuyBtn: false,
+		showSellBtn: false,
+		showMarginBtn: false,
+		showBalanceBtn: false,
+
+		showBuyConfirms: false,
+		showSellConfirms: false,
+
+	},
+	methods: {
+		loadForSale: function() {
+			this.showBuyBtn = true;
+		},
+		loadForOwner: function() {
+			this.showSellBtn = true;
+			this.showMarginBtn = true;
+			this.showBalanceBtn = true;
+			this.showMarginBlock = true;
+			this.showBalanceBlock = true;
+		},
+		prettify: function(num) {
+			let n = num.toString();
+			const separator = " ";
+			return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + separator);
+		},
+			showTitle: function() {
+			return `${this.title} №${this.id}`;
+		},
+		showBalance: function() {
+			return this.prettify(this.balance);
+		},
+		showPrice: function() {
+			return this.prettify(this.price);
+		},
+			showOwner: function() {
+			if (!this.owner || this.owner === "null") return "For Sale";
+				return this.owner;
+		},
+		showTax: function() {
+			return this.prettify(this.price / 10000);
+		},
+		changeBuyConfirms: function() {
+			this.showBuyConfirms = !this.showBuyConfirms;
+		},
+		changeSellConfirms: function() {
+			this.showSellConfirms = !this.showSellConfirms;
+		},
+		changeMargin: function(value) {
+			if (value > 0) {
+				this.addToMargin(value);
+			} else if (value < 0) {
+				this.removeFromMargin(value);
+			}
+		},
+		addToMargin: function(value) {
+			if (this.margin + value > this.marginHighLimit) {
+				return this.margin = this.marginHighLimit;
+			}
+			this.margin += value;
+		},
+		removeFromMargin: function(value) {
+			if (this.margin + value < this.marginLowLimit) {
+				return this.margin = this.marginLowLimit;
+			}
+			this.margin += value;
+		},
+
+		buy: function() {
+			mp.trigger("cBuyBusiness");
+			this.exit();
+		},
+		sell: function() {
+			mp.trigger("cSellBusiness");
+			this.exit();
+		},
+		takeBalanceMoney: function() {
+			mp.trigger("cBusinessTakeBalanceMoney");
+			this.balance = 0;
+		},
+
+		saveMargin: function() {
+			mp.trigger("cBusinessChangeMargin", this.margin);
+		},
+
+		exit: function() {
+			this.saveMargin();
+			mp.trigger("cCloseCef");
+		},
+	}
+});
+function load() {
+	document.getElementById("logo").classList.remove("logoLoading");
+}
+</script>

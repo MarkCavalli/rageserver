@@ -108,7 +108,7 @@ const app = new Vue({
 			this.changeAppearance();
 		},	
 		changeCamRotation: function() {
-			mp.trigger("cCharCreatorChangeHeading", +this.camRotation); 
+			mp.trigger("cChangeHeading", +this.camRotation); 
 		},
 		done: function() {
 			const arr = [

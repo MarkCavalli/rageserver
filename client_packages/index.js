@@ -3,4 +3,7 @@ require('./RP/cKeys.js');
 require('./RP/Basic/cLogin.js');
 require('./RP/Basic/cMoney.js');
 require('./RP/Character/cCharacterCreator.js');
+require('./RP/Character/cClothes.js');
 require('./RP/Jobs/cOrangeCollector.js');
+require('./RP/Business/cBusiness.js');
+require('./RP/Business/cClothingShop.js');

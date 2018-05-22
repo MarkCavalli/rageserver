@@ -2,6 +2,7 @@
 
 const misc = require('../sMisc');
 const charCreator = require('../Character/sCharacterCreator');
+const clothes = require('../Character/sClothes');
 const crypto = require('crypto');
 
 
@@ -75,11 +76,13 @@ mp.events.add(
     "sTryLogin" : async (player, pass) => {
         const hash = hashPassword(pass);
 		if (hash !== player.info.password) {
+            misc.log.debug(`${player.name} entered wrong password!`);
             return showError(player);
         }
         showSuccess(player);
         await loadPlayerAccount(player);
         await charCreator.loadPlayerAppearance(player);
+        await clothes.loadPlayerClothes(player);
         misc.log.debug(`${player.name} logged in`);
     },
     
@@ -98,9 +101,7 @@ mp.events.add(
 mp.events.addCommand(
 {
     'save' : (player) => {
-        if (player.info.adminLvl < 1) {
-            return;
-        }
+        if (player.info.adminLvl < 1) return;
         savePlayerAccount(player);
         player.outputChatBox(`Account successfully saved!`);
     }, 
@@ -117,9 +118,7 @@ mp.events.addCommand(
     },
     
     'pos' : (player, fullText, model) => { 
-        if (player.info.adminLvl < 1) {
-            return;
-        }
+        if (player.info.adminLvl < 1) return;
         const pos = player.position;
         let rot;
         if (player.vehicle) {
@@ -157,6 +156,7 @@ async function loadPlayerAccount(player) {
         activeJob: {
             name: false,
         },
+        hasBusiness: d[0].hasBusiness,
     }
     misc.setPlayerPosFromJSON(player, d[0].position);
     player.dimension = d[0].dim;

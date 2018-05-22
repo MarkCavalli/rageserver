@@ -16,9 +16,6 @@ mp.events.add(
         mp.events.callRemote('sCharCreatorChangeGender', gender);
     },
 
-    "cCharCreatorChangeHeading" : (angle) => {
-		player.setHeading(angle);
-    },
 
     "cCharCreatorUpdateSkinOptions" : (strJSON) => {
         const skindata = JSON.parse(strJSON);

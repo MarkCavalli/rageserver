@@ -5,4 +5,7 @@ require('./Basic//sChat');
 require('./Basic//sTime');
 require('./Basic/sWeather');
 require('./Character/sCharacterCreator');
+require('./Character/sClothes');
 require('./Jobs/sOrangeCollector');
+require('./Business/sBusiness');
+require('./Business/sClothingShop');

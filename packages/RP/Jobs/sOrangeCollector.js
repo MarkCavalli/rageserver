@@ -2,7 +2,7 @@
 
 const misc = require('../sMisc');
 const moneyAPI = require('../Basic/sMoney');
-
+const clothes = require('../Character/sClothes');
 
 const treeMarkersList = [];
 let menuShape, dropMarker, dropShape;
@@ -93,6 +93,27 @@ function startWork(player) {
     player.notify("~g~You started orange collector job!");
     misc.log.debug(`${player.name} started orange collector job!`);
     dropMarker.showFor(player);
+    if (player.model === 1885233650) {
+		setWorkingClothesForMan(player);
+	}
+	else {
+		setWorkingClothesForWoman(player);
+	}
+
+    function setWorkingClothesForMan(player) {
+        player.setProp(0, 14, 0); //Hat
+        player.setClothes(11, 78, misc.getRandomInt(0, 15), 0); //Top
+        player.setClothes(3, 14, 0, 0);
+        player.setClothes(252, 0, 0, 0);
+        player.setClothes(4, 0, misc.getRandomInt(0, 15), 0); // Legs
+    }
+    function setWorkingClothesForWoman(player) {
+        player.setProp(0, 14, 0); //Hat
+        player.setClothes(11, 78, misc.getRandomInt(0, 7), 0); //Top
+        player.setClothes(3, 9, 0, 0);
+        player.setClothes(82, 0, 0, 0);
+        player.setClothes(4, 1, misc.getRandomInt(0, 15), 0); // Legs
+    }
 }
 
 function createRandomCheckPoint(player) {
@@ -150,6 +171,7 @@ function finishWork(player) {
     player.notify("~g~You finished orange collector job!");
     misc.log.debug(`${player.name} finished orange collector job!`);
     dropMarker.hideFor(player);
+    clothes.loadPlayerClothes(player);
 }
 
 

@@ -5,7 +5,7 @@
 			<div class="b3-close" id="close-button" v-on:click="exit">X</div>
 			<div class="b1-logo logoLoading" id="logo">
 			  	<div class="logo">
-					<img src="logo.png" height="150vh">
+					<img src="../fleeca.png" height="150vh">
 			  	</div>
 			</div>
       
@@ -26,9 +26,9 @@
 
 
 			<div class="b2-buttons" v-if="!transactionBlockSeen">
-				<div class="b2-item" v-on:click="openTransactionBlock('getCash')">Get cash</div>
+				<div class="b2-item" v-on:click="openTransactionBlock('getCash')">Take cash</div>
 				<div class="b2-item" v-on:click="openTransactionBlock('putCash')">Put cash</div>
-				<div class="b2-item" v-on:click="openTransactionBlock('getTaxMoney')">Get cash from tax account</div>
+				<div class="b2-item" v-on:click="openTransactionBlock('getTaxMoney')">Take cash from tax account</div>
 				<div class="b2-item" v-on:click="openTransactionBlock('putTaxMoney')">Put cash in tax account</div>
 			</div>
 		  

@@ -55,7 +55,7 @@ const app = new Vue({
 		mp.trigger("cCharCreatorUpdateFaceOptions", JSON.stringify(this.facedata));
    },
 	changeCamRotation: function() {
-		mp.trigger("cCharCreatorChangeHeading", +this.camRotation); 
+		mp.trigger("cChangeHeading", +this.camRotation); 
    },
 	exit: function() {
 		mp.trigger("cCharCreatorSaveFaceOptions", JSON.stringify(this.facedata));

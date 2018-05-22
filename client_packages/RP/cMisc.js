@@ -2,7 +2,15 @@
 
 let cef = null;
 let camera = null;
+const player = mp.players.local;
 
+
+function prettify(num) {
+    let n = num.toString();
+    const separator = " ";
+    return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + separator);
+}
+exports.prettify = prettify;
 
 
 // CEF //
@@ -85,6 +93,10 @@ mp.events.add(
 		"cCloseCefAndDestroyCam" : () => {
 			closeCef();
 			destroyCam();
+		},
+
+		"cChangeHeading" : (angle) => {
+			player.setHeading(angle);
 		},
 		
 	

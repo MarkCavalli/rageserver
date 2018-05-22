@@ -10,21 +10,52 @@ async function getMoney(player) {
 module.exports.getMoney = getMoney;
 
 async function changeMoney(player, value) {
-	if (typeof value !== "number") {
+	if (!misc.isValueNumber(value)) {
 		misc.log.error(`changeMoney | Money is not a number: ${value}`);
 		return false;
 	}
-	if (player.info.money + value < 0 || value === 0) {
-		return false
+	if (player.info.money + value < 0) {
+		return false;
 	}
 	await misc.query(`UPDATE users SET money = money + ${value} WHERE username = '${player.name}'`);
-	player.call("cMoneyUpdate", [player.info.money + value]);
+	player.info.money += value;
+	player.call("cMoneyUpdate", [player.info.money]);
 	return true;
 };
 module.exports.changeMoney = changeMoney;
 
+async function addToBankMoneyOffline(name, value, comment) {
+	if (!misc.isValueNumber(value) || value < 0) return;
+	await misc.query(`UPDATE users SET bmoney = bmoney + ${value} WHERE username = '${name}'`);
+	for (let j = 0; j < mp.players.length; j++) {
+		const player = mp.players.at(j);
+		if (player.name === name) {
+			player.info.bmoney += value;
+			player.call("cMoneySendNotification", [`New payment: ~g~$${value}. ~w~${comment}`]);
+			break;
+		}
+	}
+}
+module.exports.addToBankMoneyOffline = addToBankMoneyOffline;
 
-
+async function payTaxOffline(username, value, comment) {
+	if (!misc.isValueNumber(value) || value < 0) return;
+	const d = await misc.query(`SELECT tmoney FROM users WHERE username = '${username}'`);
+	if (value > d[0].tmoney) {
+		return false;
+	}
+	await misc.query(`UPDATE users SET tmoney = tmoney - ${value} WHERE username = '${username}'`);
+	for (let j = 0; j < mp.players.length; j++) {
+		const player = mp.players.at(j);
+		if (player.name === username) {
+			player.info.tmoney -= value;
+			player.call("cMoneySendNotification", [`New tax payment: ~g~$${value}. ~w~${comment}`]);
+			break;
+		}
+	}
+	return true;
+}
+module.exports.payTaxOffline = payTaxOffline;
 
 
 async function getCash(player, summ) {
@@ -99,8 +130,7 @@ mp.events.add(
 	},
 
 	"sKeys-E" : (player) => {
-		if (!player.info || !player.info.loggedIn) return;
-		//if (!player.info || !player.info.hasOwnProperty('loggedIn')) return;
+		if (!misc.isPlayerLoggedIn(player)) return;
 		if (player.info.canOpen.ATM) {
 			openATMMenu(player);
 		}
@@ -141,7 +171,7 @@ function openATMMenu(player) {
 mp.events.add(
 {
 	"playerEnterColshape" : (player, shape) => {
-		if (!shape.getVariable("ATM") || player.vehicle) {
+		if (!shape.getVariable("ATM") || player.vehicle || !misc.isPlayerLoggedIn(player)) {
 			return;
 		}
 		player.info.canOpen.ATM = true;

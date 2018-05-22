@@ -110,3 +110,9 @@ function getRandomInt(min = 0, max = 100) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 module.exports.getRandomInt = getRandomInt;
+
+function isPlayerLoggedIn(player) {
+	if (!player.info || !player.info.loggedIn) return false;
+	return true;
+}
+module.exports.isPlayerLoggedIn = isPlayerLoggedIn;

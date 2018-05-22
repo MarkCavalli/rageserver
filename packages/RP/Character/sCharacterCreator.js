@@ -4,13 +4,18 @@ const misc = require('../sMisc');
 let dimnumber = 2;
 
 async function insertNewUser() {
-	await misc.query(`INSERT INTO userskins (skin) VALUES ('0')`);
+	let obj = {		number: 0,	color: 0,	};
+	obj = JSON.stringify(obj);
+	let tops = {	number: 0,	color: 0,	underColor: 0,	};
+	tops = JSON.stringify(tops);
+	
+	await misc.query(`INSERT INTO userskins (skin, hats, glasses, tops, legs, feet) VALUES ('0', '${obj}', '${obj}', '${tops}', '${obj}', '${obj}')`);
 }
 module.exports.insertNewUser = insertNewUser;
 
 
 async function loadPlayerAppearance(player) {
-	const data = await misc.query(`SELECT * FROM userskins WHERE id = '${player.info.id}'`);
+	const data = await misc.query(`SELECT skin, skindata, facedata FROM userskins WHERE id = '${player.info.id}'`);
 	if (data[0].skin === 0) {
 		return start(player);
 	}

@@ -11,6 +11,7 @@ mp.events.add('playerChat', (player, message) => {
 		return sayME(player, "is laughing");
 	}
 	sayRP(player, message);
+	misc.log.debug(`${player.name}[${player.id}]: ${message}.`);
 });
 
 function sayRP(player, text, anon = false) {
@@ -24,7 +25,6 @@ function sayRP(player, text, anon = false) {
 		else {
 			client.outputChatBox(`!{${color}}[${currentTime}] ${player.name}[${player.id}]: ${text}.`);
 		}
-		misc.log.debug(`${player.name}[${player.id}]: ${text}.`);
 	});
 }
 

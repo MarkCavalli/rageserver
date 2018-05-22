@@ -1,6 +1,7 @@
 "use strict"
 
 const weather = require('./sWeather');
+const business = require('./../Business/sBusiness');
 
 let timer = 0;
 const changeTime = async (currentDate, isFirstRunning) => {
@@ -42,7 +43,7 @@ function getTime() {
 module.exports.getTime = getTime;
 
 function everyhourEvent() {
-
+	business.payTaxes();
 }
 
 function every5MinutesEvent() {

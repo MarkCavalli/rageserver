@@ -49,7 +49,7 @@ module.exports.changeWeather = changeWeather;
 function changeWeatherTo(number) {
 	currentWeather = number;
 	mp.world.weather = weathers[number];
-	misc.log.debug(`Current weather: ${weathers[number]}`);
+	misc.log.trace(`Current weather: ${weathers[number]}`);
 }
 
 function changeToSunWeather() {
