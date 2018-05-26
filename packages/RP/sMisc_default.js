@@ -1,3 +1,8 @@
+/*
+Rename this file to "sMisc.js" for installtion.
+*/
+
+
 "use strict"
 
 const mysql = require("mysql");
