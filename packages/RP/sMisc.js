@@ -116,3 +116,8 @@ function isPlayerLoggedIn(player) {
 	return true;
 }
 module.exports.isPlayerLoggedIn = isPlayerLoggedIn;
+
+function getPlayerLang(player) {
+	return player.info.lang;
+}
+module.exports.getPlayerLang = getPlayerLang;

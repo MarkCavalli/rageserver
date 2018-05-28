@@ -5,17 +5,17 @@ const player = mp.players.local;
 
 
 
-function showCef(inject) {
+function showCef(lang, inject) {
 	misc.prepareToCef(500);
-	misc.openCef("package://RP/Browsers/Business/business.html");
+	misc.openCef("package://RP/Browsers/Business/business.html", lang);
 	misc.injectCef(inject);
 }
 
 
 mp.events.add(
 {
-	"cBusinnesShowMenu" : (inject) => {
-		showCef(inject);
+	"cBusinnesShowMenu" : (lang, inject) => {
+		showCef(lang, inject);
 	},
 	
 	"cBuyBusiness" : () => {

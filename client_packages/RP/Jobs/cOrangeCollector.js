@@ -6,18 +6,14 @@ const player = mp.players.local;
 
 mp.events.add(
 {
-    "cOrangeCollectorStartCef" : () => {
-        misc.prepareToCef();
-        misc.openCef("package://RP/Browsers/Jobs/OrangeCollector/collector.html");
-    },
-
+   
     "cOrangeCollectorStartWork" : () => {
         mp.events.callRemote('sOrangeCollectorStartWork');
     },
 
-    "cOrangeCollectorFinishCef" : (inject) => {
+    "cOrangeCollectorOpenCef" : (lang, inject) => {
         misc.prepareToCef();
-        misc.openCef("package://RP/Browsers/Jobs/OrangeCollector/collector.html");
+        misc.openCef("package://RP/Browsers/Jobs/OrangeCollector/collector.html", lang);
         misc.injectCef(inject);
     },
 

@@ -3,13 +3,13 @@
 	<body>
 		<div id="app">
 			<div class="b1">
-				<div class="item title">Clothing Store №{{ id }}</div>
+				<div class="item title">{{ titleText }} №{{ id }}</div>
 				<div class="item"></div>
-				<div class="item buttons" v-on:click="showHats">Hats</div>
-				<div class="item buttons" v-on:click="showGlasses">Glasses</div>
-				<div class="item buttons" v-on:click="showTops">Tops</div>
-				<div class="item buttons" v-on:click="showLegs">Legs</div>
-				<div class="item buttons" v-on:click="showFeet">Feet</div>
+				<div class="item buttons" v-on:click="showHats">{{ hatsText }}</div>
+				<div class="item buttons" v-on:click="showGlasses">{{ glassesText }}</div>
+				<div class="item buttons" v-on:click="showTops">{{ topsText }}</div>
+				<div class="item buttons" v-on:click="showLegs">{{ legsText }}</div>
+				<div class="item buttons" v-on:click="showFeet">{{ feetText }}</div>
 				<div class="item"></div>
 				<div v-if="currentTitle">
 					<div class="item title">{{ currentTitle }}</div>
@@ -20,25 +20,25 @@
 					</div>
 					<div class="item b">
 						<div class="arrow l-arrow"  v-on:click="prevColor"><</div>
-						Color {{ currentCloth.color }}
+						{{ colorText }} {{ currentCloth.color }}
 						<div class="arrow r-arrow" v-on:click="nextColor">></div>
 					</div>
 						
 						<div class="item b" v-if="currentTitle === 'Tops'">
 						<div class="arrow l-arrow"  v-on:click="prevUnderColor"><</div>
-						Undershirt Color
+						{{ underColorText }}
 						<div class="arrow r-arrow" v-on:click="nextUnderColor">></div>
 					</div>
 						
 					<div class="item b buy" v-on:click="buy">
-						<div>Buy</div>
+						<div> {{ buyText }}</div>
 						<div>{{ showPrice() }}</div>
 					</div>
 				</div>
 					
 			
-						<div class="item buttons reset" v-on:click="reset">Reset All</div>
-						<div class="item exit" v-on:click="exit">Exit</div>
+						<div class="item buttons reset" v-on:click="reset">{{ resetText }}</div>
+						<div class="item exit" v-on:click="exit">{{ exitText }}</div>
 				</div>
 			
 				<div class="rotation">
@@ -69,6 +69,19 @@ const app = new Vue({
 		currentColorNum: 0,
 		currentUnderColorNum: 0,
 		currentCloth: false,
+
+		titleText: "Clothing Store",
+		hatsText: "Hats",
+		glassesText: "Glasses",
+		topsText: "Tops",
+		legsText: "Legs",
+		feetText: "Feet",
+		colorText: "Color:",
+		underColorText: "Undershirt Color",
+		buyText: "Buy",
+		resetText: "Reset All",
+		exitText: "Exit",
+
 			
 	},
 	methods: {
@@ -291,6 +304,18 @@ function loadWomans() {
 }
 
 
-
+function loadRusLang() {
+	app.titleText = "Магазин одежды";
+	app.hatsText = "Головные уборы";
+	app.glassesText = "Очки";
+	app.topsText = "Верхняя одежда";
+	app.legsText = "Брюки";
+	app.feetText = "Обувь";
+	app.colorText = "Цвет:";
+	app.underColorText = "Цвет футболки";
+	app.buyText = "Купить";
+	app.resetText = "Сбросить все";
+	app.exitText = "Выход";
+}
 
 </script>

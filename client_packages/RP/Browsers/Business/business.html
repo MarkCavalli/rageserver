@@ -17,44 +17,42 @@
          <div class="b2-gs">
             <div class="b2-gs-item" v-if="showBalanceBlock">
                <div class="gs-main gs-dollar-before">{{ showBalance() }}</div>
-               <div class="gs-info">balance</div>
+               <div class="gs-info">{{ balanceText }}</div>
             </div>
             <div class="b2-gs-item">
                <div class="gs-main gs-dollar-before">{{ showPrice() }}</div>
-               <div class="gs-info">price</div>
+               <div class="gs-info">{{ priceText }}</div>
             </div>
             <div class="b2-gs-item">
                <div class="gs-main">{{ showOwner() }}</div>
-               <div class="gs-info">owner</div>
+               <div class="gs-info">{{ ownerText }}</div>
             </div>
             <div class="b2-gs-item ">
                <div class="gs-main gs-dollar-before">{{ showTax() }}</div>
-               <div class="gs-info">tax</div>
+               <div class="gs-info">{{ taxText }}</div>
             </div>
             <div class="b2-gs-item" v-if="showMarginBlock">
                <div class="gs-main gs-percent-after">{{ margin }}</div>
-               <div class="gs-info">margin</div>
+               <div class="gs-info">{{ marginText }}</div>
             </div>
          </div>
    
          <div class="b2-buttons">
             <div class="b2-button" v-if="showBuyBtn" v-on:click="changeBuyConfirms">
-               <div class="b2-cb b2-cb_left" v-if="showBuyConfirms">X</div>Buy business
+               <div class="b2-cb b2-cb_left" v-if="showBuyConfirms">X</div> {{ buyText }}
                <div class="b2-cb b2-cb_right" v-if="showBuyConfirms" v-on:click="buy">V</div>
             </div>
             <div class="b2-button" v-if="showSellBtn" v-on:click="changeSellConfirms">
-               <div class="b2-cb b2-cb_left" v-if="showSellConfirms">X</div>Sell business
+               <div class="b2-cb b2-cb_left" v-if="showSellConfirms">X</div>{{ sellText }}
                <div class="b2-cb b2-cb_right" v-if="showSellConfirms" v-on:click="sell">V</div>
             </div>
             <div class="b2-button" v-if="showMarginBtn">
                <div class="b2-cb b2-cb_left" v-on:click="changeMargin(-10)">- 10</div>
-               <div class="b2-cb b2-cb_left" style="left: 7vh;" v-on:click="changeMargin(-1)">- 1</div>Change Margin
+               <div class="b2-cb b2-cb_left" style="left: 7vh;" v-on:click="changeMargin(-1)">- 1</div>{{ changeMarginText }}
                <div class="b2-cb b2-cb_right" style="right: 7vh;" v-on:click="changeMargin(1)">+ 1</div>
                <div class="b2-cb b2-cb_right" v-on:click="changeMargin(10)">+ 10</div>
             </div>
-            <div class="b2-button" v-if="showBalanceBtn" v-on:click="takeBalanceMoney">
-               Take all money from balance account
-            </div>
+            <div class="b2-button" v-if="showBalanceBtn" v-on:click="takeBalanceMoney">{{ takeBalanceMoneyText }}</div>
          </div>
       </div>
    </div>
@@ -86,6 +84,19 @@ const app = new Vue({
 		showBuyConfirms: false,
 		showSellConfirms: false,
 
+		balanceText: "balance",
+		priceText: "price",
+		ownerText: "owner",
+		taxText: "tax",
+		marginText: "margin",
+
+		forSaleText: "For Sale",
+
+		buyText: "Buy business",
+		sellText: "Sell business",
+		changeMarginText: "Change Margin",
+		takeBalanceMoneyText: "Take all money from balance account",
+
 	},
 	methods: {
 		loadForSale: function() {
@@ -113,7 +124,7 @@ const app = new Vue({
 			return this.prettify(this.price);
 		},
 			showOwner: function() {
-			if (!this.owner || this.owner === "null") return "For Sale";
+			if (!this.owner || this.owner === "null") return this.forSaleText;
 				return this.owner;
 		},
 		showTax: function() {
@@ -170,5 +181,20 @@ const app = new Vue({
 });
 function load() {
 	document.getElementById("logo").classList.remove("logoLoading");
+}
+
+function loadRusLang() {
+	app.balanceText = "баланс";
+	app.priceText = "цена";
+	app.ownerText = "владелец";
+	app.taxText = "налог";
+	app.marginText = "комиссия";
+
+	app.forSaleText = "Продается";
+
+	app.buyText = "Купить бизнес";
+	app.sellText = "Продать бизнес";
+	app.changeMarginText = "Изменить коммиссию";
+	app.takeBalanceMoneyText = "Снять деньги с баланса";
 }
 </script>

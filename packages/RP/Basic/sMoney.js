@@ -31,7 +31,11 @@ async function addToBankMoneyOffline(name, value, comment) {
 		const player = mp.players.at(j);
 		if (player.name === name) {
 			player.info.bmoney += value;
-			player.call("cMoneySendNotification", [`New payment: ~g~$${value}. ~w~${comment}`]);
+
+			let paymentText = "New payment:";
+			if (misc.getPlayerLang(player) === "rus") paymentText = "Новый чек:";
+
+			player.call("cMoneySendNotification", [`${paymentText} ~g~$${value}. ~w~${comment}`]);
 			break;
 		}
 	}
@@ -161,9 +165,11 @@ function openATMMenu(player) {
 	const str2 = `app.bmoney = ${player.info.bmoney};`;
 	const str3 = `app.tmoney = ${player.info.tmoney};`;
 	const str4 = `setTimeout(load, 300);`; // For add transition effect
-	const str = str1 + str2 + str3 + str4;
-	player.call("cShowATMCef", ["package://RP/Browsers/ATM/atm.html"]);
-	player.call("cInjectCef", [str]);
+
+	const execute = str1 + str2 + str3 + str4;
+
+	const lang = misc.getPlayerLang(player);
+	player.call("cShowATMCef", [lang, execute]);
 	misc.log.debug(`${player.name} enters ATM`);
 }
 
@@ -175,7 +181,11 @@ mp.events.add(
 			return;
 		}
 		player.info.canOpen.ATM = true;
-		player.notify(`Press ~b~E ~s~to open ATM Menu`);
+
+		let enterText = `Press ~b~E ~s~to open ATM Menu`;
+		if (misc.getPlayerLang(player) === "rus") enterText = `Нажмите ~b~E ~s~для входа в меню банкомата`;
+
+		player.notify(enterText);
 	},
 
 	"playerExitColshape" : (player, shape) => {

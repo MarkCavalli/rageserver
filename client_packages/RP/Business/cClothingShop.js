@@ -5,17 +5,17 @@ const player = mp.players.local;
 let camD;
 
 
-function showCef(inject) {
+function showCef(lang, inject) {
 	misc.prepareToCef();
-	misc.openCef("package://RP/Browsers/Business/ClothingShop/ch.html");
+	misc.openCef("package://RP/Browsers/Business/ClothingShop/ch.html", lang);
 	misc.injectCef(inject);
 }
 
 
 mp.events.add(
 {
-	"cClothingShopShowMenu" : (inject, camData) => {
-		showCef(inject);
+	"cClothingShopShowMenu" : (lang, inject, camData) => {
+		showCef(lang, inject);
 		camD = camData;
 		misc.createCam(camD.x, camD.y, camD.z, camD.rx, camD.ry, camD.rz, camD.viewangle);
 		

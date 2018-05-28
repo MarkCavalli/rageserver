@@ -12,24 +12,24 @@
       <div class="b1-money">
 					<div class="b1-money-item">
 						<div class="b1-summ">{{ showCash() }}</div>
-						<div class="b1-summ-info">cash</div>
+						<div class="b1-summ-info">{{ cashText }}</div>
 					</div>
 					<div class="b1-money-item">
 						<div class="b1-summ">{{ showBMoney() }}</div>
-						<div class="b1-summ-info">bank account</div>
+						<div class="b1-summ-info">{{ bankAccountText }}</div>
 					</div>
 					<div class="b1-money-item">
 						<div class="b1-summ">{{ showTMoney() }}</div>
-						<div class="b1-summ-info">tax account</div>
+						<div class="b1-summ-info">{{ taxAccountText }}</div>
 					</div>
 				</div>
 
 
 			<div class="b2-buttons" v-if="!transactionBlockSeen">
-				<div class="b2-item" v-on:click="openTransactionBlock('getCash')">Take cash</div>
-				<div class="b2-item" v-on:click="openTransactionBlock('putCash')">Put cash</div>
-				<div class="b2-item" v-on:click="openTransactionBlock('getTaxMoney')">Take cash from tax account</div>
-				<div class="b2-item" v-on:click="openTransactionBlock('putTaxMoney')">Put cash in tax account</div>
+				<div class="b2-item" v-on:click="openTransactionBlock('getCash')">{{ takeCashText }}</div>
+				<div class="b2-item" v-on:click="openTransactionBlock('putCash')">{{ putCashText }}</div>
+				<div class="b2-item" v-on:click="openTransactionBlock('getTaxMoney')">{{ takeTaxMoneyText }}</div>
+				<div class="b2-item" v-on:click="openTransactionBlock('putTaxMoney')">{{ putCashToTaxText }}</div>
 			</div>
 		  
 			<div class="b3" v-if="transactionBlockSeen" v-bind:class="[{ error: addErrorClass }, { success: addSuccessClass }]">
@@ -37,7 +37,7 @@
 				<div class="b3-vars">
 					<div class="b2-item b3-item" v-for="cash in cashTemplate" v-on:click="addToInput(cash.amount)">{{ prettify(cash.amount) }}</div>
 					<div class="b2-item b3-item-input"><input class="submit-cash" type="text" v-model="inputValue"></div>
-					<div class="b2-item b3-item-done" v-on:click="doTransaction">Done</div>
+					<div class="b2-item b3-item-done" v-on:click="doTransaction">{{ doneText }}</div>
 				</div>
 			</div>
 		  </div>
@@ -66,6 +66,19 @@ const app = new Vue({
     inputValue: 0,
     addErrorClass: false,
     addSuccessClass: false,
+
+    cashText: "cash",
+    bankAccountText: "bank account",
+    taxAccountText: "tax account",
+
+    takeCashText: "Take cash",
+    putCashText: "Put cash",
+    takeTaxMoneyText: "Take cash from tax account",
+    putCashToTaxText: "Put cash in tax account",
+
+    doneText: "Done",
+    
+    
   },
   methods: {
   	prettify: function(num) {
@@ -177,5 +190,18 @@ const app = new Vue({
 
 function load() {
 	document.getElementById("logo").classList.remove("logoLoading");
+}
+
+function loadRusLang() {
+  app.cashText = "наличные";
+  app.bankAccountText = "сберегательный счет";
+  app.taxAccountText = "налоговый счет";
+
+  app.takeCashText = "Снять наличные";
+  app.putCashText = "Положить наличные";
+  app.takeTaxMoneyText = "Снять деньги с налогового счета";
+  app.putCashToTaxText = "Положить деньги на налоговый счет";
+
+  app.doneText = "Готово";
 }
 </script>

@@ -24,11 +24,12 @@ function prepareToCef(blurred = null) {
 }
 exports.prepareToCef = prepareToCef;
 
-function openCef(url) {
+function openCef(url, lang = "eng") {
 	if (cef) {
 		cef.destroy(); 
 	}
 	cef = mp.browsers.new(url);
+	if (lang === "rus") injectCef("loadRusLang();");
 }
 exports.openCef = openCef;
 

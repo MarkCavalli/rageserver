@@ -113,9 +113,22 @@ mp.events.addCommand(
         });
         const color = misc.getRandomInt(0, 159);
         vehicle.setColor(color, color);
+        vehicle.setMod(1, 1);
+        vehicle.setMod(2, 2);
+        vehicle.setMod(3, 2);
+        vehicle.setMod(4, 3);
+        vehicle.setMod(15, 3);
+        vehicle.setMod(16, -1);
+
         player.putIntoVehicle(vehicle, -1);
         misc.log.debug(`${player.name} spawned ${model}`);
     },
+
+    'vmod' : (player, fullText, a, b) => { 
+		player.vehicle.setMod(parseInt(a), parseInt(b));
+    },
+
+    
     
     'pos' : (player, fullText, model) => { 
         if (player.info.adminLvl < 1) return;
@@ -130,7 +143,16 @@ mp.events.addCommand(
         const str = `x: ${misc.roundNum(pos.x, 3)}, y: ${misc.roundNum(pos.y, 3)}, z: ${misc.roundNum(pos.z, 3)}, rot: ${misc.roundNum(rot, 2)}`;
         player.outputChatBox(str);
         misc.log.debug(str);
-	},
+    },
+    
+    'setlang' : (player, fullText, lang) => { 
+		if (lang !== "eng" && lang !== "rus") {
+            return player.outputChatBox("Server does not support your language! Available languages: eng, rus.");
+        }
+        player.notify(`Current language: ~g~${lang}`);
+        misc.query(`UPDATE users SET lang = '${lang}' WHERE username = '${player.name}'`);
+        player.info.lang = lang;
+    },
     
 });       
     
@@ -157,9 +179,12 @@ async function loadPlayerAccount(player) {
             name: false,
         },
         hasBusiness: d[0].hasBusiness,
+        lang: d[0].lang,
     }
     misc.setPlayerPosFromJSON(player, d[0].position);
     player.dimension = d[0].dim;
     player.call("cMoneyUpdate", [d[0].money]);
     player.call("cCloseCefAndDestroyCam");
+    player.outputChatBox("Choose your language: /setlang [language]! Available languages: eng, rus.");
+    player.outputChatBox("Spawn a vehicle: /v [model]. E.g. /v neon");
 }

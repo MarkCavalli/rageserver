@@ -37,20 +37,30 @@ class business {
 	async buyBusiness(player) {
 		if (this.owner) return;
 		if (player.info.hasBusiness) {
-			return player.notify("~r~You can't own more than 1 business!");
+			let ownText = "~r~You can't own more than 1 business!";
+			if (misc.getPlayerLang(player) === "rus") ownText = "~r~Вы не можете иметь более 1 бизнеса!";
+
+			return player.notify(ownText);
 		}
 		const canBuy = await moneyAPI.changeMoney(player, -this.price);
 		if (!canBuy) {
-			return player.notify("~r~Not enough cash!");
+			let cantBuyText = "~r~Not enough cash!";
+			if (misc.getPlayerLang(player) === "rus") cantBuyText = "~r~Недостаточно наличных!";
+
+			return player.notify(cantBuyText);
 		}
 		const query1 = misc.query(`UPDATE business SET owner = '${player.name}' WHERE id = ${this.id}`);
 		const query2 = misc.query(`UPDATE users SET hasBusiness = '1' WHERE username = '${player.name}'`);
 		await Promise.all([query1, query2]);
 		this.owner = player.name;
 		player.info.hasBusiness = 1;
-		player.notify("~g~Success!");
+		
 		misc.log.debug(`${player.name} bought a businnes №${this.id}`);
 		this.updateMarker();
+
+		let doneText = "~g~You bought a business!";
+		if (misc.getPlayerLang(player) === "rus") doneText = "~g~Вы купили бизнес!";
+		player.notify(doneText);
 	}
 	
 	async sellBusiness(owner) {
@@ -59,7 +69,11 @@ class business {
 		const query2 = misc.query(`UPDATE users SET hasBusiness = '0' WHERE username = '${owner}'`);
 		await Promise.all([query1, query2]);
 		this.owner = null;
-		moneyAPI.addToBankMoneyOffline(owner, this.price * 0.5, "Sell business");
+
+		let sellText = "Sell business";
+		if (misc.getPlayerLang(player) === "rus") sellText = "Продажа бизнеса";
+
+		moneyAPI.addToBankMoneyOffline(owner, this.price * 0.5, sellText);
 		for (let j = 0; j < mp.players.length; j++) {
 			const player = mp.players.at(j);
 			if (player.name === owner) {
@@ -96,7 +110,11 @@ class business {
 
 	async payTaxes() {
 		if (!this.owner) return;
-		const isTaxSuccess = await moneyAPI.payTaxOffline(this.owner, this.price / 10000, `Tax for business №${this.id}`);
+
+		let taxText = `Tax for business №${this.id}`;
+		if (misc.getPlayerLang(player) === "rus") taxText = `Налог за бизнес №${this.id}`;
+
+		const isTaxSuccess = await moneyAPI.payTaxOffline(this.owner, this.price / 10000, taxText);
 		if (isTaxSuccess) return;
 		this.sellBusiness(this.owner);
 	}
@@ -138,7 +156,11 @@ mp.events.add(
 	"playerEnterColshape" : (player, colshape) => {
 		if(player.vehicle || !colshape.businessId || !misc.isPlayerLoggedIn(player)) return;
 		player.info.canOpen.business = colshape.businessId;
-		player.notify(`Press ~b~E ~s~to open Business Menu`);
+
+		let enterText = `Press ~b~E ~s~to open Business Menu`;
+		if (misc.getPlayerLang(player) === "rus") enterText = `Нажмите ~b~E ~s~для входа в меню бизнеса`;
+
+		player.notify(enterText);
 	},
 	
 	"playerExitColshape" : (player, colshape) => {
@@ -197,7 +219,9 @@ function openBusinessMenu(player) {
 	else if (!business.owner) {
 		execute += str9;
 	}
-	player.call("cBusinnesShowMenu", [execute]);
+	
+	const lang = misc.getPlayerLang(player);
+	player.call("cBusinnesShowMenu", [lang, execute]);
 	misc.log.debug(`${player.name} enters Business Menu`);
 }
 

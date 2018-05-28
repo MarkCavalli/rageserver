@@ -5,9 +5,10 @@ const player = mp.players.local;
 let money;
 
 
-function showCef(url) {
+function showCef(lang, execute) {
 	misc.prepareToCef(1);
-	misc.openCef(url);
+	misc.openCef("package://RP/Browsers/ATM/atm.html", lang);
+	misc.injectCef(execute);
 }
 
 
@@ -28,8 +29,8 @@ mp.events.add(
 		}
 	},
 
-	"cShowATMCef" : (url) => {
-		showCef(url);
+	"cShowATMCef" : (lang, execute) => {
+		showCef(lang, execute);
 	},
 
 	"cGetCash" : summ => {

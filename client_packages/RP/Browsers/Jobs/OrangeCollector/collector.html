@@ -5,12 +5,18 @@
       <div class="b3-close" v-on:click="exit">X</div>
     
       <div class="message">
-        Welcome to Donkey Punch Family Farm!<br><br> Collecting and packing of oranges is made manually, therefore tens of thousands of temporary workplaces are opened.<br><br> Such work does not require any special knowledge or skills, only physical endurance.<br><br>    If you like the sweet and heady scent of oranges, and you are in good physical shape - we invite you to work in our farm.
+        {{ messageText1 }}
+        <br><br>
+        {{ messageText2 }}
+        <br><br>
+        {{ messageText3 }}
+        <br><br>
+        {{ messageText4 }}
       </div>
     
       <div class="buttons" id="app">
-        <div class="button" v-if="start" v-on:click="startWork">Start Work!</div>
-        <div class="button" v-if="finish" v-on:click="finishWork">Finish Work!</div>
+        <div class="button" v-if="start" v-on:click="startWork">{{ startText }}</div>
+        <div class="button" v-if="finish" v-on:click="finishWork">{{ finishText }}</div>
       </div>
     </div>    
 		<script src="../../vue.js"></script>
@@ -24,6 +30,14 @@ const app = new Vue({
   data: {
     start: true,
     finish: false,
+
+    messageText1: "Welcome to Donkey Punch Family Farm!",
+    messageText2: "Collecting and packing of oranges is made manually, therefore tens of thousands of temporary workplaces are opened.",
+    messageText3: "Such work does not require any special knowledge or skills, only physical endurance.",
+    messageText4: "If you like the sweet and heady scent of oranges, and you are in good physical shape - we invite you to work in our farm.",
+   
+    startText: "Start Work!",
+    finishText: "Finish Work!",
   },
   methods: {
     loadFinish: function() {
@@ -43,4 +57,14 @@ const app = new Vue({
     },
   }
 });
+
+
+function loadRusLang() {
+  app.messageText1 = "Добро пожаловать на Donkey Punch Family Farm!";
+  app.messageText2 = "Сбор и упаковка апельсинов проходит вручную, поэтому в сезон открываются десятки тысяч рабочих мест.";
+  app.messageText3 = "Такая работа не требует специальных знаний и умений, кроме хорошей физической формы.";
+  app.messageText4 = "Если вам по душе сладкий и пьянящий запах апельсинов и вы полны сил - мы ждем вас на нашей ферме!";
+  app.startText = "Начать работать!";
+  app.finishText = "Закончить работу!";
+}
 </script>

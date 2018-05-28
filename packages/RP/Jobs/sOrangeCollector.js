@@ -58,7 +58,7 @@ function createEntities() {
 	dropMarker = mp.markers.new(1, new mp.Vector3(posToDrop.x, posToDrop.y, posToDrop.z - 1), 0.75,
 	{
 		color: [255, 165, 0, 100],
-		visible: true,
+		visible: false,
 	});
 	dropShape = mp.colshapes.newSphere(posToDrop.x, posToDrop.y, posToDrop.z, 1);
 
@@ -77,10 +77,11 @@ function createEntities() {
 }
 
 function openMainMenu(player) {
-    if (player.info.activeJob.name === "Orange Collector") {
-        return player.call("cOrangeCollectorFinishCef", ['app.loadFinish();']);
-    }
-    player.call("cOrangeCollectorStartCef");
+    let execute = '';
+    if (player.info.activeJob.name === "Orange Collector") execute = `app.loadFinish();`;
+
+    const lang = misc.getPlayerLang(player);
+    player.call("cOrangeCollectorOpenCef", [lang, execute]);
 }
 
 function startWork(player) {
@@ -90,7 +91,12 @@ function startWork(player) {
         activeTree: false,
     };
     createRandomCheckPoint(player);
-    player.notify("~g~You started orange collector job!");
+
+    let startText = "~g~You started orange collector job!";
+    if (misc.getPlayerLang(player) === "rus") startText = "~g~Вы устроились сборщиком апельсинов!";
+
+    player.notify(startText);
+
     misc.log.debug(`${player.name} started orange collector job!`);
     dropMarker.showFor(player);
     if (player.model === 1885233650) {
@@ -131,12 +137,21 @@ function createRandomCheckPoint(player) {
 function enteredTreeShape(player) {
     player.stopAnimation();
     player.info.activeJob.collected += misc.getRandomInt(1, 2);
-    player.notify(`You have ~g~${player.info.activeJob.collected} ~w~oranges in your bucket!`);
+
+    let collectedText = `You have ~g~${player.info.activeJob.collected} ~w~oranges in your bucket!`;
+    if (misc.getPlayerLang(player) === "rus") collectedText = `У вас в корзине ~g~${player.info.activeJob.collected} ~w~апельсинов!`;
+
+    player.notify(collectedText);
+
     if (player.info.activeJob.collected < 20) {
         return createRandomCheckPoint(player);
     }
     hideActiveCheckPoint(player);
-    player.notify("~g~Your bucket is full! Take it to the trailer!");
+
+    let fullText = "~g~Your bucket is full! Take it to the trailer!";
+    if (misc.getPlayerLang(player) === "rus") fullText = "~g~В корзину больше не влезет! Отнесите ее к трейлеру.";
+
+    player.notify(fullText);
 }
 
 
@@ -151,11 +166,19 @@ function hideActiveCheckPoint(player) {
 function enteredDropShape(player) {
     player.stopAnimation();
     if (player.info.activeJob.collected === 0) {
-        return player.notify(`Your bucket is empty!`);
+        let emptyText = `Your bucket is empty!`;
+        if (misc.getPlayerLang(player) === "rus") emptyText = `Ваша корзина пуста!`;
+
+        return player.notify(emptyText);
     }
     const earnedMoney = player.info.activeJob.collected * 5;
     moneyAPI.changeMoney(player, earnedMoney);
-    player.notify(`You earned ~g~${earnedMoney}$! ~w~Keep it up!`);
+
+    let earnedText = `You earned ~g~${earnedMoney}$! ~w~Keep it up!`;
+    if (misc.getPlayerLang(player) === "rus") earnedText = `Вы заработали ~g~${earnedMoney}$! ~w~Продолжайте в том же духе!`;
+
+    player.notify(earnedText);
+
     misc.log.debug(`${player.name} earned ${earnedMoney}$!`);
     player.info.activeJob.collected = 0;
     if (!player.info.activeJob.activeTree) {
@@ -168,7 +191,12 @@ function finishWork(player) {
     player.info.activeJob = {
         name: false,
     };
-    player.notify("~g~You finished orange collector job!");
+
+    let finishText = "~g~You finished orange collector job!";
+    if (misc.getPlayerLang(player) === "rus") finishText = "~g~Вы уволились с работы!";
+
+    player.notify(finishText);
+
     misc.log.debug(`${player.name} finished orange collector job!`);
     dropMarker.hideFor(player);
     clothes.loadPlayerClothes(player);
@@ -183,7 +211,11 @@ mp.events.add(
         if (player.vehicle || !player.info) return;
         if (shape === menuShape) {
             player.info.canOpen.orangeCollector = true;
-            player.notify(`Press ~b~E ~s~to open Menu`);
+
+            let enterText = `Press ~b~E ~s~to open Menu`;
+            if (misc.getPlayerLang(player) === "rus") enterText = `Нажмите ~b~E ~s~для входа в меню`;
+    
+            player.notify(enterText);
         }
         else if (player.info.activeJob.name === "Orange Collector" && shape.orangeCollectorTree === player.info.activeJob.activeTree) {
             player.playAnimation('anim@mp_snowball', 'pickup_snowball', 1, 47);
@@ -204,7 +236,10 @@ mp.events.add(
     "sKeys-E" : (player) => {
         if (!player.info || !player.info.loggedIn || !player.info.canOpen.orangeCollector) return;
         if (player.info.activeJob.name && player.info.activeJob.name !== "Orange Collector") {
-            return player.nofity("You are already working on some job!");
+            let errorText = "You are already working on some job!";
+            if (misc.getPlayerLang(player) === "rus") errorText = "Вы уже работаете на другой работе!";
+
+            return player.nofity(errorText);
         }
         openMainMenu(player);
     },
