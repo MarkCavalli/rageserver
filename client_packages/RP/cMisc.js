@@ -12,6 +12,10 @@ function prettify(num) {
 }
 exports.prettify = prettify;
 
+function roundNum(number, ends = 0) {
+	return parseFloat(number.toFixed(ends));
+}
+exports.roundNum = roundNum;
 
 // CEF //
 function prepareToCef(blurred = null) {

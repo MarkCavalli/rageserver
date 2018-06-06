@@ -1,0 +1,92 @@
+﻿html {
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    font-family: Segoe UI;
+    font-weight: 100;
+    color: #eee;
+    text-align: center;
+ }
+ 
+ .title {
+    position: fixed;
+    background: #268F3A;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 1vh 0;
+    font-size: 2vh;
+ }
+
+ 
+ .content {
+    margin-top: 6vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+ }
+ 
+ .item {
+    margin-bottom: 10px;
+    width: 250px;
+    height: 140px;
+ }
+ 
+ .item-bg-color {
+    transition: 0.3s;
+ }
+ 
+ .item-bg-color:hover {
+    background: rgba(0, 0, 0, 0.85);
+ }
+ 
+ .item-table {
+    width: 100%;
+    text-align: left;
+    color: #eee;
+    font-size: 14px;
+    height: 140px;
+ }
+ 
+ .item-table td {
+    padding: 5px 10px;
+ }
+ 
+ .buy {
+    color: limegreen;
+    transition: 0.3s;
+ }
+ 
+ .buy:hover {
+    background: green;
+    color: #DDD;
+ }
+ 
+ .right {
+    text-align: right;
+ }
+ 
+ .price:before {
+    content: "$";
+ }
+ 
+ .hideText td {
+    color: transparent;
+ }
+ 
+ .b3-close {
+    background: coral;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 6vh;
+    height: 3vh;
+    font-size: 2vh;
+    transition: 0.3s;
+    cursor: pointer;
+    z-index: 3;
+ }
+ 
+ .b3-close:hover {
+    background: tomato;
+ }
+ 

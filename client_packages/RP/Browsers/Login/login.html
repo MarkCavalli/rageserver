@@ -11,6 +11,7 @@
 			<div class="b_reg-button" onclick="Loguser();">Log in</div>
 				<div class="b_reg-button b_reg-button_green" id="success">Success! Loading account data...</div>
 				<div class="b_reg-button b_reg-button_red" id="error">Error! Wrong password!</div>
+				<div class="b_reg-button b_reg-button_red" id="defNameError">Seems you didn't changed default name</div>
 			</div>
 		</div>
 	</body>
@@ -59,6 +60,16 @@ function showSuccess() {
 
 function hideSuccess() {
 	success.style.display = "none";
+}
+
+
+function showDefNameError() {
+	defNameError.style.display = "block";
+	setTimeout(hideDefNameError, 2000);
+}
+
+function hideDefNameError() {
+	defNameError.style.display = "none";
 }
 
 </script>

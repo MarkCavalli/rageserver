@@ -1,11 +1,13 @@
 require('./sMisc');
-require('./Basic//sLogin');
-require('./Basic//sMoney');
-require('./Basic//sChat');
-require('./Basic//sTime');
+require('./Basic/sLogin');
+require('./Basic/sMoney');
+require('./Basic/sChat');
+require('./Basic/sTime');
+require('./Basic/sVehicle');
 require('./Basic/sWeather');
 require('./Character/sCharacterCreator');
 require('./Character/sClothes');
 require('./Jobs/sOrangeCollector');
 require('./Business/sBusiness');
 require('./Business/sClothingShop');
+require('./Business/sCheapCarDealership');

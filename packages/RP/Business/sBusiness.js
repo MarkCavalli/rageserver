@@ -15,6 +15,7 @@ class business {
 		this.owner = d.owner;
 		this.margin = d.margin;
 		this.balance = d.balance;
+		this.buyerMenuCoord = JSON.parse(d.buyerMenuCoord);
 	}
 
 	createMainEntities() {
@@ -34,6 +35,24 @@ class business {
 		this.marker.setColor(250, 250, 50, 25);
 	}
 
+	createSpecialEntities() {
+		const pos = this.buyerMenuCoord;
+		const buyerMarker = mp.markers.new(1, new mp.Vector3(pos.x, pos.y, pos.z - 1), 0.75,
+		{
+			color: [93, 182, 229, 25],
+		});
+		
+		const buyerColshape = mp.colshapes.newSphere(pos.x, pos.y, pos.z, 0.9);
+		this.buyerColshape = buyerColshape;
+		
+		const blip = mp.blips.new(106, new mp.Vector3(pos.x, pos.y, pos.z),
+		{	
+			shortRange: true,
+			scale: 0.7,
+		});
+		this.blip = blip;
+	}
+
 	async buyBusiness(player) {
 		if (this.owner) return;
 		if (player.info.hasBusiness) {
@@ -43,12 +62,7 @@ class business {
 			return player.notify(ownText);
 		}
 		const canBuy = await moneyAPI.changeMoney(player, -this.price);
-		if (!canBuy) {
-			let cantBuyText = "~r~Not enough cash!";
-			if (misc.getPlayerLang(player) === "rus") cantBuyText = "~r~Недостаточно наличных!";
-
-			return player.notify(cantBuyText);
-		}
+		if (!canBuy) return;
 		const query1 = misc.query(`UPDATE business SET owner = '${player.name}' WHERE id = ${this.id}`);
 		const query2 = misc.query(`UPDATE users SET hasBusiness = '1' WHERE username = '${player.name}'`);
 		await Promise.all([query1, query2]);
@@ -94,7 +108,7 @@ class business {
 	}
 
 	addMoneyToBalance(value) {
-		if (typeof gain !== "number") return misc.log.error(`addMoneyToBalance | value is not a number: ${value}, id: ${this.id}`);
+		if (typeof value !== "number") return misc.log.error(`addMoneyToBalance | value is not a number: ${value}, id: ${this.id}`);
 		misc.query(`UPDATE business SET balance = balance + ${value} WHERE id = ${this.id}`);
 		this.balance += value;
 	}
@@ -230,3 +244,14 @@ function getCurrentBusiness(player) {
 	const id = player.info.canOpen.business;
 	return getBusiness(id);
 }
+
+
+mp.events.addCommand(
+{
+	'setbusbuyermenu' : async (player, id) => {
+		if (player.info.adminLvl < 1) return;
+		const coord = misc.convertOBJToJSON(player.position, player.heading);
+		await misc.query(`UPDATE business SET buyerMenuCoord = '${coord}' WHERE id = ${id}`);
+		player.notify("~g~Success!");
+	},	
+});

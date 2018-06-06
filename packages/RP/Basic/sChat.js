@@ -25,6 +25,7 @@ function sayRP(player, text, anon = false) {
 		}
 	});
 }
+module.exports.sayRP = sayRP;
 
 function getColorInRange(type, dist) {
 	let color;
@@ -99,6 +100,7 @@ function sayME(player, text, anon = false) {
 		misc.log.debug(`${player.name} ${text}.`);
 	});
 }
+module.exports.sayME = sayME;
 	
 function sayDO(player, text, anon = false) {
 	mp.players.forEachInRange(player.position, 10, (client) => {
@@ -114,3 +116,4 @@ function sayDO(player, text, anon = false) {
 		misc.log.debug(`${text} | ${player.name}.`);
 	});
 }
+module.exports.sayDO = sayDO;

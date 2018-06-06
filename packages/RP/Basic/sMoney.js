@@ -14,7 +14,12 @@ async function changeMoney(player, value) {
 		misc.log.error(`changeMoney | Money is not a number: ${value}`);
 		return false;
 	}
+
+	let cantBuyText = "~r~Not enough cash!";
+	if (misc.getPlayerLang(player) === "rus") cantBuyText = "~r~Недостаточно наличных!";
+
 	if (player.info.money + value < 0) {
+		player.notify(cantBuyText);
 		return false;
 	}
 	await misc.query(`UPDATE users SET money = money + ${value} WHERE username = '${player.name}'`);

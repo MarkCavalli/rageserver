@@ -4,6 +4,7 @@ const misc = require('../sMisc');
 const charCreator = require('../Character/sCharacterCreator');
 const clothes = require('../Character/sClothes');
 const crypto = require('crypto');
+const vehicleAPI = require('./sVehicle');
 
 
 function hashPassword(str) {
@@ -19,7 +20,8 @@ function showSuccess(player) {
 }
 
 function showError(player) {
-    const str = "showError();";
+    let str = "showError();";
+    if (player.name === "WeirdNewbie") str += "showDefNameError();"
     player.call("cInjectCef", [str]);
 }
 
@@ -36,7 +38,7 @@ mp.events.add(
     "playerReady" : async (player) => {
         player.spawn(new mp.Vector3(3222, 5376, 20));
         player.dimension = 1001;
-        const d = await misc.query(`SELECT username, password FROM users WHERE username = '${player.name}'`);
+        const d = await misc.query(`SELECT username, password FROM users WHERE username = '${player.name}' LIMIT 1`);
         if (!d[0]) {
             showRegisterCef(player);
         }
@@ -45,6 +47,7 @@ mp.events.add(
             player.info = d[0];
         }
         misc.log.debug(`${player.name} connected`);
+        player.outputChatBox(`Please, dont use non-standart chars in your username`);
     },
         
     "sTryRegister" : async (player, pass) => {
@@ -83,6 +86,7 @@ mp.events.add(
         await loadPlayerAccount(player);
         await charCreator.loadPlayerAppearance(player);
         await clothes.loadPlayerClothes(player);
+        await vehicleAPI.loadPlayerVehicles(player);
         misc.log.debug(`${player.name} logged in`);
     },
     
@@ -105,31 +109,7 @@ mp.events.addCommand(
         savePlayerAccount(player);
         player.outputChatBox(`Account successfully saved!`);
     }, 
-
-    'v' : (player, fullText, model) => {  // Temporary vehicle spawning
-		let vehicle = mp.vehicles.new(model, player.position,
-		{
-            heading: player.heading,
-        });
-        const color = misc.getRandomInt(0, 159);
-        vehicle.setColor(color, color);
-        vehicle.setMod(1, 1);
-        vehicle.setMod(2, 2);
-        vehicle.setMod(3, 2);
-        vehicle.setMod(4, 3);
-        vehicle.setMod(15, 3);
-        vehicle.setMod(16, -1);
-
-        player.putIntoVehicle(vehicle, -1);
-        misc.log.debug(`${player.name} spawned ${model}`);
-    },
-
-    'vmod' : (player, fullText, a, b) => { 
-		player.vehicle.setMod(parseInt(a), parseInt(b));
-    },
-
-    
-    
+ 
     'pos' : (player, fullText, model) => { 
         if (player.info.adminLvl < 1) return;
         const pos = player.position;
@@ -160,11 +140,12 @@ mp.events.addCommand(
 function savePlayerAccount(player) {
     const position = misc.convertOBJToJSON(player.position, player.heading, 0.1);
     misc.query(`UPDATE users SET position = '${position}', dim = '${player.dimension}', lastlogindate = '${new Date()}' WHERE username = '${player.name}'`);
+    vehicleAPI.savePlayerVehicles(player);
     misc.log.debug(`${player.name} disconnected`);
 }
 
 async function loadPlayerAccount(player) {
-    const d = await misc.query(`SELECT * FROM users WHERE username = '${player.name}'`);
+    const d = await misc.query(`SELECT * FROM users WHERE username = '${player.name}' LIMIT 1`);
     player.info = {
         loggedIn: true,
         id: d[0].id,
