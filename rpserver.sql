@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 28 2018 г., 21:41
+-- Время создания: Июн 06 2018 г., 17:55
 -- Версия сервера: 5.7.20
 -- Версия PHP: 5.5.38
 
@@ -35,7 +35,42 @@ CREATE TABLE `business` (
   `price` int(11) NOT NULL,
   `owner` varchar(255) DEFAULT NULL,
   `margin` int(11) DEFAULT '0',
-  `balance` int(11) NOT NULL DEFAULT '0'
+  `balance` int(11) NOT NULL DEFAULT '0',
+  `buyerMenuCoord` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `cars`
+--
+
+CREATE TABLE `cars` (
+  `id` int(255) NOT NULL,
+  `model` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `fuel` float NOT NULL,
+  `fuelTank` int(255) NOT NULL,
+  `fuelRate` int(255) NOT NULL,
+  `price` int(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `whoCanOpen` text NOT NULL,
+  `primaryColor` text NOT NULL,
+  `secondaryColor` text NOT NULL,
+  `numberPlate` varchar(10) NOT NULL,
+  `coord` text NOT NULL,
+  `dim` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `cheapcardealership`
+--
+
+CREATE TABLE `cheapcardealership` (
+  `id` int(11) NOT NULL,
+  `newCarCoord` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -46,7 +81,6 @@ CREATE TABLE `business` (
 
 CREATE TABLE `clothingshop` (
   `id` int(255) NOT NULL,
-  `buyerMenuCoord` text,
   `camData` text,
   `buyerStandCoord` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -102,6 +136,18 @@ ALTER TABLE `business`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `cars`
+--
+ALTER TABLE `cars`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `cheapcardealership`
+--
+ALTER TABLE `cheapcardealership`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `clothingshop`
 --
 ALTER TABLE `clothingshop`
@@ -127,7 +173,19 @@ ALTER TABLE `userskins`
 -- AUTO_INCREMENT для таблицы `business`
 --
 ALTER TABLE `business`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT для таблицы `cars`
+--
+ALTER TABLE `cars`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT для таблицы `cheapcardealership`
+--
+ALTER TABLE `cheapcardealership`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `clothingshop`
@@ -139,13 +197,13 @@ ALTER TABLE `clothingshop`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
 
 --
 -- AUTO_INCREMENT для таблицы `userskins`
 --
 ALTER TABLE `userskins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
