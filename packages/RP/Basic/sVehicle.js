@@ -111,13 +111,15 @@ function getNearestPlayerVehicleInRange(player, range) {
 function toggleVehLock(player, vehicle) {
 	updateLanguage(player);
 	if (!vehicle.locked) {
-		blinkLights(vehicle);
 		player.notify(`${vehicle.info.title} ~r~${lockText}`);
+		if (!isDriver(player)) blinkLights(vehicle);
 	}
-	else {
-		blinkLights(vehicle);
-		setTimeout(blinkLights, 600, vehicle);
+	else  {
 		player.notify(`${vehicle.info.title} ~g~${unlockText}`);
+		if (!isDriver(player)) {
+			blinkLights(vehicle);
+			setTimeout(blinkLights, 600, vehicle);
+		}
 	}
 
 	vehicle.locked = !vehicle.locked;
@@ -344,21 +346,32 @@ module.exports.savePlayerVehicles = savePlayerVehicles;
 mp.events.addCommand(
 {	
 	'v' : (player, fullText, model) => {  // Temporary vehicle spawning
-		let vehicle = mp.vehicles.new(model, player.position,
+
+		const vehicle = mp.vehicles.new(model, player.position,
 		{
 			heading: player.heading,
+			dimension: 0,
+			locked: true,
+			engine: false,
 		});
+	
 		const color = misc.getRandomInt(0, 159);
 		vehicle.setColor(color, color);
-		vehicle.setMod(1, 1);
-		vehicle.setMod(2, 2);
-		vehicle.setMod(3, 2);
-		vehicle.setMod(4, 3);
-		vehicle.setMod(15, 3);
-		vehicle.setMod(16, -1);
+		vehicle.numberPlate = generateRandomNumberPlate();
+	
+		vehicle.info = {
+			title: model,
+			fuel: 50,
+			fuelTank: 50,
+			fuelRate: 10,
+			owner: "gov",
+			whoCanOpen: [player.name],
+			windowsOpened: [false, false, false, false],
+		}
 
-		player.putIntoVehicle(vehicle, -1);
 		misc.log.debug(`${player.name} spawned ${model}`);
+		player.notify('Unlock: num 5');
+		player.notify('Toggle engine: num 0');
 	},
 
 	'vmod' : (player, fullText, a, b) => { 
