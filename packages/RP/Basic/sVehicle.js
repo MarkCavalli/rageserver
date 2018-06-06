@@ -19,8 +19,14 @@ function updateLanguage(player) {
 
 
 
-mp.events.add(
-{
+mp.events.add({
+	
+	"playerStartExitVehicle" : (player) => {
+		if (player.vehicle.engine) {
+			player.vehicle.engine = true;
+		}
+	},
+
 	"playerEnterVehicle" : (player, vehicle, seat) => {
 		if (seat === -1) {
 			player.call("cVehicle-setFuel", [vehicle.info.fuel, vehicle.info.fuelRate, true]);
@@ -329,11 +335,10 @@ async function loadPlayerVehicles(player) {
 module.exports.loadPlayerVehicles = loadPlayerVehicles;
 
 
-async function savePlayerVehicles(player) {
+async function savePlayerVehicles(owner) {
 	const vehicles = mp.vehicles.toArray();
-	for (let i = 0; i < vehicles.length; i++) {
-		if (!vehicles[i].info || vehicles[i].info.owner !== player.name ) continue;
-		const veh = vehicles[i];
+	for (let veh of vehicles) {
+		if (!veh.info || veh.info.owner !== owner) continue;
 		const coord = misc.convertOBJToJSON(veh.position, veh.rotation.z);
 		await misc.query(`UPDATE cars SET coord = '${coord}', fuel = '${veh.info.fuel}', dim = '${veh.dimension}' WHERE id = '${veh.info.id}'`);
 		veh.destroy();

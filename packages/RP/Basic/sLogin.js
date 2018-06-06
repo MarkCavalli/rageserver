@@ -140,7 +140,7 @@ mp.events.addCommand(
 function savePlayerAccount(player) {
     const position = misc.convertOBJToJSON(player.position, player.heading, 0.1);
     misc.query(`UPDATE users SET position = '${position}', dim = '${player.dimension}', lastlogindate = '${new Date()}' WHERE username = '${player.name}'`);
-    vehicleAPI.savePlayerVehicles(player);
+    vehicleAPI.savePlayerVehicles(player.name);
     misc.log.debug(`${player.name} disconnected`);
 }
 
