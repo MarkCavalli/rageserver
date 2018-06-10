@@ -9,11 +9,18 @@ function updateLanguage(player) {
 	taxPaymentText = "New tax payment:";
 	enterText = `Press ~b~E ~s~to open ATM Menu`;
 
-	if (misc.getPlayerLang(player) === "rus") {
+	const lang = misc.getPlayerLang(player);
+	if (lang === "rus") {
 		cantBuyText = "Недостаточно наличных!";
 		paymentText = "Новый чек:";
 		taxPaymentText = "Новый налоговый чек:";
 		enterText = `Нажмите ~b~E ~s~для входа в меню банкомата`;
+	}
+	else if (lang === "ger") {
+		cantBuyText = "Nicht genug Geld!";
+		paymentText = "Neue zahlung:";
+		taxPaymentText = "Neue tax zahlung:"; // Need update
+		enterText = `Press ~b~E ~s~to open ATM Menu`; // Need update
 	}
 
 }

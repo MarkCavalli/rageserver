@@ -11,12 +11,21 @@ function updateLanguage(player) {
 	taxText = "Tax for business №";
 	enterText = `Press ~b~E ~s~to open Business Menu`;
 
-	if (misc.getPlayerLang(player) === "rus") {
+	const lang = misc.getPlayerLang(player);
+	if (lang === "rus") {
 		ownText = "Вы не можете иметь более 1 бизнеса!";
 		boughtText = "Вы купили бизнес!";
 		sellText = "Продажа бизнеса";
 		taxText = "Налог за бизнес №";
 		enterText = `Нажмите ~b~E ~s~для входа в меню бизнеса`;
+	}
+
+	else if (lang === "ger") {
+		ownText = "Sie können nicht mehr als 1 Geschäft besitzen!";
+		boughtText = "Du hast ein Geschäft gekauft!";
+		sellText = "Geschäft verkaufen";
+		taxText = "Steuern für Geschäft №";
+		enterText = `Drücken Sie ~b~ E ~s~, um das Business-Menü zu öffnen`;
 	}
 
 }

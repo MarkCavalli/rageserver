@@ -18,7 +18,8 @@ function updateLanguage(player) {
     enterText = `Press ~b~E ~s~to open Menu`;
     errorText = "You are already working on some job!";
 
-	if (misc.getPlayerLang(player) === "rus") {
+    const lang = misc.getPlayerLang(player);
+	if (lang === "rus") {
         startText = "Вы устроились сборщиком апельсинов!";
         collectedText1 = "У вас в корзине";
         collectedText2 = "апельсинов!";
@@ -29,7 +30,21 @@ function updateLanguage(player) {
         finishText = "Вы уволились с работы!";
         enterText = `Нажмите ~b~E ~s~для входа в меню`;
         errorText = "Вы уже работаете на другой работе!";
-	}
+    }
+
+    else if (lang === "ger") {
+        startText = "Du hast den orangenen Sammlerjob begonnen!";
+        collectedText1 = "Du hast";
+        collectedText2 = "Orangen in deinem Eimer!";
+        fullText = "Dein Eimer ist voll! Bring es zum Trailer!";
+        emptyText = `Dein Eimer ist leer!`;
+        earnedText1 = `Du hast verdient`;
+        earnedText2 = `Mach weiter!`;
+        finishText = "Du hast den orangenen Sammlerjob beendet!";
+        enterText = `Press ~b~E ~s~to open Menu`;   // Need update
+        errorText = "You are already working on some job!"; // Need update
+    }
+    
 
 }
 

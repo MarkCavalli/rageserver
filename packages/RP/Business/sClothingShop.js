@@ -11,9 +11,15 @@ function updateLanguage(player) {
 	doneText = "Done!";
 	enterText = `Press ~b~E ~s~to open Clothing Shop Menu`;
 	
-	if (misc.getPlayerLang(player) === "rus") {
+	const lang = misc.getPlayerLang(player);
+	if (lang === "rus") {
 		doneText = "Готово!";
 		enterText = `Нажмите ~b~E ~s~для входа в меню магазина одежды`;
+	}
+
+	else if (lang === "ger") {
+		doneText = "Erledigt!";
+		enterText = `Drücken Sie ~b~ E ~s~, um das Bekleidungsgeschäft zu öffnen`;
 	}
 
 }

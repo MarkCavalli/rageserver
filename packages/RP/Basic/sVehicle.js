@@ -9,10 +9,16 @@ function updateLanguage(player) {
 	lockText = "locked";
 	unlockText = "unlocked";
 
-	if (misc.getPlayerLang(player) === "rus") {
+	const lang = misc.getPlayerLang(player);
+	if (lang === "rus") {
 		lockText = "закрыт";
 		unlockText = "открыт";
 	}
+
+	else if (lang === "ger") {
+		lockText = "gesperrt";
+		unlockText = "entsperrt";
+	}	
 
 }
 

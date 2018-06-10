@@ -3,6 +3,23 @@
 const misc = require('../sMisc');
 const time = require('./sTime');
 
+let someoneText;
+function updateLanguage(player) {
+	someoneText = "Someone";
+
+	const lang = misc.getPlayerLang(player);
+	if (lang === "rus") {
+		someoneText = "Неизвестный";
+	}
+
+	else if (lang === "ger") {
+		someoneText = "Jemand";
+	}
+
+}
+
+
+
 mp.events.add('playerChat', (player, message) => {
 	sayRP(player, message);
 	misc.log.debug(`${player.name}[${player.id}]: ${message}.`);
@@ -14,8 +31,7 @@ function sayRP(player, text, anon = false) {
 		let color = getColorInRange("white", dist);
 		const currentTime = time.getTime();
 
-		let someoneText = "Someone";
-		if (misc.getPlayerLang(client) === "rus") someoneText = "Неизвестный";
+		updateLanguage(client);
 
 		if (anon) {
 			client.outputChatBox(`!{${color}}[${currentTime}] ${someoneText}: ${text}`);
@@ -88,8 +104,7 @@ function sayME(player, text, anon = false) {
 		let color = getColorInRange("purple", dist);
 		const currentTime = time.getTime();
 
-		let someoneText = "Someone";
-		if (misc.getPlayerLang(client) === "rus") someoneText = "Неизвестный";
+		updateLanguage(client);
 
 		if (anon) {
 			client.outputChatBox(`!{${color}}[${currentTime}] ${someoneText}: ${text}.`);
