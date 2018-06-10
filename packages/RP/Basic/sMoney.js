@@ -2,6 +2,25 @@
 
 const misc = require('../sMisc');
 
+let cantBuyText, paymentText, taxPaymentText, enterText;
+function updateLanguage(player) {
+	cantBuyText = "Not enough cash!";
+	paymentText = "New payment:";
+	taxPaymentText = "New tax payment:";
+	enterText = `Press ~b~E ~s~to open ATM Menu`;
+
+	if (misc.getPlayerLang(player) === "rus") {
+		cantBuyText = "Недостаточно наличных!";
+		paymentText = "Новый чек:";
+		taxPaymentText = "Новый налоговый чек:";
+		enterText = `Нажмите ~b~E ~s~для входа в меню банкомата`;
+	}
+
+}
+
+
+
+
 async function getMoney(player) {
    	const d = await misc.query(`SELECT money FROM users WHERE username = '${player.name}'`);
 	player.call("cMoneyUpdate", [d[0].money]);
@@ -15,11 +34,9 @@ async function changeMoney(player, value) {
 		return false;
 	}
 
-	let cantBuyText = "~r~Not enough cash!";
-	if (misc.getPlayerLang(player) === "rus") cantBuyText = "~r~Недостаточно наличных!";
-
 	if (player.info.money + value < 0) {
-		player.notify(cantBuyText);
+		updateLanguage(player);
+		player.notify("~r~" +cantBuyText);
 		return false;
 	}
 	await misc.query(`UPDATE users SET money = money + ${value} WHERE username = '${player.name}'`);
@@ -37,9 +54,7 @@ async function addToBankMoneyOffline(name, value, comment) {
 		if (player.name === name) {
 			player.info.bmoney += value;
 
-			let paymentText = "New payment:";
-			if (misc.getPlayerLang(player) === "rus") paymentText = "Новый чек:";
-
+			updateLanguage(player);
 			player.call("cMoneySendNotification", [`${paymentText} ~g~$${value}. ~w~${comment}`]);
 			break;
 		}
@@ -58,7 +73,8 @@ async function payTaxOffline(username, value, comment) {
 		const player = mp.players.at(j);
 		if (player.name === username) {
 			player.info.tmoney -= value;
-			player.call("cMoneySendNotification", [`New tax payment: ~g~$${value}. ~w~${comment}`]);
+			updateLanguage(player);
+			player.call("cMoneySendNotification", [`${taxPaymentText} ~g~$${value}. ~w~${comment}`]);
 			break;
 		}
 	}
@@ -186,10 +202,7 @@ mp.events.add(
 			return;
 		}
 		player.info.canOpen.ATM = true;
-
-		let enterText = `Press ~b~E ~s~to open ATM Menu`;
-		if (misc.getPlayerLang(player) === "rus") enterText = `Нажмите ~b~E ~s~для входа в меню банкомата`;
-
+		updateLanguage(player);
 		player.notify(enterText);
 	},
 

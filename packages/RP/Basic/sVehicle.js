@@ -5,7 +5,6 @@ const chat = require('./sChat');
 
 
 let lockText, unlockText;
-
 function updateLanguage(player) {
 	lockText = "locked";
 	unlockText = "unlocked";
@@ -36,6 +35,7 @@ mp.events.add({
 	
 	"playerExitVehicle" : (player, vehicle, seat) => {
 		player.call("cVehicle-setFuel", [null, 0, false]);
+		setLights(player, vehicle, 0);
 		
 	},
 
@@ -322,7 +322,7 @@ function spawnCar(d) {
 		price: d.price,
 		owner: d.owner,
 		whoCanOpen: whoCanOpen,
-		windowsOpened: [false, false, false, false],
+		windowsOpened: [true, true, true, true],
 	}
 }
 

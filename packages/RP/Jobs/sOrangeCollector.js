@@ -4,6 +4,39 @@ const misc = require('../sMisc');
 const moneyAPI = require('../Basic/sMoney');
 const clothes = require('../Character/sClothes');
 
+
+let startText, collectedText1, collectedText2, fullText, emptyText, earnedText1, earnedText2, finishText, enterText, errorText;
+function updateLanguage(player) {
+    startText = "You started orange collector job!";
+    collectedText1 = "You have";
+    collectedText2 = "oranges in your bucket!";
+    fullText = "Your bucket is full! Take it to the trailer!";
+    emptyText = `Your bucket is empty!`;
+    earnedText1 = `You earned`;
+    earnedText2 = `Keep it up!`;
+    finishText = "You finished orange collector job!";
+    enterText = `Press ~b~E ~s~to open Menu`;
+    errorText = "You are already working on some job!";
+
+	if (misc.getPlayerLang(player) === "rus") {
+        startText = "Вы устроились сборщиком апельсинов!";
+        collectedText1 = "У вас в корзине";
+        collectedText2 = "апельсинов!";
+        fullText = "Ваша корзина заполнена! Отнесите ее к трейлеру.";
+        emptyText = `Ваша корзина пуста!`;
+        earnedText1 = `Вы заработали`;
+        earnedText2 = `Продолжайте в том же духе!`;
+        finishText = "Вы уволились с работы!";
+        enterText = `Нажмите ~b~E ~s~для входа в меню`;
+        errorText = "Вы уже работаете на другой работе!";
+	}
+
+}
+
+
+
+    
+
 const treeMarkersList = [];
 let menuShape, dropMarker, dropShape;
 const checkPoints = [
@@ -92,10 +125,8 @@ function startWork(player) {
     };
     createRandomCheckPoint(player);
 
-    let startText = "~g~You started orange collector job!";
-    if (misc.getPlayerLang(player) === "rus") startText = "~g~Вы устроились сборщиком апельсинов!";
-
-    player.notify(startText);
+    updateLanguage(player);
+    player.notify("~g~" +startText);
 
     misc.log.debug(`${player.name} started orange collector job!`);
     dropMarker.showFor(player);
@@ -138,20 +169,16 @@ function enteredTreeShape(player) {
     player.stopAnimation();
     player.info.activeJob.collected += misc.getRandomInt(1, 2);
 
-    let collectedText = `You have ~g~${player.info.activeJob.collected} ~w~oranges in your bucket!`;
-    if (misc.getPlayerLang(player) === "rus") collectedText = `У вас в корзине ~g~${player.info.activeJob.collected} ~w~апельсинов!`;
-
-    player.notify(collectedText);
+    updateLanguage(player);
+    player.notify(`${collectedText1} ~g~${player.info.activeJob.collected} ~w~${collectedText2}`);
 
     if (player.info.activeJob.collected < 20) {
         return createRandomCheckPoint(player);
     }
     hideActiveCheckPoint(player);
 
-    let fullText = "~g~Your bucket is full! Take it to the trailer!";
-    if (misc.getPlayerLang(player) === "rus") fullText = "~g~В корзину больше не влезет! Отнесите ее к трейлеру.";
-
-    player.notify(fullText);
+    updateLanguage(player);
+    player.notify("~g~" +fullText);
 }
 
 
@@ -166,18 +193,14 @@ function hideActiveCheckPoint(player) {
 function enteredDropShape(player) {
     player.stopAnimation();
     if (player.info.activeJob.collected === 0) {
-        let emptyText = `Your bucket is empty!`;
-        if (misc.getPlayerLang(player) === "rus") emptyText = `Ваша корзина пуста!`;
-
+        updateLanguage(player);
         return player.notify(emptyText);
     }
     const earnedMoney = player.info.activeJob.collected * 5;
     moneyAPI.changeMoney(player, earnedMoney);
 
-    let earnedText = `You earned ~g~${earnedMoney}$! ~w~Keep it up!`;
-    if (misc.getPlayerLang(player) === "rus") earnedText = `Вы заработали ~g~${earnedMoney}$! ~w~Продолжайте в том же духе!`;
-
-    player.notify(earnedText);
+    updateLanguage(player);
+    player.notify(`${earnedText1} ~g~${earnedMoney}$! ~w~${earnedText2}`);
 
     misc.log.debug(`${player.name} earned ${earnedMoney}$!`);
     player.info.activeJob.collected = 0;
@@ -192,9 +215,7 @@ function finishWork(player) {
         name: false,
     };
 
-    let finishText = "~g~You finished orange collector job!";
-    if (misc.getPlayerLang(player) === "rus") finishText = "~g~Вы уволились с работы!";
-
+    updateLanguage(player);
     player.notify(finishText);
 
     misc.log.debug(`${player.name} finished orange collector job!`);
@@ -212,9 +233,7 @@ mp.events.add(
         if (shape === menuShape) {
             player.info.canOpen.orangeCollector = true;
 
-            let enterText = `Press ~b~E ~s~to open Menu`;
-            if (misc.getPlayerLang(player) === "rus") enterText = `Нажмите ~b~E ~s~для входа в меню`;
-    
+            updateLanguage(player);
             player.notify(enterText);
         }
         else if (player.info.activeJob.name === "Orange Collector" && shape.orangeCollectorTree === player.info.activeJob.activeTree) {
@@ -236,10 +255,8 @@ mp.events.add(
     "sKeys-E" : (player) => {
         if (!player.info || !player.info.loggedIn || !player.info.canOpen.orangeCollector) return;
         if (player.info.activeJob.name && player.info.activeJob.name !== "Orange Collector") {
-            let errorText = "You are already working on some job!";
-            if (misc.getPlayerLang(player) === "rus") errorText = "Вы уже работаете на другой работе!";
-
-            return player.nofity(errorText);
+            updateLanguage(player);
+            return player.nofity("~r~" +errorText);
         }
         openMainMenu(player);
     },
@@ -253,8 +270,6 @@ mp.events.add(
     },
 
 });
-
-
 
 
 

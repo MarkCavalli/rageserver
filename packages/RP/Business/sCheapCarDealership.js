@@ -6,6 +6,19 @@ const moneyAPI = require('../Basic/sMoney');
 const vehicleAPI = require('../Basic/sVehicle');
 
 
+let doneText, enterText;
+function updateLanguage(player) {
+	doneText = "Done!";
+	enterText = `Press ~b~E ~s~to open Cheap Car Dealership Menu`;
+	
+	if (misc.getPlayerLang(player) === "rus") {
+		doneText = "Готово!";
+		enterText = `Нажмите ~b~E ~s~для входа в меню дешевого автосалона`;
+	}
+
+}
+
+
 class cheapCarDealership extends business {
     constructor(d) {
 		super(d);
@@ -31,9 +44,8 @@ class cheapCarDealership extends business {
 		await this.addMoneyToBalance(shopTax);
 		await vehicleAPI.saveNewCar(player, model, this.newCarCoord);
 
-		let doneText = "~g~Done!";
-		if (misc.getPlayerLang(player) === "rus") doneText = "~g~Готово!";
-		player.notify(doneText);
+		updateLanguage(player);
+		player.notify("~g~" +doneText);
 
 		misc.log.debug(`${player.name} bought a car ${model} for $${fullPrice}`);
 	}
@@ -64,9 +76,7 @@ mp.events.add(
 		if(player.vehicle || !colshape.cheapCarDealershipId || !misc.isPlayerLoggedIn(player)) return;
 		player.info.canOpen.cheapCarDealership = colshape.cheapCarDealershipId;
 
-		let enterText = `Press ~b~E ~s~to open Cheap Car Dealership Menu`;
-		if (misc.getPlayerLang(player) === "rus") enterText = `Нажмите ~b~E ~s~для входа в меню дешевого автосалона`;
-
+		updateLanguage(player);
 		player.notify(enterText);
 	},
 	
@@ -115,6 +125,7 @@ mp.events.addCommand(
 		const query2 = misc.query(`INSERT INTO cheapcardealership (id) VALUES ('${id}');`);	
 		await Promise.all([query1, query2]);
 		player.outputChatBox("!{#4caf50} Cheap Car Dealership successfully created!");
+		player.outputChatBox("!{#4caf50} Now do /setbusbuyermenu [id] and other commands!");
 	},	
 
 	'setccardealernewcarcoord' : async (player, id) => {
@@ -122,7 +133,9 @@ mp.events.addCommand(
 		if (!player.vehicle) return player.nofity(`~r~You're not in vehicle!`);
 		const coord = misc.convertOBJToJSON(player.position, player.vehicle.rotation.z);
 		await misc.query(`UPDATE cheapcardealership SET newCarCoord = '${coord}' WHERE id = ${id}`);
-		player.notify("~g~Success!");
+		updateLanguage(player);
+		player.notify("~g~" +doneText);
+
 	},	
 
 });

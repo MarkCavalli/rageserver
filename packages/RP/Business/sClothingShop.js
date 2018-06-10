@@ -6,6 +6,20 @@ const clothes = require('../Character/sClothes');
 const moneyAPI = require('../Basic/sMoney');
 
 
+let doneText, enterText;
+function updateLanguage(player) {
+	doneText = "Done!";
+	enterText = `Press ~b~E ~s~to open Clothing Shop Menu`;
+	
+	if (misc.getPlayerLang(player) === "rus") {
+		doneText = "Готово!";
+		enterText = `Нажмите ~b~E ~s~для входа в меню магазина одежды`;
+	}
+
+}
+
+
+
 class clothingShop extends business {
     constructor(d) {
 		super(d);
@@ -29,10 +43,8 @@ class clothingShop extends business {
 		await this.addMoneyToBalance(shopTax);
 		await clothes.saveClothes(player, d);
 
-		let doneText = "~g~Done!";
-		if (misc.getPlayerLang(player) === "rus") doneText = "~g~Готово!";
-		player.notify(doneText);
-
+		updateLanguage(player);
+		player.notify("~g~" +doneText);
 
 		misc.log.debug(`${player.name} bought a cloth for $${endPrice}`);
 	}
@@ -64,9 +76,7 @@ mp.events.add(
 		if(player.vehicle || !colshape.clothingShopId || !misc.isPlayerLoggedIn(player)) return;
 		player.info.canOpen.clothingShop = colshape.clothingShopId;
 
-		let enterText = `Press ~b~E ~s~to open Clothing Shop Menu`;
-		if (misc.getPlayerLang(player) === "rus") enterText = `Нажмите ~b~E ~s~для входа в меню магазина одежды`;
-
+		updateLanguage(player);
 		player.notify(enterText);
 	},
 	
@@ -132,7 +142,9 @@ mp.events.addCommand(
 			if (player.info.adminLvl < 1) return;
 			const coord = misc.convertOBJToJSON(player.position, player.heading);
 			await misc.query(`UPDATE clothingshop SET buyerStandCoord = '${coord}' WHERE id = ${id}`);
-			player.notify("~g~Success!");
+			updateLanguage(player);
+			player.notify("~g~" +doneText);
+
 		},	
 
 	}

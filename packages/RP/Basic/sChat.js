@@ -18,10 +18,10 @@ function sayRP(player, text, anon = false) {
 		if (misc.getPlayerLang(client) === "rus") someoneText = "Неизвестный";
 
 		if (anon) {
-			client.outputChatBox(`!{${color}}[${currentTime}] ${someoneText}: ${text}.`);
+			client.outputChatBox(`!{${color}}[${currentTime}] ${someoneText}: ${text}`);
 		}
 		else {
-			client.outputChatBox(`!{${color}}[${currentTime}] ${player.name}[${player.id}]: ${text}.`);
+			client.outputChatBox(`!{${color}}[${currentTime}] ${player.name}[${player.id}]: ${text}`);
 		}
 	});
 }
