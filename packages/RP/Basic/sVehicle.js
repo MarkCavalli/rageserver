@@ -47,10 +47,11 @@ mp.events.add({
 
 	"sVehicle-SetFuel" : (player, vehicle, fuel) => {
 		vehicle.info.fuel = misc.roundNum(fuel, 3);
+		if (fuel <= 1) vehicle.engine = false;
 	},
 
 	"sKeys-Num0" : (player) => {
-		if (!isDriver(player)) return;
+		if (!isDriver(player) || player.vehicle.info.fuel <= 1) return;
 		toggleVehEngine(player.vehicle);
 	},
 
@@ -160,7 +161,7 @@ function toggleVehWindow(player, window) {
 	const vehicle = player.vehicle;
 	const windowOpened = vehicle.info.windowsOpened[window];
 	let action;
-	if (!windowOpened) action = "cVehicle-rollUpWindow";
+	if (windowOpened) action = "cVehicle-rollUpWindow";
 	else action = "cVehicle-rollDownWindow";
 
 	mp.players.forEach((player, id) => {
@@ -322,13 +323,13 @@ function spawnCar(d) {
 	vehicle.info = {
 		id: d.id,
 		title: d.title,
-		fuel: d.fuelTank,
+		fuel: d.fuel,
 		fuelTank: d.fuelTank,
 		fuelRate: d.fuelRate,
 		price: d.price,
 		owner: d.owner,
 		whoCanOpen: whoCanOpen,
-		windowsOpened: [true, true, true, true],
+		windowsOpened: [false, false, false, false],
 	}
 }
 
@@ -351,6 +352,13 @@ async function savePlayerVehicles(owner) {
 	}
 }
 module.exports.savePlayerVehicles = savePlayerVehicles;
+
+
+function fillUpVehicle(vehicle, litres) {
+	if (!misc.isValueNumber(litres) || vehicle.info.fuel + litres > vehicle.info.fuelTank) return;
+	vehicle.info.fuel += litres;
+}
+module.exports.fillUpVehicle = fillUpVehicle
 
 
 

@@ -9,3 +9,4 @@ require('./RP/Jobs/cOrangeCollector.js');
 require('./RP/Business/cBusiness.js');
 require('./RP/Business/cClothingShop.js');
 require('./RP/Business/cCheapCarDealership.js');
+require('./RP/Business/cGasStation.js');

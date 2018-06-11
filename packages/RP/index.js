@@ -11,3 +11,4 @@ require('./Jobs/sOrangeCollector');
 require('./Business/sBusiness');
 require('./Business/sClothingShop');
 require('./Business/sCheapCarDealership');
+require('./Business/sGasStation');

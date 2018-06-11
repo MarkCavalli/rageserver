@@ -25,7 +25,6 @@ mp.events.add(
 		player.vehicle.setLightMultiplier(4);
 		if (showSpeedText) showSpeed();
 		if (fuel !== null && player.vehicle.getIsEngineRunning()) showFuel();
-		
 
 	},
 	
@@ -60,7 +59,7 @@ function showSpeed() {
 
 function showFuel() {
 	const vehicle = player.vehicle;
-	mp.game.graphics.drawText("         Fuel: " + fuel.toFixed() + " L", [0.927, 0.80], { 
+	mp.game.graphics.drawText("         Fuel: " + fuel.toFixed(1) + " L", [0.927, 0.80], { 
 		font: 1, 
 		color: [255, 255, 255, 255], 
 		scale: [0.6, 0.6], 
@@ -70,4 +69,8 @@ function showFuel() {
 	if (gear === 0) gear = 1;
 
 	fuel -= (rpm + (speed * 400)) / gear * fuelRate * Math.pow(5, -13);
+
+	if (fuel < 1) {
+		mp.events.callRemote('sVehicle-SetFuel', vehicle, fuel); 
+	}
 }

@@ -60,7 +60,6 @@ async function addToBankMoneyOffline(name, value, comment) {
 		const player = mp.players.at(j);
 		if (player.name === name) {
 			player.info.bmoney += value;
-
 			updateLanguage(player);
 			player.call("cMoneySendNotification", [`${paymentText} ~g~$${value}. ~w~${comment}`]);
 			break;

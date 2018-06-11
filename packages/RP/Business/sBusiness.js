@@ -3,11 +3,10 @@
 const misc = require('../sMisc');
 const moneyAPI = require('../Basic/sMoney');
 
-let ownText, boughtText, sellText, taxText , enterText;
+let ownText, boughtText, taxText , enterText, doneText;
 function updateLanguage(player) {
 	ownText = "You can't own more than 1 business!";
 	boughtText = "You bought a business!";
-	sellText = "Sell business";
 	taxText = "Tax for business №";
 	enterText = `Press ~b~E ~s~to open Business Menu`;
 
@@ -15,17 +14,17 @@ function updateLanguage(player) {
 	if (lang === "rus") {
 		ownText = "Вы не можете иметь более 1 бизнеса!";
 		boughtText = "Вы купили бизнес!";
-		sellText = "Продажа бизнеса";
 		taxText = "Налог за бизнес №";
 		enterText = `Нажмите ~b~E ~s~для входа в меню бизнеса`;
+		doneText = "Готово!";
 	}
 
 	else if (lang === "ger") {
 		ownText = "Sie können nicht mehr als 1 Geschäft besitzen!";
 		boughtText = "Du hast ein Geschäft gekauft!";
-		sellText = "Geschäft verkaufen";
 		taxText = "Steuern für Geschäft №";
 		enterText = `Drücken Sie ~b~ E ~s~, um das Business-Menü zu öffnen`;
+		doneText = "Erledigt!";
 	}
 
 }
@@ -109,8 +108,7 @@ class business {
 		await Promise.all([query1, query2]);
 		this.owner = null;
 
-		updateLanguage(player);
-		moneyAPI.addToBankMoneyOffline(owner, this.price * 0.5, sellText);
+		moneyAPI.addToBankMoneyOffline(owner, this.price * 0.5, "Sell business");
 		for (let j = 0; j < mp.players.length; j++) {
 			const player = mp.players.at(j);
 			if (player.name === owner) {
