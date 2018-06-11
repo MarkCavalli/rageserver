@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 06 2018 г., 17:55
+-- Время создания: Июн 11 2018 г., 15:49
 -- Версия сервера: 5.7.20
 -- Версия PHP: 5.5.38
 
@@ -88,6 +88,18 @@ CREATE TABLE `clothingshop` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `gasstation`
+--
+
+CREATE TABLE `gasstation` (
+  `id` int(11) NOT NULL,
+  `fillingCoord` text,
+  `camData` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `users`
 --
 
@@ -100,8 +112,8 @@ CREATE TABLE `users` (
   `tmoney` bigint(20) NOT NULL DEFAULT '0',
   `position` text,
   `dim` int(11) NOT NULL DEFAULT '0',
-  `signupdate` varchar(48) DEFAULT NULL,
-  `lastlogindate` varchar(48) DEFAULT NULL,
+  `signupdate` varchar(255) DEFAULT NULL,
+  `lastlogindate` varchar(255) DEFAULT NULL,
   `adminlvl` tinyint(4) NOT NULL DEFAULT '0',
   `hasBusiness` tinyint(1) NOT NULL DEFAULT '0',
   `lang` varchar(3) NOT NULL DEFAULT 'eng'
@@ -154,6 +166,12 @@ ALTER TABLE `clothingshop`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `gasstation`
+--
+ALTER TABLE `gasstation`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `users`
 --
 ALTER TABLE `users`
@@ -173,7 +191,7 @@ ALTER TABLE `userskins`
 -- AUTO_INCREMENT для таблицы `business`
 --
 ALTER TABLE `business`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `cars`
@@ -194,16 +212,22 @@ ALTER TABLE `clothingshop`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT для таблицы `gasstation`
+--
+ALTER TABLE `gasstation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
 
 --
 -- AUTO_INCREMENT для таблицы `userskins`
 --
 ALTER TABLE `userskins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
