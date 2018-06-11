@@ -152,9 +152,7 @@ async function loadPlayerAccount(player) {
         money: d[0].money,
         bmoney: d[0].bmoney,
         tmoney: d[0].tmoney,
-        canOpen: {
-            ATM: false,
-        },
+        canOpen: {},
         adminLvl: d[0].adminlvl,
         activeJob: {
             name: false,
@@ -168,4 +166,5 @@ async function loadPlayerAccount(player) {
     player.call("cCloseCefAndDestroyCam");
     player.outputChatBox("Choose your language: /setlang [language]! Available languages: eng, rus, ger.");
     player.outputChatBox("Spawn a vehicle: /v [model]. E.g. /v neon");
+    player.outputChatBox("Global chat: /g [message]");
 }

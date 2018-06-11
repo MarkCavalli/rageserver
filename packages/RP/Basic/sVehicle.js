@@ -357,7 +357,7 @@ module.exports.savePlayerVehicles = savePlayerVehicles;
 mp.events.addCommand(
 {	
 	'v' : (player, fullText, model) => {  // Temporary vehicle spawning
-
+		if (!model) return player.notify("Model requred");
 		const vehicle = mp.vehicles.new(model, player.position,
 		{
 			heading: player.heading,

@@ -132,3 +132,9 @@ function sayDO(player, text, anon = false) {
 	});
 }
 module.exports.sayDO = sayDO;
+
+
+mp.events.addCommand("g", (player, message) => {
+	mp.players.broadcast(`${player.name}: ${message}`);
+
+});
