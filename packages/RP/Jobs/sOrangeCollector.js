@@ -2,6 +2,7 @@
 
 const misc = require('../sMisc');
 const moneyAPI = require('../Basic/sMoney');
+const loyality = require('../Basic/sLoyality');
 const clothes = require('../Character/sClothes');
 
 
@@ -216,6 +217,7 @@ function enteredDropShape(player) {
 
     updateLanguage(player);
     player.notify(`${earnedText1} ~g~${earnedMoney}$! ~w~${earnedText2}`);
+    loyality.addLoyality(player, player.info.activeJob.collected / 10);
 
     misc.log.debug(`${player.name} earned ${earnedMoney}$!`);
     player.info.activeJob.collected = 0;

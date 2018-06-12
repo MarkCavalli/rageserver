@@ -5,6 +5,7 @@ require('./Basic/sChat');
 require('./Basic/sTime');
 require('./Basic/sVehicle');
 require('./Basic/sWeather');
+require('./Basic/sLoyality');
 require('./Character/sCharacterCreator');
 require('./Character/sClothes');
 require('./Jobs/sOrangeCollector');

@@ -5,6 +5,7 @@ const charCreator = require('../Character/sCharacterCreator');
 const clothes = require('../Character/sClothes');
 const crypto = require('crypto');
 const vehicleAPI = require('./sVehicle');
+const loyality = require('./sLoyality');
 
 
 function hashPassword(str) {
@@ -141,6 +142,7 @@ function savePlayerAccount(player) {
     const position = misc.convertOBJToJSON(player.position, player.heading, 0.1);
     misc.query(`UPDATE users SET position = '${position}', dim = '${player.dimension}', lastlogindate = '${new Date()}' WHERE username = '${player.name}'`);
     vehicleAPI.savePlayerVehicles(player.name);
+    loyality.saveLoyality(player.name, player.info.loyality);
     misc.log.debug(`${player.name} disconnected`);
 }
 
@@ -160,6 +162,7 @@ async function loadPlayerAccount(player) {
         },
         hasBusiness: d[0].hasBusiness,
         lang: d[0].lang,
+        loyality: d[0].loyality,
     }
     misc.setPlayerPosFromJSON(player, d[0].position);
     player.dimension = d[0].dim;
