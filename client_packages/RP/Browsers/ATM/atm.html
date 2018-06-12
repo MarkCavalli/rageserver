@@ -22,6 +22,10 @@
 						<div class="b1-summ">{{ showTMoney() }}</div>
 						<div class="b1-summ-info">{{ taxAccountText }}</div>
 					</div>
+					<div class="b1-money-item">
+						<div class="b1-summ">{{ showPMoney() }}</div>
+						<div class="b1-summ-info">{{ penaltyAccountText }}</div>
+					</div>
 				</div>
 
 
@@ -30,6 +34,7 @@
 				<div class="b2-item" v-on:click="openTransactionBlock('putCash')">{{ putCashText }}</div>
 				<div class="b2-item" v-on:click="openTransactionBlock('getTaxMoney')">{{ takeTaxMoneyText }}</div>
 				<div class="b2-item" v-on:click="openTransactionBlock('putTaxMoney')">{{ putCashToTaxText }}</div>
+				<div class="b2-item" v-on:click="payPenalty">{{ payPenaltyText }}</div>
 			</div>
 		
 			<div class="b3" v-if="transactionBlockSeen" v-bind:class="[{ error: addErrorClass }, { success: addSuccessClass }]">
@@ -53,6 +58,7 @@ data: {
 	cash: 0,
 	bmoney: 0,
 	tmoney: 0,
+	pmoney: 0,
 	transactionBlockSeen: false,
 	transactionType: null,
 	cashTemplate: [
@@ -70,11 +76,13 @@ data: {
 	cashText: "cash",
 	bankAccountText: "bank account",
 	taxAccountText: "tax account",
+	penaltyAccountText: "penalty account",
 
 	takeCashText: "Take cash",
 	putCashText: "Put cash",
 	takeTaxMoneyText: "Take cash from tax account",
 	putCashToTaxText: "Put cash in tax account",
+	payPenaltyText: "Pay Penalty",
 
 	doneText: "Done",
 	
@@ -94,6 +102,9 @@ methods: {
 	},
 	showTMoney: function() {
 		return this.prettify(this.tmoney);
+	},
+	showPMoney: function() {
+		return this.prettify(this.pmoney);
 	},
 	openTransactionBlock: function(t) {
 		if (t !== "getCash" && t !== "putCash" && t !== "getTaxMoney" && t !== "putTaxMoney") {
@@ -116,11 +127,11 @@ methods: {
 	},
 	addToInput: function(value) {
 		this.transformInputToNumber();
-	this.inputValue += value;
+		this.inputValue += value;
 	},
 	showError: function() {
 		this.addErrorClass = true;
-	setTimeout(this.hideError, 500);
+		setTimeout(this.hideError, 500);
 	},
 	hideError: function() {
 		this.addErrorClass = false;
@@ -150,6 +161,14 @@ methods: {
 		}
 		this.inputValue = 0;
 	},
+
+	payPenalty: function() {
+		if (this.pmoney === 0 || this.cash < this.pmoney) return;
+		this.cash -= this.pmoney;
+		this.pmoney = 0;
+		mp.trigger("cPayPenalty"); 
+	},
+
 	isValueBiggerThanInput: function(value) {
 		if(value < this.inputValue || this.inputValue === 0) {
 			this.showError();
@@ -196,11 +215,13 @@ function loadRusLang() {
 	app.cashText = "наличные";
 	app.bankAccountText = "сберегательный счет";
 	app.taxAccountText = "налоговый счет";
+	app.penaltyAccountText = "штрафной счет";
 
 	app.takeCashText = "Снять наличные";
 	app.putCashText = "Положить наличные";
 	app.takeTaxMoneyText = "Снять деньги с налогового счета";
 	app.putCashToTaxText = "Положить деньги на налоговый счет";
+	app.payPenaltyText = "Погасить штрафы";
 
 	app.doneText = "Готово";
 }

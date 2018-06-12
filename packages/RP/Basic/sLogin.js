@@ -152,6 +152,7 @@ async function loadPlayerAccount(player) {
         money: d[0].money,
         bmoney: d[0].bmoney,
         tmoney: d[0].tmoney,
+        pmoney: d[0].pmoney,
         canOpen: {},
         adminLvl: d[0].adminlvl,
         activeJob: {

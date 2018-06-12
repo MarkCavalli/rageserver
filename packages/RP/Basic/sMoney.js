@@ -93,7 +93,7 @@ async function getCash(player, summ) {
 	if (!misc.isValueNumber(summ) || player.info.bmoney < summ) {
 		return;
 	}
-	const before = `$${player.info.money} $${player.info.bmoney} $${player.info.tmoney}`;
+	const before = `$${player.info.money} $${player.info.bmoney} $${player.info.tmoney} $${player.info.pmoney}`;
 	await misc.query(`UPDATE users SET money = money + ${summ}, bmoney = bmoney - ${summ} WHERE username = '${player.name}'`);
 	player.info.money += summ;
 	player.info.bmoney -= summ;
@@ -105,7 +105,7 @@ async function putCash(player, summ) {
 	if (!misc.isValueNumber(summ) || player.info.money < summ) {
 		return;
 	}
-	const before = `$${player.info.money} $${player.info.bmoney} $${player.info.tmoney}`;
+	const before = `$${player.info.money} $${player.info.bmoney} $${player.info.tmoney} $${player.info.pmoney}`;
 	await misc.query(`UPDATE users SET money = money - ${summ}, bmoney = bmoney + ${summ} WHERE username = '${player.name}'`);
 	player.info.money -= summ;
 	player.info.bmoney += summ;
@@ -117,7 +117,7 @@ async function getTaxMoney(player, summ) {
 	if (!misc.isValueNumber(summ) || player.info.tmoney < summ) {
 		return;
 	}
-	const before = `$${player.info.money} $${player.info.bmoney} $${player.info.tmoney}`;
+	const before = `$${player.info.money} $${player.info.bmoney} $${player.info.tmoney} $${player.info.pmoney}`;
 	await misc.query(`UPDATE users SET money = money + ${summ}, tmoney = tmoney - ${summ} WHERE username = '${player.name}'`);
 	player.info.money += summ;
 	player.info.tmoney -= summ;
@@ -129,7 +129,7 @@ async function putTaxMoney(player, summ) {
 	if (!misc.isValueNumber(summ) || player.info.money < summ) {
 		return;
 	}
-	const before = `$${player.info.money} $${player.info.bmoney} $${player.info.tmoney}`;
+	const before = `$${player.info.money} $${player.info.bmoney} $${player.info.tmoney} $${player.info.pmoney}`;
 	await misc.query(`UPDATE users SET money = money - ${summ}, tmoney = tmoney + ${summ} WHERE username = '${player.name}'`);
 	player.info.money -= summ;
 	player.info.tmoney += summ;
@@ -138,9 +138,22 @@ async function putTaxMoney(player, summ) {
 }
 
 function logATMOperation(player, before) {
-	const after = `$${player.info.money} $${player.info.bmoney} $${player.info.tmoney}`;
-	misc.log.debug(`ATM | ${player.name} | ${before} > ${after}`);
+	const after = `$${player.info.money} $${player.info.bmoney} $${player.info.tmoney} $${player.info.pmoney}`;
+	misc.log.debug(`ATM | ${player.name} | ${before} >>> ${after}`);
 }
+
+async function payPenalty(player) {
+	if (player.info.money < player.info.pmoney) {
+		return;
+	}
+	await misc.query(`UPDATE users SET money = money - ${player.info.pmoney}, pmoney = 0 WHERE username = '${player.name}'`);
+	const before = `$${player.info.money} $${player.info.bmoney} $${player.info.tmoney} $${player.info.pmoney}`;
+	player.info.money -= player.info.pmoney;
+	player.info.pmoney = 0;
+	player.call("cMoneyUpdate", [player.info.money]);
+	logATMOperation(player, before);
+}
+
 
 mp.events.add(
 {		
@@ -158,6 +171,10 @@ mp.events.add(
 
 	"sPutTaxMoney" : (player, summ) => {
 		putTaxMoney(player, summ);
+	},
+
+	"sPayPenalty" : (player) => {
+		payPenalty(player);
 	},
 
 	"sKeys-E" : (player) => {
@@ -191,9 +208,10 @@ function openATMMenu(player) {
 	const str1 = `app.cash = ${player.info.money};`;
 	const str2 = `app.bmoney = ${player.info.bmoney};`;
 	const str3 = `app.tmoney = ${player.info.tmoney};`;
-	const str4 = `setTimeout(load, 300);`; // For add transition effect
+	const str4 = `app.pmoney = ${player.info.pmoney};`;
+	const str5 = `setTimeout(load, 300);`; // For add transition effect
 
-	const execute = str1 + str2 + str3 + str4;
+	const execute = str1 + str2 + str3 + str4 + str5;
 
 	const lang = misc.getPlayerLang(player);
 	player.call("cShowATMCef", [lang, execute]);

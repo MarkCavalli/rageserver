@@ -59,7 +59,11 @@ mp.events.add(
 		for (let i = 0, msgLen = message.length; i < msgLen; i += maxStringLength) mp.game.ui.addTextComponentSubstringPlayerName(message.substr(i, Math.min(maxStringLength, message.length - i)));
 		mp.game.ui.setNotificationMessage("CHAR_BANK_FLEECA", "CHAR_BANK_FLEECA", false, 2, 'FLEECA BANK', `New message`);
 		mp.game.ui.drawNotification(false, true);
-    },
+	},
+	
+	"cPayPenalty" : () => {
+		mp.events.callRemote('sPayPenalty');
+	},
 	
 });
 
