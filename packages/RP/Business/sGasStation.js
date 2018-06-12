@@ -25,7 +25,10 @@ function updateLanguage(player) {
 
 	else if (lang === "ger") {
 		doneText = "Erledigt!";
-		enterText = `Press ~b~E ~s~to open Gas Station Menu`; // Need update
+		enterText = "Drücken Sie ~b~ E ~s~, um das Tankstellenmenü zu ffnen";
+		priceForLitreText = "Preis pro Liter:";
+		goodJourneyText = "Gute weiter Reise!";
+		offEngineText = "Bitte schalte den Motor ab!"
 	}
 
 }
