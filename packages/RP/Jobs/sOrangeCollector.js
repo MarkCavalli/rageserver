@@ -95,7 +95,7 @@ function createEntities() {
 	});
 	menuShape = mp.colshapes.newSphere(mainMenu.x, mainMenu.y, mainMenu.z, 1);
 
-	const blip = mp.blips.new(501, new mp.Vector3(mainMenu.x, mainMenu.y, mainMenu.z),
+	const blip = mp.blips.new(514, new mp.Vector3(mainMenu.x, mainMenu.y, mainMenu.z),
 	{	
         name: "Orange Collector Job",
 		shortRange: true,
@@ -217,7 +217,9 @@ function enteredDropShape(player) {
 
     updateLanguage(player);
     player.notify(`${earnedText1} ~g~${earnedMoney}$! ~w~${earnedText2}`);
-    loyality.addLoyality(player, player.info.activeJob.collected / 10);
+    if (player.info.loyality < 50) {
+        loyality.addLoyality(player, player.info.activeJob.collected / 10);
+    }
 
     misc.log.debug(`${player.name} earned ${earnedMoney}$!`);
     player.info.activeJob.collected = 0;

@@ -111,6 +111,7 @@ class gasStation extends business {
 		vehicleAPI.fillUpVehicle(vehicleToFillUp, carData.litres);
 		updateLanguage(player);
 		player.notify("~g~" +doneText);
+		misc.log.debug(`${player.name} fill up a car for $${price}`);
 	}
 
 	async updateFillingData(player, radius) {
@@ -152,6 +153,21 @@ class gasStation extends business {
 		const tax = Math.ceil(this.tempGain);
 		this.tempGain -= tax;
 		this.addMoneyToBalance(tax);
+	}
+
+	openBuyerMenu(player) {
+		const cars = JSON.stringify(this.getCarsCanFillUp());
+
+		const str1 = `app.id = ${this.id};`;
+		const str2 = `app.margin = ${this.margin};`;
+		const str3 = `app.updatePriceForLitre();`;
+		const str4 = `app.updateCars('${cars}');`
+	
+		let execute = str1 + str2 + str3 + str4;
+		
+		const lang = misc.getPlayerLang(player);
+		player.call("cGasStationMenu", [lang, execute, this.camData]);
+		misc.log.debug(`${player.name} enter a gas station menu`);
 	}
 
 }
@@ -207,7 +223,9 @@ mp.events.add(
 
 	"sKeys-E" : (player) => {
 		if (!player.info || !player.info.loggedIn || !player.info.canOpen.gasStation) return;
-		openBuyerMenu(player);
+		const id = player.info.canOpen.gasStation;
+		const shop = business.getBusiness(id);
+		shop.openBuyerMenu(player);
 	},
 
 	"sGasStationFillUp" : (player, str) => {
@@ -220,24 +238,6 @@ mp.events.add(
 	
 });
 
-
-
-function openBuyerMenu(player) {
-	const id = player.info.canOpen.gasStation;
-	const shop = business.getBusiness(id);
-	const cars = JSON.stringify(shop.getCarsCanFillUp());
-
-	const str1 = `app.id = ${shop.id};`;
-	const str2 = `app.margin = ${shop.margin};`;
-	const str3 = `app.updatePriceForLitre();`;
-	const str4 = `app.updateCars('${cars}');`
-
-	let execute = str1 + str2 + str3 + str4;
-	
-	const lang = misc.getPlayerLang(player);
-	player.call("cGasStationMenu", [lang, execute, shop.camData]);
-	misc.log.debug(`${player.name} enter a gas station menu`);
-}	
 
 
 mp.events.addCommand(

@@ -2,10 +2,11 @@
 
 const misc = require('../sMisc');
 
-let cantBuyText, paymentText, taxPaymentText, enterText;
+let cantBuyText, paymentText, penaltyText, taxPaymentText, enterText;
 function updateLanguage(player) {
 	cantBuyText = "Not enough cash!";
 	paymentText = "New payment:";
+	penaltyText = "New penalty:";
 	taxPaymentText = "New tax payment:";
 	enterText = `Press ~b~E ~s~to open ATM Menu`;
 
@@ -13,12 +14,14 @@ function updateLanguage(player) {
 	if (lang === "rus") {
 		cantBuyText = "Недостаточно наличных!";
 		paymentText = "Новый чек:";
+		penaltyText = "Новый штраф:";
 		taxPaymentText = "Новый налоговый чек:";
 		enterText = `Нажмите ~b~E ~s~для входа в меню банкомата`;
 	}
 	else if (lang === "ger") {
 		cantBuyText = "Nicht genug Geld!";
 		paymentText = "Neue zahlung:";
+		penaltyText = "New penalty:"; // Need update
 		taxPaymentText = "Neue tax zahlung:"; // Need update
 		enterText = `Press ~b~E ~s~to open ATM Menu`; // Need update
 	}
@@ -67,6 +70,23 @@ async function addToBankMoneyOffline(name, value, comment) {
 	}
 }
 module.exports.addToBankMoneyOffline = addToBankMoneyOffline;
+
+
+async function addPenaltyOffline(name, value, comment) {
+	if (!misc.isValueNumber(value) || value < 0) return;
+	await misc.query(`UPDATE users SET pmoney = pmoney + ${value} WHERE username = '${name}'`);
+	for (let j = 0; j < mp.players.length; j++) {
+		const player = mp.players.at(j);
+		if (player.name === name) {
+			player.info.pmoney += value;
+			updateLanguage(player);
+			player.call("cMoneySendNotification", [`${penaltyText} ~r~$${value}. ~w~${comment}`]);
+			break;
+		}
+	}
+}
+module.exports.addPenaltyOffline = addPenaltyOffline;
+
 
 async function payTaxOffline(username, value, comment) {
 	if (!misc.isValueNumber(value) || value < 0) return;

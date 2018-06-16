@@ -92,7 +92,7 @@ mp.events.add(
     },
     
     "playerQuit" : (player, exitType, reason) => {
-        if (!player.info || !player.info.loggedIn) return;
+        if (!misc.isPlayerLoggedIn(player)) return;
         savePlayerAccount(player);
     },
 
@@ -169,6 +169,6 @@ async function loadPlayerAccount(player) {
     player.call("cMoneyUpdate", [d[0].money]);
     player.call("cCloseCefAndDestroyCam");
     player.outputChatBox("Choose your language: /setlang [language]! Available languages: eng, rus, ger.");
-    player.outputChatBox("Spawn a vehicle: /v [model]. E.g. /v neon");
+    player.outputChatBox("Spawn a vehicle: /veh");
     player.outputChatBox("Global chat: /g [message]");
 }

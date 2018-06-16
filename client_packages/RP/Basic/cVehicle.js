@@ -21,10 +21,11 @@ mp.events.add(
 	
 	"render" : () => {
 		if (mp.gui.cursor.visible || !player.vehicle) return;
-		speed = misc.roundNum(player.vehicle.getSpeed() * 4);
-		player.vehicle.setLightMultiplier(4);
+		const vehicle = player.vehicle;
+		speed = misc.roundNum(vehicle.getSpeed() * 4);
+		vehicle.setLightMultiplier(4);
 		if (showSpeedText) showSpeed();
-		if (fuel !== null && player.vehicle.getIsEngineRunning()) showFuel();
+		if (fuel !== null && vehicle.getIsEngineRunning()) showFuel();
 
 	},
 	
@@ -34,6 +35,7 @@ mp.events.add(
 
 	"cVehicle-setLights" : (vehicle, state) => {
 		vehicle.setLights(state);
+		vehicle.setWindowTint(4);
 	},
 
 	"cVehicle-rollUpWindow" : (vehicle, window) => {
@@ -55,6 +57,8 @@ function showSpeed() {
 		scale: [0.6, 0.6], 
 	});
 	if (speed === 0) vehicle.setBrakeLights(true);
+
+	//vehicle.setHandling("FCOLLISIONDAMAGEMULT", 2);
 }
 
 function showFuel() {
@@ -70,7 +74,7 @@ function showFuel() {
 
 	fuel -= (rpm + (speed * 400)) / gear * fuelRate * Math.pow(5, -13);
 
-	if (fuel < 1) {
+	if (fuel < 0.1) {
 		mp.events.callRemote('sVehicle-SetFuel', vehicle, fuel); 
 	}
 }

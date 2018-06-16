@@ -9,6 +9,7 @@ require('./Basic/sLoyality');
 require('./Character/sCharacterCreator');
 require('./Character/sClothes');
 require('./Jobs/sOrangeCollector');
+require('./Jobs/sCBDeliveryMen');
 require('./Business/sBusiness');
 require('./Business/sClothingShop');
 require('./Business/sCheapCarDealership');

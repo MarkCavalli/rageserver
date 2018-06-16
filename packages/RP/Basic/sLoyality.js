@@ -33,7 +33,7 @@ function removeLoyality(player, value) {
 	if (player.info.loyality < 0) player.info.loyality = 0;
 	showNotification(player, value);
 }
-module.exports.addLoyality = addLoyality;
+module.exports.removeLoyality = removeLoyality;
 
 
 function showNotification(player, value) {

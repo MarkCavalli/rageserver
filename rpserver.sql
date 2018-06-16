@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 11 2018 г., 15:49
+-- Время создания: Июн 16 2018 г., 20:16
 -- Версия сервера: 5.7.20
 -- Версия PHP: 5.5.38
 
@@ -110,13 +110,15 @@ CREATE TABLE `users` (
   `money` bigint(20) NOT NULL DEFAULT '0',
   `bmoney` bigint(20) NOT NULL DEFAULT '0',
   `tmoney` bigint(20) NOT NULL DEFAULT '0',
+  `pmoney` bigint(20) NOT NULL DEFAULT '0',
   `position` text,
   `dim` int(11) NOT NULL DEFAULT '0',
   `signupdate` varchar(255) DEFAULT NULL,
   `lastlogindate` varchar(255) DEFAULT NULL,
   `adminlvl` tinyint(4) NOT NULL DEFAULT '0',
   `hasBusiness` tinyint(1) NOT NULL DEFAULT '0',
-  `lang` varchar(3) NOT NULL DEFAULT 'eng'
+  `lang` varchar(3) NOT NULL DEFAULT 'eng',
+  `loyality` int(255) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

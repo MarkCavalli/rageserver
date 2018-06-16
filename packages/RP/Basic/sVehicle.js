@@ -47,11 +47,11 @@ mp.events.add({
 
 	"sVehicle-SetFuel" : (player, vehicle, fuel) => {
 		vehicle.info.fuel = misc.roundNum(fuel, 3);
-		if (fuel <= 1) vehicle.engine = false;
+		if (fuel <= 0.1) vehicle.engine = false;
 	},
 
 	"sKeys-Num0" : (player) => {
-		if (!isDriver(player) || player.vehicle.info.fuel <= 1) return;
+		if (!isDriver(player) || player.vehicle.info.fuel <= 0.1) return;
 		toggleVehEngine(player.vehicle);
 	},
 
@@ -134,7 +134,6 @@ function toggleVehLock(player, vehicle) {
 			setTimeout(blinkLights, 600, vehicle);
 		}
 	}
-
 	vehicle.locked = !vehicle.locked;
 }
 
@@ -355,8 +354,14 @@ module.exports.savePlayerVehicles = savePlayerVehicles;
 
 
 function fillUpVehicle(vehicle, litres) {
-	if (!misc.isValueNumber(litres) || vehicle.info.fuel + litres > vehicle.info.fuelTank) return;
-	vehicle.info.fuel += litres;
+	if (!misc.isValueNumber(litres)) return;
+	if (vehicle.info.fuel + litres > vehicle.info.fuelTank) {
+		vehicle.info.fuel = vehicle.info.fuelTank;
+	}
+	else {
+		vehicle.info.fuel += litres;
+	}
+	
 }
 module.exports.fillUpVehicle = fillUpVehicle
 
@@ -365,6 +370,7 @@ module.exports.fillUpVehicle = fillUpVehicle
 mp.events.addCommand(
 {	
 	'v' : (player, fullText, model) => {  // Temporary vehicle spawning
+		if (player.info.adminLvl < 1) return;
 		if (!model) return player.notify("Model requred");
 		const vehicle = mp.vehicles.new(model, player.position,
 		{
@@ -389,12 +395,39 @@ mp.events.addCommand(
 		}
 
 		misc.log.debug(`${player.name} spawned ${model}`);
-		player.notify('Unlock: num 5');
-		player.notify('Toggle engine: num 0');
+		player.putIntoVehicle(vehicle, -1)
 	},
 
 	'vmod' : (player, fullText, a, b) => { 
 		player.vehicle.setMod(parseInt(a), parseInt(b));
+	},
+
+	'veh' : (player) => {  // Temporary vehicle spawning
+		const vehicle = mp.vehicles.new("faggio2", player.position,
+		{
+			heading: player.heading,
+			dimension: 0,
+			locked: true,
+			engine: false,
+		});
+	
+		const color = misc.getRandomInt(0, 159);
+		vehicle.setColor(color, color);
+		vehicle.numberPlate = generateRandomNumberPlate();
+	
+		vehicle.info = {
+			title: "Pegassi Faggio",
+			fuel: 0.2,
+			fuelTank: 5,
+			fuelRate: 1.5,
+			owner: "gov",
+			whoCanOpen: [player.name],
+			windowsOpened: [false, false, false, false],
+		}
+
+		misc.log.debug(`${player.name} spawned faggio2`);
+		player.notify('Unlock: num 5');
+		player.notify('Toggle engine: num 0');
 	},
 
 
