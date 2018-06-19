@@ -1,0 +1,12 @@
+require('./cMisc.js');
+require('./cKeys.js');
+require('./Basic/cLogin.js');
+require('./Basic/cMoney.js');
+require('./Basic/cVehicle.js');
+require('./Character/cCharacterCreator.js');
+require('./Character/cClothes.js');
+require('./Jobs/cOrangeCollector.js');
+require('./Business/cBusiness.js');
+require('./Business/cClothingShop.js');
+require('./Business/cCheapCarDealership.js');
+require('./Business/cGasStation.js');

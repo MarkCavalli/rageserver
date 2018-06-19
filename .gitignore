@@ -7,3 +7,5 @@ conf.json
 bt.dat
 *.log
 /plugins/*
+/packages/*
+/client_packages/*

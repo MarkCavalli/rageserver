@@ -1,0 +1,156 @@
+﻿html {
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  font-family: Segoe UI;
+  font-weight: 100;
+  color: #DDD;
+  text-align: center;
+}
+
+.b3-close {
+  background: coral;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 6vh;
+  height: 3vh;
+  font-size: 2vh;
+  transition: 0.3s;
+  z-index: 2;
+}
+
+.b3-close:hover {
+  background: tomato;
+}
+
+.b1-logo {
+  background: #268F3A;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 40vh;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  position: fixed;
+  transition: 1s;
+}
+
+.logoLoading {
+  height: 100vh;
+}
+
+
+.logo {
+  margin: auto;
+  /*height: 40vh;*/
+}
+
+.b1-tax {
+  text-transform: uppercase;
+  font-size: 2.5vh;
+  color: white;
+}
+
+.b2 {
+  position: fixed;
+  left: 0;
+  top: 40vh;
+  width: 100%;
+  height: 70vh;
+}
+
+.b2-gs {
+  width: 100%;
+  background: #DDD;
+  border-bottom: 1px solid #777;
+  display: flex;
+  padding: 2vh 0;
+}
+
+.b2-gs-item {
+  width: 100%;
+  text-align: center;
+  border-left: 1px solid #777;
+  font-size: 3vh;
+  color: green;
+  padding: 0 1vw;
+}
+
+.b2-gs-item:nth-child(1) {
+  border-left: 1px solid transparent;
+}
+
+.b2-title {
+  color: #777;
+}
+
+.gs-main {
+  font-size: 3vh;
+}
+
+.gs-info {
+  font-size: 1.5vh;
+  color: #777;
+  text-transform: uppercase;
+}
+
+.gs-dollar-before:before {
+  content: "$";
+}
+
+.gs-percent-after:after {
+  content: "%";
+}
+
+.b2-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 42vh;
+  position: relative;
+}
+
+.b2-button {
+  width: calc(100% - 40vw);
+  background: #268F3A;
+  text-align: center;
+  margin: auto 20vw;
+  color: #EEE;
+  font-size: 2vh;
+  padding: 2vh 0;
+  text-transform: uppercase;
+  transition: 0.3s;
+  position: relative;
+}
+
+.b2-button:hover {
+  background: green;
+  color: #ddd;
+}
+
+.b2-cb {
+  position: absolute;
+  top: 0;
+  padding: 2vh 0;
+  width: 7vh;
+  color: white;
+  transition: 0.3s;
+}
+
+.b2-cb_left {
+  left: 0;
+}
+
+.b2-cb_left:hover {
+  background: tomato;
+}
+
+.b2-cb_right {
+  right: 0;
+}
+
+.b2-cb_right:hover {
+  background: limegreen;
+}
