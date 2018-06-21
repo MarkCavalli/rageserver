@@ -26,6 +26,14 @@ function updateLanguage(player) {
 		enterText = `Drücken Sie ~b~ E ~s~, um das Business-Menü zu öffnen`;
 		doneText = "Erledigt!";
 	}
+	
+	else if (lang === "br") {
+		ownText = "Você não pode possuir mais de 1 negócio!";
+		boughtText = "Você comprou um negócio!";
+		taxText = "Imposto para negócios №";
+		enterText = `Pressione ~b~ E ~s~, para abrir o menu de Negócios`;
+		doneText = "Finalizar!";
+	}
 
 }
 

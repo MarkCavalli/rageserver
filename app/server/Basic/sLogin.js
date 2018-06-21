@@ -127,8 +127,8 @@ mp.events.addCommand(
     },
     
     'setlang' : (player, fullText, lang) => { 
-		if (lang !== "eng" && lang !== "rus" && lang !== "ger") {
-            return player.outputChatBox("Server does not support your language! Available languages: eng, rus, ger.");
+		if (lang !== "eng" && lang !== "rus" && lang !== "ger" && lang !== "br") {
+            return player.outputChatBox("Server does not support your language! Available languages: eng, rus, ger, br.");
         }
         player.notify(`Current language: ~g~${lang}`);
         misc.query(`UPDATE users SET lang = '${lang}' WHERE username = '${player.name}'`);
@@ -168,7 +168,7 @@ async function loadPlayerAccount(player) {
     player.dimension = d[0].dim;
     player.call("cMoneyUpdate", [d[0].money]);
     player.call("cCloseCefAndDestroyCam");
-    player.outputChatBox("Choose your language: /setlang [language]! Available languages: eng, rus, ger.");
+    player.outputChatBox("Choose your language: /setlang [language]! Available languages: eng, rus, ger, br.");
     player.outputChatBox("Spawn a vehicle: /veh");
     player.outputChatBox("Global chat: /g [message]");
 }

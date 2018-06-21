@@ -15,6 +15,10 @@ function updateLanguage(player) {
 	else if (lang === "ger") {
 		someoneText = "Jemand";
 	}
+	
+	else if (lang === "br") {
+		someoneText = "Alguém";
+	}
 
 }
 

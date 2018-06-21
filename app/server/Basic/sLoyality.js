@@ -11,6 +11,9 @@ function updateLanguage(player) {
 	if (lang === "rus") {
 		loyalityText = "Лояльность: ";
 	}
+	else if (lang === "br") {
+		loyalityText = "Fidelidade: ";
+	}
 	
 
 }

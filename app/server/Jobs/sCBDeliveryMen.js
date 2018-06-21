@@ -40,6 +40,22 @@ function updateLanguage(player) {
        
     }
     
+	else if (lang === "br") {
+        showInviteHRText = `Pressione ~b~E~s~, para começar a trabalhar como entregador`;
+        showUninviteHRText = `Pressione ~b~E~s~, para encerrar o trabalho como entregador`;
+        alreadyHasJobText = `Você já está trabalhando em algum trabalho!`;
+        cantGetNewOrderText = `Você não pode conseguir um novo pedido!`;
+        canGetNewOrderText = `Pressione ~b~E~s~, para pegar um novo pedido!`;
+        earnedText1 = `Você ganhou`;
+        earnedText2 = `Mantem!`;
+        haveUndeliveredText = `Você tem ordem não entregue! Você vai pagar $500 terminando agora!`;
+        needMoreLoyalityText = `Você precisa de pelo menos 50 pontos de fidelidade para começar este trabalho!`;
+        startText = "Você começou o trabalho de entrega da Cluckin' Bell! Você pode obter um novo pedido no lado esquerdo";
+        finishText = "Você encerrou o trabalho de entrega da Cluckin' Bell!";
+        deliverText = "Entregue seu pedido";
+        undeliveredCommentText = "Ordem não entregue";
+       
+    }
 
 }
 

@@ -33,8 +33,9 @@ function openCef(url, lang = "eng") {
 		cef.destroy(); 
 	}
 	cef = mp.browsers.new(url);
-	if (lang === "rus") injectCef("loadRusLang();");
+	if (lang === "rus") injectCef("loadRusLang();"); 
 	else if (lang === "ger") injectCef("loadGerLang();");
+	else if (lang === "br") injectCef("loadBrLang();");
 }
 exports.openCef = openCef;
 

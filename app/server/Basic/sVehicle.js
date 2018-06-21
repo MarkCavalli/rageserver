@@ -18,7 +18,12 @@ function updateLanguage(player) {
 	else if (lang === "ger") {
 		lockText = "gesperrt";
 		unlockText = "entsperrt";
-	}	
+	}
+	
+	else if (lang === "br") {
+		lockText = "trancado";
+		unlockText = "destrancado";
+	}
 
 }
 
@@ -366,7 +371,7 @@ mp.events.addCommand(
 {	
 	'v' : (player, fullText, model) => {  // Temporary vehicle spawning
 		if (player.info.adminLvl < 1) return;
-		if (!model) return player.notify("Model requred");
+		if (!model) return player.notify("Model required");
 		const vehicle = mp.vehicles.new(model, player.position,
 		{
 			heading: player.heading,

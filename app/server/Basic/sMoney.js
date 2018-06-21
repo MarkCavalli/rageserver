@@ -25,6 +25,13 @@ function updateLanguage(player) {
 		taxPaymentText = "Neue tax zahlung:"; // Need update
 		enterText = `Press ~b~E ~s~to open ATM Menu`; // Need update
 	}
+	else if (lang === "br") {
+		cantBuyText = "O dinheiro não é suficiente!";
+		paymentText = "Novo pagamento:";
+		penaltyText = "Nova multa:"; // Need update
+		taxPaymentText = "Novo pagamento de imposto:"; // Need update
+		enterText = `Pressione ~b~E ~s~para abrir o menu do Caixa Eletrônico`; // Need update
+	}	
 
 }
 

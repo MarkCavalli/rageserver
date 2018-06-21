@@ -21,6 +21,11 @@ function updateLanguage(player) {
 		doneText = "Erledigt!";
 		enterText = `Drücken Sie ~b~ E ~s~, um das Bekleidungsgeschäft zu öffnen`;
 	}
+	
+	else if (lang === "br") {
+		doneText = "Finalizar!";
+		enterText = `Pressione ~b~ E ~s~, para abrir o menu da Loja de Roupas`;
+	}
 
 }
 
