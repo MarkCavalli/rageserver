@@ -30,6 +30,14 @@ function updateLanguage(player) {
 		goodJourneyText = "Gute weiter Reise!";
 		offEngineText = "Bitte schalte den Motor ab!"
 	}
+	
+	else if (lang === "br") {
+		doneText = "Finalizar!";
+		enterText = "Pressione ~b~ E ~s~, para abrir o menu do Posto de Gasolina";
+		priceForLitreText = "Preço por litro:";
+		goodJourneyText = "Tenha uma boa viagem!";
+		offEngineText = "Por favor desligue o motor!"
+	}
 
 }
 

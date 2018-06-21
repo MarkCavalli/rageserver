@@ -46,6 +46,18 @@ function updateLanguage(player) {
         errorText = "You are already working on some job!"; // Need update
     }
     
+	else if (lang === "br") {
+        startText = "Você começou o trabalho coletar laranja!";
+        collectedText1 = "Você tem";
+        collectedText2 = "laranjas no seu balde!";
+        fullText = "Seu balde está cheio! Leve para o trailer!";
+        emptyText = `Seu balde está vazio!`;
+        earnedText1 = `Você ganhou`;
+        earnedText2 = `Continue assim, bom trabalho!`;
+        finishText = "Você encerrou o trabalho de coletar laranjas!";
+        enterText = `Pressione ~b~E ~s~para abrir o Menu`;   // Need update
+        errorText = "Você já está trabalhando em algum trabalho!"; // Need update
+    }
 
 }
 
