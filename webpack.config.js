@@ -1,6 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
     externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
     plugins: [
         new CopyWebpackPlugin([
-            { from: 'app/client/Browsers', to: 'client_packages/Browsers' }
+            { from: 'app/client/Browsers', to: 'client_packages/RP/Browsers' }
         ])
     ]
 };
