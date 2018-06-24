@@ -42,3 +42,8 @@ mp.keys.bind(105, false, function() {     // Num 9
     if (mp.gui.cursor.visible) return;
     mp.events.callRemote('sKeys-Num9');
 });
+
+mp.keys.bind(115, false, function() {     // Num F4
+    if (mp.gui.cursor.visible) return;
+    mp.events.callRemote('sKeys-F4');
+});

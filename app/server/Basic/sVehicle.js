@@ -393,7 +393,7 @@ mp.events.addCommand(
 			whoCanOpen: [player.name],
 			windowsOpened: [false, false, false, false],
 		}
-
+		player.putIntoVehicle(vehicle, -1);
 		misc.log.debug(`${player.name} spawned ${model}`);
 	},
 

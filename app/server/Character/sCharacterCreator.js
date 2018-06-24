@@ -70,7 +70,7 @@ mp.events.add(
 	},
 
 	"sCharCreatorSaveFaceOptions" : async (player, strJSON) => {
-		await misc.query(`UPDATE userskins SET facedata = '${strJSON}', skin = ${player.model} WHERE id = '${player.info.id}'`);
+		await misc.query(`UPDATE userskins SET facedata = '${strJSON}', skin = '${player.model}' WHERE id = '${player.info.id}'`);
 		await loadPlayerAppearance(player);
 		player.heading = 48;
 		player.position = new mp.Vector3(-164, 6426, 32);

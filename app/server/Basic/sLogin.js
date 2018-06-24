@@ -6,6 +6,8 @@ const clothes = require('../Character/sClothes');
 const crypto = require('crypto');
 const vehicleAPI = require('./sVehicle');
 const loyality = require('./sLoyality');
+const faction = require('./../Factions/sFaction');
+const hospital = require('./../Factions/sHospital');
 
 
 function hashPassword(str) {
@@ -68,7 +70,8 @@ mp.events.add(
         const position = misc.convertOBJToJSON(firstSpawn, 48);
         const query1 = misc.query(`INSERT INTO users (username, password, money, position, dim, signupdate) VALUES ('${player.name}', '${newPass}', '1500', '${position}', '0', '${new Date()}')`);
         const query2 = charCreator.insertNewUser();
-        await Promise.all([query1, query2]);
+        const query3 = faction.insertNewUser();
+        await Promise.all([query1, query2, query3]);
         setTimeout(showLoginCef, 2000, player);
         misc.log.debug(`${player.name} register an account`);
         player.info = {
@@ -88,17 +91,13 @@ mp.events.add(
         await charCreator.loadPlayerAppearance(player);
         await clothes.loadPlayerClothes(player);
         await vehicleAPI.loadPlayerVehicles(player);
+        hospital.loadPlayerAccount(player);
         misc.log.debug(`${player.name} logged in`);
     },
     
     "playerQuit" : (player, exitType, reason) => {
         if (!misc.isPlayerLoggedIn(player)) return;
         savePlayerAccount(player);
-    },
-
-    "playerDeath" : (player, reason, killer) => { // Temporary Respawn;
-        player.spawn(new mp.Vector3(player.position));
-        player.health = 90;
     },
 
 });
@@ -140,7 +139,7 @@ mp.events.addCommand(
 
 function savePlayerAccount(player) {
     const position = misc.convertOBJToJSON(player.position, player.heading, 0.1);
-    misc.query(`UPDATE users SET position = '${position}', dim = '${player.dimension}', lastlogindate = '${new Date()}' WHERE username = '${player.name}'`);
+    misc.query(`UPDATE users SET position = '${position}', dim = '${player.dimension}', lastlogindate = '${new Date()}', health = '${player.health}' WHERE username = '${player.name}'`);
     vehicleAPI.savePlayerVehicles(player.name);
     loyality.saveLoyality(player.name, player.info.loyality);
     misc.log.debug(`${player.name} disconnected`);
@@ -163,12 +162,15 @@ async function loadPlayerAccount(player) {
         hasBusiness: d[0].hasBusiness,
         lang: d[0].lang,
         loyality: d[0].loyality,
+        hospital: {},
     }
     misc.setPlayerPosFromJSON(player, d[0].position);
     player.dimension = d[0].dim;
+    player.health = d[0].health;
     player.call("cMoneyUpdate", [d[0].money]);
     player.call("cCloseCefAndDestroyCam");
     player.outputChatBox("Choose your language: /setlang [language]! Available languages: eng, rus, ger, br.");
     player.outputChatBox("Spawn a vehicle: /veh");
     player.outputChatBox("Global chat: /g [message]");
+    
 }

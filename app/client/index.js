@@ -10,3 +10,4 @@ require('./Business/cBusiness.js');
 require('./Business/cClothingShop.js');
 require('./Business/cCheapCarDealership.js');
 require('./Business/cGasStation.js');
+require('./Factions/cHospital.js');

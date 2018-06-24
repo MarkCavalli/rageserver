@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 16 2018 г., 20:16
+-- Время создания: Июн 24 2018 г., 16:41
 -- Версия сервера: 5.7.20
 -- Версия PHP: 5.5.38
 
@@ -88,6 +88,19 @@ CREATE TABLE `clothingshop` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `faction`
+--
+
+CREATE TABLE `faction` (
+  `id` int(255) NOT NULL,
+  `factionName` varchar(255) DEFAULT NULL,
+  `rank` int(2) DEFAULT '0',
+  `factionInfo` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `gasstation`
 --
 
@@ -118,7 +131,8 @@ CREATE TABLE `users` (
   `adminlvl` tinyint(4) NOT NULL DEFAULT '0',
   `hasBusiness` tinyint(1) NOT NULL DEFAULT '0',
   `lang` varchar(3) NOT NULL DEFAULT 'eng',
-  `loyality` int(255) NOT NULL DEFAULT '0'
+  `loyality` int(255) NOT NULL DEFAULT '0',
+  `health` int(4) NOT NULL DEFAULT '100'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -129,7 +143,7 @@ CREATE TABLE `users` (
 
 CREATE TABLE `userskins` (
   `id` int(11) NOT NULL,
-  `skin` int(11) NOT NULL DEFAULT '0',
+  `skin` bigint(255) NOT NULL DEFAULT '0',
   `skindata` varchar(15) DEFAULT NULL,
   `facedata` varchar(121) DEFAULT NULL,
   `hats` text,
@@ -168,6 +182,12 @@ ALTER TABLE `clothingshop`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `faction`
+--
+ALTER TABLE `faction`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `gasstation`
 --
 ALTER TABLE `gasstation`
@@ -193,43 +213,49 @@ ALTER TABLE `userskins`
 -- AUTO_INCREMENT для таблицы `business`
 --
 ALTER TABLE `business`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `cars`
 --
 ALTER TABLE `cars`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `cheapcardealership`
 --
 ALTER TABLE `cheapcardealership`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `clothingshop`
 --
 ALTER TABLE `clothingshop`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `faction`
+--
+ALTER TABLE `faction`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `gasstation`
 --
 ALTER TABLE `gasstation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `userskins`
 --
 ALTER TABLE `userskins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

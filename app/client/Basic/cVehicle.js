@@ -26,7 +26,7 @@ mp.events.add(
 		vehicle.setLightMultiplier(4);
 		if (showSpeedText) showSpeed();
 		if (fuel !== null && vehicle.getIsEngineRunning()) showFuel();
-
+		if (speed === 0) vehicle.setBrakeLights(true);
 	},
 	
 	"playerLeaveVehicle" : () => {
@@ -56,10 +56,7 @@ function showSpeed() {
 		color: [255, 255, 255, 255], 
 		scale: [0.6, 0.6], 
 	});
-	if (speed === 0) vehicle.setBrakeLights(true);
 
-	vehicle.setHandling("FCOLLISIONDAMAGEMULT", 10);
-	vehicle.setHandling("FDEFORMATIONDAMAGEMULT", 10);
 }
 
 function showFuel() {
@@ -79,3 +76,18 @@ function showFuel() {
 		mp.events.callRemote('sVehicle-SetFuel', vehicle, fuel); 
 	}
 }
+
+mp.keys.bind(71, false, function() {     // G
+    if (mp.gui.cursor.visible || player.vehicle) return;
+	const pos = player.position;
+	const vehHandle = mp.game.vehicle.getClosestVehicle(pos.x, pos.y, pos.z, 5, 0, 70);
+	const vehicle = mp.vehicles.atHandle(vehHandle);
+
+	if (!vehicle || !vehicle.isAnySeatEmpty() || vehicle.getSpeed() > 5) return;
+
+	for (let i = 0; i < vehicle.getMaxNumberOfPassengers(); i++) {
+		if (!vehicle.isSeatFree(i)) continue;
+		player.taskEnterVehicle(vehicle.handle, 5000, i, 1, 1, 0);
+		break;
+	}	
+});

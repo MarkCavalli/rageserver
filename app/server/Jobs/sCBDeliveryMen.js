@@ -67,6 +67,22 @@ class deliveryJob {
         this.deliveryPoints = [
             {x: -198.063, y: 6234.902, z: 31.5 },
             {x: -298.398, y: 6191.967, z: 31.489 },
+            {x: -342.872, y: 6098.942, z: 31.332 },
+            {x: -381.071, y: 6061.897, z: 31.5},
+            {x: -395.839, y: 6077.874, z: 31.5 },
+            {x: -366.815, y: 6101.681, z: 35.44 },
+            {x: -414.46, y: 6173.699, z: 31.478 },
+            {x: -373.985, y: 6187.07, z: 31.536 },
+            {x: -365.139, y: 6206.338, z: 31.573 },
+            {x: -346.794, y: 6224.036, z: 31.511 },
+            {x: -309.96, y: 6273.621, z: 31.492 },
+            {x: -260.763, y: 6291.354, z: 31.484 },
+            {x: -213.063, y: 6358.329, z: 31.492 },
+            {x: -216.438, y: 6375.306, z: 31.518 },
+            {x: -236.293, y: 6421.802, z: 31.204 },
+            {x: -218.095, y: 6454.488, z: 31.199 },
+            {x: -110.337, y: 6457.95, z: 31.466 },
+            {x: -33.145, y: 6455.303, z: 31.476 },           
         ];
         this.deliveryPointsList = [];
     }
@@ -86,7 +102,7 @@ class deliveryJob {
 		{	
             name: "Cluckin' Bell Factory",
 			shortRange: true,
-            scale: 1,
+            scale: 0.7,
             color: 60,
         });
         this.hrBlip = hrBlip;
@@ -176,7 +192,7 @@ class deliveryJob {
         };
         player.notify(finishText);
         this.getOrderMarker.hideFor(player);
-        player.setClothes(5, 0, 0);
+        misc.log.debug(`${player.name} finished Cluckin Bell delivery job`);
     }
 
     invite(player) {
@@ -191,7 +207,7 @@ class deliveryJob {
         };
         player.notify(startText);
         this.getOrderMarker.showFor(player);
-        player.setClothes(5, 45, 0);
+        misc.log.debug(`${player.name} started Cluckin Bell delivery job`);
     }
 
     generateNewOrder(player) {
@@ -246,6 +262,7 @@ class deliveryJob {
             loyality.addLoyality(player, 1);
         }
         this.cancelCurrentOrder(player);
+        misc.log.debug(`${player.name} earned $${earnedMoney}`);
     }
 }
 

@@ -48,7 +48,8 @@ module.exports.changeWeather = changeWeather;
 
 function changeWeatherTo(number) {
 	currentWeather = number;
-	mp.world.weather = weathers[number];
+	//mp.world.weather = weathers[number];
+	mp.world.setWeatherTransition(weathers[number]);
 	misc.log.trace(`Current weather: ${weathers[number]}`);
 }
 
@@ -86,7 +87,7 @@ mp.events.addCommand(
 		if (player.info.adminLvl < 1) {
 			return;
 		}
-		mp.world.weather = weathers[id];
+		changeWeatherTo(+id);
 		player.outputChatBox("Current weather: " +weathers[id]);
 	},
 	

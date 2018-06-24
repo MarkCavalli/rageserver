@@ -2,6 +2,7 @@
 
 const weather = require('./sWeather');
 const business = require('./../Business/sBusiness');
+const hospital = require('./../Factions/sHospital');
 
 let timer = 0;
 const changeTime = async (currentDate, isFirstRunning) => {
@@ -10,6 +11,7 @@ const changeTime = async (currentDate, isFirstRunning) => {
 	if (isFirstRunning) {
 		return;
 	}
+	everyMinuteEvent();
 	if (currentDate.getMinutes() === 0) {
 		everyhourEvent();
 	}
@@ -48,4 +50,8 @@ function everyhourEvent() {
 
 function every5MinutesEvent() {
 	weather.changeWeather();
+}
+
+function everyMinuteEvent() {
+	hospital.healEvent();
 }

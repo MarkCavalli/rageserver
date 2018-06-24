@@ -14,3 +14,4 @@ require('./Business/sBusiness');
 require('./Business/sClothingShop');
 require('./Business/sCheapCarDealership');
 require('./Business/sGasStation');
+require('./Factions/sHospital');
