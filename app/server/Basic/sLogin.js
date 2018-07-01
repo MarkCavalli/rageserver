@@ -91,6 +91,7 @@ mp.events.add(
         await charCreator.loadPlayerAppearance(player);
         await clothes.loadPlayerClothes(player);
         await vehicleAPI.loadPlayerVehicles(player);
+        await faction.loadPlayerAccount(player);
         hospital.loadPlayerAccount(player);
         misc.log.debug(`${player.name} logged in`);
     },

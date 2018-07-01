@@ -1,5 +1,16 @@
 "use strict"
 
+const misc = require('../cMisc');
+const player = mp.players.local;
+
+
+function showDoctorCef(lang, inject) {
+	misc.prepareToCef(500);
+	misc.openCef("package://RP/Browsers/Hospital/interactiveMenu.html", lang);
+	misc.injectCef(inject);
+}
+
+
 mp.events.add(
 {
 	
@@ -9,7 +20,19 @@ mp.events.add(
 	
 	"cHospital-DisableHealthRegeneration" : () => {
 		mp.game.player.setHealthRechargeMultiplier(0.0);
-	}
+	},
+
+	"cHospitalShowDoctorMenu" : (lang, inject) => {
+		showDoctorCef(lang, inject);
+	},
+
+	"cHospital-IncreaseHealingSpeed" : (id) => {
+		mp.events.callRemote('sHospital-IncreaseHealingSpeed', id);
+	},
+	
+	"cHospital-Heal" : (id) => {
+		mp.events.callRemote('sHospital-Heal', id);
+	},
 	
 });
 

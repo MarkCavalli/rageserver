@@ -126,7 +126,10 @@ module.exports.getPlayerLang = getPlayerLang;
 function getNearestPlayerInRange(player, range) {
 	let playersInRange = [];
 	mp.players.forEachInRange(player.position, range, (pl) => {
-		playersInRange.push(pl);
+		if (player.name !== pl.name) {
+			playersInRange.push(pl);
+		}
+		
 	});
 	let nearestPl = playersInRange[0];
 	for (let i = 1; i < playersInRange.length; i++) {

@@ -1,0 +1,73 @@
+﻿<html>
+	<link rel="stylesheet" href="interactiveMenu.css">
+	<body>
+		<section id="app">
+	
+			<div class="b-patient">
+				{{ patientName }}<br>
+				<span>{{ currentPatientText }}</span>
+			</div>
+		
+			<section class="items">
+				<div class="item" v-on:click="increase">
+					<div>{{ increaseText }}</div>
+					<div class="item_price">$500</div>
+				</div>
+				<div class="item" v-on:click="heal">
+					<div>{{ healText }}</div>
+					<div class="item_price">$5 000</div>
+				</div>
+			</section>
+			
+			<div class="b3-close" id="close-button" v-on:click="exit">X</div>
+		</section>
+		
+		<script src="../vue.js"></script>
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+el: '#app',
+data: {
+	patientId: 0,
+	patientName: "",
+	currentPatientText: "Current patient", 
+	increaseText: "Increase healing speed",
+	healText: "Heal",
+},
+methods: {
+	increase: function() {
+		mp.trigger("cHospital-IncreaseHealingSpeed", this.patientId);
+		this.exit();
+	},
+	
+	heal: function() {
+		mp.trigger("cHospital-Heal", this.patientId);
+		this.exit();
+	},
+
+
+	exit: function() {
+		mp.trigger("cCloseCef"); 
+	},
+}
+});
+
+
+
+function loadRusLang() {
+	app.currentPatientText = "Текущий пациент";
+	app.increaseText = "Увеличить скорость выздоровления";
+	app.healText = "Вылечить";
+}
+
+function loadGerLang() {
+	
+}
+
+function loadBrLang() {
+	
+}
+</script>

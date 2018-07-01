@@ -58,6 +58,7 @@ class gasStation extends business {
 	}
 
 	createFillingColshape() {
+		if (!this.fillingCoord) return;
 		const colshape = mp.colshapes.newSphere(this.fillingCoord.x, this.fillingCoord.y, this.fillingCoord.z, this.fillingCoord.r);
 		colshape.gasStationFillingId = this.id;
 		this.fillingShape = colshape;
@@ -119,6 +120,7 @@ class gasStation extends business {
 		vehicleAPI.fillUpVehicle(vehicleToFillUp, carData.litres);
 		updateLanguage(player);
 		player.notify("~g~" +doneText);
+		misc.log.debug(`${player.name} fill up car for $${price}`);
 	}
 
 	async updateFillingData(player, radius) {
@@ -277,3 +279,21 @@ mp.events.addCommand(
 });
 
 
+/* 
+
+How to add new gas station:
+
+1. /creategasstation [price]
+Go into business table and get the latest id
+
+2. /setbusbuyermenu [id]
+
+Restart server
+
+3. /setgasstationfillingpos [id] [radius]
+
+Restart server
+
+4. /setgasstationcamdata [id] [viewangle]
+
+*/

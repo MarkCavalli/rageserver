@@ -83,29 +83,42 @@ exports.destroyCam = destroyCam;
 
 
 mp.events.add(
-	{		
-		"cInjectCef" : (execute) => {
-			console.log(execute);
-			injectCef(execute);
-		},
+{		
+	"cInjectCef" : (execute) => {
+		injectCef(execute);
+	},
 
-		"cCloseCef" : () => {
-			closeCef();
-		},
+	"cCloseCef" : () => {
+		closeCef();
+	},
 
-		"cDestroyCam" : () => {
-			destroyCam();
-		},
-		
-		"cCloseCefAndDestroyCam" : () => {
-			closeCef();
-			destroyCam();
-		},
-
-		"cChangeHeading" : (angle) => {
-			player.setHeading(angle);
-		},
-		
+	"cDestroyCam" : () => {
+		destroyCam();
+	},
 	
-	});
+	"cCloseCefAndDestroyCam" : () => {
+		closeCef();
+		destroyCam();
+	},
+
+	"cChangeHeading" : (angle) => {
+		player.setHeading(angle);
+	},
+
+	"cMisc-CreateChooseWindow" : (lang, execute, confirmEvent, rejectEvent) => {
+		prepareToCef(500);
+		openCef("package://RP/Browsers/Misc/chooseWindow.html", lang);
+		const str1 = `app.confirmEvent = '${confirmEvent}';`;
+		const str2 = `app.rejectEvent = '${rejectEvent}';`;
+		const inject = execute + str1+ str2;
+		injectCef(inject);
+	},
+
+	"cMisc-ChooseEvent" : (eventName, id) => {
+		mp.events.callRemote(eventName, id);
+	},
+
+	
+
+});
 	
