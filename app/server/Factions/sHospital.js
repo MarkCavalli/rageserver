@@ -317,7 +317,7 @@ class doctorsClass extends sFaction {
 		if (!this.isInThisFaction(doctor) || !this.isWorking(doctor) || !patient || !this.isDistanceRight(doctor, patient)) return;
 		if (!patients.isHealing(patient)) {
 			doctor.notify(`~r~${patient.name} isn't healing right now!`);
-			patient.notify(`~r~$You're not healing right now!`);
+			patient.notify(`~r~You're not healing right now!`);
 			return;
 		}
 		if (!this.setCurrentClient(doctor, patient)) return;
