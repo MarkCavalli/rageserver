@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июн 24 2018 г., 16:41
--- Версия сервера: 5.7.20
+-- Время создания: Июл 01 2018 г., 21:58
+-- Версия сервера: 5.6.38
 -- Версия PHP: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -94,7 +94,7 @@ CREATE TABLE `clothingshop` (
 CREATE TABLE `faction` (
   `id` int(255) NOT NULL,
   `factionName` varchar(255) DEFAULT NULL,
-  `rank` int(2) DEFAULT '0',
+  `factionRank` int(2) DEFAULT '0',
   `factionInfo` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
