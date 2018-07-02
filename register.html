@@ -1,0 +1,64 @@
+﻿<html>
+	<link rel="stylesheet" href="register.css">
+	<body>
+		<div class="b-pos">
+			<div class="b">
+			<div class="b_title">Добро пожаловать!</div>
+			<div class="b_mess">
+				Это имя свободно! Вы можете зарегестрироваться!<br>Введите ваш пароль.
+			</div>
+			<input type="password" id="password" class="b_input" onkeyup="ent();" autofocus>
+			<div class="b_reg-button" id="btn" onclick="Reguser();" onkeydown="Reguser();">Регистрация</div>
+				<div class="b_reg-button b_reg-button_green" id="success">Успешно! Теперь вы можете войти в аккаунт!</div>
+				<div class="b_reg-button b_reg-button_red" id="error">Ошибка! Попробуйте другой пароль!</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+
+<script>
+let timeout = false;
+const error = get("error");
+const success = get("success");
+const pass = get("password");
+
+function get(id) {
+  return document.getElementById(id);
+}
+
+function Reguser() {
+	function clearTimeout() {
+		timeout = false;
+	}
+	if(timeout) {
+		return;
+	}
+	timeout = true;
+	if (pass.value != "") {
+		mp.trigger("cTryRegister", pass.value);
+	};
+	pass.value="";
+	setTimeout(clearTimeout, 2000);
+};
+
+
+function showError() {
+	error.style.display = "block";
+	setTimeout(hideError, 2000);
+}
+
+function hideError() {
+	error.style.display = "none";
+}
+
+function showSuccess() {
+	success.style.display = "block";
+	setTimeout(hideSuccess, 2000);
+}
+
+function hideSuccess() {
+	success.style.display = "none";
+}
+
+</script>
