@@ -1,17 +1,18 @@
 ﻿<html>
 	<link rel="stylesheet" href="register.css">
+	<script src="btn.js"></script>	
 	<body>
 		<div class="b-pos">
 			<div class="b">
-			<div class="b_title">Welcome!</div>
+			<div class="b_title">Добро пожаловать!</div>
 			<div class="b_mess">
-				Please enter your password.
+				Введите ваш пароль.
 			</div>
-			<input type="text" id="password" class="b_input" autofocus>
-			<div class="b_reg-button" onclick="Loguser();">Log in</div>
-				<div class="b_reg-button b_reg-button_green" id="success">Success! Loading account data...</div>
-				<div class="b_reg-button b_reg-button_red" id="error">Error! Wrong password!</div>
-				<div class="b_reg-button b_reg-button_red" id="defNameError">Seems you didn't changed default name</div>
+			<input type="password" id="password" class="b_input" onkeyup="ent();" autofocus>
+			<div class="b_reg-button" id="btn" onclick="Loguser();">Войти</div>
+				<div class="b_reg-button b_reg-button_green" id="success">Успешно! Загрузка данных аккаунта...</div>
+				<div class="b_reg-button b_reg-button_red" id="error">Ошибка! Неверный пароль!</div>
+				<div class="b_reg-button b_reg-button_red" id="defNameError">Видимо, вы не изменили стандартное имя</div>
 			</div>
 		</div>
 	</body>
