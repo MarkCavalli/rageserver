@@ -1,0 +1,78 @@
+﻿<html>
+	<link rel="stylesheet" href="register.css">
+	<script src="btn.js"></script>	
+	<body>
+		<div class="b-pos">
+			<div class="b">
+			<div class="b_title">IP-адрес изменился!</div>
+			<div class="b_mess">
+				Для обеспечения безопасности аккаунта введите ваш пароль и секретный ключ ниже.
+			</div>
+			<input type="password" id="password" class="b_input" autofocus>
+			<input type="password" id="skey" class="b_input" onkeyup="ent();" autofocus>
+			<div class="b_reg-button" id="btn" onclick="Loguser();">Войти</div>
+				<div class="b_reg-button b_reg-button_green" id="success">Успешно! Загрузка данных аккаунта...</div>
+				<div class="b_reg-button b_reg-button_red" id="error">Ошибка! Неверный ключ/пароль!</div>
+				<div class="b_reg-button b_reg-button_red" id="defNameError">Видимо, вы не изменили стандартное имя</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+
+<script>
+let timeout = false;
+const error = get("error");
+const success = get("success");
+const pass = get("password");
+
+function get(id) {
+  return document.getElementById(id);
+}
+
+function Loguser() {
+	function clearTimeout() {
+		timeout = false;
+	}
+	if(timeout) {
+		return;
+	}
+	timeout = true;
+	if (pass.value != "" && skey.value != "") {
+		mp.trigger("cTrycLogin", pass.value, skey.value);
+	};
+	pass.value="";
+	skey.value="";
+	setTimeout(clearTimeout, 2000);
+};
+
+
+function showError() {
+	error.style.display = "block";
+	setTimeout(hideError, 2000);
+}
+
+function hideError() {
+	error.style.display = "none";
+}
+
+function showSuccess() {
+	success.style.display = "block";
+	setTimeout(hideSuccess, 2000);
+}
+
+function hideSuccess() {
+	success.style.display = "none";
+}
+
+
+function showDefNameError() {
+	defNameError.style.display = "block";
+	setTimeout(hideDefNameError, 2000);
+}
+
+function hideDefNameError() {
+	defNameError.style.display = "none";
+}
+
+</script>
