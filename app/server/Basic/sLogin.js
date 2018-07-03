@@ -32,6 +32,10 @@ function showLoginCef(player) {
     player.call("cShowLoginCef", ["package://RP/Browsers/Login/login.html"]);
 }
 
+function showSkeyCef(player) {
+    player.call("cShowLoginCef", ["package://RP/Browsers/Login/skey.html"]);
+}
+
 function showRegisterCef(player) {
     player.call("cShowLoginCef", ["package://RP/Browsers/Login/register.html"]);
 }
@@ -41,7 +45,7 @@ mp.events.add(
     "playerReady" : async (player) => {
         player.spawn(new mp.Vector3(3222, 5376, 20));
         player.dimension = 1001;
-        const d = await misc.query(`SELECT username, password FROM users WHERE username = '${player.name}' LIMIT 1`);
+        const d = await misc.query(`SELECT username, password, ip, skey FROM users WHERE username = '${player.name}' LIMIT 1`);
         if (!d[0]) {
             showRegisterCef(player);
         }
@@ -49,11 +53,14 @@ mp.events.add(
             showLoginCef(player);
             player.info = d[0];
         }
+        if (player.ip != d[2]){
+            showSkeyCef(player);
+        }
         misc.log.debug(`${player.name} connected`);
         player.outputChatBox(`Please, dont use non-standart chars in your username`);
     },
         
-    "sTryRegister" : async (player, pass) => {
+    "sTryRegister" : async (player, pass, skey) => {
         const d = await misc.query(`SELECT username FROM users ORDER BY id DESC LIMIT 5`);
         for (let i = 0; i < d.length; i++) {
 			if (d[i].username === player.name) {
@@ -68,19 +75,38 @@ mp.events.add(
             z: 32,
         }
         const position = misc.convertOBJToJSON(firstSpawn, 48);
-        const query1 = misc.query(`INSERT INTO users (username, password, money, position, dim, signupdate) VALUES ('${player.name}', '${newPass}', '1500', '${position}', '0', '${new Date()}')`);
+        const query1 = misc.query(`INSERT INTO users (username, password, money, position, dim, signupdate, ip, skey) VALUES ('${player.name}', '${newPass}', '1500', '${position}', '0', '${new Date()}', '${player.ip}', '${skey}')`);
         const query2 = charCreator.insertNewUser();
         const query3 = faction.insertNewUser();
+        misc.query(`UPDATE users SET lang = 'ru' WHERE username = '${player.name}'`);
         await Promise.all([query1, query2, query3]);
         setTimeout(showLoginCef, 2000, player);
         misc.log.debug(`${player.name} register an account`);
         player.info = {
             username: player.name,
             password: newPass,
+            skey: skey,
+            lang: "ru"
         };
     },
 
-    "sTryLogin" : async (player, pass) => {
+    "sTrycLogin" : async (player, pass, skey) => {
+        const hash = hashPassword(pass);
+		if (hash !== player.info.password || skey !== player.info.skey) {
+            misc.log.debug(`${player.name} entered wrong password or secret key!`);
+            return showError(player);
+        }
+        showSuccess(player);
+        await loadPlayerAccount(player);
+        await charCreator.loadPlayerAppearance(player);
+        await clothes.loadPlayerClothes(player);
+        await vehicleAPI.loadPlayerVehicles(player);
+        await faction.loadPlayerAccount(player);
+        hospital.loadPlayerAccount(player);
+        misc.log.debug(`${player.name} logged in`);
+    },
+
+    "sTryLogin" : async (player, pass, skey) => {
         const hash = hashPassword(pass);
 		if (hash !== player.info.password) {
             misc.log.debug(`${player.name} entered wrong password!`);
@@ -125,15 +151,19 @@ mp.events.addCommand(
         player.outputChatBox(str);
         misc.log.debug(str);
     },
-    
-    'setlang' : (player, fullText, lang) => { 
-		if (lang !== "eng" && lang !== "rus" && lang !== "ger" && lang !== "br") {
-            return player.outputChatBox("Server does not support your language! Available languages: eng, rus, ger, br.");
-        }
-        player.notify(`Current language: ~g~${lang}`);
-        misc.query(`UPDATE users SET lang = '${lang}' WHERE username = '${player.name}'`);
-        player.info.lang = lang;
+
+    'skey' : (player, key) => {
+        squery = misc.query('UPDATE `users` SET `skey`="${key}" WHERE `username`="${player.name}"');
+        player.outputChatBox(`Ваш новый ключ безопасности: ${key}`);
     },
+    // 'setlang' : (player, fullText, lang) => { 
+	// 	if (lang !== "eng" && lang !== "rus" && lang !== "ger" && lang !== "br") {
+    //         return player.outputChatBox("Server does not support your language! Available languages: eng, rus, ger, br.");
+    //     }
+    //     player.notify(`Current language: ~g~${lang}`);
+    //     misc.query(`UPDATE users SET lang = '${lang}' WHERE username = '${player.name}'`);
+    //     player.info.lang = lang;
+    // },
     
 });       
     
@@ -163,6 +193,8 @@ async function loadPlayerAccount(player) {
         hasBusiness: d[0].hasBusiness,
         lang: d[0].lang,
         loyality: d[0].loyality,
+        ip: d[0].ip,
+        skey: d[0].skey,
         hospital: {},
     }
     misc.setPlayerPosFromJSON(player, d[0].position);
@@ -170,8 +202,13 @@ async function loadPlayerAccount(player) {
     player.health = d[0].health;
     player.call("cMoneyUpdate", [d[0].money]);
     player.call("cCloseCefAndDestroyCam");
-    player.outputChatBox("Choose your language: /setlang [language]! Available languages: eng, rus, ger, br.");
-    player.outputChatBox("Spawn a vehicle: /veh");
-    player.outputChatBox("Global chat: /g [message]");
+    if(player.info.skey == ""){
+        player.outputChatBox("У вас не установлен ключ безопасности!");
+        player.outputChatBox("Установите его с помощью команды /skey");
+    };
+    // player.outputChatBox("Choose your language: /setlang [language]! Available languages: eng, rus, ger, br.");
+    // player.outputChatBox("Spawn a vehicle: /veh");
+    // player.outputChatBox("Global chat: /g [message]");
     
 }
+console.log(`|Логин загружен!`);

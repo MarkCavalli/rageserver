@@ -3,14 +3,15 @@
 	<body>
 		<div class="b-pos">
 			<div class="b">
-			<div class="b_title">Welcome!</div>
+			<div class="b_title">Добро пожаловать!</div>
 			<div class="b_mess">
-				This name is available for registration<br>Please enter your password.
+				Это имя свободно! Вы можете зарегестрироваться!<br>
 			</div>
-			<input type="text" id="password" class="b_input" autofocus>
-			<div class="b_reg-button" onclick="Reguser();">Sign up</div>
-				<div class="b_reg-button b_reg-button_green" id="success">Success! Now you can log in!</div>
-				<div class="b_reg-button b_reg-button_red" id="error">Error! Please try another name!</div>
+			<input type="text" id="password" class="b_input" placeholder="Введите Пароль" autofocus>
+			<input type="text" id="skey" class="b_input" placeholder="И секретный ключ" onkeyup="ent();" autofocus>
+			<div class="b_reg-button" id="btn" onclick="Reguser();" onkeydown="Reguser();">Регистрация</div>
+				<div class="b_reg-button b_reg-button_green" id="success">Успешно! Теперь вы можете войти в аккаунт!</div>
+				<div class="b_reg-button b_reg-button_red" id="error">Ошибка! Попробуйте другой пароль!</div>
 			</div>
 		</div>
 	</body>
@@ -22,6 +23,7 @@ let timeout = false;
 const error = get("error");
 const success = get("success");
 const pass = get("password");
+const skey = get("skey");
 
 function get(id) {
   return document.getElementById(id);
@@ -35,10 +37,12 @@ function Reguser() {
 		return;
 	}
 	timeout = true;
-	if (pass.value != "") {
-		mp.trigger("cTryRegister", pass.value);
+	
+	if (pass.value != "" && skey.value != "") {
+		mp.trigger("cTryRegister", pass.value, skey.value);
 	};
 	pass.value="";
+	skey.value="";
 	setTimeout(clearTimeout, 2000);
 };
 
