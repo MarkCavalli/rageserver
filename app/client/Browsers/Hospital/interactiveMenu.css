@@ -1,0 +1,74 @@
+﻿html {
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  font-family: Segoe UI;
+  font-weight: 100;
+  color: #DDD;
+  text-align: center;
+}
+
+.b-patient {
+padding: 25vh 0;
+position: absolute;
+left: 0;
+top: 0;
+width: 100%;
+font-size: 9vh;
+line-height: 7vh;
+}
+
+.b-patient > span {
+font-size: 2.5vh;
+text-transform: uppercase;
+}
+
+.items {
+  width: 50vw;
+  position: absolute;
+  left: 25vw;
+  top: 40vh;
+  height: 60vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+
+.item {
+display: flex;
+width: 100%;
+justify-content: space-between;
+font-size: 2vw;
+transition: 0.2s;	
+border: 1px solid #ddd;
+margin: 2% 0;
+}
+
+.item:hover {
+background-color: rgba(0, 0, 0, 0.2);
+}
+
+.item > div {
+padding: 2.5vh;
+text-transform: uppercase;
+}
+
+.item_price {
+color: limegreen;
+}
+
+.b3-close {
+background: coral;
+position: absolute;
+right: 0;
+top: 0;
+width: 6vh;
+height: 3vh;
+font-size: 2vh;
+transition: 0.3s;
+cursor: pointer;
+}
+
+.b3-close:hover {
+background: tomato;
+}

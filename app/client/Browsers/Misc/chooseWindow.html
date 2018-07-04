@@ -1,0 +1,78 @@
+﻿<html>
+	<link rel="stylesheet" href="chooseWindow.css">
+	<body>
+		<section id="app">
+			<div class="info">
+			  <div class="who">{{ whoName }}</div>
+			  <div>
+				{{ wantText }}
+				<br> {{ priceText }} <span style="color: #24cc26;">${{ showPrice() }}</span>
+			  </div>
+			</div>
+		  
+			<div class="buttons">
+			  <div class="button reject" v-on:click="reject">{{ rejectText }}</div>
+			  <div class="button confirm" v-on:click="confirm">{{ confirmText }}</div>
+			</div>
+		  </section>
+		<script src="../vue.js"></script>
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+  el: '#app',
+  data: {
+	whoName: "",
+	whoId: 0,
+    wantText: "",
+    priceText: "It will costs for you",
+    price: 5325325,
+	confirmText: "Confirm",
+	rejectText: "Reject",
+    confirmEvent: "",
+    rejectEvent: "",
+
+  },
+  methods: {
+    prettify: function(num) {
+      let n = num.toString();
+      const separator = " ";
+      return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + separator);
+    },
+    showPrice: function() {
+      return this.prettify(this.price);
+    },
+
+    confirm: function() {
+      mp.trigger("cMisc-ChooseEvent", this.confirmEvent, this.whoId);
+      this.exit();
+    },
+
+    reject: function() {
+      mp.trigger("cMisc-ChooseEvent", this.rejectEvent, this.whoId);
+      this.exit();
+    },
+
+    exit: function() {
+      mp.trigger("cCloseCef");
+    },
+  }
+});
+
+function loadRusLang() {
+	app.priceText = "Это будет стоить вам";
+	app.confirmText = "Принять";
+	app.rejectText = "Отменить";
+}
+
+function loadGerLang() {
+
+}
+
+function loadBrLang() {
+
+}
+
+</script>

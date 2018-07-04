@@ -1,0 +1,57 @@
+﻿html {
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  font-family: Segoe UI;
+  font-weight: 100;
+  color: #DDD;
+  text-align: center;
+}
+
+.info {
+  font-size: 3vw;
+  padding-top: 15vh;
+  position: absolute;
+  left: 5vw;
+  top: 0;
+  width: 90vw;
+}
+
+.who {
+  font-size: 5vw;
+  padding: 5vh 0;
+}
+
+.buttons {
+  display: flex;
+  width: 100vw;
+  position: absolute;
+  left: 0;
+  bottom: 10vh;
+  justify-content: space-around;
+}
+
+.button {
+  font-size: 2vw;
+  padding: 1vh 10vw;
+  transition: 0.3s;
+}
+
+.reject {
+  color: tomato;
+  border: 1px solid tomato;
+}
+
+.reject:hover {
+  background: tomato;
+  color: #ddd;
+}
+
+.confirm {
+  color: #24cc26;
+  border: 1px solid #24cc26;
+}
+
+.confirm:hover {
+  background: #24cc26;
+  color: #ddd;
+}
