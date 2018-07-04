@@ -292,5 +292,13 @@ CreateATM(-254.56, 6338.20, 32.42); // hospital
 CreateATM(155.828, 6642.827, 31.602); // petrolstation with customs
 CreateATM(174.161, 6637.827, 31.573); // petrolstation with customs
 CreateATM(1701.28, 6426.46, 32.76); // petrolstation
-
+CreateATM(112.483, -818.976, 31.342);
+CreateATM(111.323, -775.486, 31.437);
+CreateATM(114.181, -776.757, 31.418);
+CreateATM(296.444, -893.988, 29.231);
+CreateATM(295.694, -896.069, 29.214);
+CreateATM(147.726, -1035.783, 29.343);
+CreateATM(145.947, -1035.146, 29.345);
+CreateATM(228.81, -1282.414, 29.648);
+CreateATM(289.01, -1256.83, 29.441);
 
