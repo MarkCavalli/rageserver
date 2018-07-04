@@ -55,6 +55,24 @@ function updateLanguage(player) {
         deliverText = "Entregue seu pedido";
         undeliveredCommentText = "Ordem não entregue";
        
+    }       
+    
+    	else if (lang === "zh_cn") {
+        showInviteHRText = `按 ~b~E~s~ 键报名农场工人。`;
+        showUninviteHRText = `按 ~b~E~s~ 键辞工。`;
+        alreadyHasJobText = `你已经在干这个活了！`;
+        cantGetNewOrderText = `我们无法获取新订单。`;
+        canGetNewOrderText = `按 ~b~E ~s~ 获取新的指示。`;
+        earnedText1 = `你已赚了`;
+        earnedText2 = `继续保持！`;
+        haveUndeliveredText = `你有未派送的订单！ 你需要支付 $500 来马上完成!`;
+        needMoreLoyalityText = `你需要至少 50 点loyality points来开始这个工作！`;
+        startText = "你已经开始了Cluckin' Bell派送任务！你可以在左边获取新订单";
+        finishText = "你完成了 Cluckin' Bell派所任务！";
+        deliverText = "派送你的订单";
+        undeliveredCommentText = "取消派送订单";
+
+       
     }
 
 }

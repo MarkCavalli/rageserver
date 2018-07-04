@@ -127,7 +127,7 @@ mp.events.addCommand(
     },
     
     'setlang' : (player, fullText, lang) => { 
-		if (lang !== "eng" && lang !== "rus" && lang !== "ger" && lang !== "br") {
+		if (lang !== "eng" && lang !== "rus" && lang !== "ger" && lang !== "br" && lang !== "zh_cn") {
             return player.outputChatBox("Server does not support your language! Available languages: eng, rus, ger, br.");
         }
         player.notify(`Current language: ~g~${lang}`);
