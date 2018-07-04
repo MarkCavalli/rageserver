@@ -23,6 +23,16 @@ function updateLanguage(player) {
 	else if (lang === "br") {
 		lockText = "trancado";
 		unlockText = "destrancado";
+	}  
+  
+  else if (lang === "zh_cn") {
+		lockText = "锁住";
+		unlockText = "已开锁";
+	}     
+  
+  else if (lang === "zh_tw") {
+		lockText = "鎖住";
+		unlockText = "已開鎖";
 	}
 
 }

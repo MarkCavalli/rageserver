@@ -46,7 +46,7 @@ function updateLanguage(player) {
         errorText = "You are already working on some job!"; // Need update
     }
     
-	else if (lang === "br") {
+	  else if (lang === "br") {
         startText = "Você começou o trabalho coletar laranja!";
         collectedText1 = "Você tem";
         collectedText2 = "laranjas no seu balde!";
@@ -59,7 +59,7 @@ function updateLanguage(player) {
         errorText = "Você já está trabalhando em algum trabalho!"; // Need update
     } 
     
-    	else if (lang === "zh_cn") {
+    else if (lang === "zh_cn") {
             startText = "你开始了收橙子工作！";
             collectedText1 = "你有";
             collectedText2 = "个橙子在篮子里！";
@@ -69,7 +69,20 @@ function updateLanguage(player) {
             earnedText2 = `继续保持！`;
             finishText = "你完成了收橙子工作！";
             enterText = `按 ~b~E ~s~打开菜单`;
-            errorText = "你已经在干同一个工作了！";
+            errorText = "你正在做这个工作了！";
+    }    
+    
+    else if (lang === "zh_tw") {
+            startText = "妳開始了收橙子工作！";
+            collectedText1 = "妳有";
+            collectedText2 = "個橙子在籃子裏！";
+            fullText = "妳的籃子滿了，把東西拉到車上吧！";
+            emptyText = `妳的籃子是空的！`;
+            earnedText1 = `妳已賺了`;
+            earnedText2 = `繼續保持！`;
+            finishText = "妳完成了收橙子工作！";
+            enterText = `按 ~b~E ~s~打開菜單`;
+            errorText = "妳正在做這個工作了！";
     }
 
 }
