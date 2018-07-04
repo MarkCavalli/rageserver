@@ -25,6 +25,16 @@ function updateLanguage(player) {
 	else if (lang === "br") {
 		doneText = "Finalizar!";
 		enterText = `Pressione ~b~ E ~s~, para abrir o menu da Loja de Roupas`;
+	} 
+  
+  else if (lang === "zh_cn") {
+		doneText = "完成！";
+		enterText = `按 ~b~ E ~s~打开衣服店菜单`;
+	} 
+  
+  else if (lang === "zh_tw") {
+		doneText = "完成！";
+		enterText = `按 ~b~ E ~s~打開衣服店菜單`;
 	}
 
 }

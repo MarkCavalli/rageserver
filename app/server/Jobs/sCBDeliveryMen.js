@@ -58,8 +58,8 @@ function updateLanguage(player) {
     }       
     
     	else if (lang === "zh_cn") {
-        showInviteHRText = `按 ~b~E~s~ 键报名农场工人。`;
-        showUninviteHRText = `按 ~b~E~s~ 键辞工。`;
+        showInviteHRText = `按~b~E~s~键报名农场工人。`;
+        showUninviteHRText = `按~b~E~s~键辞工。`;
         alreadyHasJobText = `你已经在干这个活了！`;
         cantGetNewOrderText = `我们无法获取新订单。`;
         canGetNewOrderText = `按 ~b~E ~s~ 获取新的指示。`;
@@ -71,6 +71,24 @@ function updateLanguage(player) {
         finishText = "你完成了 Cluckin' Bell派所任务！";
         deliverText = "派送你的订单";
         undeliveredCommentText = "取消派送订单";
+
+       
+    } 
+    
+    	else if (lang === "zh_tw") {
+        showInviteHRText = `按~b~E~s~鍵報名農場工人。`;
+        showUninviteHRText = `按~b~E~s~鍵辭工。`;
+        alreadyHasJobText = `妳已經在幹這個活了！`;
+        cantGetNewOrderText = `我們無法獲取新訂單。`;
+        canGetNewOrderText = `按 ~b~E ~s~ 獲取新的指示。`;
+        earnedText1 = `妳已賺了`;
+        earnedText2 = `繼續保持！`;
+        haveUndeliveredText = `妳有未派送的訂單！ 妳需要支付 $500 來馬上完成!`;
+        needMoreLoyalityText = `妳需要至少 50 點loyality points來開始這個工作！`;
+        startText = "妳已經開始了Cluckin' Bell派送任務！妳可以在左邊獲取新訂單";
+        finishText = "妳完成了 Cluckin' Bell派所任務！";
+        deliverText = "派送妳的訂單";
+        undeliveredCommentText = "取消派送訂單";
 
        
     }

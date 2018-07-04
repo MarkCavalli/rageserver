@@ -17,20 +17,38 @@ function updateLanguage(player) {
 		penaltyText = "Новый штраф:";
 		taxPaymentText = "Новый налоговый чек:";
 		enterText = `Нажмите ~b~E ~s~для входа в меню банкомата`;
-	}
+	}      
+  
 	else if (lang === "ger") {
 		cantBuyText = "Nicht genug Geld!";
 		paymentText = "Neue zahlung:";
 		penaltyText = "New penalty:"; // Need update
 		taxPaymentText = "Neue tax zahlung:"; // Need update
 		enterText = `Press ~b~E ~s~to open ATM Menu`; // Need update
-	}
+	}  
+  
 	else if (lang === "br") {
 		cantBuyText = "O dinheiro não é suficiente!";
 		paymentText = "Novo pagamento:";
 		penaltyText = "Nova multa:"; // Need update
 		taxPaymentText = "Novo pagamento de imposto:"; // Need update
 		enterText = `Pressione ~b~E ~s~para abrir o menu do Caixa Eletrônico`; // Need update
+	}	     
+  
+	else if (lang === "zh_cn") {
+		cantBuyText = "现金不足!";
+		paymentText = "新的支付:";
+		penaltyText = "新的惩罚:"; 
+		taxPaymentText = "新的税务支出:";
+		enterText = `按 ~b~E ~s~ 键打开ATM菜单。`; 
+	}	        
+  
+  else if (lang === "zh_tw") {
+		cantBuyText = "現金不足!";
+		paymentText = "新的支付:";
+		penaltyText = "新的懲罰:"; 
+		taxPaymentText = "新的稅務支出:";
+		enterText = `按 ~b~E ~s~ 鍵打開ATM菜單。`; 
 	}	
 
 }

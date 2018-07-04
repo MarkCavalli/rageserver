@@ -38,6 +38,22 @@ function updateLanguage(player) {
 		goodJourneyText = "Tenha uma boa viagem!";
 		offEngineText = "Por favor desligue o motor!"
 	}
+  
+  else if (lang === "zh_cn") {
+		doneText = "完成！";
+		enterText = "按 ~b~ E ~s~打开加油菜单。";
+		priceForLitreText = "每升油价:";
+		goodJourneyText = "祝你旅途愉快";
+		offEngineText = "请熄火！"
+	}  
+    
+  else if (lang === "zh_tw") {
+		doneText = "完成！";
+		enterText = "按 ~b~ E ~s~打開加油菜單。";
+		priceForLitreText = "每升油價:";
+		goodJourneyText = "祝妳旅途愉快";
+		offEngineText = "請熄火！"
+	}
 
 }
 

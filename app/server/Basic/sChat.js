@@ -18,6 +18,14 @@ function updateLanguage(player) {
 	
 	else if (lang === "br") {
 		someoneText = "Alguém";
+	} 
+  
+  else if (lang === "zh_cn") {
+		someoneText = "某人";
+	} 
+  
+  else if (lang === "zh_tw") {
+		someoneText = "某人";
 	}
 
 }

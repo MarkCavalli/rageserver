@@ -10,9 +10,18 @@ function updateLanguage(player) {
 	const lang = misc.getPlayerLang(player);
 	if (lang === "rus") {
 		loyalityText = "Лояльность: ";
-	}
+	} 
+  
 	else if (lang === "br") {
 		loyalityText = "Fidelidade: ";
+	} 
+  
+  else if (lang === "zh_cn") {
+		loyalityText = "忠诚值: ";
+	}
+  
+  else if (lang === "zh_tw") {
+		loyalityText = "忠誠值: ";
 	}
 	
 
