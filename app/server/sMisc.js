@@ -1,24 +1,9 @@
 "use strict"
 
-const mysql = require("mysql");
-const connection =  mysql.createPool({
-	host			:	"localhost",
-	user			: 	"root",
-	password		: 	"",
-	database		:	"rpserver",
-});
-
-connection.getConnection(function(e) {
-	if (e) 	{
-		log.error("DATABASE IS NOT WORKING");
-		throw e;
-	}
-	else 	{
-		log.debug(`DATABASE IS WORKING`);
-	}
-});
-
+const mysql = require("./sMysql");
 const log4js = require('log4js');
+
+
 log4js.configure({
     appenders: { 
         file: { type: 'file', filename: `serverLogs.log` },
@@ -42,7 +27,7 @@ logger.fatal('Cheese was breeding ground for listeria.');
 
 
 function dbquery(query) {
-    return new Promise( (r, j) => connection.query(query, null , (err, data) => {
+    return new Promise( (r, j) => mysql.query(query, null , (err, data) => {
 		if (err) {
 			log.error(query);
 			return j(err);
