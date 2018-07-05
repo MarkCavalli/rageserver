@@ -77,6 +77,7 @@ module.exports.setPlayerPosFromJSON = setPlayerPosFromJSON;
 
 function isValueNumber(value) {
 	if (typeof value !== "number") {
+		log.error(`Value is not a number: ${value}`);
 		return false;
 	}
 	return true;
@@ -85,6 +86,7 @@ module.exports.isValueNumber = isValueNumber;
 
 function isValueString(value) {
 	if (typeof value !== "string") {
+		log.error(`Value is not a string: ${value}`);
 		return false;
 	}
 	return true;

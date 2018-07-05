@@ -10,6 +10,12 @@ function showDoctorCef(lang, inject) {
 	misc.injectCef(inject);
 }
 
+function showGarageCef(lang) {
+	misc.prepareToCef(1);
+	misc.openCef("package://RP/Browsers/Hospital/garageMenu.html", lang);
+	misc.createCam(-514.154, -285.073, 35.8, 0, 0, 177.02, 30);
+}
+
 
 mp.events.add(
 {
@@ -22,7 +28,7 @@ mp.events.add(
 		mp.game.player.setHealthRechargeMultiplier(0.0);
 	},
 
-	"cHospitalShowDoctorMenu" : (lang, inject) => {
+	"cHospital-ShowDoctorMenu" : (lang, inject) => {
 		showDoctorCef(lang, inject);
 	},
 
@@ -32,6 +38,14 @@ mp.events.add(
 	
 	"cHospital-Heal" : (id) => {
 		mp.events.callRemote('sHospital-Heal', id);
+	},
+
+	"cHospital-ShowGarageMenu" : (lang) => {
+		showGarageCef(lang);
+	},
+
+	"cHospital-EnterGarage" : (floor) => {
+		mp.events.callRemote('sHospital-EnterGarage', floor);
 	},
 	
 });

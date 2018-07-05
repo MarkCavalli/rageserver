@@ -101,6 +101,7 @@ function isDriver(player) {
 	}
 	return true;
 }
+module.exports.isDriver = isDriver;
 	
 function toggleVehEngine(vehicle) {
 	vehicle.engine = !vehicle.engine;
@@ -385,7 +386,7 @@ mp.events.addCommand(
 		const vehicle = mp.vehicles.new(model, player.position,
 		{
 			heading: player.heading,
-			dimension: 0,
+			dimension: player.dimension,
 			locked: true,
 			engine: false,
 		});
@@ -415,7 +416,7 @@ mp.events.addCommand(
 		const vehicle = mp.vehicles.new("faggio2", player.position,
 		{
 			heading: player.heading,
-			dimension: 0,
+			dimension: player.dimension,
 			locked: true,
 			engine: false,
 		});

@@ -106,7 +106,7 @@ mp.events.addCommand(
 	'do' : (player, fullText) => {
 		sayDO(player, fullText);
 	}, 
-		
+	
 });
 	
 

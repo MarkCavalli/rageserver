@@ -4,6 +4,7 @@ const sFaction = require('./sFaction');
 const sBuilding = require('./sBuilding');
 const misc = require('../sMisc');
 const moneyAPI = require('../Basic/sMoney');
+const vehicleAPI = require('../Basic/sVehicle');
 
 
 class hospitalBuilding extends sBuilding {
@@ -19,6 +20,7 @@ class hospitalBuilding extends sBuilding {
 			outBlipId: 153,
 			outBlipCol: 1,
 			outBlipName: "Hospital",
+			outBlipScale: 1,
 			outShapeR: 1,
 			outMarkerId: 1,
 			outMarkerHeightAdjust: -1,
@@ -164,7 +166,7 @@ class patientsClass {
 
 		const posToDrop = { x: -498.184, y: -335.741, z: 34.502 };
 		const dist = player.dist(posToDrop);
-		const pay = misc.roundNum(dist / 2);
+		const pay = misc.roundNum(dist / 20);
 		moneyAPI.addPenaltyOffline(player.name, pay, "Transfer to Hospital");
 
 		const tp = { x: 275.446, y: -1361.11, z: 24.5378, rot: 46.77, dim: 0, };
@@ -249,7 +251,7 @@ class doctorsClass extends sFaction {
 				this.tryIncreaseHealingSpeed(player, id);
 			},
 		
-			"sHospitalConfirmIncreaseHealingEvent" : (player, id) => {
+			"sHospital-ConfirmIncreaseHealingEvent" : (player, id) => {
 				if (!misc.isPlayerLoggedIn(player)) return;
 				this.confirmIncreaseHealingSpeed(player, id);
 			},
@@ -259,12 +261,12 @@ class doctorsClass extends sFaction {
 				this.tryHeal(player, id);
 			},
 		
-			"sHospitalRejectDoctorOffer" : (player, id) => {
+			"sHospital-RejectDoctorOffer" : (player, id) => {
 				if (!misc.isPlayerLoggedIn(player)) return;
 				this.rejectDoctorOffer(player, id);
 			},
 		
-			"sHospitalConfirmHealEvent" : (player, id) => {
+			"sHospital-ConfirmHealEvent" : (player, id) => {
 				if (!misc.isPlayerLoggedIn(player)) return;
 				this.confirmHeal(player, id);
 			},
@@ -298,7 +300,7 @@ class doctorsClass extends sFaction {
 		const execute = str1 + str2;
 		
 		const lang = misc.getPlayerLang(player);
-		player.call("cHospitalShowDoctorMenu", [lang, execute]);
+		player.call("cHospital-ShowDoctorMenu", [lang, execute]);
 	}
 
 	rejectDoctorOffer(patient, id) {
@@ -331,7 +333,7 @@ class doctorsClass extends sFaction {
 		const lang = misc.getPlayerLang(patient);
 		const execute = str1 + str2 + str3 + str4;
 
-		patient.call("cMisc-CreateChooseWindow", [lang, execute, "sHospitalConfirmIncreaseHealingEvent", "sHospitalRejectDoctorOffer"]);
+		patient.call("cMisc-CreateChooseWindow", [lang, execute, "sHospital-ConfirmIncreaseHealingEvent", "sHospital-RejectDoctorOffer"]);
 	}
 
 	confirmIncreaseHealingSpeed(patient, id) {
@@ -377,7 +379,7 @@ class doctorsClass extends sFaction {
 		const lang = misc.getPlayerLang(patient);
 		const execute = str1 + str2 + str3 + str4;
 
-		patient.call("cMisc-CreateChooseWindow", [lang, execute, "sHospitalConfirmHealEvent", "sHospitalRejectDoctorOffer"]);
+		patient.call("cMisc-CreateChooseWindow", [lang, execute, "sHospital-ConfirmHealEvent", "sHospital-RejectDoctorOffer"]);
 	}
 	
 	confirmHeal(patient, id) {
@@ -417,3 +419,151 @@ mp.events.addCommand({
 		doctors.setAsLeader(player, +id);
 	},	
 });
+
+
+
+class hospitalGarage extends sBuilding {
+	constructor() {
+		super();
+	}
+
+	createMainEntrance() {
+		const mainEntrance = {
+			outPos: { x: -515.651, y: -295.108, z: 34.795, rot: 201.06, dim: 0 },
+			outBlipId: 50,
+			outBlipCol: 1,
+			outBlipName: "Hospital Garage",
+			outBlipScale: 0.7,
+			outShapeR: 3,
+		}
+		this.mainEnter = super.createSingleEntrance(mainEntrance);
+
+		mp.events.add({
+			"playerEnterColshape" : (player, shape) => {
+				if (!misc.isPlayerLoggedIn(player) || !vehicleAPI.isDriver(player)) return;
+				if (shape === this.mainEnter.out) {
+					player.info.canEnter = this.mainEnter.out
+					player.notify('Press ~b~E ~s~to enter');
+				}
+			},
+			
+			"sKeys-E" : (player) => {
+				if (!misc.isPlayerLoggedIn(player) || !player.info.canEnter || !vehicleAPI.isDriver(player)) return;
+				if (player.info.canEnter === this.mainEnter.out) {
+					return this.showEnterMenu(player);
+				}
+			},
+
+			"sHospital-EnterGarage" : (player, floor) => {
+				if (player.info.canEnter !== this.mainEnter.out) return;
+				const d = this.getDataForEnterGarage(floor);
+				if (!this.isCheckShapeClear(player, d.checkShape)) return;
+				this.enterByVeh(player, d);
+			},
+		
+		});
+
+	}
+
+	createGarageExit(dim) {
+		const mainEntrance = {
+			outPos: { x: 224.327, y: -1002.948, z: -98.984, rot: 180.96, dim: dim },
+			outShapeR: 3,
+		}
+		const exitShape = super.createSingleEntrance(mainEntrance);
+
+		mp.events.add({
+			"playerEnterColshape" : (player, shape) => {
+				if (!misc.isPlayerLoggedIn(player) || !vehicleAPI.isDriver(player)) return;
+				if (shape === exitShape.out) {
+					player.info.canEnter = exitShape.out;
+					player.notify('Press ~b~E ~s~to exit');
+				}
+			},
+			
+			"sKeys-E" : (player) => {
+				if (!misc.isPlayerLoggedIn(player) || !player.info.canEnter || !vehicleAPI.isDriver(player)) return;
+				if (player.info.canEnter === exitShape.out) {
+					if (!this.isCheckShapeClear(player, this.mainCheckShape)) return;
+					this.exitGarageByVeh(player);
+				}
+			},
+		});
+	}
+
+	createCheckShapes() {
+		this.mainCheckShape = mp.colshapes.newSphere(-460.698, -272.399, 35.347, 3);
+		this.mainCheckShape.dimension = 0;
+
+		this.checkFloor1Shape = mp.colshapes.newSphere(231.896, -1003.318, -98.985, 3);
+		this.checkFloor1Shape.dimension = 1;
+		this.checkFloor2Shape = mp.colshapes.newSphere(231.896, -1003.318, -98.985, 3);
+		this.checkFloor2Shape.dimension = 2;
+		this.checkFloor3Shape = mp.colshapes.newSphere(231.896, -1003.318, -98.985, 3);
+		this.checkFloor3Shape.dimension = 3;
+		this.checkFloor4Shape = mp.colshapes.newSphere(231.896, -1003.318, -98.985, 3);
+		this.checkFloor4Shape.dimension = 4;
+		this.checkFloor5Shape = mp.colshapes.newSphere(231.896, -1003.318, -98.985, 3);
+		this.checkFloor5Shape.dimension = 5;
+	}
+
+	isCheckShapeClear(player, shape) {
+		const vehicles = mp.vehicles.toArray();
+		for (let vehicle of vehicles) {
+			if (shape.isPointWithin(vehicle.position) && shape.dimension === vehicle.dimension) {
+				player.notify(`~r~Some vehicle is blocking the area!`);
+				return false;
+			}
+		}
+		const players = mp.players.toArray();
+		for (let player of players) {
+			if (shape.isPointWithin(player.position)  && shape.dimension === player.dimension) {
+				player.notify(`~r~Some player is blocking the area!`);
+				return false;
+			}
+		}
+		return true;
+	}
+
+	showEnterMenu(player) {
+		if (!vehicleAPI.isDriver(player)) return;
+		const lang = misc.getPlayerLang(player);
+		player.call("cHospital-ShowGarageMenu", [lang]);
+	}
+
+	getDataForEnterGarage(floor) {
+		if (!misc.isValueNumber(floor)) return;
+		const floors = [
+			{ floor: -1, x: 231.896, y: -1003.318, z: -98.985, rot: 358.73, dim: 1, checkShape: this.checkFloor1Shape },
+			{ floor: -2, x: 231.896, y: -1003.318, z: -98.985, rot: 358.73, dim: 2, checkShape: this.checkFloor2Shape },
+			{ floor: -3, x: 231.896, y: -1003.318, z: -98.985, rot: 358.73, dim: 3, checkShape: this.checkFloor3Shape },
+			{ floor: -4, x: 231.896, y: -1003.318, z: -98.985, rot: 358.73, dim: 4, checkShape: this.checkFloor4Shape },
+			{ floor: -5, x: 231.896, y: -1003.318, z: -98.985, rot: 358.73, dim: 5, checkShape: this.checkFloor5Shape },
+		];
+		for (let d of floors) {
+			if (d.floor === floor) return d;
+		}
+		return false;
+	}
+
+	exitGarageByVeh(player) {
+		const d = { x: -460.698, y: -272.399, z: 35.347, rot: 23.34, dim: 0 };
+		this.enterByVeh(player, d);
+	}
+
+}
+
+
+function createGarage() {
+	const garage = new hospitalGarage();
+	garage.createMainEntrance();
+	garage.createGarageExit(1);
+	garage.createGarageExit(2);
+	garage.createGarageExit(3);
+	garage.createGarageExit(4);
+	garage.createGarageExit(5);
+	garage.createCheckShapes();
+	return garage;
+}
+
+const garage = createGarage();
