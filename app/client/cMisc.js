@@ -36,6 +36,8 @@ function openCef(url, lang = "eng") {
 	if (lang === "rus") injectCef("loadRusLang();"); 
 	else if (lang === "ger") injectCef("loadGerLang();");
 	else if (lang === "br") injectCef("loadBrLang();");
+  else if (lang === "zh_cn") injectCef("loadzh_CNLang();");
+  else if (lang === "zh_tw") injectCef("loadzh_TWLang();");
 }
 exports.openCef = openCef;
 
