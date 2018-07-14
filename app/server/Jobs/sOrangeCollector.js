@@ -5,87 +5,28 @@ const moneyAPI = require('../Basic/sMoney');
 const loyality = require('../Basic/sLoyality');
 const clothes = require('../Character/sClothes');
 
+const globleconfig = require('./../sLang.js');
+const i18n_module = require('i18n-nodejs');
+const i18n = new i18n_module(sLang.i18n_lang, sLang.i18n_langFile); //take control of i18n.See https://www.npmjs.com/package/i18n-nodejs
+
 
 let startText, collectedText1, collectedText2, fullText, emptyText, earnedText1, earnedText2, finishText, enterText, errorText;
 function updateLanguage(player) {
-    startText = "You started orange collector job!";
-    collectedText1 = "You have";
-    collectedText2 = "oranges in your bucket!";
-    fullText = "Your bucket is full! Take it to the trailer!";
-    emptyText = `Your bucket is empty!`;
-    earnedText1 = `You earned`;
-    earnedText2 = `Keep it up!`;
-    finishText = "You finished orange collector job!";
-    enterText = `Press ~b~E ~s~to open Menu`;
-    errorText = "You are already working on some job!";
-
-    const lang = misc.getPlayerLang(player);
-	if (lang === "rus") {
-        startText = "Вы устроились сборщиком апельсинов!";
-        collectedText1 = "У вас в корзине";
-        collectedText2 = "апельсинов!";
-        fullText = "Ваша корзина заполнена! Отнесите ее к трейлеру.";
-        emptyText = `Ваша корзина пуста!`;
-        earnedText1 = `Вы заработали`;
-        earnedText2 = `Продолжайте в том же духе!`;
-        finishText = "Вы уволились с работы!";
-        enterText = `Нажмите ~b~E ~s~для входа в меню`;
-        errorText = "Вы уже работаете на другой работе!";
+    showInviteHRText = (i18n.__("Press ~b~E ~s~to start work as a Delivery Men"));
+    showUninviteHRText = (i18n.__("Press ~b~E ~s~to finish work as a Delivery Men"));
+    alreadyHasJobText = (i18n.__("You are already working on some job!"));
+    cantGetNewOrderText = (i18n.__("You can't get new order!"));
+    canGetNewOrderText = (i18n.__("Press ~b~E ~s~to get a new order"));
+    earnedText1 = (i18n.__("You earned"));
+    earnedText2 = (i18n.__("Keep it up!"));
+    haveUndeliveredText = (i18n.__("You have undelivered order! You will pay $500 finishing right now!"));
+    needMoreLoyalityText = (i18n.__("You need at least 50 loyality points to start this job!"));
+    startText = (i18n.__("start."));
+    finishText = (i18n.__("You finished Cluckin'Bell delivery job!"));
+    deliverText = (i18n.__("Deliver your order"));
+    undeliveredCommentText = (i18n.__("Undelivered order"));
+       
     }
-
-    else if (lang === "ger") {
-        startText = "Du hast den orangenen Sammlerjob begonnen!";
-        collectedText1 = "Du hast";
-        collectedText2 = "Orangen in deinem Eimer!";
-        fullText = "Dein Eimer ist voll! Bring es zum Trailer!";
-        emptyText = `Dein Eimer ist leer!`;
-        earnedText1 = `Du hast verdient`;
-        earnedText2 = `Mach weiter!`;
-        finishText = "Du hast den orangenen Sammlerjob beendet!";
-        enterText = `Press ~b~E ~s~to open Menu`;   // Need update
-        errorText = "You are already working on some job!"; // Need update
-    }
-    
-	  else if (lang === "br") {
-        startText = "Você começou o trabalho coletar laranja!";
-        collectedText1 = "Você tem";
-        collectedText2 = "laranjas no seu balde!";
-        fullText = "Seu balde está cheio! Leve para o trailer!";
-        emptyText = `Seu balde está vazio!`;
-        earnedText1 = `Você ganhou`;
-        earnedText2 = `Continue assim, bom trabalho!`;
-        finishText = "Você encerrou o trabalho de coletar laranjas!";
-        enterText = `Pressione ~b~E ~s~para abrir o Menu`;   // Need update
-        errorText = "Você já está trabalhando em algum trabalho!"; // Need update
-    } 
-    
-    else if (lang === "zh_cn") {
-            startText = "你开始了收橙子工作！";
-            collectedText1 = "你有";
-            collectedText2 = "个橙子在篮子里！";
-            fullText = "你的篮子满了，把东西拉到车上吧！";
-            emptyText = `你的篮子是空的！`;
-            earnedText1 = `你已赚了`;
-            earnedText2 = `继续保持！`;
-            finishText = "你完成了收橙子工作！";
-            enterText = `按 ~b~E ~s~打开菜单`;
-            errorText = "你正在做这个工作了！";
-    }    
-    
-    else if (lang === "zh_tw") {
-            startText = "妳開始了收橙子工作！";
-            collectedText1 = "妳有";
-            collectedText2 = "個橙子在籃子裏！";
-            fullText = "妳的籃子滿了，把東西拉到車上吧！";
-            emptyText = `妳的籃子是空的！`;
-            earnedText1 = `妳已賺了`;
-            earnedText2 = `繼續保持！`;
-            finishText = "妳完成了收橙子工作！";
-            enterText = `按 ~b~E ~s~打開菜單`;
-            errorText = "妳正在做這個工作了！";
-    }
-
-}
 
 
 
