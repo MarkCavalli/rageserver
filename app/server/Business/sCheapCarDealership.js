@@ -27,12 +27,12 @@ function updateLanguage(player) {
 		enterText = `Pressione ~b~ E ~s~, para abrir o menu da Loja de Carros`;
 	}
   
-  else if (lang === "zh_cn") {
+  else if (lang === "zhs") {
 		doneText = "完成！";
 		enterText = `按 ~b~ E ~s~打开廉价车销售菜单。`;
 	} 
   
-  else if (lang === "zh_tw") {
+  else if (lang === "zht") {
 		doneText = "完成！";
 		enterText = `按 ~b~ E ~s~打開廉價車銷售菜單。`;
 	}

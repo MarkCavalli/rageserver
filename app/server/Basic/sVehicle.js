@@ -25,12 +25,12 @@ function updateLanguage(player) {
 		unlockText = "destrancado";
 	}  
   
-  else if (lang === "zh_cn") {
+  else if (lang === "zhs") {
 		lockText = "锁住";
 		unlockText = "已开锁";
 	}     
   
-  else if (lang === "zh_tw") {
+  else if (lang === "zht") {
 		lockText = "鎖住";
 		unlockText = "已開鎖";
 	}

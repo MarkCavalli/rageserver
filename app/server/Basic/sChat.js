@@ -20,11 +20,11 @@ function updateLanguage(player) {
 		someoneText = "Alguém";
 	} 
   
-  else if (lang === "zh_cn") {
+  else if (lang === "zhs") {
 		someoneText = "某人";
 	} 
   
-  else if (lang === "zh_tw") {
+  else if (lang === "zht") {
 		someoneText = "某人";
 	}
 

@@ -35,7 +35,7 @@ function updateLanguage(player) {
 		enterText = `Pressione ~b~E ~s~para abrir o menu do Caixa Eletrônico`; // Need update
 	}	     
   
-	else if (lang === "zh_cn") {
+	else if (lang === "zhs") {
 		cantBuyText = "现金不足!";
 		paymentText = "新的支付:";
 		penaltyText = "新的惩罚:"; 
@@ -43,7 +43,7 @@ function updateLanguage(player) {
 		enterText = `按 ~b~E ~s~ 键打开ATM菜单。`; 
 	}	        
   
-  else if (lang === "zh_tw") {
+  else if (lang === "zht") {
 		cantBuyText = "現金不足!";
 		paymentText = "新的支付:";
 		penaltyText = "新的懲罰:"; 

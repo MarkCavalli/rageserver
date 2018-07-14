@@ -11,38 +11,38 @@ const hospital = require('./../Factions/sHospital');
 
 // prepared translation but seems not working.
 function updateLanguage(player) {
-    chooselangText = "Choose your language: /setlang [language]!Available languages: br, eng, ger, rus, zh_cn, zh_tw.";
+    chooselangText = "Choose your language: /setlang [language]!Available languages: br, eng, ger, rus, zhs, zht.";
     spawnvehText = "Spawn a vehicle: /veh";
     gchatText = "Global chat: /g [message]";
 
     const lang = misc.getPlayerLang(player);
 	  if (lang === "rus") {
-        chooselangText = "Choose your language: /setlang [language]!Available languages: br, eng, ger, rus, zh_cn, zh_tw."; //need translation
+        chooselangText = "Choose your language: /setlang [language]!Available languages: br, eng, ger, rus, zhs, zht."; //need translation
         spawnvehText = "Spawn a vehicle: /veh";   //need translation
         gchatText = "Global chat: /g [message]";   //need translation
     }
 
     else if (lang === "ger") {
-        chooselangText = "Choose your language: /setlang [language]!Available languages: br, eng, ger, rus, zh_cn, zh_tw."; //need translation
+        chooselangText = "Choose your language: /setlang [language]!Available languages: br, eng, ger, rus, zhs, zht."; //need translation
         spawnvehText = "Spawn a vehicle: /veh";   //need translation
         gchatText = "Global chat: /g [message]";   //need translation
   
     }
     
 	  else if (lang === "br") {
-        chooselangText = "Choose your language: /setlang [language]!Available languages: br, eng, ger, rus, zh_cn, zh_tw."; //need translation
+        chooselangText = "Choose your language: /setlang [language]!Available languages: br, eng, ger, rus, zhs, zht."; //need translation
         spawnvehText = "Spawn a vehicle: /veh";   //need translation
         gchatText = "Global chat: /g [message]";   //need translation
     } 
     
-    else if (lang === "zh_cn") {
-        chooselangText = "选择你的语言: /setlang [language]!可用选项 br（巴西葡语）, eng（英语）, ger（德语）, rus（俄语）, zh_cn（简体中文）, zh_tw.（繁体中文）"; 
+    else if (lang === "zhs") {
+        chooselangText = "选择你的语言: /setlang [language]!可用选项 br（巴西葡语）, eng（英语）, ger（德语）, rus（俄语）, zhs（简体中文）, zht.（繁体中文）"; 
         spawnvehText = "生成一台车: /veh";   //need translation
         gchatText = "全局聊天: /g [message]";   //need translation
     }    
     
-    else if (lang === "zh_tw") {
-        chooselangText = "選擇妳的語言: /setlang [language]!可用選項 br（巴西葡語）, eng（英語）, ger（德語）, rus（俄語）, zh_cn（簡體中文）, zh_tw.（正體中文）"; 
+    else if (lang === "zht") {
+        chooselangText = "選擇妳的語言: /setlang [language]!可用選項 br（巴西葡語）, eng（英語）, ger（德語）, rus（俄語）, zhs（簡體中文）, zht.（正體中文）"; 
         spawnvehText = "生成壹輛車: /veh";   
         gchatText = "全局聊天: /g [message]";   
     }
@@ -167,8 +167,8 @@ mp.events.addCommand(
     },
     
     'setlang' : (player, fullText, lang) => { 
-		if (lang !== "eng" && lang !== "rus" && lang !== "ger" && lang !== "br" && lang !== "zh_cn" && lang !== "zh_tw") {
-            return player.outputChatBox("Server does not support your language! Available languages: br, eng, ger, rus, zh_cn, zh_tw.");
+		if (lang !== "eng" && lang !== "rus" && lang !== "ger" && lang !== "br" && lang !== "zhs" && lang !== "zht") {
+            return player.outputChatBox("Server does not support your language! Available languages: br, eng, ger, rus, zhs, zht.");
         }
         player.notify(`Current language: ~g~${lang}`);
         misc.query(`UPDATE users SET lang = '${lang}' WHERE username = '${player.name}'`);
@@ -214,7 +214,7 @@ async function loadPlayerAccount(player) {
     //player.outputChatBox(chooselangText);
     //player.outputChatBox(spawnvehText);
     //player.outputChatBox(gchatText);
-    player.outputChatBox("Choose your language: /setlang [language]!Available languages: br, eng, ger, rus, zh_cn, zh_tw.");
+    player.outputChatBox("Choose your language: /setlang [language]!Available languages: br, eng, ger, rus, zhs, zht.");
     player.outputChatBox("Spawn a vehicle: /veh");
     player.outputChatBox("Global chat: /g [message]");
     

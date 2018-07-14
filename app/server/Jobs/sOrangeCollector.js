@@ -59,7 +59,7 @@ function updateLanguage(player) {
         errorText = "Você já está trabalhando em algum trabalho!"; // Need update
     } 
     
-    else if (lang === "zh_cn") {
+    else if (lang === "zhs") {
             startText = "你开始了收橙子工作！";
             collectedText1 = "你有";
             collectedText2 = "个橙子在篮子里！";
@@ -72,7 +72,7 @@ function updateLanguage(player) {
             errorText = "你正在做这个工作了！";
     }    
     
-    else if (lang === "zh_tw") {
+    else if (lang === "zht") {
             startText = "妳開始了收橙子工作！";
             collectedText1 = "妳有";
             collectedText2 = "個橙子在籃子裏！";
