@@ -39,7 +39,7 @@ function updateLanguage(player) {
 		offEngineText = "Por favor desligue o motor!"
 	}
   
-  else if (lang === "zh_cn") {
+  else if (lang === "zhs") {
 		doneText = "完成！";
 		enterText = "按 ~b~ E ~s~打开加油菜单。";
 		priceForLitreText = "每升油价:";
@@ -47,7 +47,7 @@ function updateLanguage(player) {
 		offEngineText = "请熄火！"
 	}  
     
-  else if (lang === "zh_tw") {
+  else if (lang === "zht") {
 		doneText = "完成！";
 		enterText = "按 ~b~ E ~s~打開加油菜單。";
 		priceForLitreText = "每升油價:";

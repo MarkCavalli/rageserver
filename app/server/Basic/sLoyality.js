@@ -16,11 +16,11 @@ function updateLanguage(player) {
 		loyalityText = "Fidelidade: ";
 	} 
   
-  else if (lang === "zh_cn") {
+  else if (lang === "zhs") {
 		loyalityText = "忠诚值: ";
 	}
   
-  else if (lang === "zh_tw") {
+  else if (lang === "zht") {
 		loyalityText = "忠誠值: ";
 	}
 	

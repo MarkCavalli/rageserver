@@ -57,7 +57,7 @@ function updateLanguage(player) {
        
     }       
     
-    	else if (lang === "zh_cn") {
+    	else if (lang === "zhs") {
         showInviteHRText = `按~b~E~s~键报名农场工人。`;
         showUninviteHRText = `按~b~E~s~键辞工。`;
         alreadyHasJobText = `你已经在干这个活了！`;
@@ -75,7 +75,7 @@ function updateLanguage(player) {
        
     } 
     
-    	else if (lang === "zh_tw") {
+    	else if (lang === "zht") {
         showInviteHRText = `按~b~E~s~鍵報名農場工人。`;
         showUninviteHRText = `按~b~E~s~鍵辭工。`;
         alreadyHasJobText = `妳已經在幹這個活了！`;

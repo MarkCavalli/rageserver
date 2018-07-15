@@ -35,14 +35,14 @@ function updateLanguage(player) {
 		doneText = "Finalizar!";
 	}
   
-  else if (lang === "zh_cn") {
+  else if (lang === "zhs") {
 	  ownText = "你不能建立多于1个商业产业。";
 	  boughtText = "你已购买1个产业!";
 	  taxText = "对产业的税务 №";
 	  enterText = `按 ~b~E ~s~ 打开商业菜单`;
 	}
   
-  else if (lang === "zh_tw") {
+  else if (lang === "zht") {
 	  ownText = "妳不能建立多於1個商業產業。";
 	  boughtText = "妳已購買1個產業!";
 	  taxText = "對產業的稅務 №";
