@@ -1,0 +1,132 @@
+﻿<html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<script src="../vue.js"></script>
+	<body>
+		<section class="app" id="app">
+			<section>
+				<div class="signup-b">
+				<input type="email" class="textinput" placeholder="Email" v-model="enteredMail" :disabled="mailChecked" :class="{ checked: mailChecked }" autofocus>
+				<div class="code-b" v-if="!mailChecked">
+					<input type="text" class="textinput" @input="verifyCode" v-model="enteredCode">
+					<div class="button" @click="mailGetCode">Get code</div>
+				</div>
+			
+				<span v-if="mailChecked">
+						<input type="text" class="textinput" placeholder="First name" v-model="enteredFirstname" :class="{ checked: nameAvailable }" @input="resetNameChecked">
+					<input type="text" class="textinput" placeholder="Last name" v-model="enteredLastname" :class="{ checked: nameAvailable }" @input="resetNameChecked">
+					<div class="button" @click="checkUsername" v-if="!nameAvailable">Check username</div>
+							<div class="button" @click="confirmUsername" v-if="nameAvailable && !nameChecked">Confirm username</div>
+						</span>
+			
+				<span v-if="mailChecked && nameChecked">
+							<input type="text" class="textinput" placeholder="Password" v-model="enteredPass1" :class="{ checked: passChecked }">
+							<input type="text" class="textinput" placeholder="Confirm password" v-model="enteredPass2" @input="verifyPass" :class="{ checked: passChecked }">
+						</span>
+			
+				<div class="button" v-if="mailChecked && nameChecked && passChecked" @click="createAccount">Create account</div>
+				</div>
+				<div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
+				<div class="error-message" style="background: limegreen;" v-if="infoMessage">{{ infoMessage }}</div>
+				<div class="top-button" @click="goToLoginWindow">Already have account? Log In</div>
+			</section>
+		</section> 
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+	el: '#app',
+	data: {
+		mailChecked: false,
+		nameAvailable: false,
+		nameChecked: false,
+		passChecked: false,
+		enteredCode: "",
+		enteredMail: "",
+		enteredFirstname: "",
+		enteredLastname: "",
+		enteredPass1: "",
+		enteredPass2: "",
+		errorMessage: "",
+		infoMessage: "",
+	},
+	methods: {
+		mailGetCode: function () {
+			mp.trigger("cMisc-CallServerEvent", "sLogin-TryGetCodeToRegister", this.enteredMail.toLowerCase());
+		},
+
+		setMailChecked: function () {
+			this.mailChecked = true;
+		},
+
+		verifyCode: function () {
+			if (this.enteredCode.length === 3) {
+				mp.trigger("cMisc-CallServerEvent", "sLogin-TryValidateEmailWithCode", +this.enteredCode);
+			}
+		},
+
+		checkUsername: function () {
+			const obj = {
+				firstName: this.enteredFirstname,
+				lastName: this.enteredLastname,
+			}
+			mp.trigger("cMisc-CallServerEvent", "sLogin-CheckUsername", JSON.stringify(obj));
+		},
+
+		setNameAvailable: function () {
+			this.nameAvailable = true;
+		},
+
+		confirmUsername: function () {
+			this.nameChecked = true;
+		},
+
+		resetNameChecked: function () {
+			this.nameChecked = false;
+			this.nameAvailable = false;
+		},
+
+
+		verifyPass: function () {
+			if (this.enteredPass1 === this.enteredPass2) {
+				this.passChecked = true;
+			}
+			else {
+				this.passChecked = false;
+			}
+		},
+		createAccount: function () {
+			const obj = {
+				email: this.enteredMail.toLowerCase(),
+				firstName: this.enteredFirstname,
+				lastName: this.enteredLastname,
+				pass: this.enteredPass1,
+			}
+			mp.trigger("cMisc-CallServerEvent", "sLogin-CreateAccount", JSON.stringify(obj));
+		},
+
+		showError(text) {
+			this.infoMessage = "";
+			this.errorMessage = text;
+			setTimeout(() => {
+				this.errorMessage = "";
+			}, 5000);
+		},
+
+		showInfo(text) {
+			this.errorMessage = "";
+			this.infoMessage = text;
+			setTimeout(() => {
+				this.infoMessage = "";
+			}, 5000);
+		},
+
+
+		goToLoginWindow: function () {
+			mp.trigger("cLogin-ShowLoginWindow");
+		},
+	}
+});
+</script>

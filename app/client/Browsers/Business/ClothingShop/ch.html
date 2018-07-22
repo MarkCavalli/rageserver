@@ -1,0 +1,346 @@
+﻿<html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="ch.css">
+	<script src="../../vue.js"></script>
+	<body>
+		<div id="app">
+			<div class="b1">
+				<div class="item title">{{ titleText }} №{{ id }}</div>
+				<div class="item"></div>
+				<div class="item buttons" @click="showHats">{{ hatsText }}</div>
+				<div class="item buttons" @click="showGlasses">{{ glassesText }}</div>
+				<div class="item buttons" @click="showTops">{{ topsText }}</div>
+				<div class="item buttons" @click="showLegs">{{ legsText }}</div>
+				<div class="item buttons" @click="showFeet">{{ feetText }}</div>
+				<div class="item"></div>
+				<div v-if="currentTitle">
+					<div class="item title">{{ currentTitle }}</div>
+					<div class="item b name">
+						<div class="arrow l-arrow" @click="prevCloth"><</div>
+					{{ currentCloth.name }}
+						<div class="arrow r-arrow" @click="nextCloth">></div>
+					</div>
+					<div class="item b">
+						<div class="arrow l-arrow"  @click="prevColor"><</div>
+						{{ colorText }} {{ currentCloth.color }}
+						<div class="arrow r-arrow" @click="nextColor">></div>
+					</div>
+						
+						<div class="item b" v-if="currentTitle === 'Tops'">
+						<div class="arrow l-arrow"  @click="prevUnderColor"><</div>
+						{{ underColorText }}
+						<div class="arrow r-arrow" @click="nextUnderColor">></div>
+					</div>
+						
+					<div class="item b buy" @click="buy">
+						<div> {{ buyText }}</div>
+						<div>{{ showPrice() }}</div>
+					</div>
+				</div>
+					
+			
+					<div class="item buttons reset" @click="reset">{{ resetText }}</div>
+					<div class="item exit" @click="exit">{{ exitText }}</div>
+				</div>
+			
+				<div class="rotation">
+					<input type="range" min="-180" max="360" step="1" v-model.number="camRotation" @input="changeCamRotation">
+				</div>
+			</div>
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+	el: '#app',
+	data: {
+		id: 0,
+		margin: 0,
+		camRotation: 0,
+		hats: false,
+		glasses: false,
+		tops:false,
+		legs: false,
+		feet: false,
+
+		currentTitle: false,
+		currentArr: false,
+		currentNum: false,
+		currentColorNum: 0,
+		currentUnderColorNum: 0,
+		currentCloth: false,
+
+		titleText: "Clothing Store",
+		hatsText: "Hats",
+		glassesText: "Glasses",
+		topsText: "Tops",
+		legsText: "Legs",
+		feetText: "Feet",
+		colorText: "Color:",
+		underColorText: "Undershirt Color",
+		buyText: "Buy",
+		resetText: "Reset All",
+		exitText: "Exit",
+
+			
+	},
+	methods: {
+		prettify: function(num) {
+			let n = num.toString();
+			const separator = " ";
+			return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + separator);
+		},
+		showPrice: function() {
+			const margin = this.currentCloth.price * this.margin / 100;
+			return this.currentCloth.price + margin;
+		},
+			
+			
+			
+		setCurrentStartSettings: function() {
+			this.currentNum = 0;
+			this.currentCloth = this.currentArr[0];
+			this.currentCloth.color = this.currentCloth.colors[0];
+			this.setColor(0);
+			if (this.currentTitle === "Tops") this.setUnderColor(0);
+			mp.trigger("cClothingShop-SetCamera", this.currentTitle);
+		},
+		showHats: function() {
+			this.currentTitle = "Hats";
+			this.currentArr = this.hats;
+			this.setCurrentStartSettings();
+		},		
+		showGlasses: function() {
+			this.currentTitle = "Glasses";
+			this.currentArr = this.glasses;
+			this.setCurrentStartSettings();
+		},		
+		showTops: function() {
+			this.currentTitle = "Tops";
+			this.currentArr = this.tops;
+			this.setCurrentStartSettings();
+		},
+		showLegs: function() {
+			this.currentTitle = "Legs";
+			this.currentArr = this.legs;
+			this.setCurrentStartSettings();
+		},		
+		showFeet: function() {
+			this.currentTitle = "Feet";
+			this.currentArr = this.feet;
+			this.setCurrentStartSettings();
+		},		
+			
+			
+			
+		setCurrentCloth: function(num) {
+			this.currentNum = num;
+			this.currentCloth = this.currentArr[num];
+			this.setColor(0);
+			if (this.currentTitle === "Tops") this.setUnderColor(0);
+			this.setClothToPlayer();
+		},
+		nextCloth: function() {
+			if (this.currentNum === this.currentArr.length - 1) return this.setCurrentCloth(0);
+			this.setCurrentCloth(++this.currentNum);
+		},
+		prevCloth: function() {
+			if (this.currentNum === 0) return this.setCurrentCloth(this.currentArr.length - 1);
+			this.setCurrentCloth(--this.currentNum);
+		},
+			
+			
+			
+		setColor: function(num) {
+			this.currentColorNum = num;
+			this.currentCloth.color = this.currentCloth.colors[num];
+			this.setClothToPlayer();
+		},
+		nextColor: function() {
+			if (this.currentColorNum === this.currentCloth.colors.length - 1) {
+				return this.setColor(0);
+			}
+			this.setColor(++this.currentColorNum);
+		},
+		prevColor: function() {
+			if (this.currentColorNum === 0) {
+				return this.setColor(this.currentCloth.colors.length - 1);
+			}
+			this.setColor(--this.currentColorNum);
+		},
+			
+			
+
+		setUnderColor: function(num) {
+			this.currentUnderColorNum = num;
+			this.currentCloth.underColor = this.currentCloth.underColors[num];
+			this.setClothToPlayer();
+		},
+		nextUnderColor: function() {
+			if (this.currentUnderColorNum === this.currentCloth.underColors.length - 1) {
+				return this.setUnderColor(0);
+			}
+			this.setUnderColor(++this.currentUnderColorNum);
+		},
+		prevUnderColor: function() {
+			if (this.currentUnderColorNum === 0) {
+				return this.setUnderColor(this.currentCloth.underColors.length - 1);
+			}
+			this.setUnderColor(--this.currentUnderColorNum);
+		},
+			
+		buy: function() {
+			const obj = {
+				title: this.currentTitle,
+				id: this.id,
+				number: this.currentNum,
+				color: this.currentCloth.color,
+				underColor: this.currentCloth.underColor,
+			}
+			mp.trigger("cMisc-CallServerEvent", "sClothingShop-BuyCloth", JSON.stringify(obj));
+		},
+		
+		reset: function() {
+			this.currentTitle = false;
+			mp.trigger("cClothingShopSetCamera", this.currentTitle);
+			mp.trigger("cMisc-CallServerEvent", "sClothingShop-ReloadClothes");
+		},
+		changeCamRotation: function() {
+			mp.trigger("cChangeHeading", this.camRotation); 
+		},
+		exit: function() {
+			mp.trigger("cCloseCefAndDestroyCam");
+			mp.trigger("cMisc-CallServerEvent", "sClothingShop-ReloadClothes");
+		},
+
+		setClothToPlayer: function() {
+			const obj = {
+				title: this.currentTitle,
+				number: this.currentNum,
+				color: this.currentCloth.color,
+				underColor: this.currentCloth.underColor,
+			}
+			mp.trigger("cMisc-CallServerEvent", "sClothes-SetCloth", JSON.stringify(obj));
+		},
+	}
+});
+
+function loadMans() {
+	app.hats =  [	
+	{	id: 8, 	name: "Without Hat",color: 0, colors: [0], 							price: 0,  },
+	{	id: 2, 	name: "Cap", 		color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7], 	price: 500,  },
+	{	id: 3, 	name: "Panama", 	color: 0, colors: [1, 2], 						price: 600,  },
+	{	id: 4, 	name: "LS Cap", 	color: 0, colors: [0, 1], 						price: 1000,  },
+	{	id: 5, 	name: "Cap", 		color: 0, colors: [0, 1], 						price: 500,  },
+	{	id: 6, 	name: "Army Cap", 	color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7], 	price: 700,  },
+	];
+
+	app.glasses = [	
+	{	id: 0, name: "Without Glasses", color: 0, colors: [0], 									price: 0,  },
+	{	id: 1, name: "Glasses №1", 		color: 0, colors: [1], 									price: 500,  },
+	{	id: 2, name: "Glasses №2", 		color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 	price: 450,  },
+	];
+
+	app.tops = [	
+	{	id: 0, name: "Simple T-Shirt", color: 0, colors: [0, 1, 2, 3, 4, 5, 7, 8, 11], price: 650, torso: 0, undershirt: 15, underColor: 0, underColors: [0], 		},
+	{	id: 1, name: "Simple T-Shirt", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14], price: 550, torso: 0, undershirt: 15, underColor: 0, underColors: [0], 		},
+	{	id: 5, name: "Undershirt", color: 0, colors: [0, 1, 2, 7], price: 350, torso: 5, undershirt: 15, underColor: 0, underColors: [0], 	},
+	{	id: 8, name: "Shirt", color: 0, colors: [0, 10, 13, 14], price: 700, torso: 8, undershirt: 15, underColor: 0, underColors: [0], 	},
+	{	id: 13, name: "Shirt", color: 0, colors: [0, 1, 2, 3, 5, 13], price: 800, torso: 11, undershirt: 15, underColor: 0, underColors: [0], 	},
+	{	id: 14, name: "Shirt", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], price: 950, torso: 12, undershirt: 15, underColor: 0, underColors: [0], 	},
+	{	id: 16, name: "T-Shirt", color: 0, colors: [0, 1, 2], price: 600, torso: 0, undershirt: 15, underColor: 0, underColors: [0], 	},
+	{	id: 17, name: "Undershirt", color: 0, colors: [0, 1, 2, 3, 4, 5], price: 700, torso: 5, undershirt: 15, underColor: 0, underColors: [0], 	},
+	{	id: 18, name: "Colored Shirt", color: 0, colors: [0, 1, 2, 3], price: 900, torso: 0, undershirt: 15, underColor: 0, underColors: [0], 	},
+		
+	];
+
+	app.legs = [	
+	{	id: 0, name: "Fit Jeans", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 	price: 750,  },
+	{	id: 1, name: "Wide Jeans", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 	price: 1000,  },
+	];
+
+	app.feet = [	
+	{	id: 1, name: "Sneakers", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], price: 600,  },
+	{	id: 3, name: "Sneakers", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], price: 550,  },
+	{	id: 4, name: "High Sneakers", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], price: 500,  },
+	{	id: 5, name: "Bedroom Slippers", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], price: 400,  },
+	];
+}
+
+
+function loadWomans() {
+	app.hats =  [	
+	{	id: 57, 	name: "Without Hat",color: 0, colors: [0], 	price: 0,  },
+	];
+
+	app.glasses = [	
+	{	id: 13, name: "Without Glasses", color: 0, colors: [0], 										price: 0,  },
+	{	id: 0, name: "Glasses №1", 		color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 		price: 500,  },
+	{	id: 21, name: "Glasses №2", 	color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 		price: 450,  },
+	];
+
+	app.tops = [	
+	{	id: 0, name: "Simple T-Shirt", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], price: 500, torso: 0, undershirt: 15, underColor: 0, underColors: [0], 		},
+	{	id: 2, name: "Simple T-Shirt", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], price: 650, torso: 2, undershirt: 15, underColor: 0, underColors: [0], 		},
+	{	id: 3, name: " Jersey", color: 0, colors: [0, 1, 2, 3, 4, 10, 11, 12, 13, 14], price: 750, torso: 3, undershirt: 15, underColor: 0, underColors: [0], 		},
+	{	id: 4, name: " Sport Undershirt", color: 0, colors: [13, 14], price: 450, torso: 4, undershirt: 15, underColor: 0, underColors: [0], 		},
+	{	id: 5, name: " Sport Undershirt", color: 0, colors: [0, 1, 7, 9], price: 450, torso: 4, undershirt: 15, underColor: 0, underColors: [0], 		},
+		
+	];
+
+	app.legs = [	
+	{	id: 0, name: "Fit Jeans", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 	price: 750,  },
+	{	id: 1, name: "Wide Jeans", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 	price: 1000,  },
+	];
+
+	app.feet = [	
+	{	id: 1, name: "Shoes", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], price: 800,  },
+	{	id: 2, name: "Sneakers", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], price: 550,  },
+	];
+}
+
+
+function loadRusLang() {
+	app.titleText = "Магазин одежды";
+	app.hatsText = "Головные уборы";
+	app.glassesText = "Очки";
+	app.topsText = "Верхняя одежда";
+	app.legsText = "Брюки";
+	app.feetText = "Обувь";
+	app.colorText = "Цвет:";
+	app.underColorText = "Цвет футболки";
+	app.buyText = "Купить";
+	app.resetText = "Сбросить все";
+	app.exitText = "Выход";
+}
+
+function loadGerLang() {
+	app.titleText = "Bekleidungsgeschäft";
+	app.hatsText = "Kopfbedeckungen";
+	app.glassesText = "Brillen";
+	app.topsText = "Oberbekleidung";
+	app.legsText = "Hosen";
+	app.feetText = "Schuhe";
+	app.colorText = "Farbe:";
+	app.underColorText = "T-Shirts Farbe";
+	app.buyText = "Kaufen Sie jetzt";
+	app.resetText = "Alles zurücksetzen";
+	app.exitText = "Beenden";
+}
+
+function loadBrLang() {
+	app.titleText = "Loja de roupas";
+	app.hatsText = "Chapéus";
+	app.glassesText = "Óculos";
+	app.topsText = "Torso";
+	app.legsText = "Pernas";
+	app.feetText = "Pés";
+	app.colorText = "Cor:";
+	app.underColorText = "Cor da roupa:";
+	app.buyText = "Comprar";
+	app.resetText = "Redefinir tudo";
+	app.exitText = "Sair";
+}
+
+</script>

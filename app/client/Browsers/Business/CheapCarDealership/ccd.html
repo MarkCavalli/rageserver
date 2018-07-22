@@ -1,0 +1,422 @@
+﻿<html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="ccd.css">
+	<script src="../../vue.js"></script>
+	<body>
+		<div id="app">
+			<div class="b3-close" id="close-button" @click="exit">X</div>
+			<div class="title" id="id">{{ title }} №{{ id }}</div>
+			<div class="content">
+			   <div v-for="car in cars" :style="{ 'background': 'url(img/' + car.model + '.jpg) center', 'background-size': 'cover' }" class="item">
+				  <div class="item-bg-color" @mouseover="car.hideText = false" @mouseout="car.hideText = true">
+					 <table class="item-table" :class="{ hideText: car.hideText }" border="0" cellpadding="0" cellspacing="0">
+						<tr>
+						   <td>{{ modelText }}</td>
+						   <td class="right">{{ car.title }}</td>
+						</tr>
+						<tr>
+						   <td>{{ fuelTankText }}</td>
+						   <td class="right">{{ car.fuelTank }} L</td>
+						</tr>
+						<tr>
+						   <td>{{ fuelRateText }}</td>
+						   <td class="right">{{ car.fuelRate }} L/100 km</td>
+						</tr>
+						<tr class="buy" @click="buyCar(car.model)">
+						   <td>{{ priceText }}</td>
+						   <td class="right price">{{ prettify(car.price + car.price * margin / 400) }}</td>
+						</tr>
+					 </table>
+				  </div>
+			   </div>
+			</div>
+		 </div>
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+	el: '#app',
+	data: {
+		id: 0,
+		title: "Cheap Car Dealership",
+		margin: 0,
+		modelText: "Model",
+		fuelTankText: "Fuel tank",
+		fuelRateText: "Fuel rate",
+		priceText: "Buy",
+		hideText: true,
+		cars: [
+			{
+				hideText: true,
+				model: "peyote",
+				title: "Vapid Peyote",
+				fuelTank: 45,
+				fuelRate: 11,
+				price: 20000,
+			},
+			{
+				hideText: true,
+				model: "emperor2",
+				title: "Albany Emperor",
+				fuelTank: 60,
+				fuelRate: 16,
+				price: 20000,
+			},
+			{
+				hideText: true,
+				model: "dloader",
+				title: "Bravado Duneloader",
+				fuelTank: 80,
+				fuelRate: 25,
+				price: 20000,
+			},
+			{
+				hideText: true,
+				model: "dilettante",
+				title: "Karin Dilettante",
+				fuelTank: 40,
+				fuelRate: 2,
+				price: 25000,
+			},
+			{
+				hideText: true,
+				model: "tornado3",
+				title: "Declasse Tornado",
+				fuelTank: 50,
+				fuelRate: 11,
+				price: 25000,
+			},
+			{
+				hideText: true,
+				model: "panto",
+				title: "Benefactor Panto",
+				fuelTank: 40,
+				fuelRate: 4,
+				price: 30000,
+			},
+			{
+				hideText: true,
+				model: "tornado4",
+				title: "Declasse Tornado",
+				fuelTank: 50,
+				fuelRate: 11,
+				price: 30000,
+			},
+			{
+				hideText: true,
+				model: "bfinjection",
+				title: "BF Injection",
+				fuelTank: 45,
+				fuelRate: 8,
+				price: 30000,
+			},
+			{
+				hideText: true,
+				model: "issi2",
+				title: "Weeny Issi",
+				fuelTank: 50,
+				fuelRate: 7,
+				price: 40000,
+			},
+			{
+				hideText: true,
+				model: "moonbeam",
+				title: "Declasse Moonbeam",
+				fuelTank: 70,
+				fuelRate: 25,
+				price: 40000,
+			},
+			{
+				hideText: true,
+				model: "rebel",
+				title: "Karin Rebel",
+				fuelTank: 65,
+				fuelRate: 18,
+				price: 40000,
+			},
+			{
+				hideText: true,
+				model: "blista",
+				title: "Dinka Blista",
+				fuelTank: 45,
+				fuelRate: 6,
+				price: 45000,
+			},
+			{
+				hideText: true,
+				model: "brioso",
+				title: "Grotti Brioso R/A",
+				fuelTank: 40,
+				fuelRate: 5,
+				price: 50000,
+			},
+			{
+				hideText: true,
+				model: "voodoo2",
+				title: "Declasse Voodoo",
+				fuelTank: 55,
+				fuelRate: 16,
+				price: 50000,
+			},
+			{
+				hideText: true,
+				model: "prairie",
+				title: "Bollokan Prairie",
+				fuelTank: 55,
+				fuelRate: 9,
+				price: 50000,
+			},
+			{
+				hideText: true,
+				model: "rhapsody",
+				title: "DeClasse Rhapsody",
+				fuelTank: 50,
+				fuelRate: 7,
+				price: 55000,
+			},
+			{
+				hideText: true,
+				model: "rebel2",
+				title: "Karin Rebel",
+				fuelTank: 65,
+				fuelRate: 17,
+				price: 55000,
+			},
+			{
+				hideText: true,
+				model: "regina",
+				title: "Dundreary Regina",
+				fuelTank: 45,
+				fuelRate: 7,
+				price: 60000,
+			},
+			{
+				hideText: true,
+				model: "bifta",
+				title: "BF Bifta",
+				fuelTank: 40,
+				fuelRate: 6,
+				price: 65000,
+			},
+			{
+				hideText: true,
+				model: "emperor",
+				title: "Albany Emperor",
+				fuelTank: 60,
+				fuelRate: 15,
+				price: 65000,
+			},
+			{
+				hideText: true,
+				model: "ingot",
+				title: "Vulcar Ingot",
+				fuelTank: 60,
+				fuelRate: 9,
+				price: 70000,
+			},
+			{
+				hideText: true,
+				model: "pigalle",
+				title: "Lampadati Pigalle",
+				fuelTank: 55,
+				fuelRate: 12,
+				price: 70000,
+			},
+			{
+				hideText: true,
+				model: "tornado",
+				title: "Declasse Tornado",
+				fuelTank: 50,
+				fuelRate: 10,
+				price: 70000,
+			},
+			{
+				hideText: true,
+				model: "slamvan",
+				title: "Vapid Slamvan",
+				fuelTank: 60,
+				fuelRate: 20,
+				price: 80000,
+			},
+			{
+				hideText: true,
+				model: "blade",
+				title: "Vapid Blade",
+				fuelTank: 65,
+				fuelRate: 20,
+				price: 80000,
+			},
+			{
+				hideText: true,
+				model: "tornado2",
+				title: "Declasse Tornado",
+				fuelTank: 50,
+				fuelRate: 10,
+				price: 80000,
+			},
+			{
+				hideText: true,
+				model: "tornado5",
+				title: "Declasse Tornado Custom",
+				fuelTank: 55,
+				fuelRate: 10,
+				price: 90000,
+			},
+			{
+				hideText: true,
+				model: "buccaneer",
+				title: "Albany Buccaneer",
+				fuelTank: 75,
+				fuelRate: 35,
+				price: 130000,
+			},
+			{
+				hideText: true,
+				model: "surge",
+				title: "Cheval Surge",
+				fuelTank: 20,
+				fuelRate: 3,
+				price: 130000,
+			},
+			{
+				hideText: true,
+				model: "serrano",
+				title: "Benefactor Serrano",
+				fuelTank: 50,
+				fuelRate: 12,
+				price: 135000,
+			},
+			{
+				hideText: true,
+				model: "glendale",
+				title: "Benefactor Glendale",
+				fuelTank: 60,
+				fuelRate: 10,
+				price: 135000,
+			},
+			{
+				hideText: true,
+				model: "faction",
+				title: "Willard Faction",
+				fuelTank: 70,
+				fuelRate: 25,
+				price: 140000,
+			},
+			{
+				hideText: true,
+				model: "asea",
+				title: "DeClasse Asea",
+				fuelTank: 45,
+				fuelRate: 8.5,
+				price: 140000,
+			},
+			{
+				hideText: true,
+				model: "radi",
+				title: "Vapid Radius",
+				fuelTank: 50,
+				fuelRate: 13,
+				price: 145000,
+			},
+			{
+				hideText: true,
+				model: "chino",
+				title: "Vapid Chino",
+				fuelTank: 75,
+				fuelRate: 35,
+				price: 150000,
+			},
+			{
+				hideText: true,
+				model: "voodoo",
+				title: "Declasse Voodoo Custom",
+				fuelTank: 55,
+				fuelRate: 15,
+				price: 150000,
+			},
+			{
+				hideText: true,
+				model: "asterope",
+				title: "Karin Asterope",
+				fuelTank: 45,
+				fuelRate: 9,
+				price: 150000,
+			},
+			{
+				hideText: true,
+				model: "primo",
+				title: "Albany Primo",
+				fuelTank: 50,
+				fuelRate: 9,
+				price: 150000,
+			},
+			{
+				hideText: true,
+				model: "manana",
+				title: "Albany Manana",
+				fuelTank: 60,
+				fuelRate: 14,
+				price: 150000,
+			},
+
+		],
+	},
+	methods: {
+		prettify: function(num) {
+			let n = parseFloat(num.toFixed()).toString();
+			const separator = " ";
+			return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + separator);
+		},
+		buyCar: function(model) {
+			const obj = { model: model, id: this.id, };
+			mp.trigger("cMisc-CallServerEvent", "sCheapCarDealership-BuyCar", JSON.stringify(obj));
+			this.exit();
+		},
+
+		exit: function() {
+			mp.trigger("cCloseCef");
+		},
+	}
+});
+
+function loadRusLang() {
+	app.title = "Автосалон эконом класса";
+	app.modelText = "Модель";
+	app.fuelTankText = "Бензобак";
+	app.fuelRateText = "Расход";
+	app.priceText = "Купить";
+}
+
+function loadGerLang() {
+	app.title = "Motor Show Economy Klasse";
+	app.modelText = "Das Modell";
+	app.fuelTankText = "Kraftstofftank";
+	app.fuelRateText = "Verbrauch";
+	app.priceText = "Kaufen Sie jetzt";
+}
+
+function loadBrLang() {
+	app.title = "Loja de Carros";
+	app.modelText = "Modelo";
+	app.fuelTankText = "Tanque de combustível";
+	app.fuelRateText = "Taxa de combustível";
+	app.priceText = "Comprar";
+}
+
+function loadZhsLang() {
+	app.title = "廉价车销售";
+	app.modelText = "型号";
+	app.fuelTankText = "油量";
+	app.fuelRateText = "油耗";
+	app.priceText = "价格";
+}
+function loadZhtLang() {
+	app.title = "廉價車銷售";
+	app.modelText = "型號";
+	app.fuelTankText = "油量";
+	app.fuelRateText = "油耗";
+	app.priceText = "價格";
+}
+</script>

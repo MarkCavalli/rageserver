@@ -1,0 +1,83 @@
+﻿<html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<script src="../vue.js"></script>
+	<body>
+		<section class="app" id="app">
+			<section>
+				<div class="signup-b">
+					<input type="email" class="textinput" placeholder="Email" v-model="enteredMail" :disabled="showCode" autofocus>
+					<input type="password" class="textinput" placeholder="Password" v-model="enteredPass" :disabled="showCode">
+					<div class="code-b" v-if="showCode">
+						<input type="text" class="textinput" @input="verifyCode" v-model="enteredCode">
+						<div class="button" @click="mailGetCode">Get code</div>
+					</div>
+					<div class="button" @click="login" v-if="!showCode">Log in</div>
+				</div>
+				<div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
+				<div class="error-message" style="background: limegreen;" v-if="infoMessage">{{ infoMessage }}</div>
+			   	<div class="top-button" style="right: 0; left: auto;" @click="goToRegWindow">Create new account</div>
+			</section>
+		</section>
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+  	el: '#app',
+  	data: {
+		showCode: false,
+		enteredMail: "",
+	 	enteredPass: "",
+    	enteredCode: "",
+		errorMessage: "",
+		infoMessage: "",
+  	},
+  	methods: {
+		login: function () {
+			const obj = {
+				email: this.enteredMail.toLowerCase(),
+				pass: this.enteredPass,
+			}
+			mp.trigger("cMisc-CallServerEvent", "sLogin-TryLoginWithoutCode", JSON.stringify(obj));
+		},
+	
+		mailGetCode: function () {
+			mp.trigger("cMisc-CallServerEvent", "sLogin-TryGetCodeToLogin", this.enteredMail.toLowerCase());
+		},
+	
+		verifyCode: function() {
+      		if (this.enteredCode.length !== 3) return;
+			const obj = {
+				email: this.enteredMail.toLowerCase(),
+				pass: this.enteredPass,
+				code: +this.enteredCode,
+			}
+			mp.trigger("cMisc-CallServerEvent", "sLogin-TryValidateCodeAndLogIn", JSON.stringify(obj));		  	
+    	},
+	
+		showError(text) {
+				this.infoMessage = "";
+				this.errorMessage = text;
+				setTimeout(() => {
+					this.errorMessage = "";
+				}, 5000);
+			},
+
+		showInfo(text) {
+			this.errorMessage = "";
+			this.infoMessage = text;
+			setTimeout(() => {
+				this.infoMessage = "";
+			}, 5000);
+		},
+
+
+		goToRegWindow: function () {
+			mp.trigger("cLogin-ShowRegWindow");
+		},
+
+ 	}
+});
+</script>

@@ -1,0 +1,128 @@
+﻿<html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<script src="../vue.js"></script>
+	<body>
+		<div class="b1" id="app">
+			<div class="b1-title">Character Creator</div>
+			<div class="fm-b">
+				<div class="fm-b_arrow" @click="changeGender"><</div>
+				<div class="fm-b_main">
+					{{ genderNames[gender] }}
+					<p>gender</p>
+				</div>
+				<div class="fm-b_arrow" @click="changeGender">></div>
+			</div>
+
+			<div class="fm-b" style="margin-top: 10vh;">
+				<div class="fm-b_arrow" @click="prevFather"><</div>
+				<div class="fm-b_main">
+					{{ fatherNames[father] }}
+					<p>father</p>
+				</div>
+				<div class="fm-b_arrow" @click="nextFather">></div>
+			</div>
+
+			<div class="fm-input-b">
+				<input type="range" min="0.0" max="1.0" step="0.05" v-model.number="shapeMix" @input="changeAppearance">
+			</div>
+
+			<div class="fm-b">
+				<div class="fm-b_arrow" @click="prevMother"><</div>
+				<div class="fm-b_main">
+					{{ motherNames[mother] }}
+					<p>mother</p>
+				</div>
+				<div class="fm-b_arrow" @click="nextMother">></div>
+			</div>
+	
+			<div class="fm-b" style="margin-top: 10vh;">
+				<div class="fm-b_main">
+					<input type="range" min="0" max="12" step="1" v-model.number="skinColor" @input="changeAppearance">
+					<p>skin color</p>
+				</div>
+			</div>
+
+			<div class="fm-b">
+				<div class="fm-b_main">
+					<input type="range" min="90" max="270" step="5" v-model.number="camRotation" @input="changeCamRotation">
+					<p>cam rotation</p>
+				</div>
+			</div>
+	
+			<div class="b1-title b1-done" @click="done">Next!</div>
+		</div>
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+	el: '#app',
+	data: {
+		gender: 0,
+		genderNames: ["Man", "Woman"],
+		father: 0,
+		mother: 0,
+		fatherNames: ["Benjamin", "Daniel", "Joshua", "Noah", "Andrew", "Juan", "Alex", "Isaac", "Evan", "Ethan", "Vincent", "Angel", "Diego", "Adrian", "Gabriel", "Michael", "Santiago", "Kevin", "Louis", "Samuel", "Anthony", "Claude", "Niko", "John"],
+		motherNames: ["Hannah", "Aubrey", "Jasmine", "Gisele", "Amelia", "Isabella", "Zoe", "Ava", "Camila", "Violet", "Sophia", "Evelyn", "Nicole", "Ashley", "Gracie", "Brianna", "Natalie", "Olivia", "Elizabeth", "Charlotte", "Emma", "Misty"],
+		fathersID: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 42, 43, 44],
+		mothersID: [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 45],
+		skinColor: 6,
+		shapeMix: 0.5,
+		camRotation: 180,
+	},
+	methods: {
+		prevFather: function() {
+			if (this.father === 0) this.father = 23;
+			else this.father--;
+			this.changeAppearance();
+		},	
+		nextFather: function() {
+			if (this.father === 23) this.father = 0;
+			else this.father++;
+			this.changeAppearance();
+		},	
+		prevMother: function() {
+			if (this.mother === 0) this.mother = 21;
+			else this.mother--;
+			this.changeAppearance();
+		},	
+		nextMother: function() {
+			if (this.mother === 21) this.mother = 0;
+			else this.mother++;
+			this.changeAppearance();
+		},	
+		changeAppearance: function() {
+			const arr = [
+				this.fathersID[this.father],
+				this.mothersID[this.mother], 
+				this.skinColor,  
+				this.shapeMix,
+			];
+			mp.trigger("cCharCreator-UpdateSkinOptions", JSON.stringify(arr));
+		},	
+		changeGender: function() {
+			if (this.gender === 1) this.gender = 0;
+			else this.gender = 1;
+			mp.trigger("cMisc-CallServerEvent", "sCharCreator-ChangeGender", this.gender);
+			this.changeAppearance();
+		},	
+		changeCamRotation: function() {
+			mp.trigger("cChangeHeading", this.camRotation); 
+		},
+		done: function() {
+			const arr = [
+				this.fathersID[this.father],
+				this.mothersID[this.mother], 
+				this.skinColor,  
+				this.shapeMix,
+			];
+			mp.trigger("cMisc-CallServerEvent", "sCharCreator-SaveSkinOptions", JSON.stringify(arr));
+			mp.trigger("cCharCreator-LoadWindowTwo");
+		},
+	}
+});
+
+app.changeAppearance();
+</script>

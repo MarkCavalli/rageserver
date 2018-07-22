@@ -1,0 +1,71 @@
+﻿html {
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	font-family: Segoe UI;
+	font-weight: 100;
+	color: #DDD;
+	text-align: center;
+  }
+  
+  .b-title {
+	  padding: 15vh 0;
+	  position: absolute;
+	  left: 0;
+	  top: 0;
+	  width: 50%;
+	  font-size: 8vh;
+	  line-height: 7vh;
+	  color: tomato;
+  }
+  
+  .b-title > span {
+	  font-size: 2.5vh;
+	  text-transform: uppercase;
+	  color: #ddd;
+  }
+  
+  .items {
+	width: 20vw;
+	position: absolute;
+	left: 15vw;
+	top: 30vh;
+	height: 70vh;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center;
+  }
+  
+  
+  .item {
+	  width: 100%;
+	  font-size: 1.5vw;
+	  transition: 0.2s;	
+	  border: 1px solid #ddd;
+	  margin: 3% 0;
+  }
+  
+  .item:hover {
+	  border: 1px solid tomato;
+	  color: tomato;
+  }
+  
+  .item > div {
+	  padding: 1vh;
+	  text-transform: uppercase;
+  }
+  
+  .b3-close {
+	  background: coral;
+	  position: absolute;
+	  right: 0;
+	  top: 0;
+	  width: 6vh;
+	  height: 3vh;
+	  font-size: 2vh;
+	  transition: 0.3s;
+	  cursor: pointer;
+  }
+  
+  .b3-close:hover {
+	  background: tomato;
+  }

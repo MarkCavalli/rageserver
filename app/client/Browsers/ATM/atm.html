@@ -1,0 +1,222 @@
+﻿<html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<script src="../vue.js"></script>
+	<body>
+		<div id="app">
+			<div class="b3-close" id="close-button" @click="exit">X</div>
+			<div class="b1-logo logoLoading" id="logo">
+				<div class="logo">
+					<img src="../fleeca.png" height="100vh">
+				</div>
+			</div>
+			<div class="b1-money">
+				<div>
+					<div class="b1-summ">{{ showCash() }}</div>
+					<div class="b1-summ-info">{{ cashText }}</div>
+				</div>
+				<div>
+					<div class="b1-summ">{{ showBMoney() }}</div>
+					<div class="b1-summ-info">{{ bankAccountText }}</div>
+				</div>
+				<div>
+					<div class="b1-summ">{{ showTMoney() }}</div>
+					<div class="b1-summ-info">{{ taxAccountText }}</div>
+				</div>
+				<div>
+					<div class="b1-summ">{{ showFMoney() }}</div>
+					<div class="b1-summ-info">{{ fineAccountText }}</div>
+				</div>
+			</div>
+			
+			<div class="b2-buttons" v-if="!transactionBlockSeen && !finesBlockSeen">
+				<div class="b2-item" @click="openTransactionBlock('getCash')">{{ takeCashText }}</div>
+				<div class="b2-item" @click="openTransactionBlock('putCash')">{{ putCashText }}</div>
+				<div class="b2-item" @click="openTransactionBlock('getTaxMoney')">{{ takeTaxMoneyText }}</div>
+				<div class="b2-item" @click="openTransactionBlock('putTaxMoney')">{{ putCashToTaxText }}</div>
+				<div class="b2-item" @click="openFinesBlock">{{ payFinesText }}</div>
+			</div>
+			
+			<div class="b3" v-if="transactionBlockSeen">
+				<div class="b3-close" @click="closeTransactionBlock">X</div>
+				<div class="b3-vars">
+					<div class="b2-item b3-item" v-for="cash in cashTemplate" @click="addToInput(cash.amount)">{{ prettify(cash.amount) }}</div>
+					<div class="b2-item b3-item-input"><input class="submit-cash" type="text" v-model.number="inputValue"></div>
+					<div class="b2-item b3-item-done" @click="doTransaction">{{ doneText }}</div>
+				</div>
+			</div>
+			
+			<div class="b3 b3-fine" v-if="finesBlockSeen">
+				<div class="b3-close" @click="closeFinesBlock">X</div>
+				<div class="fine">
+					<div class="fine-item" v-for="(finee, i) in fines" @click="payFine(i)">
+						<span class="fine-item_price">${{ prettify(finee.val) }}</span>
+						<div>{{ finee.txt }}</div>
+						<span>{{ finee.date }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+	el: '#app',
+	data: {
+		cash: 0,
+		bank: 0,
+		tax: 0,
+		fine: 0,
+		fines: [],
+		transactionBlockSeen: false,
+		finesBlockSeen: false,
+		transactionType: null,
+		cashTemplate: [
+			{ amount: 1000 },
+			{ amount: 5000 },
+			{ amount: 10000 },
+			{ amount: 25000 },
+			{ amount: 50000 },
+			{ amount: 100000 },
+		],
+		inputValue: 0,
+
+		cashText: "cash",
+		bankAccountText: "bank account",
+		taxAccountText: "tax account",
+		fineAccountText: "fine account",
+
+		takeCashText: "Take cash",
+		putCashText: "Put cash",
+		takeTaxMoneyText: "Take cash from tax account",
+		putCashToTaxText: "Put cash in tax account",
+		payFinesText: "Pay Fines",
+
+		doneText: "Done",
+		
+		
+	},
+	methods: {
+		prettify: function(num) {
+			let n = num.toString();
+			const separator = " ";
+			return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + separator);
+		},
+		showCash: function() {
+			return this.prettify(this.cash);
+		},
+		showBMoney: function() {
+			return this.prettify(this.bank);
+		},
+		showTMoney: function() {
+			return this.prettify(this.tax);
+		},
+		showFMoney: function() {
+			return this.prettify(this.fine);
+		},
+		openTransactionBlock: function(t) {
+			this.transactionType = t;
+			this.transactionBlockSeen = true;
+		},
+		closeTransactionBlock: function() {
+			this.transactionType = null;
+			this.transactionBlockSeen = false;
+			this.inputValue = 0;
+		},
+		addToInput: function(value) {
+			this.inputValue += value;
+		},
+		doTransaction: function() {
+			if (this.transactionType === "getCash") this.getCash();
+			else if (this.transactionType === "putCash") this.putCash();
+			else if (this.transactionType === "getTaxMoney") this.getTaxMoney();
+			else if (this.transactionType === "putTaxMoney") this.putTaxMoney();
+			this.inputValue = 0;
+		},
+		getCash: function() {
+			mp.trigger("cMisc-CallServerEvent", "sMoney-GetCash", this.inputValue);
+		},
+		putCash: function() {
+			mp.trigger("cMisc-CallServerEvent", "sMoney-PutCash", this.inputValue);
+		},
+		getTaxMoney: function() {
+			mp.trigger("cMisc-CallServerEvent", "sMoney-GetTaxMoney", this.inputValue);
+		},
+		putTaxMoney: function() {
+			mp.trigger("cMisc-CallServerEvent", "sMoney-PutTaxMoney", this.inputValue);
+		},
+		
+		openFinesBlock: function() {
+			this.finesBlockSeen = true;
+		},
+		
+		closeFinesBlock: function() {
+			this.finesBlockSeen = false;
+		},
+
+		loadFines: function(str) {
+			this.fines = JSON.parse(str);
+		},
+		
+		payFine: function(i) {
+			mp.trigger("cMisc-CallServerEvent", "sMoney-PayFine", i);
+		},
+
+		exit: function() {
+			mp.trigger("cCloseCef"); 
+		},
+	}
+});
+
+
+function load() {
+	document.getElementById("logo").classList.remove("logoLoading");
+}
+
+function loadRusLang() {
+	app.cashText = "наличные";
+	app.bankAccountText = "сберегательный счет";
+	app.taxAccountText = "налоговый счет";
+	app.fineAccountText = "штрафной счет";
+
+	app.takeCashText = "Снять наличные";
+	app.putCashText = "Положить наличные";
+	app.takeTaxMoneyText = "Снять деньги с налогового счета";
+	app.putCashToTaxText = "Положить деньги на налоговый счет";
+	app.payFinesText = "Погасить штрафы";
+
+	app.doneText = "Готово";
+}
+
+function loadGerLang() {
+	app.cashText = "Bargeld";
+	app.bankAccountText = "Sparkonto";
+	app.taxAccountText = "Steuerkonto";
+	//app.fineAccountText = "";
+
+	app.takeCashText = "Bargeld abheben";
+	app.putCashText = "Bargeld einzahlen";
+	app.takeTaxMoneyText = "Geld von einem Steuerkonto abheben";
+	app.putCashToTaxText = "Geld auf ein Steuerkonto einzahlen";
+	//app.payFinesText = "";
+
+	app.doneText = "Erledigt";
+}
+
+function loadBrLang() {
+	app.cashText = "Dinheiro";
+	app.bankAccountText = "Conta bancária";
+	app.taxAccountText = "Impostos";
+	//app.fineAccountText = "";
+
+	app.takeCashText = "Sacar dinheiro";
+	app.putCashText = "Depósito em dinheiro";
+	app.takeTaxMoneyText = "Sacar dinheiro da conta de impostos";
+	app.putCashToTaxText = "Depositar dinheiro em conta de imposto";
+	app.payFinesText = "Pagar multa";
+
+	app.doneText = "Encerrar";
+}
+</script>

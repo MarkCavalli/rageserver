@@ -1,0 +1,110 @@
+﻿html {
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    font-family: Segoe UI;
+    font-weight: 100;
+    color: #eee;
+    text-align: center;
+}
+  
+body {
+    background: transparent;
+}
+  
+.app {
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+  
+.app > section {
+    display: block;
+    margin: 0 auto;
+    width: 20vw;
+}
+  
+.textinput {
+    color: #fff;
+    outline: none;
+    background: url('transparent.png');
+    border: 0px;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    text-align: center;
+    padding: 0.5vw 0;
+    margin: 0.5vw 0;
+    font-size: 1.25vw;
+    font-family: Segoe UI;
+    font-weight: 100;
+}
+  
+.textinput::-webkit-input-placeholder {
+    color: white;
+}
+  
+.signup-b {
+    overflow: hidden;
+    padding: 1.5vw;
+    border: 1px solid #ddd;
+}
+  
+.button {
+    width: 100%;
+    margin: 2vh 0;
+    font-size: 1.25vw;
+    padding: 0.3vw 0;
+    transition: 0.2s;
+    color: white;
+    border: 1px solid #ddd;
+}
+  
+.button:hover {
+    background: white;
+    color: #555;
+}
+  
+.button:active {
+    background: limegreen;
+}
+  
+.code-b {
+    display: flex;
+    align-items: flex-end;
+    margin: 2vh 0;
+}
+  
+.code-b > div, .code-b>input {
+    margin: 0;
+}
+  
+.checked {
+    border-color: limegreen;
+    color: limegreen;
+}
+  
+.error-message {
+    background: tomato;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    padding: 2vh 0;
+    font-size: 1.25vw;
+}
+  
+.top-button {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 2vh;
+    font-size: 1vw;
+    transition: 0.3s;
+}
+  
+.top-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}

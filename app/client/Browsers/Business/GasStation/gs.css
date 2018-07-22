@@ -1,0 +1,138 @@
+﻿html {
+    height: 100%;
+    font-family: Segoe UI;
+    font-weight: 100;
+    color: #DDD;
+    text-align: center;
+ }
+ 
+ 
+ .left-b {
+     height: 100%;
+     background: rgba(0, 0, 0, 0.75);
+     width: 20vw;
+     position: absolute;
+     left: 0;
+     top: 0;
+     overflow: hidden;
+ }
+ 
+ .dollar:before {
+     content: '$';
+ }
+ 
+ .info-b {
+     margin: 3vh 0;
+ }
+ 
+ .info-b > img {
+     width: 10vh;
+     height: 10vh;
+     border-radius: 50%;
+     
+ }
+ 
+ .info-b_title {
+     font-size: 2.8vh;
+     height: 5vh;
+     color: orange;
+     line-height: 5vh;
+     overflow: hidden;
+ }
+ 
+ .info-b_price {
+     font-size: 2.5vh;
+     color: limegreen;
+ }
+ 
+ .info-b_price_info {
+     font-size: 1.5vh;
+     text-transform: uppercase;
+ }
+ 
+ .cars {
+     width: 100%;
+     overflow: auto;
+     height: 48%;
+     position: absolute;
+     bottom: 0;
+ 
+ }
+ 
+ .car {
+     font-size: 2.5vh;
+     border-top: 1px solid #AAA;
+     padding: 1vh 0;
+     transition: 0.3s;
+ }
+ 
+ 
+ .car > span {
+     display: block;
+     font-size: 1.8vh;
+     line-height: 1.8vh;
+ }
+ 
+ 
+ .fill {
+     font-size: 2.5vh;
+     background: orange;
+     padding: 1vh 0;
+     transition: 0.3s;
+     color: black;
+ }
+ 
+ .fill:hover {
+     background: darkorange;
+ }
+ 
+ .fill-info {
+     font-size: 2.5vh;
+     padding: 1vh 0;
+     display: flex;
+     justify-content: space-around;
+ }
+ 
+ .fill-info_price {
+     color: limegreen;
+     width: 6vh;
+ }
+ 
+ .fill-info_litres {
+     color: orange;
+ }
+ 
+ .fill-info_litres > input {
+    width: 6vh;
+    background: transparent;
+    border: 0;
+    font-family: Segoe UI;
+    font-weight: 100;
+    color: orange;
+    font-size: 2.5vh;
+    text-align: right;
+ }
+ 
+ .hover:hover {
+    background: rgba(0, 0, 0, 0.5);
+ }
+ 
+  .b3-close {
+     background: coral;
+     position: fixed;
+     right: 0;
+     top: 0;
+     width: 6vh;
+     height: 3vh;
+     font-size: 2vh;
+     transition: 0.3s;
+     z-index: 3;
+  }
+  
+  .b3-close:hover {
+     background: tomato;
+  }
+ 
+ ::-webkit-scrollbar {
+     width: 0;
+ }

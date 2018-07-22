@@ -1,0 +1,201 @@
+﻿html {
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  font-family: Segoe UI;
+  font-weight: 100;
+  color: #DDD;
+  text-align: center;
+}
+
+.b3-close {
+  background: coral;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 6vh;
+  height: 3vh;
+  font-size: 2vh;
+  transition: 0.3s;
+  cursor: pointer;
+	z-index: 2;
+}
+.b3-close:hover {
+  background: tomato;
+}
+
+.b1-logo {
+  background: #268F3A;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 40vh;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  position: fixed;
+  transition: 1s;
+}
+.logoLoading {
+  height: 100vh;
+}
+.logo {
+  margin: auto;
+}
+
+.b1-money {
+  width: 100%;
+  background: #DDD;
+  position: fixed;
+  left: 0;
+  top: 40vh;
+  display: flex;
+  padding: 2vh 0;
+}
+.b1-money > div {
+  width: 100%;
+  text-align: center;
+  border-left: 1px solid #777;
+}
+.b1-money > div:nth-child(1) {
+  border-left: 1px solid transparent;
+}
+.b1-summ {
+  font-size: 3vh;
+  color: green;
+}
+.b1-summ:before {
+  content: "$";
+}
+.b1-summ-info {
+  font-size: 1.5vh;
+  color: #777;
+  text-transform: uppercase;
+}
+
+.b2-buttons {
+  display: flex;
+  flex-wrap: wrap;
+	align-items: center;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 3.5vh;
+}
+.b2-item {
+  width: 100%;
+  background: #268F3A;
+  text-align: center;
+  margin: 1vh 20vw;
+  color: #EEE;
+  font-size: 2vh;
+  padding: 2vh 0;
+  text-transform: uppercase;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.b2-item:hover {
+  background: green;
+  color: #ddd;
+}
+
+.b3 {
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 75vw;
+  height: 40vh;
+  position: absolute;
+  left: 50vw;
+  bottom: 5vh;
+  transform: translateX(-50%);
+  transition: 0.3s;
+}
+.b3-vars {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 3vh;
+  margin-top: 7vh;
+}
+.b3-item {
+  width: 30%;
+  margin: 0;
+  margin-bottom: 5vh;
+}
+.b3-item:before {
+  content: "$";
+}
+.b3-item-input {
+  width: 65%;
+  margin: 0;
+  cursor: default;
+  position: relative;
+  text-align: left;
+  font-size: 3vh;
+  background: #ccc;
+}
+.b3-item-input:hover {
+  background: #ccc;
+}
+.b3-item-done {
+  width: 30%;
+  margin: 0;
+  background: #ccc;
+  color: green;
+}
+.submit-cash {
+  width: 100%;
+  height: 95%;
+  position: absolute;
+  left: 0%;
+  top: 0;
+  outline: none;
+  background: url('transparent.png');
+  border: 0px;
+  font-family: Segoe UI;
+  font-weight: 100;
+  font-size: 3vh;
+  line-height: 3vh;
+  color: green;
+  text-align: center;
+}
+
+.b3-fine {
+	height: 37vh;
+	padding-top: 3vh;
+	background: #DDD;
+}
+.fine {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	align-content: flex-start;
+	overflow: auto;
+	height: 37vh;
+}
+.fine-item {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	border-top: 1px solid #777;
+	padding: 2vh 0;
+	font-size: 2.5vh;
+	color: #777;
+	position: relative;
+	transition: 0.3s;
+}
+.fine-item > span {
+	width: 25%;
+}
+.fine-item > div {
+	width: 50%;
+}
+.fine-item_price {
+	color: red;
+}
+.fine-item:hover {
+	background: #ccc;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}

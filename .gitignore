@@ -1,0 +1,13 @@
+/node_modules/*
+/bridge/*
+.listcache
+server.exe
+node.dll
+conf.json
+bt.dat
+*.log
+/plugins/*
+/packages/*
+/client_packages/*
+/app/server/sMysql.js
+/app/server/sMailer.js

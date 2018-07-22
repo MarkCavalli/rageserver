@@ -1,0 +1,123 @@
+﻿html {
+   height: 100%;
+   font-family: Segoe UI;
+   font-weight: 100;
+   color: #DDD;
+   text-align: center;
+}
+
+.b1 {
+   position: fixed;
+   right: 0;
+   top: 0;
+   height: 100vh;
+   width: 20vw;
+}
+
+.item {
+   height: 6vh;
+   font-size: 1.5vw;
+   line-height: 6vh;
+}
+
+.title {
+   background: #555;
+}
+
+.buttons {
+   background: #555;
+   transition: 0.3s;
+}
+
+.buttons:hover {
+   background: #777;
+}
+
+.b {
+   position: relative;
+   background: #666;
+}
+
+.name {
+   font-size: 1.3vw;
+}
+
+.exit {
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   background: tomato;
+   width: 100%;
+   transition: 0.3s;
+}
+
+.exit:hover {
+   background: red;
+}
+
+.arrow {
+   position: absolute;
+   top: 0;
+   width: 3vw;
+   transition: 0.3s;
+}
+
+.arrow:hover {
+   background: #555;
+}
+
+.l-arrow {
+   left: 0;
+}
+
+.r-arrow {
+   right: 0;
+}
+
+.buy {
+   display: flex;
+   justify-content: space-around;
+   transition: 0.3s;
+}
+
+.buy:hover {
+   background: limegreen;
+}
+
+.buy>div:nth-child(2):before {
+   content: "$";
+}
+
+.rotation {
+   position: fixed;
+   left: 0;
+   top: 0;
+   width: 80vw;
+}
+
+.rotation input:focus {
+   outline: none;
+}
+
+.rotation input[type=range] {
+   -webkit-appearance: none;
+   width: 80vw;
+   background: url(transparent.png);
+}
+
+.rotation input[type=range]::-webkit-slider-runnable-track {
+   height: 100vh;
+}
+
+.rotation input[type=range]::-webkit-slider-thumb {
+   height: 100vh;
+   width: 10vw;
+   -webkit-appearance: none;
+}
+
+.reset {
+   position: absolute;
+   bottom: 6vh;
+   left: 0;
+   width: 100%;
+}

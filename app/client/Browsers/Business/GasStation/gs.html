@@ -1,0 +1,131 @@
+﻿<html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="gs.css">
+	<script src="../../vue.js"></script>
+	<body>
+		<section class="left-b" id="app">
+			<div class="b3-close" id="close-button" @click="exit">X</div>
+			<div class="info-b">
+				<img src="Ron.png">
+				<div class="info-b_title">{{ titleText }} №{{ id }}</div>
+				<div class="info-b_price dollar">{{ priceForLitre }}</div>
+				<div class="info-b_price_info">{{ forLitreText }}</div>
+			</div>
+			
+			<div v-if="currentCar">
+				<div class="car">
+					{{ currentCar.title }}
+					<span>{{ currentCar.numberPlate }}</span>
+				</div>
+				<div class="fill-info">
+					<div class="fill-info_litres">
+						<input type="text" v-model="litres" @input="updatePrice">L
+					</div>
+					{{ forText }}
+					<span class="fill-info_price dollar">{{ price }}</span>
+				</div>
+				<div class="fill" @click="fillUp">{{ fillUpText }}</div>
+			</div>
+			
+			<div class="cars">
+				<div class="car hover" v-for="car in cars" @click="setCurrentCar(car)">
+					{{ car.title }}
+					<span>{{ car.numberPlate }}</span>
+				</div>
+			</div>
+		</section>
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+el: '#app',
+data: {
+	id: 4,
+	titleText: "Gas Station",
+	forLitreText: "for litre",
+	fillUpText: "Fill Up",
+	forText: "for",
+	margin: 12,
+	priceForLitre: 0,
+	currentCar: false,
+	litres: 0,
+	price: 0,
+	cars: [	],
+},
+	methods: {
+		prettify: function(num) {
+			let n = num.toString();
+			const separator = " ";
+			return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + separator);
+		},
+		
+		roundNum: function(number, ends = 0) {
+			return parseFloat(number.toFixed(ends));
+		},
+		
+		updatePriceForLitre: function() {
+			this.priceForLitre = 1 + 0.02 * this.margin;
+		},
+			
+		updatePrice: function() {
+			this.price = Math.ceil(this.litres * this.priceForLitre);
+		},
+		
+		setCurrentCar: function(car) {
+			this.currentCar = car;
+			this.litres = this.roundNum(car.fuelTank - car.fuel, 2);
+			this.updatePrice();
+		},
+
+		updateCars: function(carsString) {
+			const cars = JSON.parse(carsString);
+			this.cars = cars;
+		},
+
+		fillUp: function() {
+			const obj = {
+				id: this.currentCar.id,
+				litres: +this.litres,
+			}
+			mp.trigger("cMisc-CallServerEvent", "sGasStation-FillUp", JSON.stringify(obj));
+			this.exit();
+		},
+		
+		exit: function() {
+			mp.trigger("cCloseCefAndDestroyCam");
+		},
+	},
+		
+});
+
+
+function loadRusLang() {
+	app.titleText = "АЗС";
+	app.forLitreText = "за литр";
+	app.fillUpText = "Оплатить";
+	app.forText = "за";
+}
+
+function loadBrLang() {
+	app.titleText = "Posto de Gasolina";
+	app.forLitreText = "por litro";
+	app.fillUpText = "Abastecer";
+	app.forText = "por";
+
+}
+
+function loadZhsLang() {
+	app.titleText = "加油站";
+	//app.forLitreText = "";
+	app.fillUpText = "加油";
+	//app.forText = "";
+}
+function loadZhtLang() {
+	app.titleText = "加油站";
+	//app.forLitreText = "";
+	app.fillUpText = "加油";
+	//app.forText = "";
+}
+</script>

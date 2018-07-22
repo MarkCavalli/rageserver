@@ -1,0 +1,254 @@
+﻿<html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="business.css">
+	<script src="../vue.js"></script>
+	<body>
+		<div id="app">
+			<div class="b3-close" @click="exit">X</div>
+			<div class="b1-logo logoLoading" id="logo">
+				<div class="logo">
+					<img src="../fleeca.png" height="150vh">
+					<div class="b1-tax">tax department</div>
+				</div>
+			</div>
+		
+			<div class="b2">
+				<div class="b2-gs">
+					<div class="b2-gs-item b2-title">{{ showTitle() }}</div>
+				</div>
+				<div class="b2-gs">
+					<div class="b2-gs-item" v-if="showBalanceBlock">
+						<div class="gs-main gs-dollar-before">{{ showBalance() }}</div>
+						<div class="gs-info">{{ balanceText }}</div>
+					</div>
+					<div class="b2-gs-item">
+						<div class="gs-main gs-dollar-before">{{ showPrice() }}</div>
+						<div class="gs-info">{{ priceText }}</div>
+					</div>
+					<div class="b2-gs-item">
+						<div class="gs-main">{{ showOwner() }}</div>
+						<div class="gs-info">{{ ownerText }}</div>
+					</div>
+					<div class="b2-gs-item ">
+						<div class="gs-main gs-dollar-before">{{ showTax() }}</div>
+						<div class="gs-info">{{ taxText }}</div>
+					</div>
+					<div class="b2-gs-item" v-if="showMarginBlock">
+						<div class="gs-main gs-percent-after">{{ margin }}</div>
+						<div class="gs-info">{{ marginText }}</div>
+					</div>
+				</div>
+		
+				<div class="b2-buttons">
+					<div class="b2-button" v-if="showBuyBtn" @click="changeBuyConfirms">
+						<div class="b2-cb b2-cb_left" v-if="showBuyConfirms">X</div> {{ buyText }}
+						<div class="b2-cb b2-cb_right" v-if="showBuyConfirms" @click="buy">V</div>
+					</div>
+					<div class="b2-button" v-if="showSellBtn" @click="changeSellConfirms">
+						<div class="b2-cb b2-cb_left" v-if="showSellConfirms">X</div>{{ sellText }}
+						<div class="b2-cb b2-cb_right" v-if="showSellConfirms" @click="sell">V</div>
+					</div>
+					<div class="b2-button" v-if="showMarginBtn">
+						<div class="b2-cb b2-cb_left" @click="changeMargin(-10)">- 10</div>
+						<div class="b2-cb b2-cb_left" style="left: 7vh;" @click="changeMargin(-1)">- 1</div>{{ changeMarginText }}
+						<div class="b2-cb b2-cb_right" style="right: 7vh;" @click="changeMargin(1)">+ 1</div>
+						<div class="b2-cb b2-cb_right" @click="changeMargin(10)">+ 10</div>
+					</div>
+					<div class="b2-button" v-if="showBalanceBtn" @click="takeBalanceMoney">{{ takeBalanceMoneyText }}</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+	el: '#app',
+	data: {
+		id: 1,
+		title: "",
+		showBalanceBlock: false,
+		balance: 0,
+		price: 0,
+		owner: null,
+		margin: 0,
+		marginLowLimit: 0,
+		marginHighLimit: 200,
+		showMarginBlock: false,
+		showBuyBtn: false,
+		showSellBtn: false,
+		showMarginBtn: false,
+		showBalanceBtn: false,
+
+		showBuyConfirms: false,
+		showSellConfirms: false,
+
+		balanceText: "balance",
+		priceText: "price",
+		ownerText: "owner",
+		taxText: "tax",
+		marginText: "margin",
+
+		forSaleText: "For Sale",
+
+		buyText: "Buy business",
+		sellText: "Sell business",
+		changeMarginText: "Change Margin",
+		takeBalanceMoneyText: "Take all money from balance account",
+
+	},
+	methods: {
+		loadForSale: function() {
+			this.showBuyBtn = true;
+		},
+		loadForOwner: function() {
+			this.showSellBtn = true;
+			this.showMarginBtn = true;
+			this.showBalanceBtn = true;
+			this.showMarginBlock = true;
+			this.showBalanceBlock = true;
+		},
+		prettify: function(num) {
+			let n = num.toString();
+			const separator = " ";
+			return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + separator);
+		},
+			showTitle: function() {
+			return `${this.title} №${this.id}`;
+		},
+		showBalance: function() {
+			return this.prettify(this.balance);
+		},
+		showPrice: function() {
+			return this.prettify(this.price);
+		},
+			showOwner: function() {
+			if (!this.owner || this.owner === "null") return this.forSaleText;
+				return this.owner;
+		},
+		showTax: function() {
+			return this.prettify(this.price / 10000);
+		},
+		changeBuyConfirms: function() {
+			this.showBuyConfirms = !this.showBuyConfirms;
+		},
+		changeSellConfirms: function() {
+			this.showSellConfirms = !this.showSellConfirms;
+		},
+		changeMargin: function(value) {
+			if (value > 0) {
+				this.addToMargin(value);
+			} else if (value < 0) {
+				this.removeFromMargin(value);
+			}
+		},
+		addToMargin: function(value) {
+			if (this.margin + value > this.marginHighLimit) {
+				return this.margin = this.marginHighLimit;
+			}
+			this.margin += value;
+		},
+		removeFromMargin: function(value) {
+			if (this.margin + value < this.marginLowLimit) {
+				return this.margin = this.marginLowLimit;
+			}
+			this.margin += value;
+		},
+
+		buy: function() {
+			mp.trigger("cMisc-CallServerEvent", "sBusiness-BuyBusiness");
+			this.exit();
+		},
+		sell: function() {
+			mp.trigger("cMisc-CallServerEvent", "sBusiness-SellBusiness");
+			this.exit();
+		},
+		takeBalanceMoney: function() {
+			mp.trigger("cMisc-CallServerEvent", "sBusiness-TakeBalanceMoney");
+			this.balance = 0;
+		},
+
+		saveMargin: function() {
+			mp.trigger("cMisc-CallServerEvent", "sBusiness-ChangeMargin", this.margin);
+			mp.trigger("", );
+		},
+
+		exit: function() {
+			this.saveMargin();
+			mp.trigger("cCloseCef");
+		},
+	}
+});
+function load() {
+	document.getElementById("logo").classList.remove("logoLoading");
+}
+
+function loadRusLang() {
+	app.balanceText = "баланс";
+	app.priceText = "цена";
+	app.ownerText = "владелец";
+	app.taxText = "налог";
+	app.marginText = "комиссия";
+
+	app.forSaleText = "Продается";
+
+	app.buyText = "Купить бизнес";
+	app.sellText = "Продать бизнес";
+	app.changeMarginText = "Изменить коммиссию";
+	app.takeBalanceMoneyText = "Снять деньги с баланса";
+}
+
+function loadGerLang() {
+	app.balanceText = "Balance";
+	app.priceText = "Preis";
+	app.ownerText = "Besitzer";
+	app.taxText = "Steuern";
+	app.marginText = "Kommission";
+	app.forSaleText = "Zum Verkauf";
+	app.buyText = "Geschäft kaufen";
+	app.sellText = "Geschäft verkaufen";
+	app.changeMarginText = "Kommission ändern";
+	app.takeBalanceMoneyText = "Geld vom Steuerkonto abheben";
+}
+
+function loadBrLang() {
+	app.balanceText = "Saldo";
+	app.priceText = "Preço";
+	app.ownerText = "Dono";
+	app.taxText = "Taxas";
+	app.marginText = "Margem";
+	app.forSaleText = "Para venda";
+	app.buyText = "Comprar empresa";
+	app.sellText = "Vender empresa";
+	app.changeMarginText = "Alterar Margem";
+	app.takeBalanceMoneyText = "Pegue todo o dinheiro da conta de saldo";
+}
+
+function loadZhsLang() {
+	app.balanceText = "账目";
+	app.priceText = "价格";
+	app.ownerText = "老板";
+	app.taxText = "税务";
+	app.marginText = "margin";
+	app.forSaleText = "出售";
+	app.buyText = "购买商业";
+	app.sellText = "出售商业";
+	app.changeMarginText = "修改Margin";
+	app.takeBalanceMoneyText = "取出账目账户的全部现金";  
+}
+
+function loadZhtLang() {
+	app.balanceText = "賬目";
+	app.priceText = "價格";
+	app.ownerText = "老板";
+	app.taxText = "稅務";
+	app.marginText = "margin";
+	app.forSaleText = "出售";
+	app.buyText = "購買商業";
+	app.sellText = "出售商業";
+	app.changeMarginText = "修改Margin";
+	app.takeBalanceMoneyText = "取出賬目賬戶的全部現金";  
+}
+</script>
