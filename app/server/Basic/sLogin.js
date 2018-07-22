@@ -86,7 +86,6 @@ class loginClass {
         player.verificationCode = code;
         player.verificationDate = new Date().getTime();
         const mail = {
-            from: "Open source RP server <opensourcerpserver@gmail.com>",
             to: `${email}`,
             subject: `Verification code: ${code}`,
             text: `Hello! Your verification code is: ${code}`,
@@ -145,7 +144,6 @@ class loginClass {
 
         player.call("cInjectCef", [`app.showInfo('Success! Now you can log in.');`]);
         const mail = {
-            from: "Open source RP server <opensourcerpserver@gmail.com>",
             to: `${d.email}`,
             subject: `Success registration`,
             text: `Hello! Thank you for registration. Here is info about your account, in case you will forget it: FirstName: ${d.firstName} LastName: ${d.lastName} Password: ${d.pass}`,
