@@ -57,7 +57,7 @@ class sVehicle {
 
 		mp.events.addCommand({	
 			'v' : (player, fullText, model) => {
-				if (player.basic.adminLvl < 1) return;
+				if (misc.getAdminLvl(player) < 1) return;
 				if (!model) return player.notify("Model required");
 				const vehicle = mp.vehicles.new(model, player.position,
 				{
@@ -116,6 +116,10 @@ class sVehicle {
 				player.notify('Toggle engine: num 0');
 			},
 		
+			'tp' : (player, fullText, a, b, c) => { 
+				if (misc.getAdminLvl(player) < 1) return;
+				player.position = new mp.Vector3(parseInt(a), parseInt(b), parseInt(c));
+			},
 		
 		});
 	}

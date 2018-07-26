@@ -312,7 +312,7 @@ class patientsClass {
 				setTimeout(() => {
 					this.playerDeath(player, reason, killer);
 				}, 10000);
-				misc.log.debug(`${player.name} death! Reason: ${reason}, killer: ${killer}`);
+				misc.log.debug(`${player.name} death! Reason: ${reason}, killer: ${killer.name}`);
 			},
 		
 			"sKeys-E" : (player) => {

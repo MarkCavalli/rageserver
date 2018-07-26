@@ -7,6 +7,7 @@ const money = require('./sMoney');
 const time = require('./sTime');
 const charCreator = require('../Character/sCharacterCreator');
 const clothes = require('../Character/sClothes');
+const headOverlay = require('../Character/sHeadOverlay');
 const vehicleAPI = require('./sVehicle');
 const faction = require('../Factions/sFaction');
 const hospital = require('../Factions/sHospital');
@@ -140,7 +141,8 @@ class loginClass {
         const q3 = charCreator.createNewUser();
         const q4 = clothes.insertNewUser();
         const q5 = faction.insertNewUser();
-        await Promise.all([q1, q2, q3, q4, q5]);
+        const q6 = headOverlay.insertNewUser();
+        await Promise.all([q1, q2, q3, q4, q5, q6]);
 
         player.call("cInjectCef", [`app.showInfo('Success! Now you can log in.');`]);
         const mail = {
@@ -229,7 +231,8 @@ class loginClass {
         const q2 = charCreator.loadPlayerBody(player);
         const q3 = vehicleAPI.loadPlayerVehicles(player.basic.id);
         const q4 = faction.loadPlayerAccount(player);
-        await Promise.all([q1, q2, q3, q4]);
+        const q5 = headOverlay.loadPlayerHeadOverlay(player);
+        await Promise.all([q1, q2, q3, q4, q5]);
         hospital.loadPlayerAccount(player);
         player.outputChatBox("Choose your language: /setlang [language]");
         player.outputChatBox("Spawn a vehicle: /veh");
