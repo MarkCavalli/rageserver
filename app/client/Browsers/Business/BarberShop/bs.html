@@ -23,44 +23,44 @@
 					<div class="arrow r-arrow" @click="next('hairCol1')">></div>
 				</div>
 				<div class="item b name">
-						<div class="arrow l-arrow" @click="prev('hairCol2')"><</div>
+					<div class="arrow l-arrow" @click="prev('hairCol2')"><</div>
 						{{ hairHighlightColorText }}
-						<div class="arrow r-arrow" @click="next('hairCol2')">></div>
+					<div class="arrow r-arrow" @click="next('hairCol2')">></div>
 				</div>
 				<div class="item b buy" @click="buy('hairCol')">
-						<div>{{ buyText }}</div>
-						<div>{{ showPrice(1500) }}</div>
+					<div>{{ buyText }}</div>
+					<div>{{ showPrice(1500) }}</div>
 				</div>
 				<div class="item"></div>
 				<div class="item b name">
-						<div class="arrow l-arrow" @click="prev('browStyle')"><</div>
+					<div class="arrow l-arrow" @click="prev('browStyle')"><</div>
 						{{ browText }}
-						<div class="arrow r-arrow" @click="next('browStyle')">></div>
+					<div class="arrow r-arrow" @click="next('browStyle')">></div>
 				</div>
 				<div class="item b name">
-						<div class="arrow l-arrow" @click="prev('browModifier')"><</div>
-						{{ browText }} {{ intencityText }}
-						<div class="arrow r-arrow" @click="next('browModifier')">></div>
+					<div class="arrow l-arrow" @click="prev('browModifier')"><</div>
+						{{ intencityText }}
+					<div class="arrow r-arrow" @click="next('browModifier')">></div>
 				</div>
 				<div class="item b buy" @click="buy('brow')">
-						<div>{{ buyText }}</div>
-						<div>{{ showPrice(1000) }}</div>
+					<div>{{ buyText }}</div>
+					<div>{{ showPrice(1000) }}</div>
 				</div>
 				<div class="item"></div>
 				<div v-if="showBeard">
 					<div class="item b name">
-							<div class="arrow l-arrow" @click="prev('beardStyle')"><</div>
-							{{ beardText }}
-							<div class="arrow r-arrow" @click="next('beardStyle')">></div>
+						<div class="arrow l-arrow" @click="prev('beardStyle')"><</div>
+						{{ beardText }}
+						<div class="arrow r-arrow" @click="next('beardStyle')">></div>
 					</div>
 					<div class="item b name">
-							<div class="arrow l-arrow" @click="prev('beardModifier')"><</div>
-							{{ beardText }} {{ intencityText }}
-							<div class="arrow r-arrow" @click="next('beardModifier')">></div>
+						<div class="arrow l-arrow" @click="prev('beardModifier')"><</div>
+							{{ intencityText }}
+						<div class="arrow r-arrow" @click="next('beardModifier')">></div>
 					</div>
 					<div class="item b buy" @click="buy('beard')">
-							<div>{{ buyText }}</div>
-							<div>{{ showPrice(500) }}</div>
+						<div>{{ buyText }}</div>
+						<div>{{ showPrice(500) }}</div>
 					</div>
 				</div>
 				
@@ -98,7 +98,7 @@ const app = new Vue({
 		hairHighlightColorText: "Hair hightlight color",
 		browText: "Brow",
 		beardText: "Beard",
-		intencityText: "intencity",
+		intencityText: "Intencity",
 		
 		buyText: "Buy",
 		exitText: "Exit",
@@ -259,5 +259,31 @@ const app = new Vue({
 	}
 });
 
+function loadRusLang() {
+	app.titleText = "Барбер шоп";
+	app.hairStyleText = "Прическа";
+	app.hairColorText = "Цвет волос";
+	app.hairHighlightColorText = "Цвет корней";
+	app.browText = "Брови";
+	app.beardText = "Борода";
+	app.intencityText = "Интенсивность";
+	app.buyText = "Купить";
+	app.exitText = "Выход";
+}
+
+function loadGerLang() {
+
+}
+
+function loadBrLang() {
+
+}
+
+function loadZhsLang() {
+
+}
+function loadZhtLang() {
+
+}
 
 </script>
