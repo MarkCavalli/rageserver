@@ -37,11 +37,11 @@ connection.getConnection(function(e) {
 
 module.exports = connection;
 ```
-5. Go into `app/server/` and create a file with name `sMailer.js`, paste this code into it and edit your settings:
+5. Go into `app/server/` and create a file with name `sMailer.js`, paste this code into it and edit your settings(More instructions see https://nodemailer.com/usage/):
 ```
 "use strict"
 
-const nodemailer = require("nodemailer");
+const nodemailer = require("nodemailer");   
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -60,6 +60,7 @@ transporter.verify(function(error, success) {
 	}
  });
 
+const fromAddress = 'youmail@gmail.com'
 
 function sendMail(message) {
 	transporter.sendMail(message, (err, info) => {
@@ -70,6 +71,7 @@ function sendMail(message) {
     });
 }
 exports.sendMail = sendMail;
+exports.fromAddress = fromAddress;
 ```
 6. Modify files in `app` directory (if you want).
 7. Do `npm run build` by cmd in main directory (Do this every time after some improvements in 'app' directory).
