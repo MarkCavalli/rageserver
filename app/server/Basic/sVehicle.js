@@ -163,6 +163,9 @@ class sVehicle {
 	lock(player, vehicle) {
 		player.notify(`${vehicle.info.title} ~r~${i18n.get('sVehicle', 'locked', player.lang)}`);
 		const driver = vehicle.getOccupant(-1);
+		console.log(driver);
+		console.log(vehicle.getOccupants[0]);
+		console.log(vehicle.getOccupants());
 		if (!driver) this.blinkLights(vehicle);
 	}
 
@@ -181,12 +184,13 @@ class sVehicle {
 		const engineStatus = vehicle.engine;
 		if (!engineStatus) vehicle.engine = true;
 	
-		mp.players.forEach((player, id) => {
+		const players = mp.players.toArray();
+		for (let player of players) {
 			this.setLights(player, vehicle, 2);
 			setTimeout(() => {
 				this.setLights(player, vehicle, 0);
 			}, 300);
-		});
+		}
 	
 		if (!engineStatus) {
 			setTimeout(() => {

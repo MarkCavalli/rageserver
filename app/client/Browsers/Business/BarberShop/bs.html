@@ -39,7 +39,7 @@
 				</div>
 				<div class="item b name">
 					<div class="arrow l-arrow" @click="prev('browModifier')"><</div>
-						{{ intencityText }}
+						{{ intensityText }}
 					<div class="arrow r-arrow" @click="next('browModifier')">></div>
 				</div>
 				<div class="item b buy" @click="buy('brow')">
@@ -55,7 +55,7 @@
 					</div>
 					<div class="item b name">
 						<div class="arrow l-arrow" @click="prev('beardModifier')"><</div>
-							{{ intencityText }}
+							{{ intensityText }}
 						<div class="arrow r-arrow" @click="next('beardModifier')">></div>
 					</div>
 					<div class="item b buy" @click="buy('beard')">
@@ -98,7 +98,7 @@ const app = new Vue({
 		hairHighlightColorText: "Hair hightlight color",
 		browText: "Brow",
 		beardText: "Beard",
-		intencityText: "Intencity",
+		intensityText: "Intensity",
 		
 		buyText: "Buy",
 		exitText: "Exit",
@@ -266,7 +266,7 @@ function loadRusLang() {
 	app.hairHighlightColorText = "Цвет корней";
 	app.browText = "Брови";
 	app.beardText = "Борода";
-	app.intencityText = "Интенсивность";
+	app.intensityText = "Интенсивность";
 	app.buyText = "Купить";
 	app.exitText = "Выход";
 }
