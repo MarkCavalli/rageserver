@@ -29,8 +29,8 @@ const i18n = {
 			rus: 'Успешно',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '成功',
+			zht: '成功',
 		},
 
 		pressE: {
@@ -38,8 +38,8 @@ const i18n = {
 			rus: 'Нажмите ~b~E ~s~',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '按 ~b~E ~s~',
+			zht: '按 ~b~E ~s~',
 		},
 
 		pressEToOpenMenu: {
@@ -47,8 +47,8 @@ const i18n = {
 			rus: 'Нажмите ~b~E ~s~для входа в меню',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '按 ~b~E ~s~打开菜单',
+			zht: '按 ~b~E ~s~開啟選單',
 		},
 
 		workingOnOtherJob: {
@@ -101,8 +101,8 @@ const i18n = {
 			rus: 'слишком далеко от вас',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '这离你太远了',
+			zht: '這離你太遠了',
 		},
 
 		wait: {
@@ -110,8 +110,8 @@ const i18n = {
 			rus: 'Подождите',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '等待',
+			zht: '等待',
 		},
 
 		seconds: {
@@ -119,8 +119,8 @@ const i18n = {
 			rus: 'секунд',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '秒',
+			zht: '秒',
 		},
 
 		toEnter: {
@@ -128,8 +128,8 @@ const i18n = {
 			rus: 'чтобы войти',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '进入',
+			zht: '進入',
 		},
 
 		toExit: {
@@ -137,8 +137,8 @@ const i18n = {
 			rus: 'чтобы выйти',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '离开',
+			zht: '離開',
 		},
 
 		toEnterGarage: {
@@ -146,8 +146,8 @@ const i18n = {
 			rus: 'чтобы попасть в гараж',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '进入车库',
+			zht: '進入車庫',
 		},
 
 		toExitGarage: {
@@ -155,8 +155,8 @@ const i18n = {
 			rus: 'чтобы покинуть гараж',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '离开车库',
+			zht: '離開車庫',
 		},
 
 		toCallLift: {
@@ -173,8 +173,8 @@ const i18n = {
 			rus: 'Какое-то ТС блокирует зону',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '一些载具阻挡了这个区域',
+			zht: '一些載具阻擋了這個區域',
 		},
 
 		somePlayerIsBlocking: {
@@ -182,8 +182,8 @@ const i18n = {
 			rus: 'Какой-то игрок блокирует зону',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '一些玩家阻挡了这个区域',
+			zht: '一些玩家阻擋了這個區域',
 		},
 
 		youRejectedOffer: {
@@ -309,8 +309,8 @@ const i18n = {
 			rus: 'Продажа бизнеса',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '商业销售',
+			zht: '商業銷售',
 		},
 
 	},
@@ -544,7 +544,7 @@ const i18n = {
 		},
 
 		leader: {
-			eng: 'Now youre leader in',
+			eng: 'Now you are leader in',
 			rus: 'Теперь вы лидер',
 			ger: '',
 			br: '', 
@@ -568,8 +568,8 @@ const i18n = {
 			rus: 'Вам нужна медицинская помощь',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '你需要医疗救治',
+			zht: '你需要醫療救治',
 		},
 
 		toStartHealing: {
@@ -577,8 +577,8 @@ const i18n = {
 			rus: 'чтобы начать лечение',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '开始救治',
+			zht: '開始救治',
 		},
 
 		transferTo: {
@@ -586,8 +586,8 @@ const i18n = {
 			rus: 'Перевоз к больнице',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '转送到医院',
+			zht: '轉送到醫院',
 		},
 
 		startedHealing: {
@@ -595,8 +595,8 @@ const i18n = {
 			rus: 'Вы начали лечение',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '你开始治疗了',
+			zht: '你開始治療了',
 		},
 
 		finishedHealing: {
@@ -604,8 +604,8 @@ const i18n = {
 			rus: 'Вы завершили лечение',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '你结束了治疗过程',
+			zht: '你結束了治療過程',
 		},
 
 		isntHealing: {
@@ -613,8 +613,8 @@ const i18n = {
 			rus: 'не записан на лечение',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '不在治疗中',
+			zht: '不在治療中',
 		},
 
 		youArentHealing: {
@@ -622,8 +622,8 @@ const i18n = {
 			rus: 'Вы не записаны на лечение',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '你现在不在治疗中',
+			zht: '你現在不在治療中',
 		},
 
 		wantsIncreaseHealing: {
@@ -631,8 +631,8 @@ const i18n = {
 			rus: 'Предлагает увеличить скорость лечения',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '希望加快治疗',
+			zht: '希望加快治療',
 		},
 
 		wantsHeal: {
@@ -640,8 +640,8 @@ const i18n = {
 			rus: 'Предлагает вылечить вас',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '想治疗你',
+			zht: '想治療你',
 		},
 
 	},
