@@ -89,9 +89,9 @@ class loginClass {
         const mail = {
             from: `${mailer.getMailAdress()}`,
             to: `${email}`,
-            subject: `Verification code: ${code}`,
-            text: `Hello! Your verification code is: ${code}`,
-            html: `<b>Hello!</b><br>Your verification code is: ${code}`,
+            subject: `Verification code from rage server: ${code}`,
+            text: `Hello! Your verification code is: ${code}.Please insert it into the reg page.`,
+            html: `<b>Hello!</b><br>Your verification code is: ${code}<br>Please insert it into the reg page.`,
         }
         //console.log(code);
         mailer.sendMail(mail);
@@ -149,7 +149,7 @@ class loginClass {
         const mail = {
             from: `${mailer.getMailAdress()}`,
             to: `${d.email}`,
-            subject: `Success registration`,
+            subject: `Success registration to Rage server.`,
             text: `Hello! Thank you for registration. Here is info about your account, in case you will forget it: FirstName: ${d.firstName} LastName: ${d.lastName} Password: ${d.pass}`,
             html: ` <b>Hello!</b><br>
                     Thank you for registration.<br>
