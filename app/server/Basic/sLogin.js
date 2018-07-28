@@ -11,7 +11,6 @@ const headOverlay = require('../Character/sHeadOverlay');
 const vehicleAPI = require('./sVehicle');
 const faction = require('../Factions/sFaction');
 const hospital = require('../Factions/sHospital');
-const fromAddress = ('sMailer.fromAddress');
 
 
 class loginClass {
@@ -88,7 +87,7 @@ class loginClass {
         player.verificationCode = code;
         player.verificationDate = new Date().getTime();
         const mail = {
-            from: `${fromAddress}`,
+            from: `${mailer.getMailAdress()}`,
             to: `${email}`,
             subject: `Verification code: ${code}`,
             text: `Hello! Your verification code is: ${code}`,
@@ -148,7 +147,7 @@ class loginClass {
 
         player.call("cInjectCef", [`app.showInfo('Success! Now you can log in.');`]);
         const mail = {
-            from: `2361094570@qq.com`,
+            from: `${mailer.getMailAdress()}`,
             to: `${d.email}`,
             subject: `Success registration`,
             text: `Hello! Thank you for registration. Here is info about your account, in case you will forget it: FirstName: ${d.firstName} LastName: ${d.lastName} Password: ${d.pass}`,
