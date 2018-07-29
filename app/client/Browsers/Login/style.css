@@ -22,13 +22,14 @@ body {
 }
   
 .app > section {
+    background: #fff;
     display: block;
     margin: 0 auto;
-    width: 20vw;
+    width: 450px;
 }
   
 .textinput {
-    color: #fff;
+    color: #2b2b2b;
     outline: none;
     background: url('transparent.png');
     border: 0px;
@@ -43,7 +44,7 @@ body {
 }
   
 .textinput::-webkit-input-placeholder {
-    color: white;
+    color: #949495;
 }
   
 .signup-b {
@@ -58,17 +59,19 @@ body {
     font-size: 1.25vw;
     padding: 0.3vw 0;
     transition: 0.2s;
-    color: white;
+    color: #2b2b2b;
     border: 1px solid #ddd;
+    background: #89c3eb;
+    
 }
   
 .button:hover {
-    background: white;
+    background: #a0d8ef;
     color: #555;
 }
   
 .button:active {
-    background: limegreen;
+    background: #66ccff;
 }
   
 .code-b {
@@ -101,10 +104,11 @@ body {
     top: 0;
     left: 0;
     padding: 2vh;
-    font-size: 1vw;
+    font-size: 1.1vw;
     transition: 0.3s;
 }
   
 .top-button:hover {
+    font-size: 1.25vw;
     background: rgba(255, 255, 255, 0.1);
 }

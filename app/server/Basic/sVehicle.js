@@ -112,8 +112,8 @@ class sVehicle {
 				}
 		
 				misc.log.debug(`${player.name} spawned faggio2`);
-				player.notify('Unlock: num +');
-				player.notify('Toggle engine: num 0');
+				player.notify(`${i18n.get('sVehicle', 'helpUnlock', player.lang)}`);
+				player.notify(`${i18n.get('sVehicle', 'helpEngine', player.lang)}`);
 			},
 		
 			'tp' : (player, fullText, a, b, c) => { 

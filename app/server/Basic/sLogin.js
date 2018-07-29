@@ -11,6 +11,7 @@ const headOverlay = require('../Character/sHeadOverlay');
 const vehicleAPI = require('./sVehicle');
 const faction = require('../Factions/sFaction');
 const hospital = require('../Factions/sHospital');
+const i18n = require('../sI18n');
 
 
 class loginClass {
@@ -90,8 +91,8 @@ class loginClass {
             from: `${mailer.getMailAdress()}`,
             to: `${email}`,
             subject: `Verification code: ${code}`,
-            text: `Hello! Your verification code is: ${code}`,
-            html: `<b>Hello!</b><br>Your verification code is: ${code}`,
+            text: `Hello! Your rage server verification code is: ${code}`,
+            html: `<b>Hello!</b><br>Your rage server verification code is: ${code}`,
         }
         //console.log(code);
         mailer.sendMail(mail);
@@ -149,14 +150,14 @@ class loginClass {
         const mail = {
             from: `${mailer.getMailAdress()}`,
             to: `${d.email}`,
-            subject: `Success registration`,
+            subject: `Success registration to Rage server.`,
             text: `Hello! Thank you for registration. Here is info about your account, in case you will forget it: FirstName: ${d.firstName} LastName: ${d.lastName} Password: ${d.pass}`,
             html: ` <b>Hello!</b><br>
                     Thank you for registration.<br>
                     Here is info about your account, in case you will forget it:<br>
                     <b>FirstName:</b> ${d.firstName}<br>
                     <b>LastName:</b> ${d.lastName}<br>
-                    <b>Password:</b> ${d.pass}<br>`,
+                    <b>Password:</b> ${d.pass}<br>`, 
         }
         //console.log(code);
         mailer.sendMail(mail);
@@ -236,12 +237,12 @@ class loginClass {
         const q5 = headOverlay.loadPlayerHeadOverlay(player);
         await Promise.all([q1, q2, q3, q4, q5]);
         hospital.loadPlayerAccount(player);
-        player.outputChatBox("Choose your language: /setlang [language]");
-        player.outputChatBox("Spawn a vehicle: /veh");
-        player.outputChatBox("Global chat: /g [message]");
-        player.outputChatBox("If you have account in old server version and want restore data, write here in chat your old name. I will check it in logs");
+        player.outputChatBox(`${i18n.get('sLogin', 'indicateChooseLang', player.lang)}`);
+        player.outputChatBox(`${i18n.get('sLogin', 'indicateSpawnVehicle', player.lang)}`);
+        player.outputChatBox(`${i18n.get('sLogin', 'indicateGlobalChat', player.lang)}`);
+        player.outputChatBox(`${i18n.get('sLogin', 'indicateOldUser', player.lang)}`);
         const onlinePlayers = mp.players.toArray();
-        if (onlinePlayers.length < 30) mp.players.broadcast(`[${time.getTime()}] ${player.name} connected`);
+        if (onlinePlayers.length < 30) mp.players.broadcast(`[${time.getTime()}] ${player.name} ${i18n.get('sLogin', 'connected', player.lang)}`);
     }
 
     async loadBasicData(player, id) {
@@ -264,14 +265,14 @@ class loginClass {
         player.dimension = d[0].dim;
         player.health = d[0].health;
 
-        misc.log.debug(`${player.name} logged in`);
+        misc.log.debug(`${player.name} loged in`);
     }
 
     saveAccount(player) {
         this.saveBasicData(player);
         vehicleAPI.savePlayerVehicles(player.basic.id);
         const onlinePlayers = mp.players.toArray();
-        if (onlinePlayers.length < 30) mp.players.broadcast(`[${time.getTime()}] ${player.name} disconnected`);
+        if (onlinePlayers.length < 30) mp.players.broadcast(`[${time.getTime()}] ${player.name} [${i18n.get('sLogin', 'disconnected', player.lang)}]`);
         misc.log.debug(`${player.name} disconnected`);
     }
 
@@ -294,7 +295,7 @@ mp.events.addCommand({
     'save' : (player) => {
         if (misc.getAdminLvl(player) < 1) return;
         login.saveAccount(player);
-        player.outputChatBox(`Account successfully saved!`);
+        player.outputChatBox(`${i18n.get('sLogin', 'saveGame', player.lang)}`);
     }, 
     
     'pos' : (player, fullText, model) => { 
