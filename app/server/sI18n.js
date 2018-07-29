@@ -23,7 +23,10 @@ module.exports.get = get;
 
 
 const i18n = {
+//Basic
 	basic: {
+  
+    
 		success: {
 			eng: 'Success',
 			rus: 'Успешно',
@@ -224,7 +227,76 @@ const i18n = {
 
 
 	},
+//Login module
+  sLogin: {    
+  
+  
+  
+    connected: {
+			eng: 'connected',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '已上线',
+			zht: '已上線',
+		},    
+    
+    disconnected: {
+			eng: 'disconnected',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '已下线',
+			zht: '已離線',
+		},
+		
+    indicateChooseLang: {
+			eng: 'Choose your language: /setlang [language]',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '选择你的语言：/setlang [language]',
+			zht: '選擇你的語言：/setlang [language]',
+		},
+    
+    indicateSpawnVehicle: {
+			eng: 'Spawn a vehicle: /veh',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '请求一台载具：/veh',
+			zht: '请求一辆载具：/veh',
+		},
+    
+    indicateGlobalChat: {
+			eng: 'Global chat: /g [message]',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '全局聊天：/g [message]',
+			zht: '全域聊天：/g [message]',
+		}, 
+    
+    indicateOldUser: {
+			eng: 'If you have account in old server version and want restore data, write here in chat your old name. I will check it in logs',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '如果你有旧版服务器账户且希望恢复它，在聊天栏留下你的用户名和需求。我会在日志中检查。',
+			zht: '如果你有舊版服務器帳戶且希望恢復它，在聊天欄留下你的用戶名和需求。我會在日誌中檢查。',
+		},
+    
+      saveGame: {
+			eng: 'Account successfully saved!',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '帐号成功保存。',
+			zht: '帳戶成功保存。',
+		},
 
+	},
+//Money module
 	sMoney: {
 		enterATM: {
 			eng: 'Press ~b~E ~s~to open ATM Menu',
@@ -271,7 +343,7 @@ const i18n = {
 			zht: '新的懲罰',
 		},
 	},
-
+//Loyality module
 	sLoyality: {
 		loyality: {
 			eng: 'Loyality',
@@ -282,7 +354,7 @@ const i18n = {
 			zht: '忠誠值',
 		},
 	},
-
+//Chat module
 	sChat: {
 		someone: {
 			eng: 'Someone',
@@ -293,7 +365,7 @@ const i18n = {
 			zht: '某人',
 		},
 	},
-
+//Business module
 	sBusiness: {
 		alreadyHave: {
 			eng: 'You cant own more than 1 business',
@@ -314,7 +386,7 @@ const i18n = {
 		},
 
 	},
-
+//Vehicle module
 	sVehicle: {
 		locked: {
 			eng: 'locked',
@@ -333,8 +405,205 @@ const i18n = {
 			zhs: '已开锁',
 			zht: '已開鎖',
 		},
+    
+    helpUnlock: {
+			eng: 'Unlock: num +',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '开锁: 数字小键盘 +',
+			zht: '開鎖: 數字小鍵盤 +',
+		},
+    
+    helpEngine: {
+			eng: 'Toggle engine: num 0',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '切换发动机：数字小键盘 0',
+			zht: '切換引擎: 數字小鍵盤 0',
+		},
+    
+    spawnedFaggio2: {
+			eng: 'Toggle engine: num 0',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '切换发动机：数字小键盘 0',
+			zht: '切換引擎: 數字小鍵盤 0',
+		},
 	},
+//GasStation module
+	sGasStation: {
+		offEngine: {
+			eng: 'Please turn off the engine',
+			rus: 'Пожалуйста, заглушите двигатель',
+			ger: 'Bitte schalte den Motor ab',
+			br: 'Por favor desligue o motor', 
+			zhs: '请熄火',
+			zht: '請熄火',
+		},
 
+		fuelPrice: {
+			eng: 'Price for litre',
+			rus: 'Цена за литр',
+			ger: 'Preis pro Liter',
+			br: 'Preço por litro', 
+			zhs: '每升油价',
+			zht: '每升油價',
+		},
+
+		goodJourney: {
+			eng: 'Have a good journey',
+			rus: 'Счастливого пути',
+			ger: 'Gute weiter Reise',
+			br: 'Tenha uma boa viagem', 
+			zhs: '祝你旅途愉快',
+			zht: '祝妳旅途愉快',
+		},
+
+	},
+//Faction module
+	sFaction: {
+		changeClothes: {
+			eng: 'to change clothes',
+			rus: 'чтобы переодеться',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
+		},
+
+		setNewRank: {
+			eng: 'You set new rank to player',
+			rus: 'Вы установили новый ранг игроку',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
+		},
+
+		changedYourRank: {
+			eng: 'changed your rank to',
+			rus: 'изменил(а) ваш ранг на',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
+		},
+
+		invited: {
+			eng: 'invited you to',
+			rus: 'устроил(а) вас в',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
+		},
+
+		leader: {
+			eng: 'Now you are leader in',
+			rus: 'Теперь вы лидер',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
+		},
+
+		uninvited: {
+			eng: 'uninvited you from',
+			rus: 'уволил(а) вас из',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
+		},
+	},
+//Hospital module
+	sHospital: {
+		needHelp: {
+			eng: 'You need a medical help',
+			rus: 'Вам нужна медицинская помощь',
+			ger: '',
+			br: '', 
+			zhs: '你需要医疗救治',
+			zht: '你需要醫療救治',
+		},
+
+		toStartHealing: {
+			eng: 'to start healing',
+			rus: 'чтобы начать лечение',
+			ger: '',
+			br: '', 
+			zhs: '开始救治',
+			zht: '開始救治',
+		},
+
+		transferTo: {
+			eng: 'Transfer to Hospital',
+			rus: 'Перевоз к больнице',
+			ger: '',
+			br: '', 
+			zhs: '转送到医院',
+			zht: '轉送到醫院',
+		},
+
+		startedHealing: {
+			eng: 'You started healing process',
+			rus: 'Вы начали лечение',
+			ger: '',
+			br: '', 
+			zhs: '你开始治疗了',
+			zht: '你開始治療了',
+		},
+
+		finishedHealing: {
+			eng: 'You finished healing process',
+			rus: 'Вы завершили лечение',
+			ger: '',
+			br: '', 
+			zhs: '你结束了治疗过程',
+			zht: '你結束了治療過程',
+		},
+
+		isntHealing: {
+			eng: 'isnt healing right now',
+			rus: 'не записан на лечение',
+			ger: '',
+			br: '', 
+			zhs: '不在治疗中',
+			zht: '不在治療中',
+		},
+
+		youArentHealing: {
+			eng: 'Youre not healing right now',
+			rus: 'Вы не записаны на лечение',
+			ger: '',
+			br: '', 
+			zhs: '你现在不在治疗中',
+			zht: '你現在不在治療中',
+		},
+
+		wantsIncreaseHealing: {
+			eng: 'Wants increase healing speed',
+			rus: 'Предлагает увеличить скорость лечения',
+			ger: '',
+			br: '', 
+			zhs: '希望加快治疗',
+			zht: '希望加快治療',
+		},
+
+		wantsHeal: {
+			eng: 'Wants heal you',
+			rus: 'Предлагает вылечить вас',
+			ger: '',
+			br: '', 
+			zhs: '想治疗你',
+			zht: '想治療你',
+		},
+
+	},
+//Example mission OrangeCollector
 	sOrangeCollector: {
 		start: {
 			eng: 'You started orange collector job',
@@ -391,7 +660,7 @@ const i18n = {
 		},
 
 	},
-
+//Example mission CBDeliveryMen
 	sCBDeliveryMen: {
 		invite: {
 			eng: 'Press ~b~E ~s~to start work as a Delivery Men',
@@ -476,174 +745,5 @@ const i18n = {
 
 	},
 
-	sGasStation: {
-		offEngine: {
-			eng: 'Please turn off the engine',
-			rus: 'Пожалуйста, заглушите двигатель',
-			ger: 'Bitte schalte den Motor ab',
-			br: 'Por favor desligue o motor', 
-			zhs: '请熄火',
-			zht: '請熄火',
-		},
-
-		fuelPrice: {
-			eng: 'Price for litre',
-			rus: 'Цена за литр',
-			ger: 'Preis pro Liter',
-			br: 'Preço por litro', 
-			zhs: '每升油价',
-			zht: '每升油價',
-		},
-
-		goodJourney: {
-			eng: 'Have a good journey',
-			rus: 'Счастливого пути',
-			ger: 'Gute weiter Reise',
-			br: 'Tenha uma boa viagem', 
-			zhs: '祝你旅途愉快',
-			zht: '祝妳旅途愉快',
-		},
-
-	},
-
-	sFaction: {
-		changeClothes: {
-			eng: 'to change clothes',
-			rus: 'чтобы переодеться',
-			ger: '',
-			br: '', 
-			zhs: '',
-			zht: '',
-		},
-
-		setNewRank: {
-			eng: 'You set new rank to player',
-			rus: 'Вы установили новый ранг игроку',
-			ger: '',
-			br: '', 
-			zhs: '',
-			zht: '',
-		},
-
-		changedYourRank: {
-			eng: 'changed your rank to',
-			rus: 'изменил(а) ваш ранг на',
-			ger: '',
-			br: '', 
-			zhs: '',
-			zht: '',
-		},
-
-		invited: {
-			eng: 'invited you to',
-			rus: 'устроил(а) вас в',
-			ger: '',
-			br: '', 
-			zhs: '',
-			zht: '',
-		},
-
-		leader: {
-			eng: 'Now you are leader in',
-			rus: 'Теперь вы лидер',
-			ger: '',
-			br: '', 
-			zhs: '',
-			zht: '',
-		},
-
-		uninvited: {
-			eng: 'uninvited you from',
-			rus: 'уволил(а) вас из',
-			ger: '',
-			br: '', 
-			zhs: '',
-			zht: '',
-		},
-	},
-
-	sHospital: {
-		needHelp: {
-			eng: 'You need a medical help',
-			rus: 'Вам нужна медицинская помощь',
-			ger: '',
-			br: '', 
-			zhs: '你需要医疗救治',
-			zht: '你需要醫療救治',
-		},
-
-		toStartHealing: {
-			eng: 'to start healing',
-			rus: 'чтобы начать лечение',
-			ger: '',
-			br: '', 
-			zhs: '开始救治',
-			zht: '開始救治',
-		},
-
-		transferTo: {
-			eng: 'Transfer to Hospital',
-			rus: 'Перевоз к больнице',
-			ger: '',
-			br: '', 
-			zhs: '转送到医院',
-			zht: '轉送到醫院',
-		},
-
-		startedHealing: {
-			eng: 'You started healing process',
-			rus: 'Вы начали лечение',
-			ger: '',
-			br: '', 
-			zhs: '你开始治疗了',
-			zht: '你開始治療了',
-		},
-
-		finishedHealing: {
-			eng: 'You finished healing process',
-			rus: 'Вы завершили лечение',
-			ger: '',
-			br: '', 
-			zhs: '你结束了治疗过程',
-			zht: '你結束了治療過程',
-		},
-
-		isntHealing: {
-			eng: 'isnt healing right now',
-			rus: 'не записан на лечение',
-			ger: '',
-			br: '', 
-			zhs: '不在治疗中',
-			zht: '不在治療中',
-		},
-
-		youArentHealing: {
-			eng: 'Youre not healing right now',
-			rus: 'Вы не записаны на лечение',
-			ger: '',
-			br: '', 
-			zhs: '你现在不在治疗中',
-			zht: '你現在不在治療中',
-		},
-
-		wantsIncreaseHealing: {
-			eng: 'Wants increase healing speed',
-			rus: 'Предлагает увеличить скорость лечения',
-			ger: '',
-			br: '', 
-			zhs: '希望加快治疗',
-			zht: '希望加快治療',
-		},
-
-		wantsHeal: {
-			eng: 'Wants heal you',
-			rus: 'Предлагает вылечить вас',
-			ger: '',
-			br: '', 
-			zhs: '想治疗你',
-			zht: '想治療你',
-		},
-
-	},
 
 }
