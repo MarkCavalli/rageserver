@@ -60,8 +60,6 @@ transporter.verify(function(error, success) {
 	}
  });
 
-const fromAddress = 'youmail@gmail.com'
-
 function sendMail(message) {
 	transporter.sendMail(message, (err, info) => {
         if (err) {

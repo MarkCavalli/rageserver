@@ -234,7 +234,8 @@ class loginClass {
         const q3 = vehicleAPI.loadPlayerVehicles(player.basic.id);
         const q4 = faction.loadPlayerAccount(player);
         const q5 = headOverlay.loadPlayerHeadOverlay(player);
-        await Promise.all([q1, q2, q3, q4, q5]);
+        const q6 = clothes.loadPlayerClothes(player);
+        await Promise.all([q1, q2, q3, q4, q5, q6]);
         hospital.loadPlayerAccount(player);
         player.outputChatBox("Choose your language: /setlang [language]");
         player.outputChatBox("Spawn a vehicle: /veh");

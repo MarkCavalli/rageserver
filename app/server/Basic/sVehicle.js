@@ -329,8 +329,10 @@ module.exports.isDriver = isDriver;
 
 
 function fillUpVehicle(vehicle, litres) {
-	if (!misc.isValueNumber(litres) || vehicle.info.fuel + litres > vehicle.info.fuelTank) return;
+	if (!misc.isValueNumber(litres)) return;
 	vehicle.info.fuel += litres;
+	if (vehicle.info.fuel > vehicle.info.fuelTank) vehicle.info.fuel = vehicle.info.fuelTank;
+
 }
 module.exports.fillUpVehicle = fillUpVehicle
 
