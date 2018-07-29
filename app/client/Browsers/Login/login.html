@@ -6,7 +6,7 @@
 		<section class="app" id="app">
 			<section>
 				<div class="signup-b">
-					<input type="email" class="textinput" placeholder="Your registed email" v-model="enteredMail" :disabled="showCode" autofocus>
+					<input type="email" class="textinput" placeholder="Your registered email" v-model="enteredMail" :disabled="showCode" autofocus>
 					<input type="password" class="textinput" placeholder="Your password" v-model="enteredPass" :disabled="showCode">
 					<div class="code-b" v-if="showCode">
 						<input type="text" class="textinput" @input="verifyCode" v-model="enteredCode">

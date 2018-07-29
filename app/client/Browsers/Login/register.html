@@ -6,9 +6,9 @@
 		<section class="app" id="app">
 			<section>
 				<div class="signup-b">
-				<input type="email" class="textinput" placeholder="Provide your email." v-model="enteredMail" :disabled="mailChecked" :class="{ checked: mailChecked }" autofocus>
+				<input type="email" class="textinput" placeholder="Provide your email" v-model="enteredMail" :disabled="mailChecked" :class="{ checked: mailChecked }" autofocus>
 				<div class="code-b" v-if="!mailChecked">
-					<input type="text" class="textinput" placeholder="Regcode from email." @input="verifyCode" v-model="enteredCode">
+					<input type="text" class="textinput" placeholder="Regcode from email" @input="verifyCode" v-model="enteredCode">
 					<div class="button" @click="mailGetCode">Get code</div>
 				</div>
 			

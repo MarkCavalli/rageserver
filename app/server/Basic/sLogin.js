@@ -91,8 +91,8 @@ class loginClass {
             from: `${mailer.getMailAdress()}`,
             to: `${email}`,
             subject: `Verification code: ${code}`,
-            text: `Hello! Your rage server verification code is: ${code}`,
-            html: `<b>Hello!</b><br>Your rage server verification code is: ${code}`,
+            text: `Hello! Your verification code is: ${code}`,
+            html: `<b>Hello!</b><br>Your verification code is: ${code}`,
         }
         //console.log(code);
         mailer.sendMail(mail);
@@ -150,7 +150,7 @@ class loginClass {
         const mail = {
             from: `${mailer.getMailAdress()}`,
             to: `${d.email}`,
-            subject: `Success registration to Rage server.`,
+            subject: `Success registration.`,
             text: `Hello! Thank you for registration. Here is info about your account, in case you will forget it: FirstName: ${d.firstName} LastName: ${d.lastName} Password: ${d.pass}`,
             html: ` <b>Hello!</b><br>
                     Thank you for registration.<br>
@@ -266,7 +266,7 @@ class loginClass {
         player.dimension = d[0].dim;
         player.health = d[0].health;
 
-        misc.log.debug(`${player.name} loged in`);
+        misc.log.debug(`${player.name} logged in`);
     }
 
     saveAccount(player) {
