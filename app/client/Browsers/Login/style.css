@@ -29,7 +29,7 @@ body {
 }
   
 .textinput {
-    color: #2b2b2b;
+    color: white;
     outline: none;
     background: url('transparent.png');
     border: 0px;
@@ -44,7 +44,7 @@ body {
 }
   
 .textinput::-webkit-input-placeholder {
-    color: #949495;
+    color: white;
 }
   
 .signup-b {
@@ -59,14 +59,12 @@ body {
     font-size: 1.25vw;
     padding: 0.3vw 0;
     transition: 0.2s;
-    color: #2b2b2b;
-    border: 1px solid #ddd;
-    background: #89c3eb;
-    
+    color: white;
+    border: 1px solid #ddd;    
 }
   
 .button:hover {
-    background: #a0d8ef;
+    background: white;
     color: #555;
 }
   

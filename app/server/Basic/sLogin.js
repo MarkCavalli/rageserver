@@ -125,7 +125,7 @@ class loginClass {
         const data = JSON.parse(obj);
         const isEmailValid = this.isEmailValid(player, data.email);
         if (!isEmailValid) return;
-        const d = await misc.query(`SELECT email, firstName, lastName FROM users WHERE email = '${data.email}' AND firstName = '${data.firstName}' AND lastName = '${data.lastName}' LIMIT 1`);
+        const d = await misc.query(`SELECT email FROM users WHERE email = '${data.email}' LIMIT 1`);
         if (d[0]) {
             return this.showError(player, "Something wrong. Try again");
         }
