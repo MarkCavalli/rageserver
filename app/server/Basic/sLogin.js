@@ -136,9 +136,11 @@ class loginClass {
         const newPass = this.hashPassword(d.pass);
         const firstSpawn = { x: -164, y: 6426, z: 32, }
         const pos = misc.convertOBJToJSON(firstSpawn, 48);
+        let lang = 'eng';
+        if (d.lang) lang = d.lang;
 
-        const q1 = misc.query(`INSERT INTO users (email, firstName, lastName, password, ip, regdate, position, socialclub) 
-                                    VALUES ('${d.email}', '${d.firstName}', '${d.lastName}', '${newPass}', '${player.ip}', '${new Date().toLocaleString()}', '${pos}', '${player.socialClub}')`);
+        const q1 = misc.query(`INSERT INTO users (email, firstName, lastName, password, ip, regdate, position, socialclub, lang) 
+                                    VALUES ('${d.email}', '${d.firstName}', '${d.lastName}', '${newPass}', '${player.ip}', '${new Date().toLocaleString()}', '${pos}', '${player.socialClub}', ${lang})`);
         const q2 = money.createNewUser();
         const q3 = charCreator.createNewUser();
         const q4 = clothes.insertNewUser();

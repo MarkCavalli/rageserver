@@ -13,16 +13,25 @@
 				</div>
 			
 				<span v-if="mailChecked">
-						<input type="text" class="textinput" placeholder="First name" v-model="enteredFirstname" :class="{ checked: nameAvailable }" @input="resetNameChecked">
+					<input type="text" class="textinput" placeholder="First name" v-model="enteredFirstname" :class="{ checked: nameAvailable }" @input="resetNameChecked">
 					<input type="text" class="textinput" placeholder="Last name" v-model="enteredLastname" :class="{ checked: nameAvailable }" @input="resetNameChecked">
 					<div class="button" @click="checkUsername" v-if="!nameAvailable">Check username</div>
-							<div class="button" @click="confirmUsername" v-if="nameAvailable && !nameChecked">Confirm username</div>
-						</span>
+						<div class="button" @click="confirmUsername" v-if="nameAvailable && !nameChecked">Confirm username</div>
+				</span>
 			
 				<span v-if="mailChecked && nameChecked">
-							<input type="text" class="textinput" placeholder="Password" v-model="enteredPass1" :class="{ checked: passChecked }">
-							<input type="text" class="textinput" placeholder="Confirm password" v-model="enteredPass2" @input="verifyPass" :class="{ checked: passChecked }">
-						</span>
+					<input type="text" class="textinput" placeholder="Password" v-model="enteredPass1" :class="{ checked: passChecked }">
+					<input type="text" class="textinput" placeholder="Confirm password" v-model="enteredPass2" @input="verifyPass" :class="{ checked: passChecked }">
+					<select class="select" v-model="lang">
+						<option disabled value="">Select language</option>
+						<option>eng</option>
+						<option>rus</option>
+						<option>ger</option>
+						<option>br</option>
+						<option>zhs</option>
+						<option>zht</option>
+				  </select>
+				</span>
 			
 				<div class="button" v-if="mailChecked && nameChecked && passChecked" @click="createAccount">Create account</div>
 				</div>
@@ -49,6 +58,7 @@ const app = new Vue({
 		enteredLastname: "",
 		enteredPass1: "",
 		enteredPass2: "",
+		lang: "",
 		errorMessage: "",
 		infoMessage: "",
 	},
@@ -103,6 +113,7 @@ const app = new Vue({
 				firstName: this.enteredFirstname,
 				lastName: this.enteredLastname,
 				pass: this.enteredPass1,
+				lang: this.lang,
 			}
 			mp.trigger("cMisc-CallServerEvent", "sLogin-CreateAccount", JSON.stringify(obj));
 		},

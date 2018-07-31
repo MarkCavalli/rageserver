@@ -22,7 +22,6 @@ body {
 }
   
 .app > section {
-    background: #fff;
     display: block;
     margin: 0 auto;
     width: 20vw;
@@ -31,7 +30,7 @@ body {
 .textinput {
     color: white;
     outline: none;
-    background: url('transparent.png');
+    background: transparent;
     border: 0px;
     border-bottom: 1px solid #eee;
     width: 100%;
@@ -109,4 +108,25 @@ body {
 .top-button:hover {
     font-size: 1.25vw;
     background: rgba(255, 255, 255, 0.1);
+}
+
+.select {
+	background: transparent;
+	color: limegreen;
+    outline: none;
+    border: 0px;
+    border-bottom: 1px solid limegreen;
+    width: 100%;
+    text-align: center;
+	 text-align-last: center;
+    padding: 0.5vw 0;
+    margin: 0.5vw 0;
+    font-size: 1.25vw;
+    font-family: Segoe UI;
+    font-weight: 100;
+}
+
+.select * {
+	background: #777;
+	color: white;
 }
