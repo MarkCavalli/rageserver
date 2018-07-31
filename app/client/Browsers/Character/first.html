@@ -9,7 +9,7 @@
 				<div class="fm-b_arrow" @click="changeGender"><</div>
 				<div class="fm-b_main">
 					{{ genderNames[gender] }}
-					<p>gender</p>
+					<p>{{ i18n.gender }}</p>
 				</div>
 				<div class="fm-b_arrow" @click="changeGender">></div>
 			</div>
@@ -18,7 +18,7 @@
 				<div class="fm-b_arrow" @click="prevFather"><</div>
 				<div class="fm-b_main">
 					{{ fatherNames[father] }}
-					<p>father</p>
+					<p>{{ i18n.father }}</p>
 				</div>
 				<div class="fm-b_arrow" @click="nextFather">></div>
 			</div>
@@ -31,7 +31,7 @@
 				<div class="fm-b_arrow" @click="prevMother"><</div>
 				<div class="fm-b_main">
 					{{ motherNames[mother] }}
-					<p>mother</p>
+					<p>{{ i18n.mother }}</p>
 				</div>
 				<div class="fm-b_arrow" @click="nextMother">></div>
 			</div>
@@ -39,18 +39,18 @@
 			<div class="fm-b" style="margin-top: 10vh;">
 				<div class="fm-b_main">
 					<input type="range" min="0" max="12" step="1" v-model.number="skinColor" @input="changeAppearance">
-					<p>skin color</p>
+					<p>{{ i18n.skinCol }}</p>
 				</div>
 			</div>
 
 			<div class="fm-b">
 				<div class="fm-b_main">
 					<input type="range" min="90" max="270" step="5" v-model.number="camRotation" @input="changeCamRotation">
-					<p>cam rotation</p>
+					<p>{{ i18n.rot }}</p>
 				</div>
 			</div>
 	
-			<div class="b1-title b1-done" @click="done">Next!</div>
+			<div class="b1-title b1-done" @click="done">{{ i18n.next }}</div>
 		</div>
 	</body>
 </html>
@@ -71,6 +71,16 @@ const app = new Vue({
 		skinColor: 6,
 		shapeMix: 0.5,
 		camRotation: 180,
+
+		i18n: {
+			gender: "gender",
+			father: "father",
+			mother: "mother",
+			skinCol: "skin color",
+			rot: "rotation",
+			next: "Next",
+		},
+		
 	},
 	methods: {
 		prevFather: function() {
@@ -125,4 +135,32 @@ const app = new Vue({
 });
 
 app.changeAppearance();
+
+
+function loadRusLang() {
+	app.i18n = {
+		gender: "пол",
+		father: "отец",
+		mother: "мать",
+		skinCol: "цвет кожи",
+		rot: "поворот",
+		next: "Далее",
+	};
+}
+
+function loadGerLang() {
+
+}
+
+function loadBrLang() {
+}
+
+function loadZhsLang() {
+
+}
+
+function loadZhtLang() {
+
+}
+
 </script>
