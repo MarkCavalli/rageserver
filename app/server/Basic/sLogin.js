@@ -240,10 +240,10 @@ class loginClass {
         const q6 = clothes.loadPlayerClothes(player);
         await Promise.all([q1, q2, q3, q4, q5, q6]);
         hospital.loadPlayerAccount(player);
-        player.outputChatBox(`${i18n.get('sLogin', 'indicateChooseLang', player.lang)}`);
-        player.outputChatBox(`${i18n.get('sLogin', 'indicateSpawnVehicle', player.lang)}`);
-        player.outputChatBox(`${i18n.get('sLogin', 'indicateGlobalChat', player.lang)}`);
-        player.outputChatBox(`${i18n.get('sLogin', 'indicateOldUser', player.lang)}`);
+        player.outputChatBox(`${i18n.get('sLogin', 'annouceChooseLang', player.lang)}`);
+        player.outputChatBox(`${i18n.get('sLogin', 'annouceSpawnVehicle', player.lang)}`);
+        player.outputChatBox(`${i18n.get('sLogin', 'annouceGlobalChat', player.lang)}`);
+        player.outputChatBox(`${i18n.get('sLogin', 'annouceOldUser', player.lang)}`);
         const onlinePlayers = mp.players.toArray();
         if (onlinePlayers.length < 30) mp.players.broadcast(`[${time.getTime()}] ${player.name} ${i18n.get('sLogin', 'connected', player.lang)}`);
     }

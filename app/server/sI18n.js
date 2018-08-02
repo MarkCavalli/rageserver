@@ -167,8 +167,8 @@ const i18n = {
 			rus: 'чтобы вызвать лифт',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '使用电梯',
+			zht: '使用電梯',
 		},
 
 		someVehicleIsBlocking: {
@@ -250,7 +250,7 @@ const i18n = {
 			zht: '已離線',
 		},
 		
-    indicateChooseLang: {
+    annouceChooseLang: {
 			eng: 'Choose your language: /setlang [language]',
 			rus: '',
 			ger: '',
@@ -259,7 +259,7 @@ const i18n = {
 			zht: '選擇你的語言：/setlang [language]',
 		},
     
-    indicateSpawnVehicle: {
+    annouceSpawnVehicle: {
 			eng: 'Spawn a vehicle: /veh',
 			rus: '',
 			ger: '',
@@ -268,7 +268,7 @@ const i18n = {
 			zht: '请求一辆载具：/veh',
 		},
     
-    indicateGlobalChat: {
+    annouceGlobalChat: {
 			eng: 'Global chat: /g [message]',
 			rus: '',
 			ger: '',
@@ -277,7 +277,7 @@ const i18n = {
 			zht: '全域聊天：/g [message]',
 		}, 
     
-    indicateOldUser: {
+    annouceOldUser: {
 			eng: 'If you have account in old server version and want restore data, write here in chat your old name. I will check it in logs',
 			rus: '',
 			ger: '',
@@ -286,7 +286,7 @@ const i18n = {
 			zht: '如果你有舊版服務器帳戶且希望恢復它，在聊天欄留下你的用戶名和需求。我會在日誌中檢查。',
 		},
     
-      saveGame: {
+    saveGame: {
 			eng: 'Account successfully saved!',
 			rus: '',
 			ger: '',
