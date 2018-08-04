@@ -123,7 +123,7 @@ class loginClass {
 
     async tryCreateAccount(player, obj) {
         const data = JSON.parse(obj);
-        console.log(data);
+        //console.log(data);
         const isEmailValid = this.isEmailValid(player, data.email);
         if (!isEmailValid) return;
         const d = await misc.query(`SELECT email FROM users WHERE email = '${data.email}' LIMIT 1`);
