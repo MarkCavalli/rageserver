@@ -22,15 +22,14 @@
 				<span v-if="mailChecked && nameChecked">
 					<input type="text" class="textinput" placeholder="Password" v-model="enteredPass1" :class="{ checked: passChecked }">
 					<input type="text" class="textinput" placeholder="Confirm password" v-model="enteredPass2" @input="verifyPass" :class="{ checked: passChecked }">
-					<select class="select" v-model="lang">
-						<option disabled value="">Select language</option>
+					<!--<select class="select" v-model="lang">
 						<option>eng</option>
 						<option>rus</option>
 						<option>ger</option>
 						<option>br</option>
 						<option>zhs</option>
 						<option>zht</option>
-				  </select>
+				  </select>-->
 				</span>
 			
 				<div class="button" v-if="mailChecked && nameChecked && passChecked" @click="createAccount">Create account</div>
@@ -58,7 +57,7 @@ const app = new Vue({
 		enteredLastname: "",
 		enteredPass1: "",
 		enteredPass2: "",
-		lang: "",
+		lang: "eng",
 		errorMessage: "",
 		infoMessage: "",
 	},
@@ -113,7 +112,7 @@ const app = new Vue({
 				firstName: this.enteredFirstname,
 				lastName: this.enteredLastname,
 				pass: this.enteredPass1,
-				lang: this.lang,
+				//lang: this.lang,
 			}
 			mp.trigger("cMisc-CallServerEvent", "sLogin-CreateAccount", JSON.stringify(obj));
 		},
