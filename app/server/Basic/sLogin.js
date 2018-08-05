@@ -248,7 +248,7 @@ class loginClass {
         const onlinePlayers = mp.players.toArray();
         if (onlinePlayers.length < 30) {
             for (let p of onlinePlayers) {
-                p.outputChatBox(`[${time.getTime()}] ${p.name} ${i18n.get('sLogin', 'connected', p.lang)}`);
+                p.outputChatBox(`[${time.getTime()}] ${player.name} ${i18n.get('sLogin', 'connected', p.lang)}`);
             }
         }
     }
@@ -280,7 +280,11 @@ class loginClass {
         this.saveBasicData(player);
         vehicleAPI.savePlayerVehicles(player.basic.id);
         const onlinePlayers = mp.players.toArray();
-        if (onlinePlayers.length < 30) mp.players.broadcast(`[${time.getTime()}] ${player.name} [${i18n.get('sLogin', 'disconnected', player.lang)}]`);
+        if (onlinePlayers.length < 30) {
+            for (let p of onlinePlayers) {
+                p.outputChatBox(`[${time.getTime()}] ${player.name} ${i18n.get('sLogin', 'disconnected', p.lang)}`);
+            }
+        }
         misc.log.debug(`${player.name} disconnected`);
     }
 
