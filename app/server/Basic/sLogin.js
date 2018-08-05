@@ -248,7 +248,7 @@ class loginClass {
         const onlinePlayers = mp.players.toArray();
         if (onlinePlayers.length < 30) {
             for (let p of onlinePlayers) {
-                p.outputChatBox(`[${time.getTime()}] ${player.name} ${i18n.get('sLogin', 'connected', player.lang)}`);
+                p.outputChatBox(`[${time.getTime()}] ${p.name} ${i18n.get('sLogin', 'connected', p.lang)}`);
             }
         }
     }
