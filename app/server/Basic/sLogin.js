@@ -246,7 +246,11 @@ class loginClass {
         player.outputChatBox(`${i18n.get('sLogin', 'annouceGlobalChat', player.lang)}`);
         player.outputChatBox(`${i18n.get('sLogin', 'annouceOldUser', player.lang)}`);
         const onlinePlayers = mp.players.toArray();
-        if (onlinePlayers.length < 30) mp.players.broadcast(`[${time.getTime()}] ${player.name} ${i18n.get('sLogin', 'connected', player.lang)}`);
+        if (onlinePlayers.length < 30) {
+            for (let p of onlinePlayers) {
+                p.outputChatBox(`[${time.getTime()}] ${player.name} ${i18n.get('sLogin', 'connected', player.lang)}`);
+            }
+        }
     }
 
     async loadBasicData(player, id) {
