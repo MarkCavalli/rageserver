@@ -30,7 +30,7 @@ const i18n = {
 		success: {
 			eng: 'Success',
 			rus: 'Успешно',
-			ger: '',
+			ger: 'Erfolgreich',
 			br: '', 
 			zhs: '成功',
 			zht: '成功',
@@ -39,7 +39,7 @@ const i18n = {
 		pressE: {
 			eng: 'Press ~b~E ~s~',
 			rus: 'Нажмите ~b~E ~s~',
-			ger: '',
+			ger: 'Drücken Sie ~b~ E ~s~',
 			br: '', 
 			zhs: '按 ~b~E ~s~',
 			zht: '按 ~b~E ~s~',
@@ -48,7 +48,7 @@ const i18n = {
 		pressEToOpenMenu: {
 			eng: 'Press ~b~E ~s~to open Menu',
 			rus: 'Нажмите ~b~E ~s~для входа в меню',
-			ger: '',
+			ger: 'Drücken Sie ~b~ E ~s~, um das Menü zu öffnen',
 			br: '', 
 			zhs: '按 ~b~E ~s~打开菜单',
 			zht: '按 ~b~E ~s~開啟選單',
@@ -57,7 +57,7 @@ const i18n = {
 		workingOnOtherJob: {
 			eng: 'You are already working on other job',
 			rus: 'Вы уже работаете на другой работе',
-			ger: '',
+			ger: 'Du arbeitest bereits an einem anderen Job',
 			br: 'Você já está trabalhando em algum trabalho', 
 			zhs: '你正在做这个工作了',
 			zht: '妳正在做這個工作了',
@@ -84,7 +84,7 @@ const i18n = {
 		needMoreLoyality1: {
 			eng: 'You need at least',
 			rus: 'Вам необходимо минимум',
-			ger: '',
+			ger: 'Du brauchst wenigstens',
 			br: 'Você precisa de pelo menos', 
 			zhs: '你需要至少',
 			zht: '妳需要至少',
@@ -93,7 +93,7 @@ const i18n = {
 		needMoreLoyality2: {
 			eng: 'loyality points',
 			rus: 'очков лояльности',
-			ger: '',
+			ger: 'treuepunkte',
 			br: '', 
 			zhs: '',
 			zht: '',
@@ -102,7 +102,7 @@ const i18n = {
 		tooFarAway: {
 			eng: 'too far away from you',
 			rus: 'слишком далеко от вас',
-			ger: '',
+			ger: 'zu weit weg von dir',
 			br: '', 
 			zhs: '这离你太远了',
 			zht: '這離你太遠了',
@@ -111,7 +111,7 @@ const i18n = {
 		wait: {
 			eng: 'Wait',
 			rus: 'Подождите',
-			ger: '',
+			ger: 'Warte',
 			br: '', 
 			zhs: '等待',
 			zht: '等待',
@@ -120,7 +120,7 @@ const i18n = {
 		seconds: {
 			eng: 'seconds',
 			rus: 'секунд',
-			ger: '',
+			ger: 'sekunden',
 			br: '', 
 			zhs: '秒',
 			zht: '秒',
@@ -129,7 +129,7 @@ const i18n = {
 		toEnter: {
 			eng: 'to enter',
 			rus: 'чтобы войти',
-			ger: '',
+			ger: 'betreten',
 			br: '', 
 			zhs: '进入',
 			zht: '進入',
@@ -138,7 +138,7 @@ const i18n = {
 		toExit: {
 			eng: 'to exit',
 			rus: 'чтобы выйти',
-			ger: '',
+			ger: 'exit',
 			br: '', 
 			zhs: '离开',
 			zht: '離開',
@@ -147,7 +147,7 @@ const i18n = {
 		toEnterGarage: {
 			eng: 'to enter garage',
 			rus: 'чтобы попасть в гараж',
-			ger: '',
+			ger: 'in die Garage gehen',
 			br: '', 
 			zhs: '进入车库',
 			zht: '進入車庫',
@@ -156,7 +156,7 @@ const i18n = {
 		toExitGarage: {
 			eng: 'to exit garage',
 			rus: 'чтобы покинуть гараж',
-			ger: '',
+			ger: 'garage verlassen',
 			br: '', 
 			zhs: '离开车库',
 			zht: '離開車庫',
@@ -165,7 +165,7 @@ const i18n = {
 		toCallLift: {
 			eng: 'to call lift',
 			rus: 'чтобы вызвать лифт',
-			ger: '',
+			ger: 'um Aufzug zu rufen',
 			br: '', 
 			zhs: '使用电梯',
 			zht: '使用電梯',
@@ -174,7 +174,7 @@ const i18n = {
 		someVehicleIsBlocking: {
 			eng: 'Some vehicle is blocking the area',
 			rus: 'Какое-то ТС блокирует зону',
-			ger: '',
+			ger: 'Ein Fahrzeug blockiert den Bereich',
 			br: '', 
 			zhs: '一些载具阻挡了这个区域',
 			zht: '一些載具阻擋了這個區域',
@@ -183,7 +183,7 @@ const i18n = {
 		somePlayerIsBlocking: {
 			eng: 'Some player is blocking the area',
 			rus: 'Какой-то игрок блокирует зону',
-			ger: '',
+			ger: 'Ein Spieler blockiert das Gebiet',
 			br: '', 
 			zhs: '一些玩家阻挡了这个区域',
 			zht: '一些玩家阻擋了這個區域',
@@ -192,7 +192,7 @@ const i18n = {
 		youRejectedOffer: {
 			eng: 'You rejected offer by player',
 			rus: 'Вы отклонили предложение игрока',
-			ger: '',
+			ger: 'Du hast das Angebot von Spieler abgelehnt',
 			br: '', 
 			zhs: '',
 			zht: '',
@@ -201,7 +201,7 @@ const i18n = {
 		rejectedYourOffer: {
 			eng: 'rejected your offer',
 			rus: 'отклонил(а) ваше предложение',
-			ger: '',
+			ger: 'hat Ihr Angebot abgelehnt',
 			br: '', 
 			zhs: '',
 			zht: '',
@@ -210,7 +210,7 @@ const i18n = {
 		confirmedYourOffer: {
 			eng: 'confirmed your offer',
 			rus: 'принял(а) ваше предложение',
-			ger: '',
+			ger: 'bestätigte Ihr Angebot',
 			br: '', 
 			zhs: '',
 			zht: '',
@@ -219,7 +219,7 @@ const i18n = {
 		youConfirmedOffer: {
 			eng: 'You confirmed offer by player',
 			rus: 'Вы приняли предложение игрока',
-			ger: '',
+			ger: 'Du hast das Angebot von Spieler bestätigt',
 			br: '', 
 			zhs: '',
 			zht: '',
@@ -234,8 +234,8 @@ const i18n = {
   
     connected: {
 			eng: 'connected',
-			rus: '',
-			ger: '',
+			rus: 'присоединился',
+			ger: 'verbunden',
 			br: '', 
 			zhs: '已上线',
 			zht: '已上線',
@@ -243,8 +243,8 @@ const i18n = {
     
     disconnected: {
 			eng: 'disconnected',
-			rus: '',
-			ger: '',
+			rus: 'отключился',
+			ger: 'getrennt',
 			br: '', 
 			zhs: '已下线',
 			zht: '已離線',
@@ -252,8 +252,8 @@ const i18n = {
 		
     annouceChooseLang: {
 			eng: 'Choose your language: /setlang [language]',
-			rus: '',
-			ger: '',
+			rus: 'Выберите ваш язык: /setlang [язык]',
+			ger: 'Wählen Sie Ihre Sprache: / setlang [Sprache]',
 			br: '', 
 			zhs: '选择你的语言：/setlang [language]',
 			zht: '選擇你的語言：/setlang [language]',
@@ -261,7 +261,7 @@ const i18n = {
     
     annouceSpawnVehicle: {
 			eng: 'Spawn a vehicle: /veh',
-			rus: '',
+			rus: 'Создать транспорт: /veh',
 			ger: '',
 			br: '', 
 			zhs: '请求一台载具：/veh',
@@ -270,8 +270,8 @@ const i18n = {
     
     annouceGlobalChat: {
 			eng: 'Global chat: /g [message]',
-			rus: '',
-			ger: '',
+			rus: 'Глобальный чат: /g [сообщение]',
+			ger: 'Globaler Chat: / g [Nachricht]',
 			br: '', 
 			zhs: '全局聊天：/g [message]',
 			zht: '全域聊天：/g [message]',
@@ -279,8 +279,8 @@ const i18n = {
     
     annouceOldUser: {
 			eng: 'If you have account in old server version and want restore data, write here in chat your old name. I will check it in logs',
-			rus: '',
-			ger: '',
+			rus: 'Если у вас есть аккаунт на старом сервере, напишите в чате старое имя. Я посмотрю это по логам',
+			ger: 'Wenn Sie einen Account haben und Daten wiederherstellen möchten, schreiben Sie hier im Chat Ihren alten Namen. Ich werde es in Logs überprüfen',
 			br: '', 
 			zhs: '如果你有旧版服务器账户且希望恢复它，在聊天栏留下你的用户名和需求。我会在日志中检查。',
 			zht: '如果你有舊版服務器帳戶且希望恢復它，在聊天欄留下你的用戶名和需求。我會在日誌中檢查。',
@@ -288,8 +288,8 @@ const i18n = {
     
     saveGame: {
 			eng: 'Account successfully saved!',
-			rus: '',
-			ger: '',
+			rus: 'Аккаунт сохранен!',
+			ger: 'Konto erfolgreich gespeichert!',
 			br: '', 
 			zhs: '帐号成功保存。',
 			zht: '帳戶成功保存。',
@@ -301,7 +301,7 @@ const i18n = {
 		enterATM: {
 			eng: 'Press ~b~E ~s~to open ATM Menu',
 			rus: 'Нажмите ~b~E ~s~для входа в меню банкомата',
-			ger: '',
+			ger: 'Drücken Sie ~b~ E ~s~, um das ATM-Menü zu öffnen',
 			br: 'Pressione ~b~E ~s~para abrir o menu do Caixa Eletrônico', 
 			zhs: '按 ~b~E ~s~ 键打开ATM菜单',
 			zht: '按 ~b~E ~s~ 鍵打開ATM菜單',
@@ -337,7 +337,7 @@ const i18n = {
 		newFine: {
 			eng: 'New fine',
 			rus: 'Новый штраф',
-			ger: '',
+			ger: 'Neue Strafe',
 			br: 'Nova multa', 
 			zhs: '新的惩罚',
 			zht: '新的懲罰',
@@ -379,7 +379,7 @@ const i18n = {
 		sale: {
 			eng: 'Business sale',
 			rus: 'Продажа бизнеса',
-			ger: '',
+			ger: 'Geschäftsverkauf',
 			br: '', 
 			zhs: '商业销售',
 			zht: '商業銷售',
@@ -408,8 +408,8 @@ const i18n = {
     
     helpUnlock: {
 			eng: 'Unlock: num +',
-			rus: '',
-			ger: '',
+			rus: 'Открыть: num +',
+			ger: 'Entsperren: num +',
 			br: '', 
 			zhs: '开锁: 数字小键盘 +',
 			zht: '開鎖: 數字小鍵盤 +',
@@ -417,8 +417,8 @@ const i18n = {
     
     helpEngine: {
 			eng: 'Toggle engine: num 0',
-			rus: '',
-			ger: '',
+			rus: 'Завести двигатель: num 0',
+			ger: 'Toggle-Engine: Nummer 0',
 			br: '', 
 			zhs: '切换发动机：数字小键盘 0',
 			zht: '切換引擎: 數字小鍵盤 0',
@@ -426,8 +426,8 @@ const i18n = {
     
     spawnedFaggio2: {
 			eng: 'Toggle engine: num 0',
-			rus: '',
-			ger: '',
+			rus: 'Завести двигатель: num 0',
+			ger: 'Toggle-Engine: Nummer 0',
 			br: '', 
 			zhs: '切换发动机：数字小键盘 0',
 			zht: '切換引擎: 數字小鍵盤 0',
@@ -468,7 +468,7 @@ const i18n = {
 		changeClothes: {
 			eng: 'to change clothes',
 			rus: 'чтобы переодеться',
-			ger: '',
+			ger: 'um die Kleidung zu wechseln',
 			br: '', 
 			zhs: '',
 			zht: '',
@@ -477,7 +477,7 @@ const i18n = {
 		setNewRank: {
 			eng: 'You set new rank to player',
 			rus: 'Вы установили новый ранг игроку',
-			ger: '',
+			ger: 'Du hast dem Spieler einen neuen Rang zugewiesen',
 			br: '', 
 			zhs: '',
 			zht: '',
@@ -486,7 +486,7 @@ const i18n = {
 		changedYourRank: {
 			eng: 'changed your rank to',
 			rus: 'изменил(а) ваш ранг на',
-			ger: '',
+			ger: 'änderte deinen Rang in',
 			br: '', 
 			zhs: '',
 			zht: '',
@@ -495,7 +495,7 @@ const i18n = {
 		invited: {
 			eng: 'invited you to',
 			rus: 'устроил(а) вас в',
-			ger: '',
+			ger: 'lud dich ein',
 			br: '', 
 			zhs: '',
 			zht: '',
@@ -504,7 +504,7 @@ const i18n = {
 		leader: {
 			eng: 'Now you are leader in',
 			rus: 'Теперь вы лидер',
-			ger: '',
+			ger: 'Jetzt bist du Anführer',
 			br: '', 
 			zhs: '',
 			zht: '',
@@ -513,7 +513,7 @@ const i18n = {
 		uninvited: {
 			eng: 'uninvited you from',
 			rus: 'уволил(а) вас из',
-			ger: '',
+			ger: 'ungebeten von dir',
 			br: '', 
 			zhs: '',
 			zht: '',
@@ -524,7 +524,7 @@ const i18n = {
 		needHelp: {
 			eng: 'You need a medical help',
 			rus: 'Вам нужна медицинская помощь',
-			ger: '',
+			ger: 'Sie brauchen eine medizinische Hilfe',
 			br: '', 
 			zhs: '你需要医疗救治',
 			zht: '你需要醫療救治',
@@ -533,7 +533,7 @@ const i18n = {
 		toStartHealing: {
 			eng: 'to start healing',
 			rus: 'чтобы начать лечение',
-			ger: '',
+			ger: 'um zu heilen',
 			br: '', 
 			zhs: '开始救治',
 			zht: '開始救治',
@@ -542,7 +542,7 @@ const i18n = {
 		transferTo: {
 			eng: 'Transfer to Hospital',
 			rus: 'Перевоз к больнице',
-			ger: '',
+			ger: 'Transfer ins Krankenhaus',
 			br: '', 
 			zhs: '转送到医院',
 			zht: '轉送到醫院',
@@ -551,7 +551,7 @@ const i18n = {
 		startedHealing: {
 			eng: 'You started healing process',
 			rus: 'Вы начали лечение',
-			ger: '',
+			ger: 'Du hast den Heilungsprozess begonnen',
 			br: '', 
 			zhs: '你开始治疗了',
 			zht: '你開始治療了',
@@ -560,7 +560,7 @@ const i18n = {
 		finishedHealing: {
 			eng: 'You finished healing process',
 			rus: 'Вы завершили лечение',
-			ger: '',
+			ger: 'Du hast den Heilungsprozess beendet',
 			br: '', 
 			zhs: '你结束了治疗过程',
 			zht: '你結束了治療過程',
@@ -569,7 +569,7 @@ const i18n = {
 		isntHealing: {
 			eng: 'isnt healing right now',
 			rus: 'не записан на лечение',
-			ger: '',
+			ger: 'ist nicht gerade in der Heilung',
 			br: '', 
 			zhs: '不在治疗中',
 			zht: '不在治療中',
@@ -578,7 +578,7 @@ const i18n = {
 		youArentHealing: {
 			eng: 'Youre not healing right now',
 			rus: 'Вы не записаны на лечение',
-			ger: '',
+			ger: 'Du heilst gerade nicht',
 			br: '', 
 			zhs: '你现在不在治疗中',
 			zht: '你現在不在治療中',
@@ -587,7 +587,7 @@ const i18n = {
 		wantsIncreaseHealing: {
 			eng: 'Wants increase healing speed',
 			rus: 'Предлагает увеличить скорость лечения',
-			ger: '',
+			ger: 'Will die Heilungsgeschwindigkeit erhöhen',
 			br: '', 
 			zhs: '希望加快治疗',
 			zht: '希望加快治療',
@@ -596,7 +596,7 @@ const i18n = {
 		wantsHeal: {
 			eng: 'Wants heal you',
 			rus: 'Предлагает вылечить вас',
-			ger: '',
+			ger: 'Will dich heilen',
 			br: '', 
 			zhs: '想治疗你',
 			zht: '想治療你',
@@ -665,7 +665,7 @@ const i18n = {
 		invite: {
 			eng: 'Press ~b~E ~s~to start work as a Delivery Men',
 			rus: 'Нажмите ~b~E~s~, чтобы устроиться курьером в Clickin Bell',
-			ger: '',
+			ger: 'Drücken Sie ~b~ E ~s~, um mit der Arbeit als Delivery Men zu beginnen',
 			br: 'Pressione ~b~E~s~, para começar a trabalhar como entregador', 
 			zhs: '按~b~E~s~键报名农场工人。',
 			zht: '按~b~E~s~鍵報名農場工人。',
@@ -674,7 +674,7 @@ const i18n = {
 		uninvite: {
 			eng: 'Press ~b~E ~s~to finish work as a Delivery Men',
 			rus: 'Нажмите ~b~E~s~, чтобы уволиться из Clickin Bell',
-			ger: '',
+			ger: 'Drücken Sie ~b~ E ~s~, um die Arbeit als Delivery Men abzuschließen',
 			br: 'Pressione ~b~E~s~, para encerrar o trabalho como entregador', 
 			zhs: '按~b~E~s~键辞工',
 			zht: '按~b~E~s~鍵辭工',
@@ -683,7 +683,7 @@ const i18n = {
 		cantGetNewOrder: {
 			eng: 'You cant get new order',
 			rus: 'Вы не можете взять другой заказ',
-			ger: '',
+			ger: 'Du kannst keine neue Bestellung bekommen',
 			br: 'Você não pode conseguir um novo pedido', 
 			zhs: '我们无法获取新订单',
 			zht: '我們無法獲取新訂單',
@@ -692,7 +692,7 @@ const i18n = {
 		getNewOrder: {
 			eng: 'Press ~b~E ~s~to get a new order',
 			rus: 'Нажмите ~b~E~s~, чтобы взять новый заказ',
-			ger: '',
+			ger: 'Drücken Sie ~b~ E ~s~, um eine neue Reihenfolge zu erhalten',
 			br: 'Pressione ~b~E~s~, para pegar um novo pedido', 
 			zhs: '按 ~b~E ~s~ 获取新的指示',
 			zht: '按 ~b~E ~s~ 獲取新的指示',
@@ -701,7 +701,7 @@ const i18n = {
 		haveUndeliveredOrder: {
 			eng: 'You have undelivered order! You will pay $500 finishing right now!',
 			rus: 'У вас есть недоставленный заказ! Вам выпишут штраф $500, если вы уволитесь прямо сейчас!',
-			ger: '',
+			ger: 'Sie haben die Bestellung nicht zugestellt! Sie werden jetzt $500 bezahlen!',
 			br: 'Você tem ordem não entregue! Você vai pagar $500 terminando agora!', 
 			zhs: '你有未派送的订单！ 你需要支付 $500 来马上完成!',
 			zht: '妳有未派送的訂單！ 妳需要支付 $500 來馬上完成!',
@@ -710,7 +710,7 @@ const i18n = {
 		started: {
 			eng: 'You started Cluckin Bell delivery job! You can get new order in the left side',
 			rus: 'Вы устроились курьером в Cluckin Bell! Взять заказ вы можете у двери слева',
-			ger: '',
+			ger: 'Sie haben mit der Lieferung von Cluckin Bell begonnen! Sie können neue Reihenfolge auf der linken Seite bekommen',
 			br: 'Você começou o trabalho de entrega da Cluckin Bell! Você pode obter um novo pedido no lado esquerdo', 
 			zhs: '你已经开始了Cluckin Bell派送任务！你可以在左边获取新订单',
 			zht: '妳已經開始了Cluckin Bell派送任務！妳可以在左邊獲取新訂單',
@@ -719,7 +719,7 @@ const i18n = {
 		finished: {
 			eng: 'You finished Cluckin Bell delivery job',
 			rus: 'Вы уволились из Cluckin Bell!',
-			ger: '',
+			ger: 'Du hast Gluck Bell abgeschlossen',
 			br: 'Você encerrou o trabalho de entrega da Cluckin Bell', 
 			zhs: '你完成了 Cluckin Bell派所任务',
 			zht: '妳完成了 Cluckin Bell派所任務',
@@ -728,7 +728,7 @@ const i18n = {
 		deliver: {
 			eng: 'Deliver your order',
 			rus: 'Доставьте ваш заказ',
-			ger: '',
+			ger: 'Liefern Sie Ihre Bestellung',
 			br: 'Entregue seu pedido', 
 			zhs: '派送你的订单',
 			zht: '派送妳的訂單',
@@ -737,7 +737,7 @@ const i18n = {
 		undelivered: {
 			eng: 'Undelivered order',
 			rus: 'Недоставленный заказ',
-			ger: '',
+			ger: 'Nicht zugestellte Bestellung',
 			br: 'Ordem não entregue', 
 			zhs: '取消派送订单',
 			zht: '取消派送訂單',
