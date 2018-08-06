@@ -28,11 +28,11 @@ const connection =  mysql.createPool({
 
 connection.getConnection(function(e) {
 	if (e) 	{
-		log.error("DATABASE IS NOT WORKING");
+		console.log("DATABASE IS NOT WORKING");
 		throw e;
 	}
 	else 	{
-		log.debug(`DATABASE IS WORKING`);
+		console.log(`DATABASE IS WORKING`);
 	}
 });
 
