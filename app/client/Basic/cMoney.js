@@ -14,7 +14,7 @@ mp.events.add(
 	"render" : () => {
 		if (money >= 0 && mp.gui.cursor.visible === false) {
 
-			mp.game.graphics.drawText(`$${misc.prettify(money)}              `, [0.940, 0.025], { 
+			mp.game.graphics.drawText(`$${misc.prettify(money)}              `, [0.940, 0.050], { 
 				font: 7, 
 				color: [115, 186, 131, 255], 
 				scale: [0.7, 0.7], 

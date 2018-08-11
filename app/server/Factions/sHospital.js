@@ -310,6 +310,7 @@ class patientsClass {
 		mp.events.add({
 			"playerDeath" : (player, reason, killer) => {
 				setTimeout(() => {
+					if (!player) return;
 					this.playerDeath(player, reason, killer);
 				}, 10000);
 				let killername;

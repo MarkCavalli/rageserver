@@ -1,10 +1,8 @@
 require('./Basic/sLogin');
 require('./Basic/sChat');
-require('./Basic/sLoyality');
 require('./Business/sCheapCarDealership');
 require('./Business/sClothingShop');
 require('./Business/sBarberShop');
 require('./Business/sGasStation');
 require('./Jobs/sOrangeCollector');
 require('./Jobs/sCBDeliveryMen');
-require('./Factions/sHospital');

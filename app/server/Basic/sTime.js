@@ -3,6 +3,7 @@
 const weather = require('./sWeather');
 const business = require('./../Business/sBusiness');
 const hospital = require('./../Factions/sHospital');
+const prison = require('./../Factions/Police/sPrison');
 
 let timer = 0;
 const changeTime = async (currentDate, isFirstRunning) => {
@@ -54,4 +55,5 @@ function every5MinutesEvent() {
 
 function everyMinuteEvent() {
 	hospital.healEvent();
+	prison.everyMinuteEvent();
 }

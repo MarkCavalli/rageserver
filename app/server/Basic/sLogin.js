@@ -12,6 +12,7 @@ const vehicleAPI = require('./sVehicle');
 const faction = require('../Factions/sFaction');
 const hospital = require('../Factions/sHospital');
 const i18n = require('../sI18n');
+const prison = require('../Factions/Police/sPrison');
 
 
 class loginClass {
@@ -239,7 +240,8 @@ class loginClass {
         const q4 = faction.loadPlayerAccount(player);
         const q5 = headOverlay.loadPlayerHeadOverlay(player);
         const q6 = clothes.loadPlayerClothes(player);
-        await Promise.all([q1, q2, q3, q4, q5, q6]);
+        const q7 = prison.loadPlayerAccount(player);
+        await Promise.all([q1, q2, q3, q4, q5, q6, q7]);
         hospital.loadPlayerAccount(player);
         player.outputChatBox(`${i18n.get('sLogin', 'annouceChooseLang', player.lang)}`);
         player.outputChatBox(`${i18n.get('sLogin', 'annouceSpawnVehicle', player.lang)}`);
@@ -279,6 +281,7 @@ class loginClass {
     saveAccount(player) {
         this.saveBasicData(player);
         vehicleAPI.savePlayerVehicles(player.basic.id);
+        prison.savePlayerAccount(player);
         const onlinePlayers = mp.players.toArray();
         if (onlinePlayers.length < 30) {
             for (let p of onlinePlayers) {

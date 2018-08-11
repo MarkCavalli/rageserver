@@ -1,4 +1,3 @@
-require('./cMisc');
 require('./cKeys');
 require('./Basic/cLogin');
 require('./Basic/cMoney');
@@ -11,3 +10,4 @@ require('./Business/cGasStation');
 require('./Character/cCharacterCreator');
 require('./Jobs/cOrangeCollector');
 require('./Factions/cHospital.js');
+require('./Factions/cPrison.js');
