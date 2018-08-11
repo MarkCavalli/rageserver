@@ -368,7 +368,7 @@ class patientsClass {
 
 	startHealingProcess(player) {
 		player.hospital.healing = true;
-		player.hospital.healingSpeed = 1;
+		player.hospital.healingSpeed = 25;
 		player.outputChatBox(`!{0, 200, 0}${i18n.get('sHospital', 'startedHealing', player.lang)}!`);
 		misc.log.debug(`${player.name} start healing. HP: ${player.health}`);
 	}
