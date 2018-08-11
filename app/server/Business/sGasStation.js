@@ -69,7 +69,7 @@ class gasStation extends business {
 			player.notify(`~r~${i18n.get('sGasStation', 'offEngine', player.lang)}!`);
 			return;
 		}
-		if (vehicleToFillUp.getOccupants()) {
+		if (vehicleToFillUp.getOccupants().lenght > 0) {
 			player.notify(`~r~${i18n.get('sGasStation', 'passengersDropOff', player.lang)}!`);
 			return;
 		}

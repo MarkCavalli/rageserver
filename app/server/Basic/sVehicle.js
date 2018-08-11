@@ -162,14 +162,13 @@ class sVehicle {
 
 	lock(player, vehicle) {
 		player.outputChatBox(`${vehicle.info.title} !{200, 0, 0}${i18n.get('sVehicle', 'locked', player.lang)}`);
-		const driver = vehicle.getOccupants()[0];
-		if (!driver) this.blinkLights(vehicle);
+		if (!vehicle.getOccupants().length === 0) this.blinkLights(vehicle);
 	}
 
 	unlock(player, vehicle) {
 		player.outputChatBox(`${vehicle.info.title} !{0, 200, 0}${i18n.get('sVehicle', 'unlocked', player.lang)}`);
 		const driver = vehicle.getOccupant(-1);
-		if (!driver) {
+		if (!vehicle.getOccupants().length === 0) {
 			this.blinkLights(vehicle);
 			setTimeout(() => {
 				this.blinkLights(vehicle);
