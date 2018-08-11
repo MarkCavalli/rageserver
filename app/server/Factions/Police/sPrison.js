@@ -254,3 +254,9 @@ function savePlayerAccount(player) {
 	prison.savePlayerAccount(player);
 }
 module.exports.savePlayerAccount = savePlayerAccount;
+
+
+async function insertNewUser() {
+	await misc.query(`INSERT INTO jail (violations) VALUES ('${JSON.stringify([])}')`);
+}
+module.exports.insertNewUser = insertNewUser;

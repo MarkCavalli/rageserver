@@ -69,6 +69,10 @@ class gasStation extends business {
 			player.notify(`~r~${i18n.get('sGasStation', 'offEngine', player.lang)}!`);
 			return;
 		}
+		if (vehicleToFillUp.getOccupants()) {
+			player.notify(`~r~${i18n.get('sGasStation', 'passengersDropOff', player.lang)}!`);
+			return;
+		}
 
 		const price = Math.ceil(carData.litres * this.fuelprice);
 		const canBuy = await moneyAPI.changeMoney(player, -price);

@@ -148,7 +148,8 @@ class loginClass {
         const q4 = clothes.insertNewUser();
         const q5 = faction.insertNewUser();
         const q6 = headOverlay.insertNewUser();
-        await Promise.all([q1, q2, q3, q4, q5, q6]);
+        const q7 = prison.insertNewUser();
+        await Promise.all([q1, q2, q3, q4, q5, q6, q7]);
 
         player.call("cInjectCef", [`app.showInfo('Success! Now you can log in.');`]);
         const mail = {

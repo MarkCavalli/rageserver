@@ -9,20 +9,24 @@ const time = require('./sTime');
 class sChat {
 	constructor () {
 		mp.events.add('playerChat', (player, message) => {
+			if (!message) return player.notify("Please enter message");
 			this.sayRP(player, message);
 			misc.log.debug(`${player.name}[${player.id}]: ${message}`);
 		});
 
 		mp.events.addCommand({
 			'me' : (player, fullText) => {
+				if (!fullText) return player.notify("Please enter message");
 				this.sayME(player, fullText);
 			}, 
 			
 			'do' : (player, fullText) => {
+				if (!fullText) return player.notify("Please enter message");
 				this.sayDO(player, fullText);
 			}, 
 
 			'g' : (player, fullText) => {
+				if (!fullText) return player.notify("Please enter message");
 				mp.players.broadcast(`[${time.getTime()}] ${player.name}: ${fullText}`);
 			}, 
 			

@@ -462,6 +462,15 @@ const i18n = {
 			zht: '祝妳旅途愉快',
 		},
 
+		passengersDropOff: {
+			eng: 'Please drop off passengers',
+			rus: 'Пожалуйста, высадите пассажиров',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
+		},
+
 	},
 //Faction module
 	sFaction: {
