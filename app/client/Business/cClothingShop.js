@@ -1,7 +1,6 @@
-"use strict"
+"use strict";
 
 const misc = require('../cMisc');
-const player = mp.players.local;
 let camD;
 
 mp.events.add(
@@ -12,7 +11,6 @@ mp.events.add(
 		misc.injectCef(inject);
 		camD = camData;
 		misc.createCam(camD.x, camD.y, camD.z, camD.rx, camD.ry, camD.rz, camD.viewangle);
-		
 	},
 
 	"cClothingShop-SetCamera" : (type) => {
@@ -41,6 +39,5 @@ mp.events.add(
 				misc.createCam(camD.x, camD.y, camD.z, camD.rx, camD.ry, camD.rz, camD.viewangle);
 				break;
 		}
-
-	},	
+	}	
 });

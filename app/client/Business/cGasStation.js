@@ -1,8 +1,6 @@
-"use strict"
+"use strict";
 
 const misc = require('../cMisc');
-const player = mp.players.local;
-
 
 mp.events.add({
 	"cGasStation-OpenBuyerMenu" : (lang, inject, camData) => {
@@ -11,5 +9,5 @@ mp.events.add({
 		misc.prepareToCef();
 		misc.openCef("package://RP/Browsers/Business/GasStation/gs.html", lang);
 		misc.injectCef(inject);
-	},
+	}
 });

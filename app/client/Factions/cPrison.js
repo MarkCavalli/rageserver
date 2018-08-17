@@ -1,15 +1,8 @@
-"use strict"
-
-const misc = require('../cMisc');
-const player = mp.players.local;
-
+"use strict";
 
 mp.events.add(
 {
-	
-	"cPrison-SetWantedLevel" : (l) => {
-		mp.game.gameplay.setFakeWantedLevel(l);
-	},
+	"cPrison-SetWantedLevel" : l => mp.game.gameplay.setFakeWantedLevel(l),
 
 	"cPrison-SendNotification" : (message) => {
 		const maxStringLength = 99;
@@ -18,5 +11,4 @@ mp.events.add(
 		mp.game.ui.setNotificationMessage("CHAR_CALL911", "CHAR_CALL911", false, 0, 'LS POLICE', `New violation`);
 		mp.game.ui.drawNotification(false, true);
 	},
-
 });
