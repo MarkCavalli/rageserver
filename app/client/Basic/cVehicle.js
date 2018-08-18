@@ -3,7 +3,6 @@
 const misc = require('../cMisc');
 const player = mp.players.local;
 
-
 class cVehicle {
 	constructor() {
 		this.fuel = null;
@@ -11,9 +10,7 @@ class cVehicle {
 		this.speed = 0;
 
 		mp.events.add({
-			"cVehicle-setFuel" : (fuel, fuelRate) => {
-				this.setFuel(fuel, fuelRate);
-			},
+			"cVehicle-setFuel" : (fuel, fuelRate) => this.setFuel(fuel, fuelRate),
 
 			"playerLeaveVehicle" : () => {
 				if (this.fuel !== null) mp.events.callRemote('sVehicle-SetFuel', player.vehicle, this.fuel); 
@@ -23,13 +20,8 @@ class cVehicle {
 				vehicle.setLights(state);
 			},
 
-			"cVehicle-rollUpWindow" : (vehicle, window) => {
-				vehicle.rollUpWindow(window);
-			},
-
-			"cVehicle-rollDownWindow" : (vehicle, window) => {
-				vehicle.rollDownWindow(window);
-			},
+			"cVehicle-rollUpWindow" : (vehicle, window) => vehicle.rollUpWindow(window),
+			"cVehicle-rollDownWindow" : (vehicle, window) => vehicle.rollDownWindow(window),
 			
 			"render" : () => {
 				this.setLightMultiplier();
@@ -37,9 +29,7 @@ class cVehicle {
 				this.showFuel();
 				this.showBrakeLights();
 			},
-
 		});
-
 	}
 
 	setFuel(fuel, fuelRate, showSpeed) {
@@ -100,8 +90,8 @@ class cVehicle {
 		}	
 	}
 }
-const veh = new cVehicle();
 
+const veh = new cVehicle();
 
 mp.keys.bind(71, false, function() {     // G
     veh.getIntoVehicleAsPassenger();

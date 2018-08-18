@@ -1,19 +1,11 @@
 "use strict"
 
 const misc = require('../cMisc');
-const player = mp.players.local;
-
 
 mp.events.add(
 {
-	
-	"render" : () => {
-		drawLightInHospital();
-	},
-	
-	"cHospital-DisableHealthRegeneration" : () => {
-		mp.game.player.setHealthRechargeMultiplier(0.0);
-	},
+	"render" : () => drawLightInHospital(),
+	"cHospital-DisableHealthRegeneration" : () => mp.game.player.setHealthRechargeMultiplier(0.0),
 
 	"cHospital-ShowDoctorMenu" : (lang, inject) => {
 		misc.prepareToCef(500);
@@ -31,9 +23,9 @@ mp.events.add(
 		misc.prepareToCef(1);
 		misc.openCef("package://RP/Browsers/Factions/Hospital/liftMenu.html", lang);
 	},
-	
 });
 
+// This need to be reworked.
 function drawLightInHospital() {
 	mp.game.graphics.drawLightWithRange(273.552, -1359.888, 26.538, 255, 255, 255, 10, 3);
 	mp.game.graphics.drawLightWithRange(267.438, -1354.475, 26.538, 255, 255, 255, 10, 3);

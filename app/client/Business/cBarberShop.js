@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 const misc = require('../cMisc');
 const player = mp.players.local;
@@ -12,10 +12,5 @@ mp.events.add(
 		misc.createCam(camD.x, camD.y, camD.z, camD.rx, camD.ry, camD.rz, camD.viewangle);
 	},
 
-	"cBarberShop-SetHairColor" : (col1, col2) => {
-		player.setHairColor(col1, col2);
-	},
-
-
+	"cBarberShop-SetHairColor" : (col1, col2) => player.setHairColor(col1, col2)
 });
-
