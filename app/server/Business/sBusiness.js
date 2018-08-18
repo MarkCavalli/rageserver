@@ -238,3 +238,28 @@ mp.events.addCommand({
 		player.notify(`~g~${i18n.get('basic', 'success', player.lang)}!`);
 	},	
 });
+
+
+function getNearestBusiness(name, playerPosition) {
+	let nearestBus;
+	for (let bus of businessList) {
+		if (bus.title === name) return nearestBus = bus;
+	}
+	for (let bus of businessList) {
+		if (bus.title !== name) continue;
+		if (bus.blip.dist(playerPosition) < nearestBus.blip.dist(playerPosition)) {
+			nearestBus = bus;
+		}
+	}
+	return nearestBus.blip.position;
+}
+module.exports.getNearestBusiness = getNearestBusiness;
+
+function getBusinessPositionById(id) {
+	const bus = getBusiness(id);
+	if (!bus) return false;
+	return bus.blip.position;	
+}
+module.exports.getBusinessPositionById = getBusinessPositionById;
+
+

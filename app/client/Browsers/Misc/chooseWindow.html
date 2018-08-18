@@ -47,7 +47,7 @@ const app = new Vue({
 		},
 
 		confirm: function() {
-			mp.trigger("cMisc-CallServerEvent", this.confirmEvent, this.whoId);
+			mp.trigger("cMisc-CallServerEvent", this.confirmEvent, this.whoId, this.price);
 			this.exit();
 		},
 

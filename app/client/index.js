@@ -1,6 +1,8 @@
 require('./cKeys');
 require('./Basic/cLogin');
 require('./Basic/cMoney');
+require('./Basic/cMenu');
+require('./Basic/cGPS');
 require('./Basic/cVehicle');
 require('./Business/cBusiness');
 require('./Business/cCheapCarDealership');
