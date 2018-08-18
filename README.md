@@ -54,7 +54,8 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-//Setting mail's from address below.It is importent when smtp server need mail's from add the same as sender,or it will make smtp 501 error and let your gameserver crash.
+//Setting mail's from address below.It is importent when smtp server need mail's from add the same as sender,
+//or it will make smtp 501 error and let your gameserver crash.
 
 function getMailAdress() {
     return 'Open Source RP server <youmail@gmail.com>'; //Your server mail's "From" address content.
