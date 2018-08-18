@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 18 2018 г., 21:46
+-- Время создания: Авг 18 2018 г., 22:10
 -- Версия сервера: 5.7.20
 -- Версия PHP: 5.5.38
 
@@ -82,17 +82,6 @@ CREATE TABLE `cars` (
 CREATE TABLE `cheapcardealership` (
   `id` int(11) NOT NULL,
   `newCarCoord` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `cheaphouse`
---
-
-CREATE TABLE `cheaphouse` (
-  `id` int(255) NOT NULL,
-  `test` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -254,12 +243,6 @@ ALTER TABLE `cheapcardealership`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `cheaphouse`
---
-ALTER TABLE `cheaphouse`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Индексы таблицы `clothingshop`
 --
 ALTER TABLE `clothingshop`
@@ -340,12 +323,6 @@ ALTER TABLE `cars`
 --
 ALTER TABLE `cheapcardealership`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `cheaphouse`
---
-ALTER TABLE `cheaphouse`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `clothingshop`
