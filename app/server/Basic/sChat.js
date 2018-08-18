@@ -27,7 +27,8 @@ class sChat {
 
 			'g' : (player, fullText) => {
 				if (!fullText) return player.notify("Please enter message");
-				mp.players.broadcast(`[${time.getTime()}] ${player.name}: ${fullText}`);
+				mp.players.broadcast(`[${time.getTime()}] [Global] ${player.name}: ${fullText}`);
+				misc.log.debug(`${player.name} ${fullText}`);
 			}, 
 			
 		});

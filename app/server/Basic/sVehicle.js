@@ -2,7 +2,7 @@
 
 const misc = require('../sMisc');
 const i18n = require('../sI18n');
-
+const moneyAPI = require('./sMoney');
 
 
 class sVehicle {
@@ -13,11 +13,11 @@ class sVehicle {
 			},
 		
 			"playerEnterVehicle" : (player, vehicle, seat) => {
-				if (seat === -1) player.call("cVehicle-setFuel", [vehicle.info.fuel, vehicle.info.fuelRate, true]);
+				if (seat === -1) player.call("cVehicle-setFuel", [vehicle.info.fuel, vehicle.info.fuelRate]);
 			},
 			
 			"playerExitVehicle" : (player, vehicle, seat) => {
-				player.call("cVehicle-setFuel", [null, 0, false]);
+				player.call("cVehicle-setFuel", [null, 0]);
 				this.setLights(player, vehicle, 0);
 			},
 		
@@ -50,6 +50,22 @@ class sVehicle {
 		
 			"sKeys-Num3" : (player) => {
 				this.toggleVehWindow(player, 3);
+			},
+
+			"sVehicle-SellToGovernment" : (player, id) => {
+				veh.sellVehicleToGovernment(player, id);
+			},
+
+			"sVehicle-SellToPlayer" : (player, str) => {
+				veh.sellVehicleToPlayer(player, str);
+			},
+
+			"sVehicle-ConfirmSellVehicleToPlayer" : (player, sellerId, price) => {
+				veh.confirmSellVehicleToPlayer(player, sellerId, price);
+			},
+
+			"sVehicle-RejectSellVehicleToPlayer" : (player, sellerId) => {
+				veh.rejectSellVehicleToPlayer(player, sellerId);
 			},
 
 		});
@@ -162,13 +178,12 @@ class sVehicle {
 
 	lock(player, vehicle) {
 		player.outputChatBox(`${vehicle.info.title} !{200, 0, 0}${i18n.get('sVehicle', 'locked', player.lang)}`);
-		if (!vehicle.getOccupants().length === 0) this.blinkLights(vehicle);
+		if (vehicle.getOccupants().length === 0) this.blinkLights(vehicle);
 	}
 
 	unlock(player, vehicle) {
 		player.outputChatBox(`${vehicle.info.title} !{0, 200, 0}${i18n.get('sVehicle', 'unlocked', player.lang)}`);
-		const driver = vehicle.getOccupant(-1);
-		if (!vehicle.getOccupants().length === 0) {
+		if (vehicle.getOccupants().length === 0) {
 			this.blinkLights(vehicle);
 			setTimeout(() => {
 				this.blinkLights(vehicle);
@@ -310,6 +325,53 @@ class sVehicle {
 		}
 	}
 
+	async sellVehicleToGovernment(player, id) {
+		const vehicle = mp.vehicles.at(id);
+		if (!vehicle || vehicle.info.ownerId !== player.basic.id) return;
+		await moneyAPI.addToBankMoney(player.basic.id, vehicle.info.price / 2, `${i18n.get('sVehicle', 'sellVehicle', player.lang)}`);
+		await misc.query(`DELETE FROM cars WHERE id = ${vehicle.info.id} AND ownerId = '${player.basic.id}'`);
+		vehicle.destroy();
+	}
+
+	async sellVehicleToPlayer(seller, str) {
+		const data = JSON.parse(str);
+		const buyer = mp.players.at(data.passengerId);
+		if (!buyer) return;
+		const str1 = `app.whoName = '${seller.name}';`;
+		const str2 = `app.whoId = ${seller.id};`;
+		const str3 = `app.wantText = '${i18n.get('sVehicle', 'wantsSellVehicleToPlayer', buyer.lang)} ${seller.vehicle.info.title} | ${seller.vehicle.numberPlate}';`;
+		const str4 = `app.price = ${data.price};`;
+		
+		const execute = str1 + str2 + str3 + str4;
+
+		buyer.call("cMisc-CreateChooseWindow", [buyer.lang, execute, "sVehicle-ConfirmSellVehicleToPlayer", "sVehicle-RejectSellVehicleToPlayer"]);
+	}
+
+	rejectSellVehicleToPlayer(buyer, sellerId) {
+		const seller = mp.players.at(sellerId);
+		if (!seller) return;
+		buyer.notify(`${i18n.get('basic', 'youRejectedOffer', buyer.lang)} ${seller.name}!`);
+		seller.notify(`${buyer.name} ${i18n.get('basic', 'rejectedYourOffer', seller.lang)}!`);
+	}
+
+	async confirmSellVehicleToPlayer(buyer, sellerId, price) {
+		const seller = mp.players.at(sellerId);
+		if (!seller) return;
+		const vehicle = buyer.vehicle;
+		if (!vehicle || vehicle !== seller.vehicle) return;
+		const canBuy = await moneyAPI.changeMoney(buyer, -price);
+		if (!canBuy) return;
+		await moneyAPI.changeMoney(seller, price);
+		vehicle.info.ownerId = buyer.basic.id;
+		vehicle.info.whoCanOpen = [buyer.basic.id];
+		await misc.query(`UPDATE cars SET ownerId = '${buyer.basic.id}', whoCanOpen = '${JSON.stringify([buyer.basic.id])}' WHERE id = '${vehicle.info.id}'`);
+
+		seller.notify(`~g~${buyer.name} ${i18n.get('basic', 'confirmedYourOffer', seller.lang)}!`);
+		buyer.notify(`~g~${i18n.get('basic', 'youConfirmedOffer', buyer.lang)} ${seller.name}!`);
+
+		misc.log.debug(`${seller.name} sold ${seller.vehicle.info.title}(${seller.vehicle.info.id}) for $${price} to ${buyer.name}`);
+	}
+
 }
 
 const veh = new sVehicle();
@@ -349,7 +411,41 @@ async function loadPlayerVehicles(ownerId) {
 }
 module.exports.loadPlayerVehicles = loadPlayerVehicles;
 
+function getVehiclesForPlayerMenu(id) {
+	const playerVehicles = [];
+	const vehicles = mp.vehicles.toArray();
+	for (let veh of vehicles) {
+		if (!veh.info || veh.info.ownerId !== id) continue;
+		const v = {
+			id: veh.id,
+			title: veh.info.title,
+			number: veh.numberPlate,
+			price: veh.info.price,
+			fTank: veh.info.fuelTank,
+			fRate: veh.info.fuelRate
+		}
+		playerVehicles.push(v);
+	}
+	return JSON.stringify(playerVehicles);
+}
+module.exports.getVehiclesForPlayerMenu = getVehiclesForPlayerMenu;
 
+function getPassengersForPlayerMenu(player) {
+	if (!player.vehicle) return false;
+	const passengers = player.vehicle.getOccupants();
+	if (passengers < 2) return false;
+	const playerPassengers = [];
+	for (let pass of passengers) {
+		if (pass.name === player.name) continue;
+		const p = {
+			id: pass.id,
+			name: pass.name,
+		}
+		playerPassengers.push(p);
+	}
+	return JSON.stringify(playerPassengers);
+}
+module.exports.getPassengersForPlayerMenu = getPassengersForPlayerMenu;
 
 
 

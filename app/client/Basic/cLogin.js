@@ -3,7 +3,6 @@
 const player = mp.players.local;
 const misc = require('../cMisc');
 
-
 class loginClass {
     constructor() {
         mp.events.add({

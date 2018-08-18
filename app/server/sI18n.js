@@ -2,18 +2,6 @@
 
 const misc = require('./sMisc');
 
-mp.events.addCommand({
-   'setlang' : (player, l) => { 
-	   	if(!player.loggedIn) return;
-        if (l !== "eng" && l !== "rus" && l !== "ger" && l !== "br" && l !== "zhs" && l !== "zht") {
-            return player.outputChatBox("Available languages: eng, rus, ger, br, zhs, zht");
-        }
-        player.notify(`Current language: ~g~${l}`);
-        misc.query(`UPDATE users SET lang = '${l}' WHERE id = '${player.basic.id}'`);
-        player.lang = l;
-    },
-});   
-
 function get(type, string, lang) {
 	const result = i18n[type][string];
 	if (!result[lang]) return result.eng;
@@ -25,8 +13,6 @@ module.exports.get = get;
 const i18n = {
 //Basic
 	basic: {
-  
-    
 		success: {
 			eng: 'Success',
 			rus: 'Успешно',
@@ -228,11 +214,8 @@ const i18n = {
 
 	},
 //Login module
-  sLogin: {    
-  
-  
-  
-    connected: {
+  	sLogin: {    
+    	connected: {
 			eng: 'connected',
 			rus: 'присоединился',
 			ger: 'verbunden',
@@ -241,7 +224,7 @@ const i18n = {
 			zht: '已上線',
 		},    
     
-    disconnected: {
+   		disconnected: {
 			eng: 'disconnected',
 			rus: 'отключился',
 			ger: 'getrennt',
@@ -250,16 +233,16 @@ const i18n = {
 			zht: '已離線',
 		},
 		
-    annouceChooseLang: {
-			eng: 'Choose your language: /setlang [language]',
-			rus: 'Выберите ваш язык: /setlang [язык]',
-			ger: 'Wählen Sie Ihre Sprache: / setlang [Sprache]',
-			br: 'Escolha seu idioma: /setlang [idioma]', 
-			zhs: '选择你的语言：/setlang [language]',
-			zht: '選擇你的語言：/setlang [language]',
+		annoucePlayerMenu: {
+			eng: 'Open menu: M button',
+			rus: 'Открыть меню: кнопка М',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
 		},
     
-    annouceSpawnVehicle: {
+		annouceSpawnVehicle: {
 			eng: 'Spawn a vehicle: /veh',
 			rus: 'Создать транспорт: /veh',
 			ger: '',
@@ -267,8 +250,8 @@ const i18n = {
 			zhs: '请求一台载具：/veh',
 			zht: '请求一辆载具：/veh',
 		},
-    
-    annouceGlobalChat: {
+		
+		annouceGlobalChat: {
 			eng: 'Global chat: /g [message]',
 			rus: 'Глобальный чат: /g [сообщение]',
 			ger: 'Globaler Chat: / g [Nachricht]',
@@ -276,8 +259,8 @@ const i18n = {
 			zhs: '全局聊天：/g [message]',
 			zht: '全域聊天：/g [message]',
 		}, 
-    
-    annouceOldUser: {
+	
+		annouceOldUser: {
 			eng: 'If you have account in old server version and want restore data, write here in chat your old name. I will check it in logs',
 			rus: 'Если у вас есть аккаунт на старом сервере, напишите в чате старое имя. Я посмотрю это по логам',
 			ger: 'Wenn Sie einen Account haben und Daten wiederherstellen möchten, schreiben Sie hier im Chat Ihren alten Namen. Ich werde es in Logs überprüfen',
@@ -285,8 +268,8 @@ const i18n = {
 			zhs: '如果你有旧版服务器账户且希望恢复它，在聊天栏留下你的用户名和需求。我会在日志中检查。',
 			zht: '如果你有舊版服務器帳戶且希望恢復它，在聊天欄留下你的用戶名和需求。我會在日誌中檢查。',
 		},
-    
-    saveGame: {
+		
+		saveGame: {
 			eng: 'Account successfully saved!',
 			rus: 'Аккаунт сохранен!',
 			ger: 'Konto erfolgreich gespeichert!',
@@ -406,7 +389,7 @@ const i18n = {
 			zht: '已開鎖',
 		},
     
-    helpUnlock: {
+		helpUnlock: {
 			eng: 'Unlock: num +',
 			rus: 'Открыть: num +',
 			ger: 'Entsperren: num +',
@@ -414,8 +397,8 @@ const i18n = {
 			zhs: '开锁: 数字小键盘 +',
 			zht: '開鎖: 數字小鍵盤 +',
 		},
-    
-    helpEngine: {
+		
+		helpEngine: {
 			eng: 'Toggle engine: num 0',
 			rus: 'Завести двигатель: num 0',
 			ger: 'Toggle-Engine: Nummer 0',
@@ -423,14 +406,32 @@ const i18n = {
 			zhs: '切换发动机：数字小键盘 0',
 			zht: '切換引擎: 數字小鍵盤 0',
 		},
-    
-    spawnedFaggio2: {
+		
+		spawnedFaggio2: {
 			eng: 'Toggle engine: num 0',
 			rus: 'Завести двигатель: num 0',
 			ger: 'Toggle-Engine: Nummer 0',
 			br: 'Ligar o motor: num 0', 
 			zhs: '切换发动机：数字小键盘 0',
 			zht: '切換引擎: 數字小鍵盤 0',
+		},
+
+		sellVehicle: {
+			eng: 'Vehicle sell',
+			rus: 'Продажа ТС',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
+		},
+
+		wantsSellVehicleToPlayer: {
+			eng: 'wants sell you a',
+			rus: 'хочет продать вам',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
 		},
 	},
 //GasStation module
@@ -750,6 +751,18 @@ const i18n = {
 			br: 'Ordem não entregue', 
 			zhs: '取消派送订单',
 			zht: '取消派送訂單',
+		},
+
+	},
+
+	sMenu: {
+		wrongOldPass: {
+			eng: 'You entered wrong old password',
+			rus: 'Вы ввели неправильный старый пароль',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
 		},
 
 	},

@@ -1,7 +1,4 @@
-"use strict"
-
-const player = mp.players.local;
-
+"use strict";
 
 mp.keys.bind(69, false, function() {
     if (mp.gui.cursor.visible) return;
@@ -67,3 +64,9 @@ mp.keys.bind(107, false, function() {
     if (mp.gui.cursor.visible) return;
     mp.events.callRemote('sKeys-Num+');
 });
+
+mp.keys.bind(77, false, function() {
+    if (mp.gui.cursor.visible) return;
+    mp.events.callRemote('sKeys-M');
+});
+

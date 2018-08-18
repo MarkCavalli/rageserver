@@ -1,9 +1,8 @@
-"use strict"
+"use strict";
 
 let cef = null;
 let camera = null;
 const player = mp.players.local;
-
 
 function prettify(num) {
     let n = num.toString();
@@ -12,9 +11,7 @@ function prettify(num) {
 }
 exports.prettify = prettify;
 
-function roundNum(number, ends = 0) {
-	return parseFloat(number.toFixed(ends));
-}
+const roundNum = (number, ends = 0) => parseFloat(number.toFixed(ends))
 exports.roundNum = roundNum;
 
 // CEF //
@@ -62,7 +59,6 @@ function closeCef() {
 exports.closeCef = closeCef;
 // CEF //
 
-
 // CAMERA //
 function createCam(x, y, z, rx, ry, rz, viewangle) {
 	camera = mp.cameras.new("Cam", {x: x, y: y, z: z}, {x: rx, y: ry, z: rz}, viewangle);
@@ -81,31 +77,18 @@ function destroyCam() {
 exports.destroyCam = destroyCam;
 // CAMERA //
 
-
-
-
 mp.events.add(
 {		
-	"cInjectCef" : (execute) => {
-		injectCef(execute);
-	},
+	"cInjectCef" : execute => injectCef(execute),
+	"cCloseCef" : () => closeCef(),
+	"cDestroyCam" : () => destroyCam(),
 
-	"cCloseCef" : () => {
-		closeCef();
-	},
-
-	"cDestroyCam" : () => {
-		destroyCam();
-	},
-	
 	"cCloseCefAndDestroyCam" : () => {
 		closeCef();
 		destroyCam();
 	},
 
-	"cChangeHeading" : (angle) => {
-		player.setHeading(angle);
-	},
+	"cChangeHeading" : angle => player.setHeading(angle),
 
 	"cMisc-CreateChooseWindow" : (lang, execute, confirmEvent, rejectEvent) => {
 		prepareToCef(500);
@@ -116,10 +99,6 @@ mp.events.add(
 		injectCef(inject);
 	},
 
-	"cMisc-CallServerEvent" : (eventName, d) => {
-		mp.events.callRemote(eventName, d);
-	},
-	
-
+	"cMisc-CallServerEvent" : (eventName, id, price) => mp.events.callRemote(eventName, id, price)
 });
 	

@@ -1,0 +1,538 @@
+﻿<html>
+	<meta charset="utf-8">
+  	<link rel="stylesheet" href="menu.css">
+  	<script src="../vue.js"></script>
+	<body>
+		<div class="main" id="app">
+			<div class="close" @click="exit">X</div>
+			<section class="content">
+				<section class="menu">
+					<div class="menu__header">
+						<img src="img/logo.png"><br>
+						<div class="menu__header__name">{{ pName }}</div>
+					</div>
+					<div class="menu-items">
+						<a v-for="(tab, i) in d.i18n.tabs" :key="tab" @click="currentTab = i" :class="[{ active: currentTab === i }]">{{ tab }}</a>
+					</div>
+				</section>
+				<transition name="fade" mode="out-in">
+					<component :is="currentTabComponent" :d="d" @set-tab="currentTab = $event" @set-veh="currentVeh = $event"></component>
+				</transition>
+			</section>
+		</div>
+	</body>
+</html>
+
+
+<script type="text/x-template" id="tab-home">
+	<section class="info tab-home">
+		<div class="b-item" @click="createGPSRoute('ATM')">
+			<img src="img/cash.png">
+			<span class="cash">{{ prettify(d.cash) }}</span>
+			<div>{{ d.i18n.cash }}</div>
+		</div>
+		<div class="b-item">
+			<img src="img/loyality.png">
+			<span>{{ d.loyality }}</span>
+			<div>{{ d.i18n.loyality }}</div>
+		</div>
+		<div class="b-item" @click="$emit('set-tab', 2)">
+			<img src="img/vehicles.png">
+			<span>{{ d.vehicles.length }}</span>
+			<div>{{ d.i18n.tabs[2] }}</div>
+		</div>
+		<div class="b-item" @click="$emit('set-tab', 3)">
+			<img src="img/violations.png">
+			<span style="color: tomato;">{{ d.violations.length }}</span>
+			<div>{{ d.i18n.tabs[3] }}</div>
+		</div>
+	</section>
+</script>
+
+<script type="text/x-template" id="tab-gps">
+	<section class="info tab-vehicles">
+		<div class="veh-list">
+			<a class="veh-item" v-for="(item, i) in d.i18n.gps" @click="currentTab = i" :class="[{ active: currentTab === i }]">
+				<span>{{ item }}</span>
+			</a>
+		</div>
+		<div class="veh-info">
+			<div class="gps" v-if="currentTab === 0">
+				<div class="veh-info_props">
+					<div class="veh-info_prop" @click="createGPSRoute('Gas Station')">
+						<img src="img/gasstation.png">
+						<span>{{ d.i18n.gasStation }}</span>
+					</div>
+					<div class="veh-info_prop" @click="createGPSRoute('ATM')">
+						<img src="img/cash.png">
+						<span style="color: limegreen;">{{ d.i18n.atm }}</span>
+					</div>
+					<div class="veh-info_prop">
+						<img src="img/repair.png">
+						<span>{{ d.i18n.repairStation }}</span>
+					</div>
+					
+				</div>
+				<div class="menu-items" style="border-top: 1px solid #aaa;">
+					<a @click="createGPSRoute('Hospital')">{{ d.i18n.hospital }}</a>
+					<a @click="createGPSRoute('Prison')">{{ d.i18n.prison }}</a>
+				</div>
+			</div>
+			<div class="gps" v-if="currentTab === 1">
+				<div class="menu-items" style="border-top: 1px solid #aaa;">
+					<a @click="createGPSRoute('Orange Collector')">{{ d.i18n.orangeCollector }}</a>
+					<a @click="createGPSRoute('Clickin Bell Delivery Courier')">{{ d.i18n.cbDeliveryCourier }} <span style="color: tomato" v-if="d.loyality < 50">({{ d.i18n.minLoyality }}: 50)</span>
+					</a>
+				</div>
+			</div>
+			<div class="gps" v-if="currentTab === 2">
+				<div class="veh-info_props">
+					<div class="veh-info_prop" @click="createGPSRoute('Gas Station')">
+						<img src="img/gasstation.png">
+						<span>{{ d.i18n.gasStation }}</span>
+					</div>
+					<div class="veh-info_prop" @click="createGPSRoute('Clothing Shop')">
+						<img src="img/cloth.png">
+						<span>{{ d.i18n.clothingShop }}</span>
+					</div>
+					<div class="veh-info_prop" @click="createGPSRoute('Barber Shop')">
+						<img src="img/barbershop.png">
+						<span>{{ d.i18n.barberShop }}</span>
+					</div>
+				</div>
+
+				<div class="menu-items gps-findbus">
+					<a>
+						{{ d.i18n.findBusBy }} id -  №<input v-model.number="businessId">
+						<div class="confirm" @click="createGPSRoute('Business', businessId)">✓</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</script>
+
+<script type="text/x-template" id="tab-vehicles">
+	<section class="info tab-vehicles" v-if="d.vehicles.length">
+		<div class="veh-list">
+			<a class="veh-item" v-for="(veh, i) in d.vehicles"  @click="currentVeh = i" :class="[{ active: currentVeh === i }]">
+				<span>{{ veh.title}}</span>
+				<div>{{ veh.number }}</div>
+			</a>
+		</div>
+		<div class="veh-info">
+			<div class="veh-info_title">{{ d.vehicles[currentVeh].title }}</div>
+			<div class="veh-info_number">{{ d.vehicles[currentVeh].number }}</div>
+			<div class="veh-info_props">
+				<div class="veh-info_prop">
+					<img src="img/fueltank.png">
+					<span>{{ d.vehicles[currentVeh].fTank }} L</span>
+					<div>{{ d.i18n.fTank }}</div>
+				</div>
+				<div class="veh-info_prop">
+					<img src="img/cash.png">
+					<span style="color: limegreen;">${{ prettify(d.vehicles[currentVeh].price) }}</span>
+					<div>{{ d.i18n.price }}</div>
+				</div>
+				<div class="veh-info_prop">
+					<img src="img/fuelrate.png">
+					<span>{{ d.vehicles[currentVeh].fRate }}L / 100 km</span>
+					<div>{{ d.i18n.fRate }}</div>
+				</div>
+			</div>
+			<div style="border-top: 1px solid #aaa;">
+				<a class="veh-item" @click="createGPSRoute('Find Vehicle', d.vehicles[currentVeh].id)">
+					<span>{{ d.i18n.findVehicle }}</span>
+					<div>{{ d.i18n.createRoute }}</div>
+				</a>
+				<a class="veh-item" @click="call911Comfirm = !call911Comfirm" :class="[{ lefted: call911Comfirm }]">
+					<span style="color: tomato;">{{ d.i18n.call911 }}</span>
+					<div>{{ d.i18n.repairAndTransport }}</div>
+					<div class="confirm" @click="callNineOneOne(d.vehicles[currentVeh].id)">✓</div>
+				</a>
+				<a class="veh-item" @click="sellToDealerComfirm = !sellToDealerComfirm" :class="[{ lefted: sellToDealerComfirm }]">
+					<span>{{ d.i18n.sellFor }} <span style="color: limegreen;">${{ prettify(Math.round(d.vehicles[currentVeh].price * 0.5)) }}</span> {{ d.i18n.toDealer }}</span>
+					<div class="confirm" @click="sellVehicleToGov(d.vehicles[currentVeh].id)">✓</div>
+				</a>
+				<a class="veh-item" @click="sellToPlayer = !sellToPlayer" v-if="d.passengers.length > 0 && currentVehicleId === d.vehicles[currentVeh].id">
+					<span>{{ d.i18n.sellToPassenger }}</span>
+				</a>
+			</div>
+			<div class="sell-for-player" v-if="sellToPlayer">
+				<div class="players">
+					<a v-for="(p, i) in d.passengers" @click="currentPassenger = i" :class="[{ active: currentPassenger === i }]">{{ p.name }}</a>
+				</div>
+				<div class="data">
+					<div class="price">
+						<span><span style="color: limegreen;">$</span><input class="veh-sellinput" v-model.number="sellprice" :style="{ 'width': sellprice.toString().length * 1.15 + 'vw' }"></span>
+						<div>{{ d.i18n.price }}</div>
+					</div>
+					<a class="sell" @click="sellVehicleToPlayer()">{{ d.i18n.sell }}</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="info tab-vehicles" v-else>
+		<div class="no-veh">{{ d.i18n.noVeh }}</div>
+	</section>
+</script>
+
+<script type="text/x-template" id="tab-violations">
+	<section class="info tab-violations">
+		<div class="violations-free" v-if="!d.violations.length">
+			{{ d.i18n.congrats }}!<br>
+			{{ d.i18n.noViolat }}!
+		</div>
+		<div class="violations-total" v-if="d.violations.length" >
+			{{ d.i18n.total }}: <span style="color: tomato;">{{ d.violations.length }} {{ d.i18n.tabs[3] }}</span> - <span style="color: tomato;">{{ total }} {{ d.i18n.minutes }}</span> {{ d.i18n.jTime }}
+		</div>
+		<div v-if="d.violations.length" class="b-item" v-for="vio in d.violations"  @click="createGPSRoute('Prison')">
+			<img src="img/violations.png">
+			<span style="color: tomato;">{{ vio.time }} {{ d.i18n.minutes }}</span>
+			<div>{{ vio.text }}</div>
+		</div>
+	</section>
+</script>
+
+<script type="text/x-template" id="tab-help">
+	<section class="info tab-vehicles">
+		<div class="veh-list">
+			<a class="veh-item" v-for="(item, i) in d.i18n.help" @click="currentTab = i" :class="[{ active: currentTab === i }]">
+				<span>{{ item }}</span>
+			</a>
+		</div>
+		<div class="veh-info">
+			<div class="gps" v-if="currentTab === 0">
+				<p class="help-p">{{ d.i18n.helpStart }}</p>
+			</div>
+			<div class="gps" v-if="currentTab === 1">
+				<div class="veh-info_props">
+					<div class="veh-info_prop">
+						<img src="img/carlock.png">
+						<span>Num +</span>
+						<div>{{ d.i18n.toggle }} {{ d.i18n.lock }}</div>
+					</div>
+					<div class="veh-info_prop">
+						<img src="img/carengine.png">
+						<span>Num 0</span>
+						<div>{{ d.i18n.toggle }} {{ d.i18n.engine }}</div>
+					</div>
+					<div class="veh-info_prop">
+						<img src="img/frontdoor.png">
+						<span>Num 7, Num 9</span>
+						<div>{{ d.i18n.front }} {{ d.i18n.windows }}</div>
+					</div>
+					<div class="veh-info_prop">
+						<img src="img/reardoor.png">
+						<span>Num 1, Num 3</span>
+						<div>{{ d.i18n.rear }} {{ d.i18n.windows }}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</script>
+
+<script type="text/x-template" id="tab-settings">
+	<section class="info tab-vehicles">
+		<div class="veh-list">
+			<a class="veh-item" v-for="(item, i) in d.i18n.settings" @click="currentTab = i" :class="[{ active: currentTab === i }]">
+				<span>{{ item }}</span>
+			</a>
+		</div>
+		<div class="veh-info">
+			<div class="gps" v-if="currentTab === 0">
+				<div style="display: flex">
+					<div style="width: 30%;">
+						<p class="help-p settings-title">{{ d.i18n.Change }} {{ d.i18n.language }}</p>
+						<div class="veh-list settings-lang">
+							<a class="veh-item" v-for="(item, i) in d.languages" @click="setLang(i)" >
+								<span style="font-size: 0.75em;">{{ item }}</span>
+							</a>
+						</div>
+					</div>
+					<div style="width: 70%">
+						<p class="help-p settings-title">{{ d.i18n.Change }} {{ d.i18n.password }}</p>
+						<div class="settings-pass">
+							<div>{{ d.i18n.Old }} {{ d.i18n.password }}:</div>
+							<input type="password" v-model="oldPass">
+							<div>{{ d.i18n.New }} {{ d.i18n.password }}:</div>
+							<input type="password" v-model="newPass">
+							<a @click="changePass()" >{{ d.i18n.Done }}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</script>
+
+
+
+
+
+<script>
+let tabNumber = 0;
+
+class tab {
+	constructor(id, data = {}) {
+		this.data = function() { 
+			return data; 
+		}
+		this.methods = {
+			prettify: function(num) {
+				let n = num.toString();
+				const separator = " ";
+				return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + separator);
+			},
+
+			createGPSRoute(name, id = false) {
+				const d = { name: name, id: id }
+				mp.trigger("cMisc-CallServerEvent", "sGPS-CreateRoute", JSON.stringify(d));
+				app.exit();
+			},
+
+			setLang(id) {
+				mp.trigger("cMisc-CallServerEvent", "sMenu-SetLang", id);
+				app.exit();
+			},
+
+			changePass() {
+				const data = {
+					oldPass: this.oldPass,
+					newPass: this.newPass,
+				}
+				mp.trigger("cMisc-CallServerEvent", "sMenu-ChangePass", JSON.stringify(data));
+				app.exit();
+			},
+
+			callNineOneOne(id) {
+				mp.trigger("cMisc-CallServerEvent", "sMenu-RestoreVehicle", id);
+				app.exit();
+			},
+
+			sellVehicleToGov(id) {
+				mp.trigger("cMisc-CallServerEvent", "sVehicle-SellToGovernment", id);
+				app.exit();
+			},
+
+			sellVehicleToPlayer() {
+				const str = {
+					price: this.sellprice,
+					passengerId: this.d.passengers[this.currentPassenger].id,
+				}
+				mp.trigger("cMisc-CallServerEvent", "sVehicle-SellToPlayer", JSON.stringify(str));
+				app.exit();
+			},
+		}
+		this.computed = {
+			total: function () {
+				let total = 0;
+				for (let data of this.d.violations) {
+					total += data.time;
+				}
+				return total;
+			},
+		}
+		const tab = Vue.component(`tab${tabNumber++}`, { 
+			props: ['d'],
+			data: this.data,
+			methods: this.methods,
+			computed: this.computed,
+
+			template: id,
+		});
+		return tab;
+	}
+}
+
+const home = new tab('#tab-home');
+
+const gps = new tab('#tab-gps', {
+	currentTab: 0,
+	businessId: 1,
+});
+
+const vehicles = new tab('#tab-vehicles', {
+	currentVeh: 0,
+	call911Comfirm: false,
+	sellToDealerComfirm: false,
+	sellToPlayer: false,
+	sellprice: 100000,
+	currentPassenger: 0,
+	currentVehicleId: 0,
+});
+
+const violations = new tab('#tab-violations');
+
+const help = new tab('#tab-help', {
+	currentTab: 0,
+});
+
+const settings = new tab('#tab-settings', {
+	currentTab: 0,
+	oldPass: '',
+	newPass: '',
+});
+
+
+const app = new Vue({
+	el: '#app',
+	data: {
+		pName: '',
+		currentTab: 0,
+		d: {
+			cash: 0,
+			loyality: 0,
+			vehicles: [
+				{ id: 54, title: "Declasse Tornado Custom", number: "FDG45GF", price: 15500, fTank: 55, fRate: 15 },
+			],
+			passengers: [
+				{ id: 4, name: "Mark Cavalli"},
+			],
+			violations: [
+				{ time: 5, text: "killed civilian dsad as sad sad sad asdas " },
+			],
+			languages: [ 'English', 'Russian', 'German', 'Brasilian', 'Simplified Chinese', 'Traditional Chinese'],
+			i18n: {
+				tabs: ['Home', 'GPS', 'Vehicles', 'Violations', 'Help', 'Settings'],
+				cash: 'cash',
+				loyality: 'loyality points',
+				gps: ["Basic", "Jobs", "Businesses"],
+				gasStation: 'Gas Station',
+				atm: 'ATM',
+				repairStation: 'Repair Station',
+				clothingShop: 'Clothing Shop',
+				barberShop: 'Barber Shop',
+				hospital: 'Central Hospital',
+				prison: 'Prison',
+				orangeCollector: 'Orange collector',
+				cbDeliveryCourier: 'Clickin Bell Delivery Courier',
+				minLoyality: 'Minimal loyality',
+				findBusBy: 'Find business by',
+				fTank: 'Fuel Tank',
+				price: 'price',
+				fRate: 'Fuel Rate',
+				findVehicle: 'Find Vehicle',
+				createRoute: 'Create GPS route',
+				call911: 'Call 911',
+				repairAndTransport: 'Repair and transport vehicle to police parking',
+				sellFor: 'Sell for',
+				toDealer: 'to Dealership',
+				sellToPassenger: 'Sell to passenger',
+				sell: 'Sell',
+				noVeh: 'You have no vehicles =(',
+				congrats: 'Congratulations',
+				noViolat: 'You are law-abiding citizen',
+				total: 'Total',
+				minutes: 'minutes',
+				jTime: 'jail time',
+				help: ["Starting", "Vehicle controls"],
+				helpStart: 'Go to orange collector job and earn some money. Then you can personalize your character with buying some clothes and visiting barber shop.',
+				toggle: 'toggle',
+				lock: 'lock',
+				engine: 'engine',
+				front: 'front',
+				rear: 'rear',
+				windows: 'windows',
+				settings: ["Basic"],
+				Change: 'Change',
+				language: 'language',
+				password: 'password',
+				Old: 'Old',
+				New: 'New',
+				Done: 'Done',
+			}
+		},
+	},
+	computed: {
+		currentTabComponent: function () {
+			return 'tab' + this.currentTab;
+		},
+	},
+	methods: {
+		loadVehicles: function(str) {
+			this.d.vehicles = JSON.parse(str);
+		},
+		loadPassengers: function(str) {
+			this.d.passengers = JSON.parse(str);
+		},
+		loadViolations: function(str) {
+			this.d.violations = JSON.parse(str);
+		},
+		exit: function() {
+			mp.trigger("cCloseCef"); 
+		},
+	},
+});
+
+
+function loadRusLang() {
+	app.d.i18n = {
+		tabs: ['Главная', 'GPS', 'Транспорт', 'Нарушения', 'Помощь', 'Настройки'],
+		cash: 'наличные',
+		loyality: 'очки лояльности',
+		gps: ["Основное", "Работы", "Бизнесы"],
+		gasStation: 'АЗС',
+		atm: 'Банкомат',
+		repairStation: 'СТО',
+		clothingShop: 'Магазин одежды',
+		barberShop: 'Барбер шоп',
+		hospital: 'Центальная больница',
+		prison: 'Тюрьма',
+		orangeCollector: 'Собиратель апельсинов',
+		cbDeliveryCourier: 'Clickin Bell курьер',
+		minLoyality: 'Необходимо лояльности',
+		findBusBy: 'Найти бизнес по',
+		fTank: 'Бензобак',
+		price: 'цена',
+		fRate: 'Расход топлива',
+		findVehicle: 'Найти транспорт',
+		createRoute: 'Создать GPS маршрут',
+		call911: 'Позвонить 911',
+		repairAndTransport: 'Починить и доставить транспорт на штрафстоянку',
+		sellFor: 'Продать за',
+		toDealer: 'автодилеру',
+		sellToPassenger: 'Продать пассажиру',
+		sell: 'Продать',
+		noVeh: 'У вас нет транспорта =(',
+		congrats: 'Поздравляем',
+		noViolat: 'Вы законопослушный гражданин',
+		total: 'Всего',
+		minutes: 'минут',
+		jTime: 'тюремного срока',
+		help: ["Начало игры", "Управление транспортом"],
+		helpStart: 'Заработайте немного наличных, работая собирателем апельсинов. После этого вы можете купить себе одежды и изменить стрижку.',
+		toggle: 'состояние',
+		lock: 'замка',
+		engine: 'двигателя',
+		front: 'передние',
+		rear: 'задние',
+		windows: 'стекла',
+		settings: ["Основные"],
+		Change: 'Изменить',
+		language: 'язык',
+		password: 'пароль',
+		Old: 'Старый',
+		New: 'Новый',
+		Done: 'Готово',
+	}
+
+}
+
+function loadGerLang() {
+	
+}
+
+function loadBrLang() {
+
+}
+
+function loadZhsLang() {
+
+}
+
+function loadZhtLang() {
+
+}
+</script>
