@@ -99,6 +99,6 @@ mp.events.add(
 		injectCef(inject);
 	},
 
-	"cMisc-CallServerEvent" : (eventName, d) => mp.events.callRemote(eventName, d)
+	"cMisc-CallServerEvent" : (eventName, id, price) => mp.events.callRemote(eventName, id, price);
 });
 	

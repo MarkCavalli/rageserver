@@ -8,10 +8,9 @@ class cVehicle {
 		this.fuel = null;
 		this.fuelRate = 0;
 		this.speed = 0;
-		this.showSpeedText = false;
 
 		mp.events.add({
-			"cVehicle-setFuel" : (fuel, fuelRate, showSpeed) => this.setFuel(fuel, fuelRate, showSpeed),
+			"cVehicle-setFuel" : (fuel, fuelRate) => this.setFuel(fuel, fuelRate),
 
 			"playerLeaveVehicle" : () => {
 				if (this.fuel !== null) mp.events.callRemote('sVehicle-SetFuel', player.vehicle, this.fuel); 
@@ -19,7 +18,6 @@ class cVehicle {
 
 			"cVehicle-setLights" : (vehicle, state) => {
 				vehicle.setLights(state);
-				vehicle.setWindowTint(4);
 			},
 
 			"cVehicle-rollUpWindow" : (vehicle, window) => vehicle.rollUpWindow(window),
@@ -38,7 +36,6 @@ class cVehicle {
 		if (typeof fuel !== "number") return this.fuel = null;
 		this.fuel = fuel; 
 		this.fuelRate = fuelRate;
-		this.showSpeedText = showSpeed;
 	}
 
 	setLightMultiplier() {
@@ -47,7 +44,7 @@ class cVehicle {
 
 	showSpeed() {
 		const vehicle = player.vehicle;
-		if (!this.showSpeedText || !vehicle || mp.gui.cursor.visible) return;
+		if (!vehicle || mp.gui.cursor.visible) return;
 		this.speed = misc.roundNum(vehicle.getSpeed() * 4);
 		mp.game.graphics.drawText("     Speed: " + this.speed + " km/h", [0.920, 0.835], { 
 			font: 1, 

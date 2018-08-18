@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 11 2018 г., 13:36
+-- Время создания: Авг 18 2018 г., 21:46
 -- Версия сервера: 5.7.20
 -- Версия PHP: 5.5.38
 
@@ -129,24 +129,6 @@ CREATE TABLE `faction` (
 CREATE TABLE `gasstation` (
   `id` int(11) NOT NULL,
   `fillingCoord` text,
-  `camData` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `house`
---
-
-CREATE TABLE `house` (
-  `id` int(255) NOT NULL,
-  `outsideEnterCoord` text NOT NULL,
-  `insideExitCoord` text NOT NULL,
-  `price` int(11) NOT NULL,
-  `ownerId` int(11) NOT NULL DEFAULT '0',
-  `locked` tinyint(1) NOT NULL DEFAULT '0',
-  `rentPrice` int(4) NOT NULL DEFAULT '500',
-  `guestsIds` text,
   `camData` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -296,12 +278,6 @@ ALTER TABLE `gasstation`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `house`
---
-ALTER TABLE `house`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Индексы таблицы `jail`
 --
 ALTER TABLE `jail`
@@ -388,12 +364,6 @@ ALTER TABLE `faction`
 --
 ALTER TABLE `gasstation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT для таблицы `house`
---
-ALTER TABLE `house`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `jail`

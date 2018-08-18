@@ -154,6 +154,7 @@ class sPrison {
 		player.jail.violations.push(newViolation);
 		player.call("cPrison-SendNotification", [`${comment} | ${time} min`]);
 		this.updateWantedLevel(player);
+		misc.log.debug(`${player.name} get new violation: ${comment} | ${time}`);
 	}
 
 	startJail(player) {
@@ -175,6 +176,7 @@ class sPrison {
 		else {
 			this.setWomanClothes(player);
 		}
+		misc.log.debug(`${player.name} start jail. Time ${jailTime} m`);
 	}
 
 	everyMinuteEvent() {
@@ -191,6 +193,7 @@ class sPrison {
 		player.jail.time -= 1;
 		if (player.jail.time === 0) return this.endJail(player);
 		player.notify(`Remaining time: ~r~${player.jail.time} minutes`);
+		misc.log.debug(`${player.name} jail remaining time: ${player.jail.time} m`);
 	}
 
 	escapeEvent(player) {
@@ -206,6 +209,7 @@ class sPrison {
 		player.outputChatBox(`!{0, 225, 0}Now you are free!`);
 		this.updateWantedLevel(player);
 		clothes.loadPlayerClothes(player);
+		misc.log.debug(`${player.name} ended jail`);
 	}
 
 	savePlayerAccount(player) {

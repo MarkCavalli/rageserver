@@ -6,11 +6,6 @@ const i18n = require('../sI18n');
 
 class sLoyality {
 	constructor() {
-		mp.events.addCommand({	
-			'loyality' : (player) => {  // Temporary show
-				player.notify(`${i18n.get('sLoyality', 'loyality', player.lang)}: ~b~${player.basic.loyality}`);
-			},  
-		});      
 	}
 
 	add(player, value) {

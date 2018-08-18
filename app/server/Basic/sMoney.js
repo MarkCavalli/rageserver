@@ -167,6 +167,18 @@ class atmsClass{
 const atms = new atmsClass();
 atms.loadATMs();
 
+function getNearestATM(playerPosition) {
+	const atms = mp.blips.toArray();
+	let nearestATM = atms[0];
+	for (let atm of atms) {
+		if (atm.name !== "ATM") continue;
+		if (atm.dist(playerPosition) < nearestATM.dist(playerPosition)) {
+			nearestATM = atm;
+		}
+	}
+	return nearestATM.position;
+}
+module.exports.getNearestATM = getNearestATM;
 
 
 
@@ -248,6 +260,17 @@ class sMoney {
 
 }
 const money = new sMoney();
+
+
+
+mp.events.addCommand({	
+	'givecash' : (player, fullText, id, value) => {
+		if (misc.getAdminLvl(player) < 1) return;
+		money.changeMoney(mp.players.at(+id), +value);
+	},
+
+});
+
 
 
 

@@ -1,0 +1,461 @@
+﻿html {
+	/*background-image: url('https://i.imgur.com/fWJwB7u.jpg');*/
+	height: 100%;
+	background-size: cover;
+	font-family: Segoe UI;
+	font-weight: 100;
+	color: white;
+	text-align: center;
+}
+
+.close {
+  background: coral;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 6vh;
+  height: 3vh;
+  font-size: 2vh;
+  transition: 0.3s;
+  z-index: 2;
+}
+
+.close:hover {
+  background: tomato;
+}
+
+.main {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(45deg, rgba(0, 191, 255, 0.5), rgba(255, 130, 0, 0.5));
+}
+
+.content {
+	display: flex;
+	align-items: flex-start;
+	background-color: rgba(0, 0, 0, 0.3);
+	height: 100vh;
+}
+
+.menu {
+	width: 25%;
+}
+
+.menu__header {
+	border-bottom: 1px solid #aaa;
+	padding: 5vh 0;
+}
+
+.menu__header > img {
+	border-radius: 50%;
+	width: 15vh;
+	height: 15vh;
+	
+}
+
+.menu__header__name {
+	color: deepskyblue;
+	margin-top: 1vh;
+	font-size: 3vh; 
+}
+
+.menu-items {
+	overflow: auto;
+	max-height: 70vh;
+}
+
+.menu-items > a {
+	display: block;
+	border-bottom: 1px solid #aaa;
+	font-size: 2.5vh;
+	padding: 2.5vh 0;
+	transition: 0.3s;
+}
+
+.menu-items > a:hover {
+	background: linear-gradient(45deg, rgba(0, 191, 255, 0.25), rgba(255, 130, 0, 0.25));
+}
+
+.active {
+	background: linear-gradient(45deg, rgba(0, 191, 255, 0.25), rgba(255, 130, 0, 0.25));
+}
+
+
+
+.fade-enter-active, .fade-leave-active {
+	transition: opacity .1s;
+}
+.fade-enter, .fade-leave-to {
+	opacity: 0;
+}
+
+
+.info {
+	width: 75%;
+	overflow: auto;
+	height: 100vh;
+	border-left: 1px solid #aaa;
+}
+
+::-webkit-scrollbar {
+	width: 0;
+}
+
+.tab-home {
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+}
+
+.b-item {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	width: 15vw;
+	margin: 2.25vw 0 0 2.25vw;
+	/*background: rgba(0, 0, 0, 0.1);*/
+	color: deepskyblue;
+	padding: 3vw 0.5vw;
+	transition: 0.3s;
+}
+
+.b-item:hover {
+	background: rgba(0, 0, 0, 0.25);
+}
+
+.b-item > img {
+	width: 7.5vw;
+	height: 7.5vw;
+	margin: auto;
+}
+
+.b-item > span {
+	font-size: 2.5vw;
+	margin-top: 1vh;
+	padding: 0 1vw;
+}
+
+.b-item > div {
+	text-transform: uppercase;
+	color: white;
+	font-size: 1.25vw;
+}
+
+.cash {
+	color: limegreen;
+}
+.cash:before {
+	content: "$";
+}
+
+.violations-free {
+	width: 100%;
+	height: 90%;
+	display: flex;
+    justify-content: center;
+	align-items: center;
+	font-size: 4vw;
+	color: limegreen;
+}
+
+.tab-violations {
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	position: relative;
+	padding-top: 8vh;
+	height: 92vh;
+}
+
+.violations-total {
+	width: 100%;
+	font-size: 2.9vw;
+	padding-top: 2vw;
+	position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.tab-vehicles {
+	display: flex;
+}
+
+.tab-vehicles .veh-list {
+	width: 35%;
+	overflow: auto;
+	border-right: 1px solid #aaa;
+}
+
+.tab-vehicles .veh-info {
+	width: 65%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	position: relative;
+}
+
+.veh-item {
+	display: flex;
+	flex-direction: column;
+	padding: 1vw 0;
+	border-bottom: 1px solid #aaa;
+	font-size: 1.5vw;
+	position: relative;
+	transition: 0.3s;
+}
+
+.veh-item.lefted {
+	transform: translateX(-5.5vw);
+}
+
+.veh-item .confirm {
+	position: absolute;
+	right: -5.5vw;
+	top: 0;
+	height: 100%;
+	width: 5.5vw;
+	background: limegreen;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: 0.2s;
+	z-index: 2;
+}
+
+.veh-item .confirm:hover {
+	background: green;
+}
+
+.veh-item:hover {
+	background: linear-gradient(45deg, rgba(0, 191, 255, 0.25), rgba(255, 130, 0, 0.25));
+}
+
+.veh-item > span {
+	font-size: 1em;
+}
+
+.veh-item > div {
+	font-size: 0.75em;
+}
+
+
+.veh-info_title {
+	margin-top: 5vh;
+	font-size: 2.5vw;
+}
+
+.veh-info_number {
+	font-size: 1.5vw;
+}
+
+.veh-info_props {
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+	padding: 4vh 0;
+}
+
+.veh-info_prop {
+	display: flex;
+	flex-direction: column;
+	font-size: 1.5vw;
+	width: 26%;
+	padding: 1.5vw 0;
+	transition: 0.2s;
+}
+
+.veh-info_prop:hover {
+	background: rgba(0, 0, 0, 0.25);
+}
+
+.veh-info_prop > img {
+	width: 4vw;
+	height: 4vw;
+	margin: auto;
+}
+
+.veh-info_prop > span {
+	color: deepskyblue;
+	font-size: 1em;
+}
+
+.veh-info_prop > div {
+	font-size: 0.75em;
+	text-transform: uppercase;
+}
+
+
+
+.sell-for-player {
+	display: flex;
+	transition: 0.3s;
+	border-bottom: 1px solid #aaa;
+}
+
+.sell-for-player .players {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	max-height: 10.8vw;
+	overflow: auto;
+}
+
+.sell-for-player .players > a {
+	font-size: 1.5vw;
+	display: block;
+	padding: 1vh 0;
+	border-bottom: 1px solid #aaa;
+}
+
+.sell-for-player .players > a:hover {
+	background: linear-gradient(45deg, rgba(0, 191, 255, 0.25), rgba(255, 130, 0, 0.25));
+}
+
+.sell-for-player .data {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	border-left: 1px solid #aaa;
+	font-size: 1.5vw;
+}
+
+.sell-for-player .data .price {
+	display: flex;
+	flex-direction: column;
+	margin-top: 1vw; 
+}
+
+.sell-for-player .data .price > span {
+	font-size: 2.25vw;
+}
+
+.sell-for-player .data .price > div {
+	font-size: 1.25vw;
+	text-transform: uppercase;
+}
+
+.veh-sellinput {
+	border: 0px solid white;
+	background: transparent;
+	font-size: 1em;
+	font-family: Segoe UI;
+	font-weight: 100;
+	color: limegreen;
+	outline: none;
+}
+
+.sell-for-player .data .sell {
+	background: limegreen;
+	margin-top: 1vw; 
+	padding: 1vw 0;
+	transition: 0.3s;
+}
+
+.sell-for-player .data .sell:hover {
+	background: green;
+}
+
+.no-veh {
+	padding: 42vh 0;
+	font-size: 6vh;
+	width: 100%;
+}
+
+.gps-findbus {
+	border-top: 1px solid #aaa; 
+	position: absolute; 
+	bottom: 0; 
+	width: 100%;
+}
+
+
+.gps-findbus > a > input {
+	background: transparent;
+	font-size: 2.5vh;
+	font-family: Segoe UI;
+    font-weight: 100;
+	color: white;
+	width: 5vw;
+	outline: none;
+	border-style: none;
+}
+
+.gps-findbus > a > .confirm {
+	position: absolute;
+	right: 0vw;
+	top: 0;
+	height: 100%;
+	width: 5.5vw;
+	background: limegreen;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: 0.2s;
+}
+
+
+
+.gps-findbus > a > .confirm:hover {
+	background: green;
+}
+
+.help-p {
+	font-size: 1.5vw;
+	margin: 3vh 10%;
+	text-align: left;
+
+}
+
+.settings-pass {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	font-size: 1.2vw;
+	margin: 0 5%;
+	padding: 1.25vw 0;
+}
+
+.settings-pass > div {
+	width: 50%;
+	text-align: left;
+	margin: 0.5vw 0vw;
+}
+
+.settings-pass > input {
+	width: 50%;
+	padding: 0 1vw;
+	margin: 0.5vw 0vw;
+	background: transparent;
+	font-size: 1.2vw;
+	color: white;
+	border-style: none;
+	border-bottom: 1px solid #ccc;
+	outline: none;
+}
+
+.settings-pass > a {
+	display: block;
+	width: 100%;
+	margin: 1vw 0;
+	padding: 0.5vw 0;
+	background: limegreen;
+	transition: 0.2s;
+}
+
+.settings-pass > a:hover {
+	background: green;
+}
+
+.settings-lang {
+	width: 100% !important; 
+	border-top: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+	max-height: 12.3vw;
+}
+
+.settings-title {
+	margin: 3vh 0%;
+	text-align: center;
+}
