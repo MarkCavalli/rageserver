@@ -279,12 +279,12 @@ const i18n = {
 		},
     
     saveBasicData: {
-			eng: 'Account successfully saved!',
-			rus: 'Аккаунт сохранен!',
-			ger: 'Konto erfolgreich gespeichert!',
-			br: 'Conta salva com sucesso!', 
-			zhs: '帐号信息成功保存。',
-			zht: '帳戶信息成功保存。',
+			eng: 'Account basic data successfully saved!',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '帐号基本信息保存成功。',
+			zht: '帳戶基礎信息保存成功。',
 		},
     
 

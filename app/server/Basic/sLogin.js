@@ -314,6 +314,12 @@ mp.events.addCommand({
         player.outputChatBox(`${i18n.get('sLogin', 'saveAccount', player.lang)}`);
     }, 
     
+    'savebasic' : (player) => {
+        login.saveBasicData(player);
+        player.outputChatBox(`${i18n.get('sLogin', 'saveBasicData', player.lang)}`);
+    }, 
+     
+    
     'pos' : (player, fullText, model) => { 
         if (misc.getAdminLvl(player) < 1) return;
         const pos = player.position;
