@@ -234,12 +234,12 @@ const i18n = {
 		},
 		
 		annoucePlayerMenu: {
-			eng: 'Open menu: M button',
+			eng: 'Press M button to open menu',
 			rus: 'Открыть меню: кнопка М',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: 'M键开启菜单以获取更多帮助',
+			zht: 'M鍵開啟菜單以獲取更多幫助。',
 		},
     
 		annouceSpawnVehicle: {
@@ -265,7 +265,7 @@ const i18n = {
 			rus: 'Если у вас есть аккаунт на старом сервере, напишите в чате старое имя. Я посмотрю это по логам',
 			ger: 'Wenn Sie einen Account haben und Daten wiederherstellen möchten, schreiben Sie hier im Chat Ihren alten Namen. Ich werde es in Logs überprüfen',
 			br: 'Se você tem conta na versão antiga do servidor e deseja restaurar os dados, escreva aqui no bate-papo seu nome antigo. Vou verificar nos logs', 
-			zhs: '如果你有旧版服务器账户且希望恢复它，在聊天栏留下你的用户名和需求。我会在日志中检查。',
+			zhs: '如果你有旧版服务器账户且希望恢复它，在聊天栏留下你的用户名和需求。我会在日志中查阅。',
 			zht: '如果你有舊版服務器帳戶且希望恢復它，在聊天欄留下你的用戶名和需求。我會在日誌中檢查。',
 		},
 		
