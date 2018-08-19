@@ -27,8 +27,8 @@ const i18n = {
 			rus: 'Нажмите ~b~E ~s~',
 			ger: 'Drücken Sie ~b~ E ~s~',
 			br: 'Pressione ~b~E ~s~', 
-			zhs: '按 ~b~E ~s~',
-			zht: '按 ~b~E ~s~',
+			zhs: '按 ~b~E~s~',
+			zht: '按 ~b~E~s~',
 		},
 
 		pressEToOpenMenu: {
@@ -81,8 +81,8 @@ const i18n = {
 			rus: 'очков лояльности',
 			ger: 'treuepunkte',
 			br: 'pontos de fidelidade', 
-			zhs: '',
-			zht: '',
+			zhs: '忠诚点数',
+			zht: '忠誠點數',
 		},
 
 		tooFarAway: {
@@ -233,13 +233,13 @@ const i18n = {
 			zht: '已離線',
 		},
 		
-		annoucePlayerMenu: {
-			eng: 'M button to open menu for more help.',
-			rus: 'Открыть меню: кнопка М',
+		annouceConstructionHelp: {
+			eng: 'M button to open menu for more help,T to chat and command.',
+			rus: 'Открыть меню: кнопка М,T to chat and command.',
 			ger: '',
 			br: '', 
-			zhs: 'M键开启菜单以获取更多帮助',
-			zht: 'M鍵開啟菜單以獲取更多幫助。',
+			zhs: 'M键开启菜单以获取更多帮助，T键聊天或输入命令。',
+			zht: 'M鍵開啟菜單以獲取更多幫助，T鍵聊天或輸入命令。',
 		},
     
 		annouceSpawnVehicle: {
@@ -256,7 +256,7 @@ const i18n = {
 			rus: 'Глобальный чат: /g [сообщение]',
 			ger: 'Globaler Chat: / g [Nachricht]',
 			br: 'Chat Global: /g [mensagem]', 
-			zhs: '全局聊天：/g [message]',
+			zhs: '全服聊天：/g [message]',
 			zht: '全域聊天：/g [message]',
 		}, 
 	
@@ -296,8 +296,8 @@ const i18n = {
 			rus: 'Нажмите ~b~E ~s~для входа в меню банкомата',
 			ger: 'Drücken Sie ~b~ E ~s~, um das ATM-Menü zu öffnen',
 			br: 'Pressione ~b~E ~s~para abrir o menu do Caixa Eletrônico', 
-			zhs: '按 ~b~E ~s~ 键打开ATM菜单',
-			zht: '按 ~b~E ~s~ 鍵打開ATM菜單',
+			zhs: '按 ~b~E~s~ 键打开ATM菜单',
+			zht: '按 ~b~E~s~ 鍵打開ATM菜單',
 		},
 
 		notEnoughCash: {
@@ -404,8 +404,8 @@ const i18n = {
 			rus: 'Открыть: num +',
 			ger: 'Entsperren: num +',
 			br: 'Destravar: num +', 
-			zhs: '开锁: 数字小键盘 +',
-			zht: '開鎖: 數字小鍵盤 +',
+			zhs: '开锁:数字小键盘 +',
+			zht: '開鎖:數字小鍵盤 +',
 		},
 		
 		helpEngine: {
@@ -422,8 +422,8 @@ const i18n = {
 			rus: 'Завести двигатель: num 0',
 			ger: 'Toggle-Engine: Nummer 0',
 			br: 'Ligar o motor: num 0', 
-			zhs: '切换发动机：数字小键盘 0',
-			zht: '切換引擎: 數字小鍵盤 0',
+			zhs: '切换发动机:数字小键盘 0',
+			zht: '切換引擎:數字小鍵盤 0',
 		},
 
 		sellVehicle: {
@@ -431,8 +431,8 @@ const i18n = {
 			rus: 'Продажа ТС',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '载具销售',
+			zht: '載具銷售',
 		},
 
 		wantsSellVehicleToPlayer: {
@@ -440,8 +440,8 @@ const i18n = {
 			rus: 'хочет продать вам',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '想卖给你',
+			zht: '想賣給你',
 		},
 	},
 //GasStation module
@@ -451,7 +451,7 @@ const i18n = {
 			rus: 'Пожалуйста, заглушите двигатель',
 			ger: 'Bitte schalte den Motor ab',
 			br: 'Por favor desligue o motor', 
-			zhs: '请熄火',
+			zhs: '请关闭发动机',
 			zht: '請熄火',
 		},
 
@@ -478,8 +478,8 @@ const i18n = {
 			rus: 'Пожалуйста, высадите пассажиров',
 			ger: '',
 			br: 'Por favor, deixe os passageiros', 
-			zhs: '',
-			zht: '',
+			zhs: '请让乘客下车',
+			zht: '請讓乘客下車',
 		},
 
 	},
@@ -490,8 +490,8 @@ const i18n = {
 			rus: 'чтобы переодеться',
 			ger: 'um die Kleidung zu wechseln',
 			br: 'trocar de roupa', 
-			zhs: '',
-			zht: '',
+			zhs: '换衣服',
+			zht: '換衣服',
 		},
 
 		setNewRank: {
@@ -517,8 +517,8 @@ const i18n = {
 			rus: 'устроил(а) вас в',
 			ger: 'lud dich ein',
 			br: 'convidou você para', 
-			zhs: '',
-			zht: '',
+			zhs: '邀请你到',
+			zht: '邀請你到',
 		},
 
 		leader: {
@@ -526,8 +526,8 @@ const i18n = {
 			rus: 'Теперь вы лидер',
 			ger: 'Jetzt bist du Anführer',
 			br: 'Agora você é líder em', 
-			zhs: '',
-			zht: '',
+			zhs: '现在你统领',
+			zht: '現在你統領',
 		},
 
 		uninvited: {
@@ -620,6 +620,37 @@ const i18n = {
 			br: 'Quer curar você', 
 			zhs: '想治疗你',
 			zht: '想治療你',
+		},
+
+	},
+  
+//Jail module 
+	sPrison: {
+		toSurrender: {
+			eng: 'to surrender',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '投降',
+			zht: '投降',
+		},
+    
+    noViolations: {
+			eng: 'You have no violations!',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '你并未造成破坏！',
+			zht: '你並未造成破壞！',
+		},
+    
+    pEscape: {
+			eng: 'Escape',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
 		},
 
 	},
@@ -771,8 +802,8 @@ const i18n = {
 			rus: 'Вы ввели неправильный старый пароль',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '旧密码错误',
+			zht: '舊密碼錯誤',
 		},
 
 	},
