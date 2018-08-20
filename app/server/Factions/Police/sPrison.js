@@ -54,7 +54,7 @@ class sPrisonBuilding extends sBuilding {
 			player.notify(`${i18n.get('basic', 'pressE', player.lang)} ${i18n.get('basic', 'toEnter', player.lang)}`);
 		}
 		else if (entranceId === this.secondEntrance.out.entranceId) {
-			player.notify(`${i18n.get('basic', 'pressE', player.lang)} to surrender`);
+			player.notify(`${i18n.get('basic', 'pressE', player.lang)} ${i18n.get('sPrison', 'toSurrender', player.lang)}`);
 		}
 		else if (entranceId === this.mainEntrance.in.entranceId) {
 			player.notify(`${i18n.get('basic', 'pressE', player.lang)} ${i18n.get('basic', 'toExit', player.lang)}`);
@@ -159,7 +159,7 @@ class sPrison {
 
 	startJail(player) {
 		if (!player.loggedIn) return;
-		if (player.jail.violations.length === 0) return player.notify("You have no violations!");
+		if (player.jail.violations.length === 0) return player.notify(`${i18n.get('sPrison', 'noViolations', player.lang)}`);
 		building.enter(player, building.secondEntranceData.inPos);
 		let jailTime = 0;
 		for (let violation of player.jail.violations) {
