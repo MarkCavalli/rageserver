@@ -234,12 +234,12 @@ const i18n = {
 		},
 		
 		annouceBasichelp: {
-			eng: 'Press M button to open menu,T for chat and command.',
+			eng: 'Press M button to open menu for tutorial and help,T to chat and command.',
 			rus: 'Открыть меню: кнопка М',
 			ger: '',
 			br: '', 
-			zhs: 'M键开启菜单以获取更多帮助，T键聊天和输入命令。',
-			zht: 'M鍵開啟菜單以獲取更多幫助，T鍵聊天和輸入命令。',
+			zhs: 'M键开启菜单以获取基础教程和更多帮助，T键聊天和输入命令。',
+			zht: 'M鍵開啟菜單以獲取基礎教程及更多幫助，T鍵聊天和輸入命令。',
 		},
     
 		annouceSpawnVehicle: {
