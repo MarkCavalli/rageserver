@@ -244,10 +244,11 @@ class loginClass {
         const q7 = prison.loadPlayerAccount(player);
         await Promise.all([q1, q2, q3, q4, q5, q6, q7]);
         hospital.loadPlayerAccount(player);
-        player.outputChatBox(`${i18n.get('sLogin', 'annouceSpawnVehicle', player.lang)}`);
+        player.outputChatBox(`${i18n.get('sLogin', 'annouceBasichelp', player.lang)}`);
         player.outputChatBox(`${i18n.get('sLogin', 'annouceGlobalChat', player.lang)}`);
+        player.outputChatBox(`${i18n.get('sLogin', 'annouceSpawnVehicle', player.lang)}`);
         player.outputChatBox(`${i18n.get('sLogin', 'annouceOldUser', player.lang)}`);
-        player.outputChatBox(`${i18n.get('sLogin', 'annoucePlayerMenu', player.lang)}`);
+
         const onlinePlayers = mp.players.toArray();
         if (onlinePlayers.length < 30) {
             for (let p of onlinePlayers) {
@@ -311,7 +312,7 @@ mp.events.addCommand({
     'save' : (player) => {
         if (misc.getAdminLvl(player) < 1) return;
         login.saveAccount(player);
-        player.outputChatBox(`${i18n.get('sLogin', 'saveGame', player.lang)}`);
+        player.outputChatBox(`${i18n.get('sLogin', 'saveAccount', player.lang)}`);
     }, 
     
     'pos' : (player, fullText, model) => { 
