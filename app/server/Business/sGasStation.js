@@ -210,15 +210,15 @@ mp.events.addCommand({
 
 How to add new gas station:
 
-1. /creategasstation [price]
-Go into business table and get the latest id
+1. /creategasstation [price] to set the position of buying gasstation menu and price.
+Go into db's business table and get the latest id
 
-2. /setbusbuyermenu [id]
+2. /setbusbuyermenu [id] to set shopping menu place.
 
 Restart server
 
-3. /setgasstationfillingpos [id] [radius]
+3. /setgasstationfillingpos [id] [radius],example 6
 
-4. /setgasstationcamdata [id] [viewangle]
+4. /setgasstationcamdata [id] [viewangle] example 3-11
 
 */

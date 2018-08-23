@@ -369,8 +369,8 @@ const i18n = {
 			rus: 'Вы не можете иметь более 1 бизнеса',
 			ger: 'Sie können nicht mehr als 1 Geschäft besitzen',
 			br: 'Você não pode possuir mais de 1 negócio', 
-			zhs: '你不能建立多于1个商业产业。',
-			zht: '妳不能建立多於1個商業產業。',
+			zhs: '你不能拥有多于1个商业产业。',
+			zht: '你不能擁有多於1個商業產業。',
 		},
 
 		sale: {
@@ -464,8 +464,8 @@ const i18n = {
 			rus: 'Цена за литр',
 			ger: 'Preis pro Liter',
 			br: 'Preço por litro', 
-			zhs: '每升油价',
-			zht: '每升油價',
+			zhs: '每公升油价',
+			zht: '每公升油價',
 		},
 
 		goodJourney: {
@@ -474,7 +474,7 @@ const i18n = {
 			ger: 'Gute weiter Reise',
 			br: 'Tenha uma boa viagem', 
 			zhs: '祝你旅途愉快',
-			zht: '祝妳旅途愉快',
+			zht: '祝你旅途愉快',
 		},
 
 		passengersDropOff: {
@@ -675,7 +675,7 @@ const i18n = {
 			ger: 'Du hast',
 			br: 'Você tem', 
 			zhs: '你有',
-			zht: '妳有',
+			zht: '你有',
 		},
 
 		collected2: {
@@ -693,7 +693,7 @@ const i18n = {
 			ger: 'Dein Eimer ist voll! Bring es zum Trailer',
 			br: 'Seu balde está cheio! Leve para o trailer', 
 			zhs: '你的篮子满了，把东西拉到车上吧',
-			zht: '妳的籃子滿了，把東西拉到車上吧',
+			zht: '你的籃子滿了，把東西運到車上吧',
 		},
 
 		empty: {
@@ -702,7 +702,7 @@ const i18n = {
 			ger: 'Dein Eimer ist leer',
 			br: 'Seu balde está vazio', 
 			zhs: '你的篮子是空的',
-			zht: '妳的籃子是空的',
+			zht: '你的籃子是空的',
 		},		
 
 		finish: {
@@ -711,7 +711,7 @@ const i18n = {
 			ger: 'Du hast den orangenen Sammlerjob beendet',
 			br: 'Você encerrou o trabalho de coletar laranjas', 
 			zhs: '你完成了收橙子工作',
-			zht: '妳完成了收橙子工作',
+			zht: '你完成了收橙子工作',
 		},
 
 	},
@@ -759,7 +759,7 @@ const i18n = {
 			ger: 'Sie haben die Bestellung nicht zugestellt! Sie werden jetzt $500 bezahlen!',
 			br: 'Você tem ordem não entregue! Você vai pagar $500 terminando agora!', 
 			zhs: '你有未派送的订单！ 你需要支付 $500 来马上完成!',
-			zht: '妳有未派送的訂單！ 妳需要支付 $500 來馬上完成!',
+			zht: '你有未派送的訂單！ 妳需要支付 $500 來馬上完成!',
 		},
 
 		started: {
@@ -768,7 +768,7 @@ const i18n = {
 			ger: 'Sie haben mit der Lieferung von Cluckin Bell begonnen! Sie können neue Reihenfolge auf der linken Seite bekommen',
 			br: 'Você começou o trabalho de entrega da Cluckin Bell! Você pode obter um novo pedido no lado esquerdo', 
 			zhs: '你已经开始了Cluckin Bell派送任务！你可以在左边获取新订单',
-			zht: '妳已經開始了Cluckin Bell派送任務！妳可以在左邊獲取新訂單',
+			zht: '你已經開始了Cluckin Bell派送任務！妳可以在左邊獲取新訂單',
 		},
 
 		finished: {
@@ -777,7 +777,7 @@ const i18n = {
 			ger: 'Du hast Gluck Bell abgeschlossen',
 			br: 'Você encerrou o trabalho de entrega da Cluckin Bell', 
 			zhs: '你完成了 Cluckin Bell派所任务',
-			zht: '妳完成了 Cluckin Bell派所任務',
+			zht: '你完成了 Cluckin Bell派所任務',
 		},
 
 		deliver: {
@@ -786,7 +786,7 @@ const i18n = {
 			ger: 'Liefern Sie Ihre Bestellung',
 			br: 'Entregue seu pedido', 
 			zhs: '派送你的订单',
-			zht: '派送妳的訂單',
+			zht: '派送你的訂單',
 		},
 
 		undelivered: {

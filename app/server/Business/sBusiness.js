@@ -79,7 +79,7 @@ class business {
 	async sellBusiness(ownerId) {
 		if (this.ownerId !== ownerId) return;
 		this.ownerId = 0;
-		money.addToBankMoney(ownerId, this.price * 0.5, `${i18n.get('sBusiness', 'sale', 'eng')}`)
+		money.addToBankMoney(ownerId, this.price * 0.5, `${i18n.get('sBusiness', 'sale', player.lang)}`)
 		misc.log.debug(`${ownerId} sold a businnes №${this.id}`);
 		this.updateMarker();
 		await this.updateOwner();
