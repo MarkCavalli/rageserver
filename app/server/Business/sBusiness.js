@@ -76,14 +76,16 @@ class business {
 		player.notify(`~g~${i18n.get('basic', 'success', player.lang)}!`);
 	}
 	
-	async sellBusiness(ownerId) {
+  async sellBusiness(ownerId) {
 		if (this.ownerId !== ownerId) return;
 		this.ownerId = 0;
-		money.addToBankMoney(ownerId, this.price * 0.5, `${i18n.get('sBusiness', 'sale', 'eng')}`)
+		const d = await misc.query(`SELECT lang from users WHERE id = '${ownerId}' LIMIT 1`);
+		money.addToBankMoney(ownerId, this.price * 0.5, `${i18n.get('sBusiness', 'sale', `${d[0].lang}`)}`)
 		misc.log.debug(`${ownerId} sold a businnes №${this.id}`);
 		this.updateMarker();
 		await this.updateOwner();
 	}
+
 
 	async takeBalanceMoney(player) {
 		if (this.ownerId !== player.basic.id || this.balance === 0) return;
