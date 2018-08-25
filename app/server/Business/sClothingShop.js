@@ -122,4 +122,24 @@ mp.events.addCommand({
 		shop.updateCamData(player);
 	},	
 
+
 });
+
+
+/* 
+
+How to add new clothing shop:
+
+1. /createclothingshop [price] to set the position of buying clothing shop menu and price.
+Go into db's business table and get the latest id
+
+2. /setbusbuyermenu [id] to set shopping menu place.
+
+Restart server
+
+3. /setchbuyerstandcoord id to set the standing place when customer buying clothes.
+
+4. /setchcamdata id to set camera.
+
+
+*/
