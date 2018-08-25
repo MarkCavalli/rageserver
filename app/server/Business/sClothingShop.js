@@ -139,7 +139,9 @@ Restart server
 
 3. /setchbuyerstandcoord id to set the standing place when customer buying clothes.
 
-4. /setchcamdata id to set camera.
+4. Find a place that you can see your charactor when changing clothes and /setchcamdata id to set camera.
 
+
+Caution: The "id" of your clothingshop in "clothingshop" db table MUST BE THE SAME as in "business" one.
 
 */
