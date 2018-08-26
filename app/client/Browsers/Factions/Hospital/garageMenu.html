@@ -6,8 +6,8 @@
 		<section id="app">
 
 			<div class="b-title">
-				Hospital Garage<br>
-				<span>{{ titleInfo }}</span>
+				{{ garageTitle }}<br>
+				<span>{{ titleInfo }}</span><br>
 			</div>
 		
 			<section class="items">
@@ -26,7 +26,8 @@
 const app = new Vue({
 	el: '#app',
 	data: {
-		titleInfo: "choose the floor", 
+    garageTitle: "Hospital garage",
+		titleInfo: "choose the floor to enter.", 
 		floors: [-1, -2, -3, -4, -5],
 	},
 	methods: {
@@ -42,24 +43,28 @@ const app = new Vue({
 });
 
 
-
 function loadRusLang() {
+  app.garageTitle = "";
 	app.titleInfo = "Выберите этаж";
 }
 
 function loadGerLang() {
+  app.garageTitle = "";
 	app.titleInfo = "wählen sie das wort";
 }
 
 function loadBrLang() {
+  app.garageTitle = "";
 	app.titleInfo = "Escolha o PISO";
 }
 
 function loadZhsNLang() {
+  app.garageTitle = "医院车库";
 	app.titleInfo = "选择楼层";
 }
 
 function loadZhtLang() {
+  app.garageTitle = "病院車庫";
 	app.titleInfo = "選擇樓層";
 }
 </script>
