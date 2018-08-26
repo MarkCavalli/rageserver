@@ -221,6 +221,6 @@ Restart server
 
 4. /setgasstationcamdata [id] [viewangle] example 3-11
 
-Caution: The "id" of your gas station in "clothingshop" db table MUST BE THE SAME as in "business" one.
+Caution: The "id" of your gas station in "gasstation" db table MUST BE THE SAME as in "business" one.
 
 */

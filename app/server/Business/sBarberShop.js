@@ -136,3 +136,24 @@ mp.events.addCommand({
 	},	
 
 });
+
+/* 
+
+How to add new Barber Shop:
+
+1. /createbarbershop [price] to set the position of buying Barber Shop menu and price.
+Go into db's business table and get the latest id
+
+2. /setbusbuyermenu [id] to set Barber Shop customer menu place.
+
+Restart server
+
+3. /setchbuyerstandcoord id to set the standing place when customer buying clothes.
+
+4. Find a place that you can see your charactor when changing clothes and /setchcamdata id to set camera.
+
+Restart server again
+
+Caution: The "id" of your Barber Shop in "barbershop" db table MUST BE THE SAME as in "business" one.
+
+*/
