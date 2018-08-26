@@ -141,6 +141,7 @@ Restart server
 
 4. Find a place that you can see your charactor when changing clothes and /setchcamdata id to set camera.
 
+Restart server again
 
 Caution: The "id" of your clothingshop in "clothingshop" db table MUST BE THE SAME as in "business" one.
 

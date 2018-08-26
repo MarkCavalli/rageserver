@@ -97,3 +97,22 @@ async function loadShops() {
 	}
 }
 loadShops();
+
+
+
+/* 
+
+How to add new Cheapcar shop:
+
+1. /createcheapcardealership [price] to set the position of buying Cheapcar shop menu and price.
+Go into db's business table and get the latest id
+
+2. /setbusbuyermenu [id] to set shopping menu place.
+
+Restart server
+
+3. /setccardealernewcarcoord id to set the new car appearing place. 
+
+Caution: The "id" of your Cheapcarshop in "cheapcarshop" db table MUST BE THE SAME as in "business" one.
+
+*/
