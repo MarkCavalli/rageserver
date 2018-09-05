@@ -1,15 +1,13 @@
-"use strict"
-
 const misc = require('../sMisc');
-const moneyAPI = require('../Basic/sMoney');
-const loyality = require('../Basic/sLoyality');
-const clothes = require('../Character/sClothes');
 const i18n = require('../sI18n');
+const Job = require('./sJob');
 
 
-class sOrangeCollector {
+
+class OrangeCollector extends Job {
     constructor() {
-        this.mainMenu =  {x: 405.676, y: 6526.119, z: 27.709};
+        const d = { name: "Orange Collector", x: 405.676, y: 6526.119, z: 27.709, rot: 0, dim: 0 }
+        super(d);
         this.posToDrop = {x: 331.74, y: 6541.576, z: 28.417};
         this.checkPoints = [
             {x: 378.583, y: 6517.85, z: 27.7 },
@@ -38,36 +36,26 @@ class sOrangeCollector {
         ];
         this.treeMarkersList = [];
 
+
         mp.events.add({
             "playerEnterColshape" : (player, shape) => {
-                if (!player.loggedIn || player.vehicle) return;
-                if (shape === this.menuShape) {
-                    player.canOpen.orangeCollector = true;
-                    player.notify(`${i18n.get('basic', 'pressEToOpenMenu', player.lang)}`);
-                }
-                else if (player.activeJob.name === "Orange Collector" && shape.orangeCollectorTree === player.activeJob.activeTree) {
+                if (!player.loggedIn || player.vehicle || !this.isPlayerWorksHere(player)) return;
+                if (shape.orangeCollectorTree === player.job.activeTree) {
                     player.playAnimation('anim@mp_snowball', 'pickup_snowball', 1, 47);
-                    setTimeout(() => {
-                       this.enteredTreeShape(player); 
-                    }, 2400);
-                }
-                else if (shape === this.dropShape && player.activeJob.name === "Orange Collector") {
+                    player.call("cMisc-CallServerEvenWithTimeout", ["sOrangeCollector-EnteredTreeShape", 2400]);
+                    }
+                else if (shape === this.dropShape) {
                     player.playAnimation('anim@mp_snowball', 'pickup_snowball', 1, 47);
-                    
-                    setTimeout(() => {
-                        this.enteredDropShape(player); 
-                    }, 2400);
+                    player.call("cMisc-CallServerEvenWithTimeout", ["sOrangeCollector-EnteredDropShape", 2400]);
                 }
             },
-        
-            "playerExitColshape" : (player, shape) => {
-                if (shape === this.menuShape) return player.canOpen.orangeCollector = false;
+
+            "sOrangeCollector-EnteredTreeShape" : (player) => {
+                this.enteredTreeShape(player);
             },
-            
-            "sKeys-E" : (player) => {
-                if (!player.loggedIn || !player.canOpen.orangeCollector)    return;
-                if (player.activeJob.name && player.activeJob.name !== "Orange Collector") return player.notify(`~r~${i18n.get('basic', 'workingOnOtherJob', player.lang)}!`);
-                this.openMainMenu(player);
+
+            "sOrangeCollector-EnteredDropShape" : (player) => {
+                this.enteredDropShape(player);
             },
         
             "sOrangeCollector-StartWork" : (player) => {
@@ -79,23 +67,14 @@ class sOrangeCollector {
             },
         
         });
+
+        this.createMenuToDrop();
+        this.createCheckpoints();
     }
 
-    createMainMenu() {
-        mp.markers.new(1, new mp.Vector3(this.mainMenu.x, this.mainMenu.y, this.mainMenu.z - 1), 0.75,
-        {
-            color: [0, 255, 0, 100],
-            visible: true,
-        });
-        this.menuShape = mp.colshapes.newSphere(this.mainMenu.x, this.mainMenu.y, this.mainMenu.z, 1);
-    
-        mp.blips.new(514, new mp.Vector3(this.mainMenu.x, this.mainMenu.y, this.mainMenu.z),
-        {	
-            name: "Orange Collector Job",
-            shortRange: true,
-            scale: 0.7,
-            color: 17,
-        });
+    setLocalSettings() {
+        this.blip.model = 514;
+        this.blip.color = 17;
     }
 
     createMenuToDrop() {
@@ -121,99 +100,78 @@ class sOrangeCollector {
         }
     }
 
-    createEntities() {
-        this.createMainMenu();
-        this.createMenuToDrop();
-        this.createCheckpoints();
-    }
-
-    openMainMenu(player) {
+    pressedKeyOnMainShape(player) {
         let execute = '';
-        if (player.activeJob.name === "Orange Collector") execute = `app.loadFinish();`;
+        if (player.job.name === this.name) execute = `app.loadFinish();`;
         player.call("cOrangeCollector-OpenMainMenu", [player.lang, execute]);
     }
 
     startWork(player) {
-        player.activeJob = {
-            name: "Orange Collector",
-            collected: 0,
-            activeTree: false,
-        };
+        super.startWork(player);
+        player.job = { name: this.name, collected: 0, activeTree: false };
         this.createRandomCheckPoint(player);
-    
-        player.notify(`~g~${i18n.get('sOrangeCollector', 'start', player.lang)}!`);
-    
-        misc.log.debug(`${player.name} started orange collector job!`);
         this.dropMarker.showFor(player);
-        if (player.model === 1885233650) setWorkingClothesForMan(player);
-        else setWorkingClothesForWoman(player);
-    
-        function setWorkingClothesForMan(player) {
-            player.setProp(0, 14, 0); //Hat
-            player.setClothes(11, 78, misc.getRandomInt(0, 15), 0); //Top
-            player.setClothes(3, 14, 0, 0);
-            player.setClothes(252, 0, 0, 0);
-            player.setClothes(4, 0, misc.getRandomInt(0, 15), 0); // Legs
-        }
-        function setWorkingClothesForWoman(player) {
-            player.setProp(0, 14, 0); //Hat
-            player.setClothes(11, 78, misc.getRandomInt(0, 7), 0); //Top
-            player.setClothes(3, 9, 0, 0);
-            player.setClothes(82, 0, 0, 0);
-            player.setClothes(4, 1, misc.getRandomInt(0, 15), 0); // Legs
-        }
+    }
+
+    setWorkingClothesForMan(player) {
+        player.setProp(0, 14, 0); // Hat
+        player.setClothes(11, 78, misc.getRandomInt(0, 15), 0); // Top
+        player.setClothes(3, 14, 0, 0);
+        player.setClothes(252, 0, 0, 0);
+        player.setClothes(4, 0, misc.getRandomInt(0, 15), 0); // Legs
+    }
+
+    setWorkingClothesForWoman(player) {
+        player.setProp(0, 14, 0); // Hat
+        player.setClothes(11, 78, misc.getRandomInt(0, 7), 0); // Top
+        player.setClothes(3, 9, 0, 0);
+        player.setClothes(82, 0, 0, 0);
+        player.setClothes(4, 1, misc.getRandomInt(0, 15), 0); // Legs
     }
 
     createRandomCheckPoint(player) {
         const i = misc.getRandomInt(0, this.checkPoints.length - 1)
-        if (i === player.activeJob.activeTree) return this.createRandomCheckPoint(player);
+        if (i === player.job.activeTree) return this.createRandomCheckPoint(player);
         this.hideActiveCheckPoint(player);
         this.treeMarkersList[i].showFor(player);
-        player.activeJob.activeTree = i;
+        player.job.activeTree = i;
         return i;
     }
 
     hideActiveCheckPoint(player) {
-        const i = player.activeJob.activeTree;
+        const i = player.job.activeTree;
         if (typeof i !== "number") return;
         this.treeMarkersList[i].hideFor(player);
-        player.activeJob.activeTree = false;
+        player.job.activeTree = false;
     }
 
     enteredTreeShape(player) {
         player.stopAnimation();
-        player.activeJob.collected += misc.getRandomInt(1, 2);
-        player.notify(`${i18n.get('sOrangeCollector', 'collected1', player.lang)} ~g~${player.activeJob.collected} ~w~${i18n.get('sOrangeCollector', 'collected2', player.lang)}!`);
-    
-        if (player.activeJob.collected < 20) return this.createRandomCheckPoint(player);
+        player.job.collected += misc.getRandomInt(1, 2);
+        player.notify(`${i18n.get('sOrangeCollector', 'collected1', player.lang)} ~g~${player.job.collected} ~w~${i18n.get('sOrangeCollector', 'collected2', player.lang)}!`);
+        if (player.job.collected < 20) return this.createRandomCheckPoint(player);
         this.hideActiveCheckPoint(player);
         player.notify(`~g~${i18n.get('sOrangeCollector', 'full', player.lang)}!`);
     }
-    
+
     enteredDropShape(player) {
         player.stopAnimation();
-        if (player.activeJob.collected === 0) return player.notify(`${i18n.get('sOrangeCollector', 'empty', player.lang)}!`);
-        const earnedMoney = player.activeJob.collected * 5;
-        moneyAPI.changeMoney(player, earnedMoney);
+        if (player.job.collected === 0) return player.notify(`${i18n.get('sOrangeCollector', 'empty', player.lang)}!`);
+        const earnedMoney = player.job.collected * 15;
+        player.changeMoney(earnedMoney);
         player.notify(`${i18n.get('basic', 'earned1', player.lang)} ~g~$${earnedMoney}! ~w~${i18n.get('basic', 'earned2', player.lang)}!`);
-        if (loyality.get(player) < 50) loyality.add(player, player.activeJob.collected / 10);
+        if (player.loyality < 50) player.addLoyality(player.job.collected / 10);
         misc.log.debug(`${player.name} earned $${earnedMoney} at orange collector job!`);
-        player.activeJob.collected = 0;
-        if (!player.activeJob.activeTree) this.createRandomCheckPoint(player);
+        player.job.collected = 0;
+        if (!player.job.activeTree) this.createRandomCheckPoint(player);
     }
 
     finishWork(player) {
+        super.finishWork(player);
         this.hideActiveCheckPoint(player);
-        player.activeJob = {
-            name: false,
-        };
-        player.notify(`${i18n.get('sOrangeCollector', 'finish', player.lang)}!`);
-    
-        misc.log.debug(`${player.name} finished orange collector job!`);
         this.dropMarker.hideFor(player);
-        clothes.loadPlayerClothes(player);
     }
-}
 
-const collector = new sOrangeCollector();
-collector.createEntities();
+    
+}
+new OrangeCollector();

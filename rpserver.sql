@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
--- Rage rp server inicial sql file
--- Host: localhost
--- Generation Time: 2018-08-26 04:01:42
--- Server version： 10.1.29-MariaDB-6
--- PHP Version: 7.0.30-1+ubuntu18.04.1+deb.sury.org+1
+--
+-- Хост: 127.0.0.1:3306
+-- Время создания: Сен 05 2018 г., 13:08
+-- Версия сервера: 5.7.20
+-- Версия PHP: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `rpserver`
+-- База данных: `rpserver`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure `barbershop`
+-- Структура таблицы `barbershop`
 --
 
 CREATE TABLE `barbershop` (
@@ -36,7 +36,7 @@ CREATE TABLE `barbershop` (
 -- --------------------------------------------------------
 
 --
--- Table structure `business`
+-- Структура таблицы `business`
 --
 
 CREATE TABLE `business` (
@@ -50,52 +50,21 @@ CREATE TABLE `business` (
   `buyerMenuCoord` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- 转存表中的数据 `business`
---
-
-INSERT INTO `business` (`id`, `title`, `coord`, `price`, `ownerId`, `margin`, `balance`, `buyerMenuCoord`) VALUES
-(1, 'Gas Station', '{\"x\":190.5,\"y\":6609.6,\"z\":31.8,\"rot\":292.4}', 5, 0, 0, 0, '{\"x\":176.8,\"y\":6598.7,\"z\":31.8,\"rot\":359.3}'),
-(2, 'Clothing Shop', '{\"x\":5.9,\"y\":6511.4,\"z\":31.9,\"rot\":129}', 5, 0, 0, 0, '{\"x\":4.5,\"y\":6513,\"z\":31.9,\"rot\":123.1}');
-
 -- --------------------------------------------------------
 
 --
--- Table structure `cars`
---
-
-CREATE TABLE `cars` (
-  `id` int(255) NOT NULL,
-  `model` varchar(255) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `fuel` float NOT NULL,
-  `fuelTank` int(255) NOT NULL,
-  `fuelRate` int(255) NOT NULL,
-  `price` int(255) NOT NULL,
-  `ownerId` int(255) NOT NULL,
-  `whoCanOpen` text NOT NULL,
-  `primaryColor` text NOT NULL,
-  `secondaryColor` text NOT NULL,
-  `numberPlate` varchar(10) NOT NULL,
-  `coord` text NOT NULL,
-  `dim` int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure `cheapcardealership`
+-- Структура таблицы `cheapcardealership`
 --
 
 CREATE TABLE `cheapcardealership` (
-  `id` int(11) NOT NULL,
+  `id` int(255) NOT NULL,
   `newCarCoord` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure `clothingshop`
+-- Структура таблицы `clothingshop`
 --
 
 CREATE TABLE `clothingshop` (
@@ -104,37 +73,21 @@ CREATE TABLE `clothingshop` (
   `buyerStandCoord` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- 转存表中的数据 `clothingshop`
---
-
-INSERT INTO `clothingshop` (`id`, `camData`, `buyerStandCoord`) VALUES
-(2, '{\"x\":10.65,\"y\":6513.36,\"z\":31.88,\"rz\":25.88,\"viewangle\":35}', '{\"x\":7.7,\"y\":6518.6,\"z\":31.9,\"rot\":207.3}');
-
 -- --------------------------------------------------------
 
 --
--- Table structure `faction`
+-- Структура таблицы `commercialcardealership`
 --
 
-CREATE TABLE `faction` (
+CREATE TABLE `commercialcardealership` (
   `id` int(255) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `rank` int(2) DEFAULT '0',
-  `info` text
+  `newCarCoord` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- 转存表中的数据 `faction`
---
-
-INSERT INTO `faction` (`id`, `name`, `rank`, `info`) VALUES
-(1, NULL, 0, NULL);
-
 -- --------------------------------------------------------
 
 --
--- Table structure `gasstation`
+-- Структура таблицы `gasstation`
 --
 
 CREATE TABLE `gasstation` (
@@ -143,37 +96,10 @@ CREATE TABLE `gasstation` (
   `camData` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- 转存表中的数据 `gasstation`
---
-
-INSERT INTO `gasstation` (`id`, `fillingCoord`, `camData`) VALUES
-(1, '{\"x\":176.8,\"y\":6598.7,\"z\":31.85,\"r\":6}', '{\"x\":176.8,\"y\":6598.7,\"z\":33.85,\"rz\":359.3,\"viewangle\":9}');
-
 -- --------------------------------------------------------
 
 --
--- Table structure `jail`
---
-
-CREATE TABLE `jail` (
-  `id` int(255) NOT NULL,
-  `inside` tinyint(1) NOT NULL DEFAULT '0',
-  `time` int(255) NOT NULL DEFAULT '0',
-  `violations` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `jail`
---
-
-INSERT INTO `jail` (`id`, `inside`, `time`, `violations`) VALUES
-(1, 0, 0, '[]');
-
--- --------------------------------------------------------
-
---
--- Table structure `users`
+-- Структура таблицы `users`
 --
 
 CREATE TABLE `users` (
@@ -186,7 +112,6 @@ CREATE TABLE `users` (
   `regdate` varchar(255) NOT NULL,
   `logdate` varchar(255) DEFAULT NULL,
   `position` text,
-  `dim` int(255) NOT NULL DEFAULT '0',
   `lang` varchar(10) NOT NULL DEFAULT 'eng',
   `health` int(3) NOT NULL DEFAULT '100',
   `adminlvl` int(2) NOT NULL DEFAULT '0',
@@ -197,7 +122,7 @@ CREATE TABLE `users` (
 -- --------------------------------------------------------
 
 --
--- Table structure `usersBody`
+-- Структура таблицы `usersBody`
 --
 
 CREATE TABLE `usersBody` (
@@ -210,7 +135,7 @@ CREATE TABLE `usersBody` (
 -- --------------------------------------------------------
 
 --
--- Table structure `usersClothes`
+-- Структура таблицы `usersClothes`
 --
 
 CREATE TABLE `usersClothes` (
@@ -225,7 +150,20 @@ CREATE TABLE `usersClothes` (
 -- --------------------------------------------------------
 
 --
--- Table structure `usersHeadOverlay`
+-- Структура таблицы `usersFaction`
+--
+
+CREATE TABLE `usersFaction` (
+  `id` int(255) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `rank` int(2) DEFAULT '0',
+  `info` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `usersHeadOverlay`
 --
 
 CREATE TABLE `usersHeadOverlay` (
@@ -239,7 +177,20 @@ CREATE TABLE `usersHeadOverlay` (
 -- --------------------------------------------------------
 
 --
--- Table structure `usersMoney`
+-- Структура таблицы `usersJail`
+--
+
+CREATE TABLE `usersJail` (
+  `id` int(255) NOT NULL,
+  `inside` tinyint(1) NOT NULL DEFAULT '0',
+  `time` int(255) NOT NULL DEFAULT '0',
+  `violations` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `usersMoney`
 --
 
 CREATE TABLE `usersMoney` (
@@ -250,169 +201,204 @@ CREATE TABLE `usersMoney` (
   `fines` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Indexes for dumped tables
+-- Структура таблицы `vehicles`
+--
+
+CREATE TABLE `vehicles` (
+  `id` int(255) NOT NULL,
+  `model` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `fuel` float NOT NULL,
+  `fuelTank` int(255) NOT NULL,
+  `fuelRate` int(255) NOT NULL,
+  `price` int(255) NOT NULL,
+  `ownerId` int(255) NOT NULL,
+  `whoCanOpen` text NOT NULL,
+  `factionName` varchar(255) DEFAULT NULL,
+  `primaryColor` text NOT NULL,
+  `secondaryColor` text NOT NULL,
+  `numberPlate` varchar(10) NOT NULL,
+  `coord` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Индексы сохранённых таблиц
 --
 
 --
--- Indexes for table `barbershop`
+-- Индексы таблицы `barbershop`
 --
 ALTER TABLE `barbershop`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `business`
+-- Индексы таблицы `business`
 --
 ALTER TABLE `business`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cars`
---
-ALTER TABLE `cars`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `cheapcardealership`
+-- Индексы таблицы `cheapcardealership`
 --
 ALTER TABLE `cheapcardealership`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `clothingshop`
+-- Индексы таблицы `clothingshop`
 --
 ALTER TABLE `clothingshop`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `faction`
+-- Индексы таблицы `commercialcardealership`
 --
-ALTER TABLE `faction`
+ALTER TABLE `commercialcardealership`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `gasstation`
+-- Индексы таблицы `gasstation`
 --
 ALTER TABLE `gasstation`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `jail`
---
-ALTER TABLE `jail`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
+-- Индексы таблицы `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `usersBody`
+-- Индексы таблицы `usersBody`
 --
 ALTER TABLE `usersBody`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `usersClothes`
+-- Индексы таблицы `usersClothes`
 --
 ALTER TABLE `usersClothes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `usersHeadOverlay`
+-- Индексы таблицы `usersFaction`
+--
+ALTER TABLE `usersFaction`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `usersHeadOverlay`
 --
 ALTER TABLE `usersHeadOverlay`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `usersMoney`
+-- Индексы таблицы `usersJail`
+--
+ALTER TABLE `usersJail`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `usersMoney`
 --
 ALTER TABLE `usersMoney`
   ADD PRIMARY KEY (`id`);
 
 --
--- 在导出的表使用AUTO_INCREMENT
+-- Индексы таблицы `vehicles`
+--
+ALTER TABLE `vehicles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
 --
 
 --
--- AUTO_INCREMENT `barbershop`
+-- AUTO_INCREMENT для таблицы `barbershop`
 --
 ALTER TABLE `barbershop`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT `business`
+-- AUTO_INCREMENT для таблицы `business`
 --
 ALTER TABLE `business`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT `cars`
---
-ALTER TABLE `cars`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT `cheapcardealership`
---
-ALTER TABLE `cheapcardealership`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT `clothingshop`
+-- AUTO_INCREMENT для таблицы `cheapcardealership`
+--
+ALTER TABLE `cheapcardealership`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `clothingshop`
 --
 ALTER TABLE `clothingshop`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT `faction`
+-- AUTO_INCREMENT для таблицы `commercialcardealership`
 --
-ALTER TABLE `faction`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `commercialcardealership`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT `gasstation`
+-- AUTO_INCREMENT для таблицы `gasstation`
 --
 ALTER TABLE `gasstation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT `jail`
---
-ALTER TABLE `jail`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT `users`
+-- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT `usersBody`
+-- AUTO_INCREMENT для таблицы `usersBody`
 --
 ALTER TABLE `usersBody`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT `usersClothes`
+-- AUTO_INCREMENT для таблицы `usersClothes`
 --
 ALTER TABLE `usersClothes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT `usersHeadOverlay`
+-- AUTO_INCREMENT для таблицы `usersFaction`
+--
+ALTER TABLE `usersFaction`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `usersHeadOverlay`
 --
 ALTER TABLE `usersHeadOverlay`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT `usersMoney`
+-- AUTO_INCREMENT для таблицы `usersJail`
+--
+ALTER TABLE `usersJail`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `usersMoney`
 --
 ALTER TABLE `usersMoney`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `vehicles`
+--
+ALTER TABLE `vehicles`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

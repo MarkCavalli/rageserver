@@ -1,17 +1,5 @@
-"use strict"
-
-const misc = require('./sMisc');
-
-function get(type, string, lang) {
-	const result = i18n[type][string];
-	if (!result[lang]) return result.eng;
-	return result[lang];
-}
-module.exports.get = get;
-
-
 const i18n = {
-//Basic
+
 	basic: {
 		success: {
 			eng: 'Success',
@@ -27,8 +15,8 @@ const i18n = {
 			rus: 'Нажмите ~b~E ~s~',
 			ger: 'Drücken Sie ~b~ E ~s~',
 			br: 'Pressione ~b~E ~s~', 
-			zhs: '按 ~b~E~s~',
-			zht: '按 ~b~E~s~',
+			zhs: '按 ~b~E ~s~',
+			zht: '按 ~b~E ~s~',
 		},
 
 		pressEToOpenMenu: {
@@ -36,8 +24,8 @@ const i18n = {
 			rus: 'Нажмите ~b~E ~s~для входа в меню',
 			ger: 'Drücken Sie ~b~ E ~s~, um das Menü zu öffnen',
 			br: 'Pressione ~b~E ~s~para abrir o menu', 
-			zhs: '按 ~b~E~s~打开菜单',
-			zht: '按 ~b~E~s~開啟選單',
+			zhs: '按 ~b~E ~s~打开菜单',
+			zht: '按 ~b~E ~s~開啟選單',
 		},
 
 		workingOnOtherJob: {
@@ -81,8 +69,8 @@ const i18n = {
 			rus: 'очков лояльности',
 			ger: 'treuepunkte',
 			br: 'pontos de fidelidade', 
-			zhs: '忠诚点数',
- 			zht: '忠誠點數',
+			zhs: '',
+			zht: '',
 		},
 
 		tooFarAway: {
@@ -213,7 +201,7 @@ const i18n = {
 
 
 	},
-//Login module
+
   	sLogin: {    
     	connected: {
 			eng: 'connected',
@@ -233,13 +221,13 @@ const i18n = {
 			zht: '已離線',
 		},
 		
-		annouceBasichelp: {
-			eng: 'Press M button to open menu for tutorial and help,T to chat and command.',
+		annoucePlayerMenu: {
+			eng: 'Press M button to open menu',
 			rus: 'Открыть меню: кнопка М',
 			ger: '',
 			br: '', 
-			zhs: 'M键开启菜单以获取基础教程和更多帮助，T键聊天和输入命令。',
-			zht: 'M鍵開啟菜單以獲取基礎教程及更多幫助，T鍵聊天和輸入命令。',
+			zhs: 'M键开启菜单以获取更多帮助',
+			zht: 'M鍵開啟菜單以獲取更多幫助。',
 		},
     
 		annouceSpawnVehicle: {
@@ -256,7 +244,7 @@ const i18n = {
 			rus: 'Глобальный чат: /g [сообщение]',
 			ger: 'Globaler Chat: / g [Nachricht]',
 			br: 'Chat Global: /g [mensagem]', 
-			zhs: '全服聊天：/g [message]',
+			zhs: '全局聊天：/g [message]',
 			zht: '全域聊天：/g [message]',
 		}, 
 	
@@ -269,7 +257,7 @@ const i18n = {
 			zht: '如果你有舊版服務器帳戶且希望恢復它，在聊天欄留下你的用戶名和需求。我會在日誌中檢查。',
 		},
 		
-		saveAccount: {
+		saveGame: {
 			eng: 'Account successfully saved!',
 			rus: 'Аккаунт сохранен!',
 			ger: 'Konto erfolgreich gespeichert!',
@@ -279,15 +267,15 @@ const i18n = {
 		},
 
 	},
-//Money module
+
 	sMoney: {
 		enterATM: {
 			eng: 'Press ~b~E ~s~to open ATM Menu',
 			rus: 'Нажмите ~b~E ~s~для входа в меню банкомата',
 			ger: 'Drücken Sie ~b~ E ~s~, um das ATM-Menü zu öffnen',
 			br: 'Pressione ~b~E ~s~para abrir o menu do Caixa Eletrônico', 
-			zhs: '按 ~b~E~s~ 键打开ATM菜单',
-			zht: '按 ~b~E~s~ 鍵打開ATM菜單',
+			zhs: '按 ~b~E ~s~ 键打开ATM菜单',
+			zht: '按 ~b~E ~s~ 鍵打開ATM菜單',
 		},
 
 		notEnoughCash: {
@@ -326,7 +314,7 @@ const i18n = {
 			zht: '新的懲罰',
 		},
 	},
-//Loyality module
+
 	sLoyality: {
 		loyality: {
 			eng: 'Loyality',
@@ -337,7 +325,7 @@ const i18n = {
 			zht: '忠誠值',
 		},
 	},
-//Chat module
+
 	sChat: {
 		someone: {
 			eng: 'Someone',
@@ -349,28 +337,14 @@ const i18n = {
 		},
 	},
 
-//Menu module
-  sMenu: {
-		wrongOldPass: {
-			eng: 'You entered wrong old password',
-			rus: 'Вы ввели неправильный старый пароль',
-			ger: '',
-			br: '', 
-			zhs: '错误的旧密码',
-			zht: '錯誤的舊密碼',
-		},
-
-	},  
- 
-//Business module
 	sBusiness: {
 		alreadyHave: {
 			eng: 'You cant own more than 1 business',
 			rus: 'Вы не можете иметь более 1 бизнеса',
 			ger: 'Sie können nicht mehr als 1 Geschäft besitzen',
 			br: 'Você não pode possuir mais de 1 negócio', 
-			zhs: '你不能拥有多于1个商业产业。',
-			zht: '你不能擁有多於1個商業產業。',
+			zhs: '你不能建立多于1个商业产业。',
+			zht: '妳不能建立多於1個商業產業。',
 		},
 
 		sale: {
@@ -383,7 +357,7 @@ const i18n = {
 		},
 
 	},
-//Vehicle module
+
 	sVehicle: {
 		locked: {
 			eng: 'locked',
@@ -408,8 +382,8 @@ const i18n = {
 			rus: 'Открыть: num +',
 			ger: 'Entsperren: num +',
 			br: 'Destravar: num +', 
-			zhs: '开锁：数字小键盘 +',
-			zht: '開鎖：數字小鍵盤 +',
+			zhs: '开锁: 数字小键盘 +',
+			zht: '開鎖: 數字小鍵盤 +',
 		},
 		
 		helpEngine: {
@@ -435,8 +409,8 @@ const i18n = {
 			rus: 'Продажа ТС',
 			ger: '',
 			br: '', 
-			zhs: '载具销售',
- 			zht: '載具銷售',
+			zhs: '',
+			zht: '',
 		},
 
 		wantsSellVehicleToPlayer: {
@@ -444,19 +418,19 @@ const i18n = {
 			rus: 'хочет продать вам',
 			ger: '',
 			br: '', 
-			zhs: '想卖给你',
- 			zht: '想賣給你',
+			zhs: '',
+			zht: '',
 		},
 	},
-//GasStation module
+
 	sGasStation: {
 		offEngine: {
 			eng: 'Please turn off the engine',
 			rus: 'Пожалуйста, заглушите двигатель',
 			ger: 'Bitte schalte den Motor ab',
 			br: 'Por favor desligue o motor', 
-			zhs: '请关闭发动机',
- 			zht: '請熄火',
+			zhs: '请熄火',
+			zht: '請熄火',
 		},
 
 		fuelPrice: {
@@ -464,8 +438,8 @@ const i18n = {
 			rus: 'Цена за литр',
 			ger: 'Preis pro Liter',
 			br: 'Preço por litro', 
-			zhs: '每公升油价',
-			zht: '每公升油價',
+			zhs: '每升油价',
+			zht: '每升油價',
 		},
 
 		goodJourney: {
@@ -474,7 +448,7 @@ const i18n = {
 			ger: 'Gute weiter Reise',
 			br: 'Tenha uma boa viagem', 
 			zhs: '祝你旅途愉快',
-			zht: '祝你旅途愉快',
+			zht: '祝妳旅途愉快',
 		},
 
 		passengersDropOff: {
@@ -482,20 +456,20 @@ const i18n = {
 			rus: 'Пожалуйста, высадите пассажиров',
 			ger: '',
 			br: 'Por favor, deixe os passageiros', 
-			zhs: '请让乘客下车',
- 			zht: '請讓乘客下車',
+			zhs: '',
+			zht: '',
 		},
 
 	},
-//Faction module
+
 	sFaction: {
 		changeClothes: {
 			eng: 'to change clothes',
 			rus: 'чтобы переодеться',
 			ger: 'um die Kleidung zu wechseln',
 			br: 'trocar de roupa', 
-			zhs: '换衣服',
- 			zht: '換衣服',
+			zhs: '',
+			zht: '',
 		},
 
 		setNewRank: {
@@ -521,8 +495,8 @@ const i18n = {
 			rus: 'устроил(а) вас в',
 			ger: 'lud dich ein',
 			br: 'convidou você para', 
-			zhs: '邀请你到',
- 			zht: '邀請你到',
+			zhs: '',
+			zht: '',
 		},
 
 		leader: {
@@ -530,8 +504,8 @@ const i18n = {
 			rus: 'Теперь вы лидер',
 			ger: 'Jetzt bist du Anführer',
 			br: 'Agora você é líder em', 
-			zhs: '现在你统领',
- 			zht: '現在你統領',
+			zhs: '',
+			zht: '',
 		},
 
 		uninvited: {
@@ -543,7 +517,7 @@ const i18n = {
 			zht: '',
 		},
 	},
-//Hospital module
+
 	sHospital: {
 		needHelp: {
 			eng: 'You need a medical help',
@@ -627,55 +601,38 @@ const i18n = {
 		},
 
 	},
-//Prison module 
- 	sPrison: {
- 		toSurrender: {
- 			eng: 'to surrender',
- 			rus: '',
- 			ger: '',
- 			br: '', 
- 			zhs: '自首',
- 			zht: '自首',
- 		},
-     
-     noViolations: {
- 			eng: 'You have no violations!',
- 			rus: '',
- 			ger: '',
- 			br: '', 
- 			zhs: '你没有犯罪记录！',
- 			zht: '你不存在犯罪記錄！',
- 		},
-     
-     pEscape: {
- 			eng: 'Escape',
- 			rus: '',
- 			ger: '',
- 			br: '', 
- 			zhs: '逃脱',
- 			zht: '逃脫',
- 		},
 
- 	},
-  
-//Example mission OrangeCollector
-	sOrangeCollector: {
+	sJob: {
 		start: {
-			eng: 'You started orange collector job',
-			rus: 'Вы устроились сборщиком апельсинов',
-			ger: 'Du hast den orangenen Sammlerjob begonnen',
-			br: 'Você começou o trabalho coletar laranja', 
-			zhs: '你开始了收橙子工作',
-			zht: '妳開始了收橙子工作',
+			eng: 'You started work as',
+			rus: 'Вы устроились работать как ',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
 		},
 
+
+		finish: {
+			eng: 'You finished work as',
+			rus: 'Вы уволились с работы',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
+		},
+
+	},
+
+
+	sOrangeCollector: {
 		collected1: {
 			eng: 'You have',
 			rus: 'У вас в корзине',
 			ger: 'Du hast',
 			br: 'Você tem', 
 			zhs: '你有',
-			zht: '你有',
+			zht: '妳有',
 		},
 
 		collected2: {
@@ -693,7 +650,7 @@ const i18n = {
 			ger: 'Dein Eimer ist voll! Bring es zum Trailer',
 			br: 'Seu balde está cheio! Leve para o trailer', 
 			zhs: '你的篮子满了，把东西拉到车上吧',
-			zht: '你的籃子滿了，把東西運到車上吧',
+			zht: '妳的籃子滿了，把東西拉到車上吧',
 		},
 
 		empty: {
@@ -702,20 +659,11 @@ const i18n = {
 			ger: 'Dein Eimer ist leer',
 			br: 'Seu balde está vazio', 
 			zhs: '你的篮子是空的',
-			zht: '你的籃子是空的',
+			zht: '妳的籃子是空的',
 		},		
 
-		finish: {
-			eng: 'You finished orange collector job',
-			rus: 'Вы уволились с работы',
-			ger: 'Du hast den orangenen Sammlerjob beendet',
-			br: 'Você encerrou o trabalho de coletar laranjas', 
-			zhs: '你完成了收橙子工作',
-			zht: '你完成了收橙子工作',
-		},
-
 	},
-//Example mission CBDeliveryMen
+
 	sCBDeliveryMen: {
 		invite: {
 			eng: 'Press ~b~E ~s~to start work as a Delivery Men',
@@ -759,7 +707,7 @@ const i18n = {
 			ger: 'Sie haben die Bestellung nicht zugestellt! Sie werden jetzt $500 bezahlen!',
 			br: 'Você tem ordem não entregue! Você vai pagar $500 terminando agora!', 
 			zhs: '你有未派送的订单！ 你需要支付 $500 来马上完成!',
-			zht: '你有未派送的訂單！ 妳需要支付 $500 來馬上完成!',
+			zht: '妳有未派送的訂單！ 妳需要支付 $500 來馬上完成!',
 		},
 
 		started: {
@@ -768,7 +716,7 @@ const i18n = {
 			ger: 'Sie haben mit der Lieferung von Cluckin Bell begonnen! Sie können neue Reihenfolge auf der linken Seite bekommen',
 			br: 'Você começou o trabalho de entrega da Cluckin Bell! Você pode obter um novo pedido no lado esquerdo', 
 			zhs: '你已经开始了Cluckin Bell派送任务！你可以在左边获取新订单',
-			zht: '你已經開始了Cluckin Bell派送任務！妳可以在左邊獲取新訂單',
+			zht: '妳已經開始了Cluckin Bell派送任務！妳可以在左邊獲取新訂單',
 		},
 
 		finished: {
@@ -777,7 +725,7 @@ const i18n = {
 			ger: 'Du hast Gluck Bell abgeschlossen',
 			br: 'Você encerrou o trabalho de entrega da Cluckin Bell', 
 			zhs: '你完成了 Cluckin Bell派所任务',
-			zht: '你完成了 Cluckin Bell派所任務',
+			zht: '妳完成了 Cluckin Bell派所任務',
 		},
 
 		deliver: {
@@ -786,7 +734,7 @@ const i18n = {
 			ger: 'Liefern Sie Ihre Bestellung',
 			br: 'Entregue seu pedido', 
 			zhs: '派送你的订单',
-			zht: '派送你的訂單',
+			zht: '派送妳的訂單',
 		},
 
 		undelivered: {
@@ -800,7 +748,24 @@ const i18n = {
 
 	},
 
+	sMenu: {
+		wrongOldPass: {
+			eng: 'You entered wrong old password',
+			rus: 'Вы ввели неправильный старый пароль',
+			ger: '',
+			br: '', 
+			zhs: '',
+			zht: '',
+		},
 
+	},
 
 
 }
+
+function get(type, string, lang) {
+	const result = i18n[type][string];
+	if (!result[lang]) return result.eng;
+	return result[lang];
+}
+module.exports.get = get;

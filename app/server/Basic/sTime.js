@@ -1,59 +1,58 @@
-"use strict"
+const business = require('../Business/sBusiness');
 
-const weather = require('./sWeather');
-const business = require('./../Business/sBusiness');
-const hospital = require('./../Factions/sHospital');
-const prison = require('./../Factions/Police/sPrison');
 
-let timer = 0;
-const changeTime = async (currentDate, isFirstRunning) => {
-	mp.world.time.hour = currentDate.getHours();
-	mp.world.time.minute = currentDate.getMinutes();
-	if (isFirstRunning) {
-		return;
+class TimeSingleton {
+	constructor() {
+		this.timer = 0;
 	}
-	everyMinuteEvent();
-	if (currentDate.getMinutes() === 0) {
-		everyhourEvent();
+
+	everyMinuteEvent() {
+		const players = mp.players.toArray();
+		for (const player of players) {
+			if (!player.loggedIn) return;
+			player.addHP();
+			player.jailEvent();
+		}	
 	}
-	if (currentDate.getMinutes() % 5 === 0) {
-		every5MinutesEvent();
+
+	every5MinutesEvent() {
+
 	}
-};
 
-const runTimer = (isFirstRunning) => {
-	const currentDate = new Date();
-	const remainingMilliseconds = (60 - currentDate.getSeconds()) * 1000 + (1000 - currentDate.getMilliseconds());
-	changeTime(currentDate, !!isFirstRunning);
-	clearTimeout(timer);
-	timer = setTimeout(() => {
-		runTimer();
-	}, remainingMilliseconds);
-};
+	everyHourEvent() {
+		business.payTaxes();
+	}
 
-runTimer(true);
+	runTimer(isFirstRunning) {
+		const currentDate = new Date();
+		const remainingMilliseconds = (60 - currentDate.getSeconds()) * 1000 + (1000 - currentDate.getMilliseconds());
+		this.changeTime(currentDate, !!isFirstRunning);
+		clearTimeout(this.timer);
+		this.timer = setTimeout(() => {
+			this.runTimer();
+		}, remainingMilliseconds);
+	}
 
-function getTime() {
-	const currentTime = new Date();
-	let h = currentTime.getHours();
-	let m = currentTime.getMinutes();
-	let s = currentTime.getSeconds();
-	if (h < 10) h = "0" +h;
-	if (m < 10) m = "0" +m;
-	if (s < 10) s = "0" +s;
-	return `${h}:${m}:${s}`;
+	changeTime(currentDate, isFirstRunning) {
+		mp.world.time.hour = currentDate.getHours();
+		mp.world.time.minute = currentDate.getMinutes();
+		if (isFirstRunning) return false;
+		this.everyMinuteEvent();
+		if (currentDate.getMinutes() === 0) this.everyHourEvent();
+		if (currentDate.getMinutes() % 5 === 0) this.every5MinutesEvent();	
+	}
+
+	getTime() {
+		const currentTime = new Date();
+		let h = currentTime.getHours();
+		let m = currentTime.getMinutes();
+		let s = currentTime.getSeconds();
+		if (h < 10) h = `0${h}`;
+		if (m < 10) m = `0${m}`;
+		if (s < 10) s = `0${s}`;
+		return `${h}:${m}:${s}`;
+	}
 }
-module.exports.getTime = getTime;
-
-function everyhourEvent() {
-	business.payTaxes();
-}
-
-function every5MinutesEvent() {
-	weather.changeWeather();
-}
-
-function everyMinuteEvent() {
-	hospital.healEvent();
-	prison.everyMinuteEvent();
-}
+const timeSingleton = new TimeSingleton();
+timeSingleton.runTimer(true);
+module.exports = timeSingleton;

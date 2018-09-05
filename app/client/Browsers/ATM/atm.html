@@ -23,7 +23,7 @@
 					<div class="b1-summ">{{ showTMoney() }}</div>
 					<div class="b1-summ-info">{{ taxAccountText }}</div>
 				</div>
-				<div>
+				<div v-if="fine !== 0">
 					<div class="b1-summ">{{ showFMoney() }}</div>
 					<div class="b1-summ-info">{{ fineAccountText }}</div>
 				</div>
@@ -34,7 +34,7 @@
 				<div class="b2-item" @click="openTransactionBlock('putCash')">{{ putCashText }}</div>
 				<div class="b2-item" @click="openTransactionBlock('getTaxMoney')">{{ takeTaxMoneyText }}</div>
 				<div class="b2-item" @click="openTransactionBlock('putTaxMoney')">{{ putCashToTaxText }}</div>
-				<div class="b2-item" @click="openFinesBlock">{{ payFinesText }}</div>
+				<div class="b2-item" v-if="fine !== 0" @click="openFinesBlock">{{ payFinesText }}</div>
 			</div>
 			
 			<div class="b3" v-if="transactionBlockSeen">
@@ -225,12 +225,13 @@ function loadZhsLang() {
 	app.bankAccountText = "银行账户";
 	app.taxAccountText = "税务账户";
 	app.fineAccountText = "罚款账户";
- 	app.takeCashText = "提现";
- 	app.putCashText = "存款";
- 	app.takeTaxMoneyText = "从税务账户提现";
- 	app.putCashToTaxText = "存款到税务账户";
-  app.payFinesText = "缴纳罚款";
-  app.doneText = "完成";
+	app.takeCashText = "提现";
+	app.putCashText = "存款";
+	app.takeTaxMoneyText = "从税务账户提现";
+	app.putCashToTaxText = "存款到税务账户";
+	app.payFinesText = "缴纳罚款";
+
+	app.doneText = "完成";
 }
 
 
@@ -245,6 +246,7 @@ function loadZhtLang() {
   app.takeTaxMoneyText = "從稅務帳戶提現";
   app.putCashToTaxText = "存款到稅務帳戶";
   app.payFinesText = "繳納罰金";
+
   app.doneText = "完成";
 }
 

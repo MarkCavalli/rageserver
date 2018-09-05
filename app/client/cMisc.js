@@ -1,13 +1,11 @@
-"use strict";
-
 let cef = null;
 let camera = null;
 const player = mp.players.local;
 
 function prettify(num) {
-    let n = num.toString();
+    const n = num.toString();
     const separator = " ";
-    return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + separator);
+    return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, `$1${separator}`);
 }
 exports.prettify = prettify;
 
@@ -19,16 +17,20 @@ function prepareToCef(blurred = null) {
 	mp.gui.cursor.visible = true;
 	mp.game.ui.displayRadar(false);
 	mp.gui.chat.show(false);
-	if (blurred) {
-		mp.game.graphics.transitionToBlurred(blurred);
-	}
+	if (blurred) mp.game.graphics.transitionToBlurred(blurred);
 }
 exports.prepareToCef = prepareToCef;
 
+
+function injectCef(execute) {
+	if(!cef) return;
+	cef.execute(execute);
+}
+exports.injectCef = injectCef;
+
+
 function openCef(url, lang = "eng") {
-	if (cef) {
-		cef.destroy(); 
-	}
+	if (cef) cef.destroy();
 	cef = mp.browsers.new(url);
 	if (lang === "rus") injectCef("loadRusLang();"); 
 	else if (lang === "ger") injectCef("loadGerLang();");
@@ -38,13 +40,6 @@ function openCef(url, lang = "eng") {
 }
 exports.openCef = openCef;
 
-function injectCef(execute) {
-	if(!cef) {
-		return console.log(`injectCef = ${cef}`);
-	}
-	cef.execute(execute);
-}
-exports.injectCef = injectCef;
 
 function closeCef() {
 	if (cef) {
@@ -61,7 +56,7 @@ exports.closeCef = closeCef;
 
 // CAMERA //
 function createCam(x, y, z, rx, ry, rz, viewangle) {
-	camera = mp.cameras.new("Cam", {x: x, y: y, z: z}, {x: rx, y: ry, z: rz}, viewangle);
+	camera = mp.cameras.new("Cam", {x, y, z}, {x: rx, y: ry, z: rz}, viewangle);
 	camera.setActive(true);
 	mp.game.cam.renderScriptCams(true, true, 20000000000000000000000000, false, false);
 }
@@ -99,6 +94,13 @@ mp.events.add(
 		injectCef(inject);
 	},
 
-	"cMisc-CallServerEvent" : (eventName, id, price) => mp.events.callRemote(eventName, id, price)
+	"cMisc-CallServerEvent" : (eventName, id, price) => mp.events.callRemote(eventName, id, price),
+
+	"cMisc-CallServerEvenWithTimeout" : (eventName, timeout) => {
+		setTimeout(() => {
+			mp.events.callRemote(eventName);
+		}, timeout);
+	}
+	
 });
 	

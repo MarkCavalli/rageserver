@@ -1,5 +1,3 @@
-"use strict";
-
 mp.events.add(
 {
 	"cPrison-SetWantedLevel" : l => mp.game.gameplay.setFakeWantedLevel(l),

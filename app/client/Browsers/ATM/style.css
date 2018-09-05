@@ -76,11 +76,13 @@
 .b2-buttons {
   display: flex;
   flex-wrap: wrap;
-	align-items: center;
+  align-items: center;
+  align-content: center;
   width: 100%;
   position: absolute;
   left: 0;
-  bottom: 3.5vh;
+  height: 50vh;
+  bottom: 0vh;
 }
 .b2-item {
   width: 100%;

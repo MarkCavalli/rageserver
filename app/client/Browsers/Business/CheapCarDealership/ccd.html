@@ -371,7 +371,7 @@ const app = new Vue({
 		},
 		buyCar: function(model) {
 			const obj = { model: model, id: this.id, };
-			mp.trigger("cMisc-CallServerEvent", "sCheapCarDealership-BuyCar", JSON.stringify(obj));
+			mp.trigger("cMisc-CallServerEvent", "sCarDealership-BuyCar", JSON.stringify(obj));
 			this.exit();
 		},
 

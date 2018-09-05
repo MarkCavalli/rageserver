@@ -1,14 +1,10 @@
-"use strict"
-
 const business = require('./sBusiness');
 const misc = require('../sMisc');
-const moneyAPI = require('../Basic/sMoney');
-const vehicleAPI = require('../Basic/sVehicle');
 const i18n = require('../sI18n');
 
 
 
-class gasStation extends business {
+class GasStation extends business {
     constructor(d) {
 		super(d);
 		this.fuelprice = 1 + 0.02 * this.margin;
@@ -44,9 +40,9 @@ class gasStation extends business {
 		mp.vehicles.forEachInRange(this.fillingCoord, this.fillingCoord.r, (vehicle) => {
 			const obj = {
 				id: vehicle.id,
-				title: vehicle.info.title,
-				fuel: vehicle.info.fuel,
-				fuelTank: vehicle.info.fuelTank,
+				title: vehicle.title,
+				fuel: vehicle.fuel,
+				fuelTank: vehicle.fuelTank,
 				numberPlate: vehicle.numberPlate,
 			}
 			vehiclesList.push(obj);
@@ -57,30 +53,30 @@ class gasStation extends business {
 	async fillUpCar(player, str) {
 		const carData = JSON.parse(str);
 
-		let vehicleToFillUp;
-		mp.vehicles.forEachInRange(this.fillingCoord, this.fillingCoord.r, (vehicle) => {
-			if (vehicle.id === carData.id) {
-				vehicleToFillUp = vehicle;
+		let vehicle;
+		mp.vehicles.forEachInRange(this.fillingCoord, this.fillingCoord.r, (veh) => {
+			if (veh.id === carData.id) {
+				vehicle = veh;
 			}
 		});
-		if (!vehicleToFillUp) return;
+		if (!vehicle) return;
 
-		if (vehicleToFillUp.engine) {
+		if (vehicle.engine) {
 			player.notify(`~r~${i18n.get('sGasStation', 'offEngine', player.lang)}!`);
 			return;
 		}
-		if (vehicleToFillUp.getOccupants().length > 0) {
+		if (vehicle.getOccupants().length > 0) {
 			player.notify(`~r~${i18n.get('sGasStation', 'passengersDropOff', player.lang)}!`);
 			return;
 		}
 
 		const price = Math.ceil(carData.litres * this.fuelprice);
-		const canBuy = await moneyAPI.changeMoney(player, -price);
+		const canBuy = await player.changeMoney(-price);
 		if (!canBuy) return;
 
 		const tax = misc.roundNum(price - carData.litres, 2);
 		this.updateTempGain(tax);
-		vehicleAPI.fillUpVehicle(vehicleToFillUp, carData.litres);
+		vehicle.fillUp(carData.litres);
 
 		player.notify(`~g~${i18n.get('basic', 'success', player.lang)}!`);
 		misc.log.debug(`${player.name} fill up car for $${price}`);
@@ -127,11 +123,10 @@ class gasStation extends business {
 		if (player.vehicle) return;
 		const cars = JSON.stringify(this.getCarsCanFillUp());
 	
-		const str1 = `app.id = ${this.id};`;
-		const str2 = `app.margin = ${this.margin};`;
-		const str3 = `app.updatePriceForLitre();`;
-		const str4 = `app.updateCars('${cars}');`
-		let execute = str1 + str2 + str3 + str4;
+		let execute = `app.id = ${this.id};`;
+		execute += `app.margin = ${this.margin};`;
+		execute += `app.updatePriceForLitre();`;
+		execute += `app.updateCars('${cars}');`
 		
 		player.call("cGasStation-OpenBuyerMenu", [player.lang, execute, this.camData]);
 		misc.log.debug(`${player.name} enter a gas station menu`);
@@ -162,19 +157,11 @@ mp.events.add({
 });
 
 
-function createShop(d) {
-	const shop = new gasStation(d);
-	shop.createMainEntities();
-	shop.createBuyerEntities();
-	shop.setLocalSettings();
-	shop.createFillingColshape();
-	business.addNewBusinessToList(shop);
-}
-
 async function loadShops() {
 	const d = await misc.query("SELECT * FROM business INNER JOIN gasstation ON business.id = gasstation.id");
 	for (let i = 0; i < d.length; i++) {
-		createShop(d[i]);
+		const shop = new GasStation(d[i]);
+		shop.createFillingColshape();
 	}
 }
 loadShops();
@@ -182,9 +169,9 @@ loadShops();
 
 mp.events.addCommand({
 	'creategasstation' : async (player, enteredprice) => {
-		if (misc.getAdminLvl(player) < 1) return;
+		if (player.adminLvl < 1) return;
 		const id = business.getCountOfBusinesses() + 1;
-		const coord = misc.convertOBJToJSON(player.position, player.heading);
+		const coord = misc.getPlayerCoordJSON(player);
 		const price = Number(enteredprice.replace(/\D+/g,""));
 		const query1 = misc.query(`INSERT INTO business (title, coord, price) VALUES ('Gas Station', '${coord}', '${price}');`);
 		const query2 = misc.query(`INSERT INTO gasstation (id) VALUES ('${id}');`);	
@@ -193,13 +180,13 @@ mp.events.addCommand({
 	},	
 
 	'setgasstationfillingpos' : async (player, fullText, id, radius) => {
-		if (misc.getAdminLvl(player) < 1) return;
+		if (player.adminLvl < 1) return;
 		const shop = business.getBusiness(+id);
 		shop.updateFillingData(player, radius);
 	},	
 
 	'setgasstationcamdata' : async (player, fullText, id, viewangle) => {
-		if (misc.getAdminLvl(player) < 1) return;
+		if (player.adminLvl < 1) return;
 		const shop = business.getBusiness(+id);
 		shop.updateCamData(player, viewangle);
 	},	
@@ -210,17 +197,15 @@ mp.events.addCommand({
 
 How to add new gas station:
 
-1. /creategasstation [price] to set the position of buying gasstation menu and price.
-Go into db's business table and get the latest id
+1. /creategasstation [price]
+Go into business table and get the latest id
 
-2. /setbusbuyermenu [id] to set shopping menu place.
+2. /setbusbuyermenu [id]
 
 Restart server
 
-3. /setgasstationfillingpos [id] [radius],example 6
+3. /setgasstationfillingpos [id] [radius]
 
-4. /setgasstationcamdata [id] [viewangle] example 3-11
-
-Caution: The "id" of your gas station in "gasstation" db table MUST BE THE SAME as in "business" one.
+4. /setgasstationcamdata [id] [viewangle]
 
 */

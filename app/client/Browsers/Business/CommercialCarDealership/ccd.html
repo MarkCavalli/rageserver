@@ -1,0 +1,101 @@
+﻿<html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="ccd.css">
+	<script src="../../vue.js"></script>
+	<body>
+		<div id="app">
+			<div class="close" @click="exit">X</div>
+			<section class="title">{{ i18n.dealer }} №{{ id }}</section>
+			<section class="items">
+				<div class="item" v-for="v of vehicles">
+					<img :src="'img/' + v.model + '.jpg'">
+					<div class="item-info">
+						<div class="model">{{ v.title }}</div>
+						<div class="veh-info_props">
+							<div class="veh-info_prop">
+								<img src="../../Menu/img/fueltank.png">
+								<span>{{ v.fuelTank }} L</span>
+								<div>{{ i18n.fuelTank }}</div>
+							</div>
+							<div class="veh-info_prop">
+								<img src="../../Menu/img/cash.png">
+								<span style="color: limegreen;">${{ prettify(v.price + v.price * margin / 400) }}</span>
+								<div>{{ i18n.price }}</div>
+							</div>
+							<div class="veh-info_prop">
+								<img src="../../Menu/img/fuelrate.png">
+								<span>{{ v.fuelRate }}L / 100 km</span>
+								<div>{{ i18n.fuelRate }}</div>
+							</div>
+						</div>
+						<a class="veh-item" @click="v.buy = !v.buy" :class="[{ lefted: v.buy }]">
+							<span style="color: limegreen;">{{ i18n.buy }}</span>
+							<div class="confirm" @click="buyCar(v.model)">✓</div>
+						</a>
+					</div>
+				</div>
+			</section>
+		</div>
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+	el: '#app',
+	data: {
+		id: 0,
+		margin: 0,
+		vehicles: [
+			{	model: "mule",			title: "Maibatsu Mule",				fuelTank: 160,	fuelRate: 20,	price: 25000,	buy: false },
+			{	model: "mule2",			title: "Maibatsu Mule 2",			fuelTank: 200,	fuelRate: 25,	price: 50000,	buy: false 	},
+			{	model: "mule3",			title: "Maibatsu Mule 3",			fuelTank: 200,	fuelRate: 28,	price: 75000,	buy: false 	},
+			{	model: "mule4",			title: "Maibatsu Mule Custom",		fuelTank: 250,	fuelRate: 30,	price: 150000,	buy: false 	},
+		],
+		i18n: {
+			dealer: "Commercial Dealership",
+			fuelTank: "FUEL TANK",
+			fuelRate: "FUEL RATE",
+			price: "PRICE",
+			buy: "Buy",
+		}
+	},
+	methods: {
+		prettify: function(num) {
+			let n = num.toFixed();
+			const separator = " ";
+			return n.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + separator);
+		},
+
+		buyCar: function(model) {
+			const obj = { model: model, id: this.id, };
+			mp.trigger("cMisc-CallServerEvent", "sCarDealership-BuyCar", JSON.stringify(obj));
+			this.exit();
+		},
+
+		exit: function() {
+			mp.trigger("cCloseCef"); 
+		},
+	},
+});
+
+
+function loadRusLang() {
+
+}
+
+function loadGerLang() {
+
+}
+
+function loadBrLang() {
+
+}
+
+function loadZhsLang() {
+
+}
+function loadZhtLang() {
+
+}
+</script>

@@ -1,9 +1,10 @@
-"use strict"
-
 const misc = require('../sMisc');
+const clothesSingleton = require('./sClothes');
+const headOverlaySingleton = require('./sHeadOverlay');
 
 
-class sCharCreator {
+
+class CharCreator {
 	constructor() {
 		this.dimension = 2;
 		
@@ -11,20 +12,33 @@ class sCharCreator {
 			"sCharCreator-ChangeGender" : async (player, gender) => {
 				if (gender === 0) player.model = 1885233650;
 				else player.model = -1667301416;
+				const q2 = clothesSingleton.loadPlayerClothes(player);
+				const q3 = headOverlaySingleton.loadUser(player);
+				await Promise.all([q2, q3]);
 			},
 		
 			"sCharCreator-SaveSkinOptions" : (player, strJSON) => {
-				misc.query(`UPDATE usersBody SET skindata = '${strJSON}' WHERE id = '${player.basic.id}'`);
+				misc.query(`UPDATE usersBody SET skindata = '${strJSON}' WHERE id = '${player.guid}'`);
 			},
 		
 			"sCharCreator-SaveFaceOptions" : async (player, strJSON) => {
 				let gender = 'w';
 				if (player.model === 1885233650) gender = 'm';
-				await misc.query(`UPDATE usersBody SET gender = '${gender}', facedata = '${strJSON}' WHERE id = '${player.basic.id}'`);
-				await this.loadPlayerBody(player);
-				player.heading = 48;
-				player.position = new mp.Vector3(-164, 6426, 32);
-				player.dimension = 0;
+				await misc.query(`UPDATE usersBody SET gender = '${gender}', facedata = '${strJSON}' WHERE id = '${player.guid}'`);
+				
+				const q1 = this.loadPlayerBody(player);
+				const q2 = clothesSingleton.loadPlayerClothes(player);
+				const q3 = headOverlaySingleton.loadUser(player);
+				await Promise.all([q1, q2, q3]);
+				const firstSpawn = { 
+					x: -164, 
+					y: 6426, 
+					z: 32, 
+					rot: 48, 
+					dim: 0, 
+				}
+				player.tp(firstSpawn);
+
 			},
 		});
 	}
@@ -43,12 +57,12 @@ class sCharCreator {
 		player.call("cCharCreator-OpenMenu");
 	}
 
-	async createNewUser() {
-		await misc.query(`INSERT INTO usersBody (gender) VALUES (NULL)`);
+	async createNewUser(id) {
+		await misc.query(`INSERT INTO usersBody (id, gender) VALUES ('${id}', NULL);`);
 	}
 
 	async loadPlayerBody(player) {
-		const d = await misc.query(`SELECT * FROM usersBody WHERE id = '${player.basic.id}'`);
+		const d = await misc.query(`SELECT * FROM usersBody WHERE id = '${player.guid}'`);
 		if (!d[0].gender) return this.openMenu(player);
 		if (d[0].gender === 'm') player.model = 1885233650;
 		else if (d[0].gender === 'w') player.model = 2147483647;
@@ -71,15 +85,5 @@ class sCharCreator {
 	}
 }
 
-const charCreator = new sCharCreator();
-
-
-async function createNewUser() {
-	await charCreator.createNewUser();
-}
-module.exports.createNewUser = createNewUser;
-
-async function loadPlayerBody(player) {
-	await charCreator.loadPlayerBody(player);
-}
-module.exports.loadPlayerBody = loadPlayerBody;
+const charCreator = new CharCreator();
+module.exports = charCreator;

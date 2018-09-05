@@ -1,19 +1,8 @@
-"use strict"
 
-const mysql = require("./sMysql");
+
 const log4js = require('log4js');
+const mysql = require("./sMysql");
 
-
-log4js.configure({
-    appenders: { 
-        file: { type: 'file', filename: `serverLogs.log` },
-        console: { type: 'console' },
-    },
-    categories: { default: { appenders: ['file', 'console'], level: 'debug' } }
-  });
-const log = log4js.getLogger();
-log.fatal("Server Started");
-exports.log = log;
 
 /*
 logger.trace('Entering cheese testing');
@@ -26,122 +15,115 @@ logger.fatal('Cheese was breeding ground for listeria.');
 */
 
 
-function dbquery(query) {
-    return new Promise( (r, j) => mysql.query(query, null , (err, data) => {
-		if (err) {
-			log.error(query);
-			return j(err);
+class MiscSingleton {
+	constructor() {
+		log4js.configure({
+			appenders: { 
+				file: { type: 'file', filename: `serverLogs.log` },
+				console: { type: 'console' },
+			},
+			categories: { default: { appenders: ['file', 'console'], level: 'debug' } }
+		  });
+		this.log = log4js.getLogger();
+		this.log.fatal("Server Started");
+	}
+	
+	dbquery(query) {
+		return new Promise( (r, j) => mysql.query(query, null , (err, data) => {
+			if (err) {
+				this.log.error(query);
+				return j(err);
+			}
+			r(data);
+		}))
+	}
+
+	async query(query) {
+		const start = new Date().getTime(); 
+		const data = await this.dbquery(query);
+		const time = new Date().getTime() - start;
+		if (time >= 500) {
+			this.log.warn(`'${query}' ends with: ${time / 1000}s`);
 		}
-		r(data);
-	}))
-}
-
-async function query(query) {
-	const start = new Date().getTime(); 
-	const data = await dbquery(query);
-	const time = new Date().getTime() - start;
-	if (time >= 500) {
-		log.warn(`'${query}' ends with: ${time / 1000}s`);
-	}
-	else {
-		log.trace(`'${query}' ends with: ${time / 1000}s`);
-	}
-	return data;
-}
-module.exports.query = query;
-
-
-
-function roundNum(number, ends = 0) {
-	return parseFloat(number.toFixed(ends));
-}
-module.exports.roundNum = roundNum;
-
-function convertOBJToJSON(pos, rot, changeHeight = 0) {
-	const obj = {
-		x: roundNum(pos.x, 1),
-		y: roundNum(pos.y, 1),
-		z: roundNum(pos.z + changeHeight, 1),
-		rot: roundNum(rot, 1),
-	}
-	return JSON.stringify(obj);
-}
-module.exports.convertOBJToJSON = convertOBJToJSON;
-
-function setPlayerPosFromJSON(player, json) {
-	const d = JSON.parse(json);
-	player.position = new mp.Vector3(d.x, d.y, d.z);
-	player.heading = d.rot;
-}
-module.exports.setPlayerPosFromJSON = setPlayerPosFromJSON;
-
-function isValueNumber(value) {
-	if (typeof value !== "number") {
-		return false;
-	}
-	return true;
-}
-module.exports.isValueNumber = isValueNumber;
-
-function isValueString(value) {
-	if (typeof value !== "string") {
-		return false;
-	}
-	return true;
-}
-module.exports.isValueString = isValueString;
-
-function getRandomInt(min = 0, max = 100) {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-module.exports.getRandomInt = getRandomInt;
-
-
-function updateName(player) {
-	player.name = `${player.basic.firstName} ${player.basic.lastName}`;
-}
-module.exports.updateName = updateName;
-
-function getAdminLvl(player) {
-	return player.basic.adminlvl;
-}
-module.exports.getAdminLvl = getAdminLvl;
-
-function getNearestPlayerInRange(player, range) {
-	let playersInRange = [];
-	mp.players.forEachInRange(player.position, range, (pl) => {
-		if (player.name !== pl.name) {
-			playersInRange.push(pl);
+		else {
+			this.log.trace(`'${query}' ends with: ${time / 1000}s`);
 		}
-		
-	});
-	let nearestPl = playersInRange[0];
-	for (let i = 1; i < playersInRange.length; i++) {
-		if (playersInRange[i].dist(player.position) < nearestPl.dist(player.position)) {
-			nearestPl = playersInRange[i];
-		}
+		return data;
 	}
-	return nearestPl;
-}
-module.exports.getNearestPlayerInRange = getNearestPlayerInRange;
 
-function getPlayer(idOrName) {
-	if (isValueNumber(idOrName)) return getPlayerById(idOrName);
-	else if (isValueString(idOrName)) return getPlayerByName(idOrName);
+	roundNum(number, ends = 0) {
+		return parseFloat(number.toFixed(ends));
+	}
 
-	function getPlayerById(id) {
+	isValueNumber(value) {
+		if (typeof value !== "number") return false;
+		return true;
+	}
+
+	isValueString(value) {
+		if (typeof value !== "string") return false;
+		return true;
+	}
+
+	getRandomInt(min = 0, max = 100) {
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+	getPlayersInRange(position, range) {
+		if (!this.isValueNumber(range)) return false;
 		const players = mp.players.toArray();
-		for (let player of players) {
-			if (player.loggedIn && player.basic.id === id) return player;
+		const playersInRange = [];
+		for (const player of players) {
+			if (player.dist(position) < range) {
+				playersInRange.push(player);
+			}
 		}
-		return false;
+		return playersInRange;
 	}
-	function getPlayerByName(name) {
+
+	getNearestPlayerInRange(position, range) {
+		const playersInRange = this.getPlayersInRange(position, range);
+		if (!playersInRange) return false;
+		let nearestPlayer = 0;
+		for (const player of playersInRange) {
+			if (player.dist(position) < playersInRange[nearestPlayer].dist(position)) {
+				nearestPlayer = playersInRange.indexOf(player);
+			}
+		}
+		return playersInRange[nearestPlayer];
+	}
+
+	getTime() {
+		const currentTime = new Date();
+		let h = currentTime.getHours();
+		let m = currentTime.getMinutes();
+		let s = currentTime.getSeconds();
+		if (h < 10) h = `0${h}`;
+		if (m < 10) m = `0${m}`;
+		if (s < 10) s = `0${s}`;
+		return `${h}:${m}:${s}`;
+	}
+
+	getPlayerByGuid(id) {
 		const players = mp.players.toArray();
-		for (let player of players) {
-			if (player.name === name) return player;
+		for (const player of players) {
+			if (player.guid === id) return player;
 		}
 		return false;
 	}
+
+	getPlayerCoordJSON(player) {
+		const obj = { 
+			x: player.position.x, 
+			y: player.position.y, 
+			z: player.position.z, 
+			rot: player.heading, 
+			dim: player.dimension, 
+		}
+		if (player.vehicle) obj.rot = player.vehicle.rotation.z;
+		return JSON.stringify(obj);
+	}
+
 }
-module.exports.getPlayer = getPlayer;
+const miscSingleton = new MiscSingleton();
+module.exports = miscSingleton;

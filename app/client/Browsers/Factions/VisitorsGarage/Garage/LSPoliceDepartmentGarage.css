@@ -1,0 +1,8 @@
+﻿.b-title {
+	color: dodgerblue;
+}
+
+.item:hover {
+	border: 1px solid dodgerblue;
+	color: dodgerblue;
+}

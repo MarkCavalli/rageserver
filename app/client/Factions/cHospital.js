@@ -1,4 +1,3 @@
-"use strict"
 
 const misc = require('../cMisc');
 
@@ -13,16 +12,6 @@ mp.events.add(
 		misc.injectCef(inject);
 	},
 
-	"cHospital-ShowGarageMenu" : (lang) => {
-		misc.prepareToCef(1);
-		misc.openCef("package://RP/Browsers/Factions/Hospital/garageMenu.html", lang);
-		misc.createCam(-514.154, -285.073, 35.8, 0, 0, 177.02, 30);
-	},
-
-	"cHospital-ShowLiftMenu" : (lang) => {
-		misc.prepareToCef(1);
-		misc.openCef("package://RP/Browsers/Factions/Hospital/liftMenu.html", lang);
-	},
 });
 
 // This need to be reworked.

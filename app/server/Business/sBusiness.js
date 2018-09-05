@@ -1,8 +1,7 @@
-"use strict"
 
 const misc = require('../sMisc');
 const i18n = require('../sI18n');
-const money = require('../Basic/sMoney');
+const moneySingletone = require('../Basic/Money/sMoney');
 
 
 const businessList = [];
@@ -18,6 +17,11 @@ class business {
 		this.balance = d.balance;
 		this.buyerMenuCoord = JSON.parse(d.buyerMenuCoord);
 		this.updateOwner();
+
+		businessList.push(this);
+		this.createMainEntities();
+		this.createBuyerEntities();
+		this.setLocalSettings();
 	}
 
 	createMainEntities() {
@@ -53,46 +57,60 @@ class business {
 
 	async updateOwner() {
 		if (this.ownerId) {
-			await misc.query(`UPDATE business SET ownerId = '${this.ownerId}' WHERE id = ${this.id}`);
-			const d = await misc.query(`SELECT firstName, lastName from users WHERE id = '${this.ownerId}'`);
+			await misc.query(`UPDATE business SET ownerId = '${this.ownerId}' WHERE id = ${this.id} LIMIT 1`);
+			const d = await misc.query(`SELECT firstName, lastName from users WHERE id = '${this.ownerId}' LIMIT 1`);
 			this.owner = `${d[0].firstName} ${d[0].lastName}`;
 		}
 		else {
-			await misc.query(`UPDATE business SET ownerId = '0' WHERE id = ${this.id}`);
+			await misc.query(`UPDATE business SET ownerId = '0' WHERE id = ${this.id} LIMIT 1`);
 			this.ownerId = 0;
 			this.owner = ``;
 		}
 	}
 
+	isPlayerHasBusiness(id) {
+		for (let i = 0; i < businessList.length; i++) {
+			if (businessList[i].ownerId === id) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	async buyBusiness(player) {
 		if (this.ownerId) return;
-		if (isPlayerHasBusiness(player.basic.id)) return player.notify(`~r~${i18n.get('sBusiness', 'alreadyHave', player.lang)}!`);
-		const canBuy = await money.changeMoney(player, -this.price);
+		if (this.isPlayerHasBusiness(player.guid)) return player.notify(`~r~${i18n.get('sBusiness', 'alreadyHave', player.lang)}!`);
+		const canBuy = await player.changeMoney(-this.price);
 		if (!canBuy) return;
-		this.ownerId = player.basic.id;
+		this.ownerId = player.guid;
 		misc.log.debug(`${player.name} bought a businnes №${this.id}`);
 		this.updateMarker();
 		await this.updateOwner();
 		player.notify(`~g~${i18n.get('basic', 'success', player.lang)}!`);
 	}
 	
-  async sellBusiness(ownerId) {
+	async sellBusiness(ownerId) {
 		if (this.ownerId !== ownerId) return;
 		this.ownerId = 0;
 		const d = await misc.query(`SELECT lang from users WHERE id = '${ownerId}' LIMIT 1`);
-		money.addToBankMoney(ownerId, this.price * 0.5, `${i18n.get('sBusiness', 'sale', `${d[0].lang}`)}`)
+		const owner = misc.getPlayerByGuid(ownerId);
+		if (!owner) {
+			await moneySingletone.addBankMoneyOffline(ownerId, this.price * 0.5);
+		}
+		else {
+			await owner.addBankMoney(this.price * 0.5, `${i18n.get('sBusiness', 'sale', `${d[0].lang}`)}`);
+		}
 		misc.log.debug(`${ownerId} sold a businnes №${this.id}`);
 		this.updateMarker();
 		await this.updateOwner();
 	}
 
-
 	async takeBalanceMoney(player) {
-		if (this.ownerId !== player.basic.id || this.balance === 0) return;
-		await misc.query(`UPDATE business SET balance = 0 WHERE id = ${this.id}`);
-		await money.changeMoney(player, +this.balance);
-		misc.log.debug(`${player.name} takes a business №${this.id} balance: $${this.balance}`);
+		if (this.ownerId !== player.guid || this.balance === 0) return;
+		await misc.query(`UPDATE business SET balance = 0 WHERE id = ${this.id} LIMIT 1`);
+		await player.changeMoney(+this.balance);
 		this.balance = 0;
+		misc.log.debug(`${player.name} takes a business №${this.id} balance: $${this.balance}`);
 	}
 
 	addMoneyToBalance(value) {
@@ -104,34 +122,37 @@ class business {
 	async setMargin(ownerId, newMargin) {
 		if (this.ownerId !== ownerId || newMargin === this.margin) return;
 		if (!misc.isValueNumber(newMargin)) return misc.log.error(`setMargin | newMargin is not a number: ${newMargin}, id: ${this.id}`);
-		if (0 >  newMargin || newMargin > 200) return;
-		await misc.query(`UPDATE business SET margin = ${newMargin} WHERE id = ${this.id}`);
+		if (newMargin <  0 || newMargin > 200) return;
+		await misc.query(`UPDATE business SET margin = ${newMargin} WHERE id = ${this.id} LIMIT 1`);
 		this.margin = newMargin;
 		misc.log.debug(`${this.owner} sets a business №${this.id} margin: ${this.margin}`);
 	}
 
 	async payTaxes() {
 		if (!this.ownerId) return;
-		const isTaxSuccess = await money.payTaxOffline(this.ownerId, this.price / 10000, `${this.title}`);
+		const owner = misc.getPlayerByGuid(this.ownerId);
+		let isTaxSuccess;
+		if (!owner) isTaxSuccess = await moneySingletone.payTaxOffline(this.ownerId, this.price / 10000);
+		else isTaxSuccess = await owner.payTax(this.price / 10000, `${this.title}`);
 		if (isTaxSuccess) return;
 		this.sellBusiness(this.ownerId);
 	}
 
 	openBusinessMenu(player) {
-		const str1 = `app.id = ${this.id};`;
-		const str2 = `app.title = '${this.title}';`;
-		const str3 = `app.price = ${this.price};`;
-		const str4 = `app.owner = '${this.owner}';`;
-		const str5 = `setTimeout(load, 300);`; // For add transition effect
+		let execute = `app.id = ${this.id};`;
+		execute += `app.title = '${this.title}';`;
+		execute += `app.price = ${this.price};`;
+		execute += `app.owner = '${this.owner}';`;
+		execute += `setTimeout(load, 300);`; // For add transition effect
 	
-		const str6 = `app.balance = ${this.balance};`;
-		const str7 = `app.margin = ${this.margin};`;
-		const str8 = `app.loadForOwner();`;
-		const str9 = `app.loadForSale();`;
-	
-		let execute = str1 + str2 + str3 + str4 + str5;
-		if (this.ownerId === player.basic.id) execute += str6 + str7 + str8;
-		else if (!this.ownerId) execute += str9;
+		if (this.ownerId === player.guid) {
+			execute += `app.balance = ${this.balance};`;
+			execute += `app.margin = ${this.margin};`;
+			execute += `app.loadForOwner();`;
+		}
+		else if (!this.ownerId) {
+			execute += `app.loadForSale();`;
+		}
 		
 		player.call("cBusinnes-ShowMenu", [player.lang, execute]);
 		misc.log.debug(`${player.name} enters Business Menu`);
@@ -139,6 +160,19 @@ class business {
 }
 module.exports = business;
 
+
+function getBusiness(id) {
+	for (let i = 0; i < businessList.length; i++) {
+		if (businessList[i].id === id) return businessList[i];
+	}
+}
+module.exports.getBusiness = getBusiness;
+
+
+function getCurrentBusiness(player) {
+	if (!player.canOpen.business) return false;
+	return getBusiness(player.canOpen.business);
+}
 
 
 mp.events.add({
@@ -160,45 +194,36 @@ mp.events.add({
 	"sKeys-E" : (player) => {
 		if (!player.loggedIn) return;
 		if (player.canOpen.business && !player.vehicle) {
-			const business = getBusiness(player.canOpen.business);
-			business.openBusinessMenu(player);
+			const bus = getBusiness(player.canOpen.business);
+			bus.openBusinessMenu(player);
 		}
 		else if (player.canOpen.businessBuyerMenu) {
-			const business = getBusiness(player.canOpen.businessBuyerMenu);
-			business.openBuyerMenu(player);
+			const bus = getBusiness(player.canOpen.businessBuyerMenu);
+			bus.openBuyerMenu(player);
 		}
 	},
 
 	"sBusiness-BuyBusiness" : (player) => {
-		const business = getCurrentBusiness(player);
-		if (business) business.buyBusiness(player);
+		const bus = getCurrentBusiness(player);
+		if (bus) bus.buyBusiness(player);
 	},
 
 	"sBusiness-SellBusiness" : (player) => {
-		const business = getCurrentBusiness(player);
-		if (business) business.sellBusiness(player.basic.id);
+		const bus = getCurrentBusiness(player);
+		if (bus) bus.sellBusiness(player.guid);
 	},
 
 	"sBusiness-TakeBalanceMoney" : (player) => {
-		const business = getCurrentBusiness(player);
-		if (business) business.takeBalanceMoney(player);
+		const bus = getCurrentBusiness(player);
+		if (bus) bus.takeBalanceMoney(player);
 	},
 
 	"sBusiness-ChangeMargin" : (player, margin) => {
-		const business = getCurrentBusiness(player);
-		if (business) business.setMargin(player.basic.id, margin);
+		const bus = getCurrentBusiness(player);
+		if (bus) bus.setMargin(player.guid, margin);
 	},
 });
 
-
-function isPlayerHasBusiness(id) {
-	for (let i = 0; i < businessList.length; i++) {
-		if (businessList[i].ownerId === id) {
-			return true;
-		}
-	}
-	return false;
-}
 
 function payTaxes() {
 	for (let i = 0; i < businessList.length; i++) {
@@ -207,35 +232,16 @@ function payTaxes() {
 }
 module.exports.payTaxes = payTaxes;
 
-function addNewBusinessToList(business) {
-	businessList.push(business);
-}
-module.exports.addNewBusinessToList = addNewBusinessToList;
-
-function getBusiness(id) {
-	for (let i = 0; i < businessList.length; i++) {
-		if (businessList[i].id === id) {
-			return businessList[i];
-		}
-	}
-}
-module.exports.getBusiness = getBusiness;
 
 function getCountOfBusinesses() {
 	return businessList.length;
 }
 module.exports.getCountOfBusinesses = getCountOfBusinesses;
 
-function getCurrentBusiness(player) {
-	if (!player.canOpen.business) return;
-	const id = player.canOpen.business;
-	return getBusiness(id);
-}
-
 mp.events.addCommand({
 	'setbusbuyermenu' : async (player, id) => {
-		if (misc.getAdminLvl(player) < 1) return;
-		const coord = misc.convertOBJToJSON(player.position, player.heading);
+		if (player.adminLvl < 1) return;
+		const coord = misc.getPlayerCoordJSON(player);
 		await misc.query(`UPDATE business SET buyerMenuCoord = '${coord}' WHERE id = ${id}`);
 		player.notify(`~g~${i18n.get('basic', 'success', player.lang)}!`);
 	},	
@@ -244,10 +250,13 @@ mp.events.addCommand({
 
 function getNearestBusiness(name, playerPosition) {
 	let nearestBus;
-	for (let bus of businessList) {
-		if (bus.title === name) return nearestBus = bus;
+	for (const bus of businessList) {
+		if (bus.title === name) {
+			nearestBus = bus;
+			break;
+		}
 	}
-	for (let bus of businessList) {
+	for (const bus of businessList) {
 		if (bus.title !== name) continue;
 		if (bus.blip.dist(playerPosition) < nearestBus.blip.dist(playerPosition)) {
 			nearestBus = bus;

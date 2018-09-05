@@ -1,11 +1,8 @@
-"use strict";
-
-const misc = require('../sMisc');
-const moneyAPI = require('./sMoney');
+const moneyAPI = require('./Money/sMoney');
 const business = require('../Business/sBusiness');
 
 
-class gpsClass {
+class GPS {
 	constructor () {
 		mp.events.add('sGPS-CreateRoute', (player, str) => {
 			const d = JSON.parse(str);
@@ -48,7 +45,6 @@ class gpsClass {
 				x = pos.x;
 				y = pos.y;
 			}
-
 			this.createRoute(player, x, y);
 		});
 
@@ -59,4 +55,4 @@ class gpsClass {
 	}
 
 }
-const gps = new gpsClass();
+new GPS();
