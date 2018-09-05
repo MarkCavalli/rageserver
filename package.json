@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "https-proxy-agent": "^2.2.1",
     "log4js": "^2.5.3",
     "mysql": "^2.15.0",
-    "nodemailer": "^4.6.7"
+    "nodemailer": "^4.6.7",
+    "timespan": "^2.3.0"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^4.5.1",
