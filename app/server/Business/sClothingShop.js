@@ -1,13 +1,11 @@
-"use strict"
 
 const business = require('./sBusiness');
 const misc = require('../sMisc');
 const clothes = require('../Character/sClothes');
-const moneyAPI = require('../Basic/sMoney');
 const i18n = require('../sI18n');
 
 
-class clothingShop extends business {
+class ClothingShop extends business {
     constructor(d) {
 		super(d);
 		this.camData = JSON.parse(d.camData);
@@ -24,7 +22,7 @@ class clothingShop extends business {
 		const price = clothes.getPrice(player, d.title, d.number);
 		const shopTax = misc.roundNum(price * this.margin / 100);
 		const endPrice = price + shopTax;
-		const canBuy = await moneyAPI.changeMoney(player, -endPrice);
+		const canBuy = await player.changeMoney(-endPrice);
 		if (!canBuy) return;
 
 		await this.addMoneyToBalance(shopTax);
@@ -52,16 +50,14 @@ class clothingShop extends business {
 	
 	openBuyerMenu(player) {
 		if (player.vehicle) return;
-		misc.setPlayerPosFromJSON(player, this.buyerStandCoord);
-		let cloth;
-		if (player.model === 1885233650) cloth = `loadMans();`;
-		else cloth = `loadWomans();`;
+		player.tp(JSON.parse(this.buyerStandCoord));
+		let execute;
+		if (player.model === 1885233650) execute = `loadMans();`;
+		else execute = `loadWomans();`;
 
-		const str1 = `app.id = ${this.id};`;
-		const str2 = `app.margin = ${this.margin};`;
-		const str3 = `app.camRotation = ${this.camData.rz - 180};`;
-
-		let execute = str1 + str2 + str3 + cloth;
+		execute += `app.id = ${this.id};`;
+		execute += `app.margin = ${this.margin};`;
+		execute += `app.camRotation = ${this.camData.rz - 180};`;
 	
 		player.call("cClothingShop-ShowBuyerMenu", [player.lang, execute, this.camData]);
 		misc.log.debug(`${player.name} enter a clothing shop menu`);
@@ -69,21 +65,15 @@ class clothingShop extends business {
 }
 
 
-function createClothingShop(d) {
-	const shop = new clothingShop(d);
-	shop.createMainEntities();
-	shop.createBuyerEntities();
-	shop.setLocalSettings();
-	business.addNewBusinessToList(shop);
-}
-
 async function loadClothingShops() {
 	const d = await misc.query("SELECT * FROM business INNER JOIN clothingshop ON business.id = clothingshop.id");
 	for (let i = 0; i < d.length; i++) {
-		createClothingShop(d[i]);
+		new ClothingShop(d[i]);
 	}
 }
 loadClothingShops();
+
+
 
 mp.events.add({
 	"sClothingShop-BuyCloth" : (player, data) => {
@@ -99,50 +89,27 @@ mp.events.add({
 
 mp.events.addCommand({
 	'createclothingshop' : async (player, enteredprice) => {
-		if (misc.getAdminLvl(player) < 1) return;
+		if (player.adminLvl < 1) return;
 		const id = business.getCountOfBusinesses() + 1;
-		const coord = misc.convertOBJToJSON(player.position, player.heading);
+		const coord = misc.getPlayerCoordJSON(player);
 		const price = Number(enteredprice.replace(/\D+/g,""));
-		const query1 = misc.query(`INSERT INTO business (title, coord, price) VALUES ('Clothing Shop', '${coord}', '${price}');`);
+		const query1 = misc.query(`INSERT INTO business (id, title, coord, price) VALUES ('${id}', 'Clothing Shop', '${coord}', '${price}');`);
 		const query2 = misc.query(`INSERT INTO clothingshop (id) VALUES ('${id}');`);	
 		await Promise.all([query1, query2]);
 		player.outputChatBox("!{#4caf50} Clothing shop successfully created!");
 	},	
 
 	'setchbuyerstandcoord' : async (player, id) => {
-		if (misc.getAdminLvl(player) < 1) return;
-		const coord = misc.convertOBJToJSON(player.position, player.heading);
+		if (player.adminLvl < 1) return;
+		const coord = misc.getPlayerCoordJSON(player);
 		await misc.query(`UPDATE clothingshop SET buyerStandCoord = '${coord}' WHERE id = ${id}`);
 		player.notify(`~g~${i18n.get('basic', 'success', player.lang)}!`);
 	},
 
-	'setchcamdata' : async (player, fullText, id) => {
-		if (misc.getAdminLvl(player) < 1) return;
+	'setchcamdata' : async (player, id) => {
+		if (player.adminLvl < 1) return;
 		const shop = business.getBusiness(+id);
 		shop.updateCamData(player);
 	},	
 
-
 });
-
-
-/* 
-
-How to add new clothing shop:
-
-1. /createclothingshop [price] to set the position of buying clothing shop menu and price.
-Go into db's business table and get the latest id
-
-2. /setbusbuyermenu [id] to set shopping menu place.
-
-Restart server
-
-3. /setchbuyerstandcoord id to set the standing place when customer buying clothes.
-
-4. Find a place that you can see your charactor when changing clothes and /setchcamdata id to set camera.
-
-Restart server again
-
-Caution: The "id" of your clothingshop in "clothingshop" db table MUST BE THE SAME as in "business" one.
-
-*/

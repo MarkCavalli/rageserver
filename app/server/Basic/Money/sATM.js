@@ -1,10 +1,9 @@
-"use strict"
-
-const misc = require('../sMisc');
-const i18n = require('../sI18n');
+const misc = require('../../sMisc');
+const i18n = require('../../sI18n');
 
 
-class atmsClass{
+
+class ATMSingletone {
 	constructor() {
 		mp.events.add({
 			"playerEnterColshape" : (player, shape) => {
@@ -42,7 +41,7 @@ class atmsClass{
 			},
 		});
 	}
-
+	
 	createATM(x, y, z) {
 		const shape = mp.colshapes.newSphere(x, y, z, 0.5);
 		shape.atm = true;
@@ -55,6 +54,7 @@ class atmsClass{
 		});
 	}
 
+
 	getPlayerMoneyInfo(player) {
 		const str1 = `app.cash = ${player.money.cash};`;
 		const str2 = `app.bank = ${player.money.bank};`;
@@ -62,7 +62,7 @@ class atmsClass{
 		const str4 = `app.loadFines('${JSON.stringify(player.money.fines)}');`;
 		let totalFine = 0;
 		if (Array.isArray(player.money.fines)) {
-			for (let fine of player.money.fines) {
+			for (const fine of player.money.fines) {
 				totalFine += fine.val;
 			}
 		}
@@ -106,7 +106,7 @@ class atmsClass{
 	}
 
 	logATMOperation(player, before) {
-		player.call("cMoney-Update", [player.money.cash]);
+		player.updateCash();
 		const after = `$${player.money.cash} $${player.money.bank} $${player.money.tax}`;
 		misc.log.debug(`ATM | ${player.name} | ${before} >>> ${after}`);
 	}
@@ -114,7 +114,7 @@ class atmsClass{
 	async getCash(player, summ) {
 		if (!player.loggedIn || !misc.isValueNumber(summ) || player.money.bank < summ) return;
 		const before = `$${player.money.cash} $${player.money.bank} $${player.money.tax}`;
-		await misc.query(`UPDATE usersMoney SET cash = cash + ${summ}, bank = bank - ${summ} WHERE id = '${player.basic.id}'`);
+		await misc.query(`UPDATE usersMoney SET cash = cash + ${summ}, bank = bank - ${summ} WHERE id = '${player.guid}'`);
 		player.money.cash += summ;
 		player.money.bank -= summ;
 		this.logATMOperation(player, before);
@@ -124,7 +124,7 @@ class atmsClass{
 	async putCash(player, summ) {
 		if (!player.loggedIn || !misc.isValueNumber(summ) || player.money.cash < summ) return;
 		const before = `$${player.money.cash} $${player.money.bank} $${player.money.tax}`;
-		await misc.query(`UPDATE usersMoney SET cash = cash - ${summ}, bank = bank + ${summ} WHERE id = '${player.basic.id}'`);
+		await misc.query(`UPDATE usersMoney SET cash = cash - ${summ}, bank = bank + ${summ} WHERE id = '${player.guid}'`);
 		player.money.cash -= summ;
 		player.money.bank += summ;
 		this.logATMOperation(player, before);
@@ -134,7 +134,7 @@ class atmsClass{
 	async getTaxMoney(player, summ) {
 		if (!player.loggedIn || !misc.isValueNumber(summ) || player.money.tax < summ) return;
 		const before = `$${player.money.cash} $${player.money.bank} $${player.money.tax}`;
-		await misc.query(`UPDATE usersMoney SET cash = cash + ${summ}, tax = tax - ${summ} WHERE id = '${player.basic.id}'`);
+		await misc.query(`UPDATE usersMoney SET cash = cash + ${summ}, tax = tax - ${summ} WHERE id = '${player.guid}'`);
 		player.money.cash += summ;
 		player.money.tax -= summ;
 		this.logATMOperation(player, before);
@@ -144,7 +144,7 @@ class atmsClass{
 	async putTaxMoney(player, summ) {
 		if (!player.loggedIn || !misc.isValueNumber(summ) || player.money.cash < summ) return;
 		const before = `$${player.money.cash} $${player.money.bank} $${player.money.tax}`;
-		await misc.query(`UPDATE usersMoney SET cash = cash - ${summ}, tax = tax + ${summ} WHERE id = '${player.basic.id}'`);
+		await misc.query(`UPDATE usersMoney SET cash = cash - ${summ}, tax = tax + ${summ} WHERE id = '${player.guid}'`);
 		player.money.cash -= summ;
 		player.money.tax += summ;
 		this.logATMOperation(player, before);
@@ -157,20 +157,20 @@ class atmsClass{
 		const fineValue = player.money.fines[index].val;
 		player.money.cash -= fineValue;
 		player.money.fines.splice(index, 1);
-		await misc.query(`UPDATE usersMoney SET cash = cash - ${fineValue}, fines = '${JSON.stringify(player.money.fines)}' WHERE id = '${player.basic.id}'`);
+		await misc.query(`UPDATE usersMoney SET cash = cash - ${fineValue}, fines = '${JSON.stringify(player.money.fines)}' WHERE id = '${player.guid}'`);
 		this.logATMOperation(player, before);
 		misc.log.debug(`-$${fineValue} fine`);
 		this.updateATMInfo(player);
 	}
 
 }
-const atms = new atmsClass();
-atms.loadATMs();
+const atmSingletone = new ATMSingletone();
+atmSingletone.loadATMs();
 
 function getNearestATM(playerPosition) {
 	const atms = mp.blips.toArray();
 	let nearestATM = atms[0];
-	for (let atm of atms) {
+	for (const atm of atms) {
 		if (atm.name !== "ATM") continue;
 		if (atm.dist(playerPosition) < nearestATM.dist(playerPosition)) {
 			nearestATM = atm;
@@ -179,132 +179,3 @@ function getNearestATM(playerPosition) {
 	return nearestATM.position;
 }
 module.exports.getNearestATM = getNearestATM;
-
-
-
-
-
-class sMoney {
-	constructor() {
-
-	}
-
-	async createNewUser() {
-		await misc.query(`INSERT INTO usersMoney (cash) VALUES ('1500')`);
-	}
-
-	async loadUser(player) {
-		const d = await misc.query(`SELECT * FROM usersMoney WHERE id = '${player.basic.id}' LIMIT 1`);
-		player.money = {
-			cash: d[0].cash,
-			bank: d[0].bank,
-			tax: d[0].tax,
-			fines: JSON.parse(d[0].fines),
-		}
-		player.call("cMoney-Update", [d[0].cash]);
-	}
-
-	async changeMoney(player, value) {
-		if (!misc.isValueNumber(value)) {
-			misc.log.error(`changeMoney | Money is not a number: ${value}`);
-			return false;
-		}
-		if (player.money.cash + value < 0) {
-			player.notify(`~r~${i18n.get('sMoney', 'notEnoughCash', player.lang)}!`);
-			return false;
-		}
-		await misc.query(`UPDATE usersMoney SET cash = cash + ${value} WHERE id = '${player.basic.id}'`);
-		player.money.cash += value;
-		player.call("cMoney-Update", [player.money.cash]);
-		return true;
-	}
-
-	async addBankMoney(id, value, comment) {
-		if (!misc.isValueNumber(id) || !misc.isValueNumber(value) || value < 0) return;
-		await misc.query(`UPDATE usersMoney SET bank = bank + ${value} WHERE id = '${id}' LIMIT 1`);
-		const player = misc.getPlayer(id);
-		if (!player) return;
-		player.money.bank += value;
-		player.call("cMoney-SendNotification", [`${i18n.get('sMoney', 'addBankMoney', player.lang)}: ~g~$${value}. ~w~${comment}`]);
-	}
-
-	async payTaxOffline(id, value, comment) {
-		if (!misc.isValueNumber(id) || !misc.isValueNumber(value) || value < 0) return;
-		const d = await misc.query(`SELECT tax FROM usersMoney WHERE id = '${id}' LIMIT 1`);
-		if (value > d[0].tax) return false;
-		await misc.query(`UPDATE usersMoney SET tax = tax - ${value} WHERE id = '${id}'`);
-		const player = misc.getPlayer(id);
-		if (!player) return;
-		player.money.tax -= value;
-		player.call("cMoney-SendNotification", [`${i18n.get('sMoney', 'payTaxOffline', player.lang)}: ~g~$${value}. ~w~${comment}`]);
-		return true;
-	}
-
-	async newFine(id, value, comment) {
-		if (!misc.isValueNumber(id) || !misc.isValueNumber(value) || value < 0) return;
-		const d = await misc.query(`SELECT fines FROM usersMoney WHERE id = '${id}' LIMIT 1`);
-		let fines = JSON.parse(d[0].fines);
-		if (!fines) fines = [];
-		const newFine = {
-			date: new Date().toLocaleString(),
-			val: value,
-			txt: comment,
-		}
-		fines.push(newFine);
-		await misc.query(`UPDATE usersMoney SET fines = '${JSON.stringify(fines)}' WHERE id = '${id}'`);
-		const player = misc.getPlayer(id);
-		if (!player) return;
-		player.money.fines = fines;
-		player.call("cMoney-SendNotification", [`${i18n.get('sMoney', 'newFine', player.lang)}: ~r~$${value}. ~w~${comment}`]);
-	}
-
-}
-const money = new sMoney();
-
-
-
-mp.events.addCommand({	
-	'givecash' : (player, fullText, id, value) => {
-		if (misc.getAdminLvl(player) < 1) return;
-		money.changeMoney(mp.players.at(+id), +value);
-	},
-
-});
-
-
-
-
-function createNewUser() {
-	return money.createNewUser();
-}
-module.exports.createNewUser = createNewUser;
-
-function loadUser(player) {
-	return money.loadUser(player);
-}
-module.exports.loadUser = loadUser;
-
-function getCash(player) {
-	return player.money.cash;
-};
-module.exports.getCash = getCash;
-
-function changeMoney(player, value) {
-	return money.changeMoney(player, value);
-};
-module.exports.changeMoney = changeMoney;
-
-async function addToBankMoney(id, value, comment) {
-	return money.addBankMoney(id, value, comment);
-}
-module.exports.addToBankMoney = addToBankMoney;
-
-async function payTaxOffline(id, value, comment) {
-	return money.payTaxOffline(id, value, comment);
-}
-module.exports.payTaxOffline = payTaxOffline;
-
-async function newFine(id, value, comment) {
-	return money.newFine(id, value, comment);
-}
-module.exports.newFine = newFine;

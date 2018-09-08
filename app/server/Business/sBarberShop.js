@@ -1,13 +1,10 @@
-"use strict"
-
 const business = require('./sBusiness');
 const misc = require('../sMisc');
-const headOverlay = require('../Character/sHeadOverlay');
-const moneyAPI = require('../Basic/sMoney');
+const headOverlaySingletone = require('../Character/sHeadOverlay');
 const i18n = require('../sI18n');
 
 
-class clothingShop extends business {
+class ClothingShop extends business {
     constructor(d) {
 		super(d);
 		this.camData = JSON.parse(d.camData);
@@ -21,18 +18,16 @@ class clothingShop extends business {
 	openBuyerMenu(player) {
 		if (player.vehicle) return;
 		const d = this.buyerMenuCoord;
-		player.position = new mp.Vector3(d.x, d.y, d.z);
-		player.heading = d.rot;
+		d.dim = 0;
+		player.tp(d);
 
-		let gender;
-		if (player.model === 1885233650) gender = `app.loadMans();`;
-		else gender = `app.loadWomans();`;
+		let execute
+		if (player.model === 1885233650) execute = `app.loadMans();`;
+		else execute = `app.loadWomans();`;
 
-		const str1 = `app.id = ${this.id};`;
-		const str2 = `app.margin = ${this.margin};`;
-		const str3 = `app.camRotation = ${player.heading};`;
-
-		let execute = str1 + str2 + str3 + gender;
+		execute += `app.id = ${this.id};`;
+		execute += `app.margin = ${this.margin};`;
+		execute += `app.camRotation = ${player.heading};`;
 	
 		player.call("cBarberShop-ShowBuyerMenu", [player.lang, execute, this.camData]);
 		misc.log.debug(`${player.name} enter a barber shop menu`);
@@ -58,10 +53,10 @@ class clothingShop extends business {
 		const price = this.getPrice(d);
 		const shopTax = misc.roundNum(price * this.margin / 100);
 		const endPrice = price + shopTax;
-		const canBuy = await moneyAPI.changeMoney(player, -endPrice);
+		const canBuy = await player.changeMoney(-endPrice);
 		if (!canBuy) return;
 		await this.addMoneyToBalance(shopTax);
-		await headOverlay.saveHeadOverlay(player, d);
+		await headOverlaySingletone.saveHeadOverlay(player, d);
 		player.notify(`~g~${i18n.get('basic', 'success', player.lang)}!`);
 		misc.log.debug(`${player.name} bought something in barbershop for $${endPrice}`);
 	}
@@ -77,19 +72,10 @@ class clothingShop extends business {
 
 }
 
-
-function createBarberShop(d) {
-	const shop = new clothingShop(d);
-	shop.createMainEntities();
-	shop.createBuyerEntities();
-	shop.setLocalSettings();
-	business.addNewBusinessToList(shop);
-}
-
 async function loadBarberShops() {
 	const d = await misc.query("SELECT * FROM business INNER JOIN barbershop ON business.id = barbershop.id");
 	for (let i = 0; i < d.length; i++) {
-		createBarberShop(d[i]);
+		new ClothingShop(d[i]);
 	}
 }
 loadBarberShops();
@@ -106,54 +92,34 @@ mp.events.add({
 		player.setHeadOverlay(d.id, [d.index, d.opacity, 1, 1]);
 	},
 
-	"sBarberShop-BuyThing" : (player, data) => {
+	"sBarberShop-BuyThing" : async (player, data) => {
 		const d = JSON.parse(data);
 		const shop = business.getBusiness(d.id);
-		shop.buyThing(player, d);
+		await shop.buyThing(player, d);
+		player.updateHeadOverlay();
 	},
 
 	"sBarberShop-ReloadHeadOverlay" : (player) => {
-		headOverlay.loadPlayerHeadOverlay(player);
+		player.updateHeadOverlay();
 	},
 });
 
 mp.events.addCommand({
 	'createbarbershop' : async (player, enteredprice) => {
-		if (misc.getAdminLvl(player) < 1) return;
+		if (player.adminLvl < 1) return;
 		const id = business.getCountOfBusinesses() + 1;
-		const coord = misc.convertOBJToJSON(player.position, player.heading);
+		const coord = misc.getPlayerCoordJSON(player);
 		const price = Number(enteredprice.replace(/\D+/g,""));
-		const query1 = misc.query(`INSERT INTO business (title, coord, price) VALUES ('Barber Shop', '${coord}', '${price}');`);
+		const query1 = misc.query(`INSERT INTO business (id, title, coord, price) VALUES ('${id}', 'Barber Shop', '${coord}', '${price}');`);
 		const query2 = misc.query(`INSERT INTO barbershop (id) VALUES ('${id}');`);	
 		await Promise.all([query1, query2]);
 		player.outputChatBox("!{#4caf50} Barber shop successfully created!");
 	},	
 
-	'setbscamdata' : async (player, fullText, id) => {
-		if (misc.getAdminLvl(player) < 1) return;
+	'setbscamdata' : async (player, id) => {
+		if (player.adminLvl < 1) return;
 		const shop = business.getBusiness(+id);
 		shop.updateCamData(player);
 	},	
 
 });
-
-/* 
-
-How to add new Barber Shop:
-
-1. /createbarbershop [price] to set the position of buying Barber Shop menu and price.
-Go into db's business table and get the latest id
-
-2. /setbusbuyermenu [id] to set Barber Shop customer menu place.
-
-Restart server
-
-3. /setchbuyerstandcoord id to set the standing place when customer buying clothes.
-
-4. Find a place that you can see your charactor when changing clothes and /setchcamdata id to set camera.
-
-Restart server again
-
-Caution: The "id" of your Barber Shop in "barbershop" db table MUST BE THE SAME as in "business" one.
-
-*/

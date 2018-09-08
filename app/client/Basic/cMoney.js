@@ -1,7 +1,6 @@
-"use strict"
 
 const misc = require('../cMisc');
-const player = mp.players.local;
+
 let money;
 
 mp.events.add(

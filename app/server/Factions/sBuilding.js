@@ -1,8 +1,4 @@
-"use strict"
-
 const misc = require('../sMisc');
-const vehicleAPI = require('../Basic/sVehicle');
-const i18n = require('../sI18n');
 
 
 const buildingList = [];
@@ -17,23 +13,12 @@ class building {
 
 	createBlip(id, pos, color, name, scale, dim) {
 		if (!misc.isValueNumber(id) || !misc.isValueNumber(color) || !misc.isValueString(name) || !misc.isValueNumber(scale) || !misc.isValueNumber(dim)) return;
-		return mp.blips.new(id, new mp.Vector3(pos.x, pos.y, pos.z),
-		{	
-			shortRange: true,
-			color: color,
-			name: name,
-			scale: scale,
-			dimension: dim,
-		});
+		return mp.blips.new(id, new mp.Vector3(pos.x, pos.y, pos.z),{ shortRange: true, color, name, scale, dimension: dim });
 	}
 
 	createMarker(id, pos, height, radius, color, dim) {
 		if (!misc.isValueNumber(id) || !misc.isValueNumber(height) || !misc.isValueNumber(radius) ||  !misc.isValueNumber(dim)) return;
-		return mp.markers.new(id, new mp.Vector3(pos.x, pos.y, pos.z + height), radius, 
-		{
-			color: color,
-			dimension: dim,
-		});
+		return mp.markers.new(id, new mp.Vector3(pos.x, pos.y, pos.z + height), radius, { color, dimension: dim });
 	}
 
 	createDoubleEntrance(d) {
@@ -50,10 +35,7 @@ class building {
 		if (d.outMarkerId) this.createMarker(d.outMarkerId, d.outPos, d.outMarkerHeightAdjust, d.outMarkerR, d.outMarkerCol, d.outPos.dim);
 		if (d.inMarkerId) this.createMarker(d.inMarkerId, d.inPos, d.inMarkerHeightAdjust, d.inMarkerR, d.inMarkerCol, d.outPos.dim);
 
-		const obj = {
-			out: outShape,
-			in: inShape,
-		}
+		const obj = { out: outShape, in: inShape }
 		return obj;
 	}
 
@@ -63,9 +45,7 @@ class building {
 		const outShape = mp.colshapes.newSphere(d.outPos.x, d.outPos.y, d.outPos.z, d.outShapeR);
 		outShape.dimension = d.outPos.dim;
 		this.setShapeData(outShape);
-		const obj = {
-			out: outShape,
-		}
+		const obj = { out: outShape }
 		return obj;
 	}
 
@@ -75,23 +55,19 @@ class building {
 		entranceId++;
 	}
 
-	enter(player, d) {
-		player.position = new mp.Vector3(d);
-		player.heading = d.rot;
-		player.dimension = d.dim;
-	}
-
-	enterByVeh(player, d) {
-		if (!vehicleAPI.isDriver(player)) return;
-		const vehicle = player.vehicle;
-		vehicle.position = new mp.Vector3(d);
-		player.heading = d.rot;
-		vehicle.dimension = d.dim;
-	}
 
 }
 module.exports = building;
 
+
+function getBuilding(id) {
+	for (let i = 0; i < buildingList.length; i++) {
+		if (buildingList[i].id === id) {
+			return buildingList[i];
+		}
+	}
+}
+module.exports.getBuilding = getBuilding;
 
 mp.events.add({
 	"playerEnterColshape" : (player, shape) => {
@@ -115,12 +91,3 @@ mp.events.add({
 		player.canEnter.building = false;
 	},
 });
-
-
-function getBuilding(id) {
-	for (let i = 0; i < buildingList.length; i++) {
-		if (buildingList[i].id === id) {
-			return buildingList[i];
-		}
-	}
-}

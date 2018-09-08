@@ -1,0 +1,87 @@
+﻿<html>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="interactiveMenu.css">
+	<script src="../../vue.js"></script>
+	<body>
+		<section id="app">
+	
+			<div class="b-patient">
+				{{ patientName }}<br>
+				<span>{{ currentPatientText }}</span>
+			</div>
+		
+			<section class="items">
+				<div class="item" v-on:click="increase">
+					<div>{{ increaseText }}</div>
+					<div class="item_price">$500</div>
+				</div>
+				<div class="item" @click="heal">
+					<div>{{ healText }}</div>
+					<div class="item_price">$5 000</div>
+				</div>
+			</section>
+			
+			<div class="b3-close" id="close-button" @click="exit">X</div>
+		</section>
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+	el: '#app',
+	data: {
+		patientId: 0,
+		patientName: "",
+		currentPatientText: "Current patient", 
+		increaseText: "Increase healing speed",
+		healText: "Heal",
+	},
+	methods: {
+		increase: function() {
+			mp.trigger("cMisc-CallServerEvent", "sHospital-IncreaseHealingSpeed", this.patientId);
+			this.exit();
+		},
+		
+		heal: function() {
+			mp.trigger("cMisc-CallServerEvent", "sHospital-Heal", this.patientId);
+			this.exit();
+		},
+
+
+		exit: function() {
+			mp.trigger("cCloseCef"); 
+		},
+	}
+});
+
+
+
+function loadRusLang() {
+	app.currentPatientText = "Текущий пациент";
+	app.increaseText = "Увеличить скорость выздоровления";
+	app.healText = "Вылечить";
+}
+
+function loadGerLang() {
+	app.currentPatientText = "Aktueller Patient";
+	app.increaseText = "Erhöhen Sie die Wiederherstellungsrate";
+	app.healText = "Patient Heilen";
+}
+
+function loadBrLang() {
+	
+}
+
+function loadzh_CNLang() {
+	app.currentPatientText = "当前病患";
+	app.increaseText = "加速治疗";
+	app.healText = "治疗";
+}
+
+function loadzh_TWLang() {
+	app.currentPatientText = "當前病患";
+	app.increaseText = "加速治療";
+	app.healText = "治療";
+}
+</script>

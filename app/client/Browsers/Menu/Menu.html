@@ -81,7 +81,7 @@
 			<div class="gps" v-if="currentTab === 1">
 				<div class="menu-items" style="border-top: 1px solid #aaa;">
 					<a @click="createGPSRoute('Orange Collector')">{{ d.i18n.orangeCollector }}</a>
-					<a @click="createGPSRoute('Clickin Bell Delivery Courier')">{{ d.i18n.cbDeliveryCourier }} <span style="color: tomato" v-if="d.loyality < 50">({{ d.i18n.minLoyality }}: 50)</span>
+					<a @click="createGPSRoute('Clickin Bell Delivery Courier')">{{ d.i18n.cbDeliveryCourier }} <span style="color: tomato" v-if="d.loyality < 5">({{ d.i18n.minLoyality }}: 5)</span>
 					</a>
 				</div>
 			</div>
@@ -154,7 +154,7 @@
 					<span>{{ d.i18n.sellFor }} <span style="color: limegreen;">${{ prettify(Math.round(d.vehicles[currentVeh].price * 0.5)) }}</span> {{ d.i18n.toDealer }}</span>
 					<div class="confirm" @click="sellVehicleToGov(d.vehicles[currentVeh].id)">✓</div>
 				</a>
-				<a class="veh-item" @click="sellToPlayer = !sellToPlayer" v-if="d.passengers.length > 0 && currentVehicleId === d.vehicles[currentVeh].id">
+				<a class="veh-item" @click="sellToPlayer = !sellToPlayer" v-if="d.passengers.length > 0 && d.currentVehicleId === d.vehicles[currentVeh].id">
 					<span>{{ d.i18n.sellToPassenger }}</span>
 				</a>
 			</div>
@@ -203,8 +203,7 @@
 		</div>
 		<div class="veh-info">
 			<div class="gps" v-if="currentTab === 0">
-				<p class="help-p">{{ d.i18n.helpStart1 }}</p>
-        <p class="help-p">{{ d.i18n.helpStart2 }}</p>
+				<p class="help-p">{{ d.i18n.helpStart }}</p>
 			</div>
 			<div class="gps" v-if="currentTab === 1">
 				<div class="veh-info_props">
@@ -361,7 +360,6 @@ const vehicles = new tab('#tab-vehicles', {
 	sellToPlayer: false,
 	sellprice: 100000,
 	currentPassenger: 0,
-	currentVehicleId: 0,
 });
 
 const violations = new tab('#tab-violations');
@@ -386,13 +384,15 @@ const app = new Vue({
 			cash: 0,
 			loyality: 0,
 			vehicles: [
-				{ id: 54, title: "Declasse Tornado Custom", number: "FDG45GF", price: 15500, fTank: 55, fRate: 15 },
+				//{ id: 54, title: "Declasse Tornado Custom", number: "FDG45GF", price: 15500, fTank: 55, fRate: 15 },
+				//{ id: 4, title: "Declasse Tornado Custom", number: "FDG45GF", price: 15500, fTank: 55, fRate: 15 },
 			],
+			currentVehicleId: null,
 			passengers: [
-				{ id: 4, name: "Mark Cavalli"},
+				//{ id: 4, name: "Mark Cavalli"},
 			],
 			violations: [
-				{ time: 5, text: "killed civilian dsad as sad sad sad asdas " },
+				//{ time: 5, text: "killed civilian dsad as sad sad sad asdas " },
 			],
 			languages: [ 'English', 'Russian', 'German', 'Brasilian', 'Simplified Chinese', 'Traditional Chinese'],
 			i18n: {
@@ -428,10 +428,9 @@ const app = new Vue({
 				total: 'Total',
 				minutes: 'minutes',
 				jTime: 'jail time',
-				help: ["Starting", "Vehicle controls"], 
-        helpStart1: 'Revive by E,and after countdown you may revive in hospital.And you can heal yourself with information desk.F4 to heal if you are medic.',
-				helpStart2: 'Go to orange collector job and earn some money. Then you can personalize your character with buying some clothes and visiting barber shop.',
-        toggle: 'toggle',
+				help: ["Starting", "Vehicle controls"],
+				helpStart: 'Go to orange collector job and earn some money. Then you can personalize your character with buying some clothes and visiting barber shop.',
+				toggle: 'toggle',
 				lock: 'lock',
 				engine: 'engine',
 				front: 'front',
@@ -503,9 +502,8 @@ function loadRusLang() {
 		total: 'Всего',
 		minutes: 'минут',
 		jTime: 'тюремного срока',
-		help: ["Начало игры", "Управление транспортом"], 
-    helpStart1: '',
-		helpStart2: 'Заработайте немного наличных, работая собирателем апельсинов. После этого вы можете купить себе одежды и изменить стрижку.',
+		help: ["Начало игры", "Управление транспортом"],
+		helpStart: 'Заработайте немного наличных, работая собирателем апельсинов. После этого вы можете купить себе одежды и изменить стрижку.',
 		toggle: 'состояние',
 		lock: 'замка',
 		engine: 'двигателя',
@@ -534,53 +532,52 @@ function loadBrLang() {
 function loadZhsLang() {
 	app.d.i18n = {
 		tabs: ['首页', 'GPS', '载具', '暴力度', '帮助', '设置'],
- 		cash: '现金',
- 		loyality: '忠诚点数',
- 		gps: ["基本", "工作", "商业"],
- 		gasStation: '油站',
- 		atm: 'ATM',
- 		repairStation: '维修站',
- 		clothingShop: '服装店',
- 		barberShop: '理发店',
- 		hospital: '中心医院',
- 		prison: '监狱',
- 		orangeCollector: '收橙工',
- 		cbDeliveryCourier: 'Clickin Bell 投递员',
- 		minLoyality: '最低忠诚点数',
- 		findBusBy: '查找商业以',
- 		fTank: 'Fuel Tank',
- 		price: '价格',
- 		fRate: 'Fuel Rate',
- 		findVehicle: 'Find Vehicle',
- 		createRoute: 'Create GPS route',
- 		call911: '打给911',
- 		repairAndTransport: 'Repair and transport vehicle to police parking',
- 		sellFor: 'Sell for',
- 		toDealer: 'to Dealership',
- 		sellToPassenger: 'Sell to passenger',
- 		sell: '出售',
- 		noVeh: '你没有载具 =(',
- 		congrats: '恭喜',
- 		noViolat: '你是一个安分守己的玩家',
- 		total: '总共',
- 		minutes: '分钟',
- 		jTime: '监狱时间',
- 		help: ["开始", "载具控制"], 
-    helpStart1: '死亡后按E复活，倒数结束你会在医院复活。并可在前台治疗。当你是医疗人员时可以按F4开启治疗。',
- 		helpStart2: '去收橙任务赚点钱。然后你可以为你的角色买些衣服和理发。',
- 		toggle: '切换',
- 		lock: '车锁',
- 		engine: '发动机',
- 		front: '前',
- 		rear: '后',
- 		windows: '窗户',
- 		settings: ["基本", "保存游戏"],
- 		Change: '修改',
- 		language: '语言',
- 		password: '密码',
- 		Old: '旧',
- 		New: '新',
- 		Done: '完成',
+		cash: '现金',
+		loyality: '忠诚点数',
+		gps: ["基本", "工作", "商业"],
+		gasStation: '油站',
+		atm: 'ATM',
+		repairStation: '维修站',
+		clothingShop: '服装店',
+		barberShop: '理发店',
+		hospital: '中心医院',
+		prison: '监狱',
+		orangeCollector: '收橙工',
+		cbDeliveryCourier: 'Clickin Bell 投递员',
+		minLoyality: '最低忠诚点数',
+		findBusBy: '查找商业以',
+		fTank: 'Fuel Tank',
+		price: '价格',
+		fRate: 'Fuel Rate',
+		findVehicle: 'Find Vehicle',
+		createRoute: 'Create GPS route',
+		call911: '打给911',
+		repairAndTransport: 'Repair and transport vehicle to police parking',
+		sellFor: 'Sell for',
+		toDealer: 'to Dealership',
+		sellToPassenger: 'Sell to passenger',
+		sell: '出售',
+		noVeh: '你没有载具 =(',
+		congrats: '恭喜',
+		noViolat: '你是一个安分守己的玩家',
+		total: '总共',
+		minutes: '分钟',
+		jTime: '监狱时间',
+		help: ["开始", "载具控制"],
+		helpStart: '去收橙任务赚点钱。然后你可以为你的角色买些衣服和理发。',
+		toggle: '切换',
+		lock: '车锁',
+		engine: '发动机',
+		front: '前',
+		rear: '后',
+		windows: '窗户',
+		settings: ["基本"],
+		Change: '修改',
+		language: '语言',
+		password: '密码',
+		Old: '旧',
+		New: '新',
+		Done: '完成',
   	}
 
 }
@@ -620,8 +617,7 @@ function loadZhtLang() {
 		minutes: '分鐘',
 		jTime: '監獄時間',
 		help: ["開始", "載具控制"],
-    helpStart1: '死亡后按E復活，倒數結束后角色會在醫院里復活。并可在前台治療。當你是醫療人員時可以按F4開啟治療。',
-		helpStart2: '去收橙任務掙點錢。然後你可以為你的角色買些衣服和理髮。',
+		helpStart: '去收橙任務掙點錢。然後你可以為你的角色買些衣服和理髮。',
 		toggle: '切換',
 		lock: '車鎖',
 		engine: '引擎',

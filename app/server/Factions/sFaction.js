@@ -1,14 +1,17 @@
-"use strict"
 
 const misc = require('../sMisc');
 const clothes = require('../Character/sClothes');
 const i18n = require('../sI18n');
+const vehicleSingletone = require('../Basic/Vehicles/sVehicleSingletone');
 
+const factionsList = [];
 
 class faction {
 	constructor(factionName) {
 		this.name = factionName;
 		this.maxRank = 10;
+		vehicleSingletone.loadFactionVehicles(this.name);
+		factionsList.push(this);
 	}
 
 	createEvents() {
@@ -56,13 +59,7 @@ class faction {
 
 	savePlayerData(player) {
 		if (!player) return;
-		let name = player.faction.name;
-		if (!name) name = false;
-		let rank = player.faction.rank;
-		if (!rank) rank = 1;
-		let info = player.faction.info;
-		if (!info) info = false;
-		misc.query(`UPDATE faction SET name = '${name}', rank = '${rank}', info = '${JSON.stringify(info)}' WHERE id = '${player.basic.id}'`);
+		misc.query(`UPDATE usersFaction SET name = '${player.faction.name}', rank = '${player.faction.rank}', info = '${JSON.stringify(player.faction.info)}' WHERE id = '${player.guid}'`);
 	}
 
 	updateClothingMarker(player) {
@@ -76,33 +73,23 @@ class faction {
 			return clothes.loadPlayerClothes(player);
 		}
 		this.setWorking(player, true);
-		if (player.model === 1885233650) {
-			this.changeClothesMan(player); // Dont forget add this method to class
-		}
-		else {
-			this.changeClothesWoman(player);  // Dont forget add this method to class
-		}
+		if (player.model === 1885233650) this.changeClothesMan(player); // Dont forget add this method to class
+		else this.changeClothesWoman(player);  // Dont forget add this method to class
 	}
 
 	isInThisFaction(player) {
-		if (!player.faction || player.faction.name !== this.name) {
-			return false;
-		} 
+		if (!player.faction || player.faction.name !== this.name) return false;
 		return true;
 	}
 
 	isInOtherFaction(player) {
-		if (player.faction.name && player.faction.name !== this.name) {
-			return true;
-		} 
+		if (player.faction.name && player.faction.name !== this.name) return true;
 		return false;
 	}
 
 	isDistanceRight(player1, player2, showMessToPlayer2 = false) {
 		const dist = player1.dist(player2.position);
-		if (dist && dist < 2) {
-			return true;
-		}
+		if (dist && dist < 2) return true;
 		player1.notify(`~r~${player2.name} ${i18n.get('basic', 'tooFarAway', player1.lang)}!`);
 		if (showMessToPlayer2) player2.notify(`~r~${player1.name} ${i18n.get('basic', 'tooFarAway', player2.lang)}!`);
 		return false;
@@ -234,21 +221,23 @@ class faction {
 module.exports = faction;
 
 
-async function insertNewUser() {
-	await misc.query(`INSERT INTO faction (rank) VALUES ('0')`);
+async function createNewUser(id) {
+	await misc.query(`INSERT INTO usersFaction (id, info) VALUES ('${id}', '[]')`);
 }
-module.exports.insertNewUser = insertNewUser;
+module.exports.createNewUser = createNewUser;
 
 
-async function loadPlayerAccount(player) {
-	const d = await misc.query(`SELECT * FROM faction WHERE id = '${player.basic.id}' LIMIT 1`);
+async function loadUser(player) {
+	const d = await misc.query(`SELECT * FROM usersFaction WHERE id = '${player.guid}' LIMIT 1`);
 	player.faction = {
 		name: d[0].name,
 		rank: d[0].rank,
-		info: false,
+		info:  JSON.parse(d[0].info),
+		working: false,
 	}
-	if (d[0].info) {
-		player.faction.info = JSON.parse(d[0].info);
+
+	for (const f of factionsList) {
+		if (f.isInThisFaction(player)) return f.updateClothingMarker(player);
 	}
 }
-module.exports.loadPlayerAccount = loadPlayerAccount;
+module.exports.loadUser = loadUser;

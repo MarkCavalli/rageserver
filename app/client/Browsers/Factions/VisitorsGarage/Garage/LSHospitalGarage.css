@@ -1,0 +1,8 @@
+﻿.b-title {
+	color: tomato;
+}
+
+.item:hover {
+	border: 1px solid tomato;
+	color: tomato;
+}
