@@ -61,7 +61,7 @@ const i18n = {
 			ger: 'Du brauchst wenigstens',
 			br: 'Você precisa de pelo menos', 
 			zhs: '你需要至少',
-			zht: '妳需要至少',
+			zht: '你需要至少',
 		},
 
 		needMoreLoyality2: {
@@ -69,8 +69,8 @@ const i18n = {
 			rus: 'очков лояльности',
 			ger: 'treuepunkte',
 			br: 'pontos de fidelidade', 
-			zhs: '',
-			zht: '',
+			zhs: '忠诚点数',
+			zht: '忠誠點數',
 		},
 
 		tooFarAway: {
@@ -168,8 +168,8 @@ const i18n = {
 			rus: 'Вы отклонили предложение игрока',
 			ger: 'Du hast das Angebot von Spieler abgelehnt',
 			br: 'Você rejeitou a oferta pelo jogador', 
-			zhs: '',
-			zht: '',
+			zhs: '你拒绝了offer（来自玩家',
+			zht: '你拒絕了offer（來自玩家',
 		},
 
 		rejectedYourOffer: {
@@ -177,8 +177,8 @@ const i18n = {
 			rus: 'отклонил(а) ваше предложение',
 			ger: 'hat Ihr Angebot abgelehnt',
 			br: 'rejeitou sua oferta', 
-			zhs: '',
-			zht: '',
+			zhs: '拒绝了你的offer',
+			zht: '拒絕了你的offer',
 		},
 
 		confirmedYourOffer: {
@@ -186,8 +186,8 @@ const i18n = {
 			rus: 'принял(а) ваше предложение',
 			ger: 'bestätigte Ihr Angebot',
 			br: 'confirmou sua oferta', 
-			zhs: '',
-			zht: '',
+			zhs: '接受了你的offer',
+			zht: '接受了你的offer',
 		},
 
 		youConfirmedOffer: {
@@ -195,8 +195,8 @@ const i18n = {
 			rus: 'Вы приняли предложение игрока',
 			ger: 'Du hast das Angebot von Spieler bestätigt',
 			br: 'Você confirmou a oferta pelo jogador', 
-			zhs: '',
-			zht: '',
+			zhs: '你接受了offer（来自玩家',
+			zht: '你接受了offer（來自玩家',
 		},
 
 
@@ -409,8 +409,8 @@ const i18n = {
 			rus: 'Продажа ТС',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '销售载具',
+			zht: '銷售載具',
 		},
 
 		wantsSellVehicleToPlayer: {
@@ -418,8 +418,8 @@ const i18n = {
 			rus: 'хочет продать вам',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '希望能卖给你一个',
+			zht: '希望能賣給你一個',
 		},
 	},
 
@@ -456,8 +456,8 @@ const i18n = {
 			rus: 'Пожалуйста, высадите пассажиров',
 			ger: '',
 			br: 'Por favor, deixe os passageiros', 
-			zhs: '',
-			zht: '',
+			zhs: '请让乘客下车',
+			zht: '請讓乘客下車',
 		},
 
 	},
@@ -468,8 +468,8 @@ const i18n = {
 			rus: 'чтобы переодеться',
 			ger: 'um die Kleidung zu wechseln',
 			br: 'trocar de roupa', 
-			zhs: '',
-			zht: '',
+			zhs: '更换衣服',
+			zht: '更換衣服',
 		},
 
 		setNewRank: {
@@ -495,8 +495,8 @@ const i18n = {
 			rus: 'устроил(а) вас в',
 			ger: 'lud dich ein',
 			br: 'convidou você para', 
-			zhs: '',
-			zht: '',
+			zhs: '邀请你',
+			zht: '邀請你',
 		},
 
 		leader: {
@@ -513,8 +513,8 @@ const i18n = {
 			rus: 'уволил(а) вас из',
 			ger: 'ungebeten von dir',
 			br: 'sem ser convidado de', 
-			zhs: '',
-			zht: '',
+			zhs: '把你踢出了',
+			zht: '把你踢出了',
 		},
 	},
 
@@ -608,8 +608,8 @@ const i18n = {
 			rus: 'Вы устроились работать как ',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '你开始担任',
+			zht: '你開始擔任',
 		},
 
 
@@ -618,8 +618,8 @@ const i18n = {
 			rus: 'Вы уволились с работы',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '你不再担任',
+			zht: '你不再擔任',
 		},
 
 	},
@@ -754,8 +754,8 @@ const i18n = {
 			rus: 'Вы ввели неправильный старый пароль',
 			ger: '',
 			br: '', 
-			zhs: '',
-			zht: '',
+			zhs: '错误的旧密码',
+			zht: '錯誤的舊密碼',
 		},
 
 	},
