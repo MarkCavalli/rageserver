@@ -1,0 +1,40 @@
+"use strict"
+
+const nodemailer = require("nodemailer");   
+
+//Setting gmail account below.
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'youmail@gmail.com',  //Your email account.
+        pass: 'yourpass'            //Your email account password.
+    }
+});
+
+//Setting mail's from address below.It is importent when smtp server need mail's from add the same as sender,
+//or it will make smtp 501 error and let your gameserver crash.
+
+function getMailAdress() {
+    return 'Open Source RP server <youmail@gmail.com>'; //Your server mail's "From" address content.
+}
+exports.getMailAdress = getMailAdress;
+
+transporter.verify(function(error, success) {
+	if (error) {
+		console.log(error);
+	} 
+	else {
+		console.log('EMAIL SERVER READY!');
+	}
+ });
+
+function sendMail(message) {
+	transporter.sendMail(message, (err, info) => {
+        if (err) {
+            console.log('Error occurred. ' + err.message);
+            return process.exit(1);
+		}
+    });
+}
+exports.sendMail = sendMail;
