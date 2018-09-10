@@ -1,40 +1,45 @@
-"use strict"
+const nodemailer = require("nodemailer");
 
-const nodemailer = require("nodemailer");   
 
-//Setting gmail account below.
-
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'youmail@gmail.com',  //Your email account.
-        pass: 'yourpass'            //Your email account password.
+class MailerSingleton {
+    constructor() {
+        this.transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'mail@gmail.com',
+                pass: 'pass'
+            }
+        });
+        
+        this.transporter.verify((error, success) => {
+            if (error) {
+                console.log(error);
+            } 
+            else {
+                console.log('EMAIL SERVER READY!');
+            }
+        });
     }
-});
 
-//Setting mail's from address below.It is importent when smtp server need mail's from add the same as sender,
-//or it will make smtp 501 error and let your gameserver crash.
+    
+    getMailAdress() {
+        return 'Open Source RP server <mail@gmail.com>';
+    }
 
-function getMailAdress() {
-    return 'Open Source RP server <youmail@gmail.com>'; //Your server mail's "From" address content.
+    isEmailValid(email) {
+        const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+        return re.test(email);
+    }
+
+    sendMail(message) {
+        this.transporter.sendMail(message, (err, info) => {
+            if (err) {
+                console.log(`Error occurred. ${err.message}`);
+                return process.exit(1);
+            }
+        });
+    }
+
 }
-exports.getMailAdress = getMailAdress;
-
-transporter.verify(function(error, success) {
-	if (error) {
-		console.log(error);
-	} 
-	else {
-		console.log('EMAIL SERVER READY!');
-	}
- });
-
-function sendMail(message) {
-	transporter.sendMail(message, (err, info) => {
-        if (err) {
-            console.log('Error occurred. ' + err.message);
-            return process.exit(1);
-		}
-    });
-}
-exports.sendMail = sendMail;
+const mailerSingleton = new MailerSingleton();
+module.exports = mailerSingleton;
