@@ -203,7 +203,8 @@
 		</div>
 		<div class="veh-info">
 			<div class="gps" v-if="currentTab === 0">
-				<p class="help-p">{{ d.i18n.helpStart }}</p>
+				<p class="help-p">{{ d.i18n.helpStart1 }}</p>
+        <p class="help-p">{{ d.i18n.helpStart2 }}</p>
 			</div>
 			<div class="gps" v-if="currentTab === 1">
 				<div class="veh-info_props">
@@ -429,7 +430,8 @@ const app = new Vue({
 				minutes: 'minutes',
 				jTime: 'jail time',
 				help: ["Starting", "Vehicle controls"],
-				helpStart: 'Go to orange collector job and earn some money. Then you can personalize your character with buying some clothes and visiting barber shop.',
+				helpStart1: 'Revive by E,and after countdown you may revive in hospital.And you can heal yourself with information desk.F4 to heal if you are medic.',
+				helpStart2: 'Go to orange collector job and earn some money. Then you can personalize your character with buying some clothes and visiting barber shop.',
 				toggle: 'toggle',
 				lock: 'lock',
 				engine: 'engine',
@@ -503,7 +505,8 @@ function loadRusLang() {
 		minutes: 'минут',
 		jTime: 'тюремного срока',
 		help: ["Начало игры", "Управление транспортом"],
-		helpStart: 'Заработайте немного наличных, работая собирателем апельсинов. После этого вы можете купить себе одежды и изменить стрижку.',
+		helpStart1: 'Revive by E,and after countdown you may revive in hospital.And you can heal yourself with information desk.F4 to heal if you are medic.', 
+    helpStart2: 'Заработайте немного наличных, работая собирателем апельсинов. После этого вы можете купить себе одежды и изменить стрижку.',
 		toggle: 'состояние',
 		lock: 'замка',
 		engine: 'двигателя',
@@ -563,8 +566,9 @@ function loadZhsLang() {
 		total: '总共',
 		minutes: '分钟',
 		jTime: '监狱时间',
-		help: ["开始", "载具控制"],
-		helpStart: '去收橙任务赚点钱。然后你可以为你的角色买些衣服和理发。',
+		help: ["开始", "载具控制"], 
+    helpStart1: '死亡后倒数结束时按E在医院复活。你可以在前台加血。当你是医疗职业时可以按F4为对方治疗。',
+		helpStart2: '去收橙任务赚点钱。然后你可以为你的角色买些衣服和理发。',
 		toggle: '切换',
 		lock: '车锁',
 		engine: '发动机',
@@ -617,7 +621,8 @@ function loadZhtLang() {
 		minutes: '分鐘',
 		jTime: '監獄時間',
 		help: ["開始", "載具控制"],
-		helpStart: '去收橙任務掙點錢。然後你可以為你的角色買些衣服和理髮。',
+    helpStart1: '死亡後倒數結束時按E在醫院復活。妳可以在前臺加血。當你是醫療職業時可以按F4治療。',
+		helpStart2: '去收橙任務掙點錢。然後你可以為你的角色買些衣服和理髮。',
 		toggle: '切換',
 		lock: '車鎖',
 		engine: '引擎',

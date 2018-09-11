@@ -13,7 +13,7 @@ class LoginSingleton extends AbstractAuth {
         const pass = this.hashPassword(data.pass);
         const d = await misc.query(`SELECT id, email, password, socialclub FROM users WHERE email = '${data.email}' LIMIT 1`);
         if (!d[0]) {
-            return this.showError(player, "This account doesnt exist");
+            return this.showError(player, "This account does NOT exist");
         }
         if (d[0].socialclub !== player.socialClub) {
             return player.call("cInjectCef", [`app.showCode = true;`]);
@@ -70,7 +70,7 @@ class LoginSingleton extends AbstractAuth {
         if (!this.checkCode(player, data.code)) return;
         const d = await misc.query(`SELECT id, email, password FROM users WHERE email = '${data.email}' LIMIT 1`);
         if (!d[0]) {
-            return this.showError(player, "This account doesnt exist");
+            return this.showError(player, "This account does NOT exist");
         }
         if (d[0].password !== pass) {
             player.call("cInjectCef", [`app.showCode = false; app.enteredCode = "";`]);

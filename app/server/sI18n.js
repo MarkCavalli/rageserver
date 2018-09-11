@@ -201,8 +201,21 @@ const i18n = {
 
 
 	},
+  
+   sAuth: {    
+    	checkEmail: {
+			eng: 'Please check your mail box.',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '请注意查收邮件。',
+			zht: '請注意查收郵件。',
+		},    
+    
 
-  	sLogin: {    
+	},
+
+  sLogin: {    
     	connected: {
 			eng: 'connected',
 			rus: 'присоединился',
@@ -264,6 +277,15 @@ const i18n = {
 			br: 'Conta salva com sucesso!', 
 			zhs: '帐号成功保存。',
 			zht: '帳戶成功保存。',
+		}, 
+    
+    accNotexist: {
+			eng: 'This account doesnt exist',
+			rus: '',
+			ger: '',
+			br: '', 
+			zhs: '帐号不存在。',
+			zht: '帳戶不存在。',
 		},
 
 	},
