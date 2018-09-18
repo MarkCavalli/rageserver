@@ -49,7 +49,7 @@ mp.events.addCommand({
 
 	'setccardealernewcarcoord' : async (player, id) => {
 		if (player.adminLvl < 1) return;
-		if (!player.vehicle) return player.nofity(`~r~You're not in vehicle!`);
+		if (!player.vehicle) return player.notify(`~r~You're not in vehicle!`);
 		const coord = misc.getPlayerCoordJSON(player);
 		await misc.query(`UPDATE cheapcardealership SET newCarCoord = '${coord}' WHERE id = ${id}`);
 		player.notify(`~g~${i18n.get('basic', 'success', player.lang)}`);
