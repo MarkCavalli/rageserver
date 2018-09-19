@@ -1,13 +1,16 @@
 const nodemailer = require("nodemailer");
 
 
-class MailerSingleton {
+class MailerSingletone {
     constructor() {
         this.transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
                 user: 'mail@gmail.com',
                 pass: 'pass'
+            },
+            tls:{
+                rejectUnauthorized: false
             }
         });
         
@@ -41,5 +44,5 @@ class MailerSingleton {
     }
 
 }
-const mailerSingleton = new MailerSingleton();
-module.exports = mailerSingleton;
+const mailerSingletone = new MailerSingletone();
+module.exports = mailerSingletone;
