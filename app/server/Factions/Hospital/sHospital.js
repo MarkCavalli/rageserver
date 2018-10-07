@@ -208,7 +208,7 @@ module.exports.loadUser = loadUser;
 
 mp.events.addCommand({
 	'sethospitalleader' : async (player, id) => {
-		if (misc.getAdminLvl(player) < 1) return;
+		if (player.adminlvl < 1) return;
 		hospital.setAsLeader(player, +id);
 	},	
 });

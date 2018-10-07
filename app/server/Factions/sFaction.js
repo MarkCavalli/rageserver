@@ -137,7 +137,7 @@ class faction {
 	}
 
 	setAsLeader(admin, id) {
-		if (misc.getAdminLvl(admin) < 1) return;
+		if (admin.adminlvl < 1) return;
 		const player = mp.players.at(id);
 		if (!player) return;
 		player.faction = {

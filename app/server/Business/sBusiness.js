@@ -240,7 +240,7 @@ module.exports.getCountOfBusinesses = getCountOfBusinesses;
 
 mp.events.addCommand({
 	'setbusbuyermenu' : async (player, id) => {
-		if (player.adminLvl < 1) return;
+		if (player.adminlvl < 1) return;
 		const coord = misc.getPlayerCoordJSON(player);
 		await misc.query(`UPDATE business SET buyerMenuCoord = '${coord}' WHERE id = ${id}`);
 		player.notify(`~g~${i18n.get('basic', 'success', player.lang)}!`);
