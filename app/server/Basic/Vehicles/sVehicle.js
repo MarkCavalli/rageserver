@@ -106,7 +106,7 @@ class Vehicle {
 		}
 
 		vehicle.sellToGovernment = async function(player) {
-			if (!vehicle.ownerId !== player.guid) return;
+			if (vehicle.ownerId !== player.guid) return;
 			player.addBankMoney(this.price / 2, `${i18n.get('sVehicle', 'sellVehicle', player.lang)}`);
 			await misc.query(`DELETE FROM vehicles WHERE id = ${vehicle.guid} AND ownerId = '${player.guid}' LIMIT 1`);
 			this.destroy();
