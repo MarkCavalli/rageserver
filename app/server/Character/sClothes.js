@@ -33,6 +33,8 @@ class ClothesSingletone {
 		this.manLegs = [	
 			{	id: 0, name: "Fit Jeans", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 	price: 750,  },
 			{	id: 1, name: "Wide Jeans", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 	price: 1000,  },
+			{	id: 3, name: "Jogging", color: 0, colors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], 	price: 1000,  },
+			{	id: 4, name: "Fit Jeans", color: 0, colors: [0, 1, 2, 3, 4], 	price: 1000,  },
 		];
 
 		this.manFeet = [	

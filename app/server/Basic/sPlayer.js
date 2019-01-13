@@ -9,7 +9,6 @@ const faction = require('../Factions/sFaction');
 const hospital = require('../Factions/Hospital/sHospital');
 const prison = require('../Factions/Police/Prison/sPrison');
 
-
 class PlayerSingleton {
 
     async createNewUser(player, email, firstName, lastName, pass) {
@@ -60,8 +59,8 @@ class PlayerSingleton {
         player.saveBasicData();
         vehiclesSingleton.savePlayerVehicles(player.guid);
         prison.savePlayerAccount(player);
-        misc.log.debug(`${player.name} disconnected`);
-        player.loggedIn = false;
+//        misc.log.debug(`${player.name} disconnected`);
+//        player.loggedIn = false;
     }
 
     loadPlayerTemplate(player) {
@@ -146,11 +145,13 @@ module.exports = playerSingleton;
 
 mp.events.addCommand({
     'save' : (player) => {
-        if (!player.loggedIn || player.adminlvl < 1) return;
+//      if (!player.loggedIn || player.adminlvl < 1) return;
+        if (!player.loggedIn) return;
         playerSingleton.saveAccount(player);
         player.outputChatBox(`${i18n.get('sLogin', 'saveGame', player.lang)}`);
-    }, 
-    
+    },
+
+
     'pos' : (player) => { 
         if (player.adminlvl < 1) return;
         const pos = player.position;
@@ -162,4 +163,27 @@ mp.events.addCommand({
         misc.log.debug(str);
     },
     
-});   
+});
+
+// Save Player bei allem möglichem
+
+// Save by enter Vehicle
+function playerStartEnterVehicleHandler(player) {
+ 
+    if (!player.loggedIn) return;
+    playerSingleton.saveAccount(player);
+    player.notifyWithPicture("System", "Account Saving", "~g~Your Account was saved.", "CHAR_BLOCKED");
+//    player.outputChatBox(`${i18n.get('sLogin', 'saveGame', player.lang)}`);
+}
+ 
+ mp.events.add("playerStartEnterVehicle", playerStartEnterVehicleHandler);
+
+// Save by exit Vehicle
+function playerExitVehicleHandler(player) {
+    if (!player.loggedIn) return;
+    playerSingleton.saveAccount(player);
+    player.notifyWithPicture("System", "Account Saving", "~g~Your Account was saved.", "CHAR_BLOCKED");
+//    player.outputChatBox(`${i18n.get('sLogin', 'saveGame', player.lang)}`);
+}
+
+    mp.events.add("playerExitVehicle", playerExitVehicleHandler);

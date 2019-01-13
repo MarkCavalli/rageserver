@@ -1,24 +1,28 @@
-﻿<html>
+﻿<html class="transparent-bg-4">
 	<meta charset="utf-8">
+	<script src="../index.js"></script>
 	<link rel="stylesheet" href="style.css">
-	<script src="../vue.js"></script>
+
+	<script src="../js/vue.js"></script>
+	<script src="../js/particles.min.js"></script>
 	<body>
-		<section class="app" id="app">
-			<section>
-				<div class="signup-b">
-					<input type="email" class="textinput" placeholder="Email" v-model="enteredMail" :disabled="showCode" autofocus>
-					<input type="password" class="textinput" placeholder="Password" v-model="enteredPass" :disabled="showCode">
-					<div class="code-b" v-if="showCode">
-						<input type="text" class="textinput" @input="verifyCode" v-model="enteredCode">
-						<div class="button" @click="mailGetCode">Get code</div>
-					</div>
-					<div class="button" @click="login" v-if="!showCode">Log in</div>
-				</div>
-				<div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
-				<div class="error-message" style="background: limegreen;" v-if="infoMessage">{{ infoMessage }}</div>
-			   	<div class="top-button" style="right: 0; left: auto;" @click="goToRegWindow">Create new account</div>
-			</section>
-		</section>
+		<b id="particles-js"></b>
+		<b class="fixed fixed_full app" id="app">
+			<b style="margin: auto; width: 20vw;">
+				<b>
+					<input type="email" class="input input_transparent-with-buttom-border" placeholder="Email" v-model="enteredMail" :disabled="showCode" autofocus>
+					<input type="password" class="input input_transparent-with-buttom-border" placeholder="Password" v-model="enteredPass" :disabled="showCode">
+					<b class="code-block" v-if="showCode">
+						<input type="text" class="input input_transparent-with-buttom-border" @input="verifyCode" v-model="enteredCode">
+						<a class="link-button link-button_theme-white transition-02 hover" @click="mailGetCode">Get code</a>
+					</b>
+					<a class="link-button link-button_margin1 link-button_theme-orange transition-02 hover" @click="login" v-if="!showCode">Log in</a>
+				</b>
+				<b class="error-message" v-if="errorMessage">{{ errorMessage }}</b>
+				<b class="error-message" style="background: limegreen;" v-if="infoMessage">{{ infoMessage }}</b>
+			   	<b class="fixed top-button transition-02" style="right: 0; left: auto;" @click="goToRegWindow">Create new account</b>
+			</b>
+		</b>
 	</body>
 </html>
 
@@ -79,5 +83,17 @@ const app = new Vue({
 		},
 
  	}
+});
+
+particlesJS("particles-js", {
+    "particles": {
+        "number": { "value": 25 },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" } },
+        "opacity": { "value": 1, "random": true },
+        "size": { "value": 1.5, "random": false },
+        "line_linked": { "enable": false, },
+        "move": { "enable": true, "speed": 1.5, "direction": "top-right", "random": true, "straight": false, "out_mode": "out", "bounce": false, }
+    }
 });
 </script>

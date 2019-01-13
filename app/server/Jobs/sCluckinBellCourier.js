@@ -100,7 +100,7 @@ class ClickinBellCourier extends Job {
 
         for (const pos of this.deliveryPoints) {
             const marker = mp.markers.new(1, new mp.Vector3(pos.x, pos.y, pos.z - 1), 0.75, {
-                color: [255, 165, 0, 25],
+                color: [0, 255, 255, 100],
                 visible: false,
             });
             const colshape = mp.colshapes.newSphere(pos.x, pos.y, pos.z, 1);
@@ -180,8 +180,8 @@ class ClickinBellCourier extends Job {
     }
 
     successDeliver(player) {
-        const prize = misc.getRandomInt(0, 100);
-        const earnedMoney = 250 + prize;
+        const prize = misc.getRandomInt(500, 1000);
+        const earnedMoney = 837 + prize;
         player.changeMoney(earnedMoney);
         player.notify(`${i18n.get('basic', 'earned1', player.lang)} ~g~$${earnedMoney}! ~w~${i18n.get('basic', 'earned2', player.lang)}!`);
         if (player.loyality < 150) player.addLoyality(1);
