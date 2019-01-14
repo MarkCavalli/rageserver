@@ -42,11 +42,13 @@ class Vehicle {
 		vehicle.toggleDoorsLock = function(player) {
 			if (vehicle.locked) {
 				this.unlock();
-				player.outputChatBox(`${this.title} !{0, 200, 0}${i18n.get('sVehicle', 'unlocked', player.lang)}`);
+//				player.outputChatBox(`${this.title} !{0, 200, 0}${i18n.get('sVehicle', 'unlocked', player.lang)}`);
+				player.notifyWithPicture("Info", "", `${this.title} ~g~${i18n.get('sVehicle', 'unlocked', player.lang)}.`, "CHAR_PROPERTY_ARMS_TRAFFICKING");
 			}
 			else {
 				this.lock();
-				player.outputChatBox(`${this.title} !{200, 0, 0}${i18n.get('sVehicle', 'locked', player.lang)}`);
+//				player.outputChatBox(`${this.title} !{200, 0, 0}${i18n.get('sVehicle', 'locked', player.lang)}`);
+				player.notifyWithPicture("Info", "", `${this.title} ~r~${i18n.get('sVehicle', 'locked', player.lang)}`, "CHAR_PROPERTY_ARMS_TRAFFICKING");
 			}
 			vehicle.locked = !vehicle.locked;
 		}

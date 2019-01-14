@@ -1,36 +1,40 @@
-﻿<html>
+﻿<html class="transparent-bg-4">
 	<meta charset="utf-8">
+	<script src="../index.js"></script>
 	<link rel="stylesheet" href="style.css">
-	<script src="../vue.js"></script>
+
+	<script src="../js/vue.js"></script>
+	<script src="../js/particles.min.js"></script>
 	<body>
-		<section class="app" id="app">
-			<section>
-				<div class="signup-b">
-				<input type="email" class="textinput" placeholder="Email" v-model="enteredMail" :disabled="mailChecked" :class="{ checked: mailChecked }" autofocus>
-				<div class="code-b" v-if="!mailChecked">
-					<input type="text" class="textinput" placeholder="Code" @input="verifyCode" v-model="enteredCode">
-					<div class="button" @click="mailGetCode">Get code</div>
-				</div>
-			
-				<span v-if="mailChecked">
-					<input type="text" class="textinput" placeholder="First name" v-model="enteredFirstname" :class="{ checked: nameAvailable }" @input="resetNameChecked">
-					<input type="text" class="textinput" placeholder="Last name" v-model="enteredLastname" :class="{ checked: nameAvailable }" @input="resetNameChecked">
-					<div class="button" @click="checkUsername" v-if="!nameAvailable">Check username</div>
-						<div class="button" @click="confirmUsername" v-if="nameAvailable && !nameChecked">Confirm username</div>
-				</span>
-			
-				<span v-if="mailChecked && nameChecked">
-					<input type="text" class="textinput" placeholder="Password" v-model="enteredPass1" :class="{ checked: passChecked }">
-					<input type="text" class="textinput" placeholder="Confirm password" v-model="enteredPass2" @input="verifyPass" :class="{ checked: passChecked }">
-				</span>
-			
-				<div class="button" v-if="mailChecked && nameChecked && passChecked" @click="createAccount">Create account</div>
-				</div>
-				<div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
-				<div class="error-message" style="background: limegreen;" v-if="infoMessage">{{ infoMessage }}</div>
-				<div class="top-button" @click="goToLoginWindow">Already have account? Log In</div>
-			</section>
-		</section> 
+		<b id="particles-js"></b>
+		<b class="fixed fixed_full app" id="app">
+			<b style="margin: auto; width: 20vw;">
+				<b>
+					<input type="email" class="input input_transparent-with-buttom-border" placeholder="Email" v-model="enteredMail" :disabled="mailChecked" :class="{ checked: mailChecked }" autofocus>
+					<b class="code-block" v-if="!mailChecked">
+						<input type="text" class="input input_transparent-with-buttom-border" placeholder="Code" @input="verifyCode" v-model="enteredCode">
+						<a class="link-button link-button_theme-orange transition-02 hover" @click="mailGetCode">Get code</a>
+					</b>
+				
+					<span v-if="mailChecked">
+						<input type="text" class="input input_transparent-with-buttom-border" placeholder="First name" v-model="enteredFirstname" :class="{ checked: nameAvailable }" @input="resetNameChecked">
+						<input type="text" class="input input_transparent-with-buttom-border" placeholder="Last name" v-model="enteredLastname" :class="{ checked: nameAvailable }" @input="resetNameChecked">
+						<a class="link-button link-button_margin1 link-button_theme-orange transition-02 hover" @click="checkUsername" v-if="!nameAvailable">Check username</a>
+						<a class="link-button link-button_margin1 link-button_theme-green transition-02 hover" @click="confirmUsername" v-if="nameAvailable && !nameChecked">Confirm username</a>
+					</span>
+				
+					<span v-if="mailChecked && nameChecked">
+						<input type="text" class="input input_transparent-with-buttom-border" placeholder="Password" v-model="enteredPass1" :class="{ checked: passChecked }">
+						<input type="text" class="input input_transparent-with-buttom-border" placeholder="Confirm password" v-model="enteredPass2" @input="verifyPass" :class="{ checked: passChecked }">
+					</span>
+				
+					<a class="link-button link-button_margin1 link-button_theme-green transition-02 hover" v-if="mailChecked && nameChecked && passChecked" @click="createAccount">Create account</a>
+				</b>
+				<b class="error-message" v-if="errorMessage">{{ errorMessage }}</b>
+				<b class="error-message" style="background: limegreen;" v-if="infoMessage">{{ infoMessage }}</b>
+				<a class="fixed top-button transition-02" @click="goToLoginWindow">Already have account? Log In</a>
+			</b>
+		</b> 
 	</body>
 </html>
 
@@ -69,7 +73,7 @@ const app = new Vue({
 		},
 
 		checkUsername: function () {
-			const obj = {
+			const obj = { 
 				firstName: this.enteredFirstname,
 				lastName: this.enteredLastname,
 			}
@@ -129,5 +133,17 @@ const app = new Vue({
 			mp.trigger("cLogin-ShowLoginWindow");
 		},
 	}
+});
+
+particlesJS("particles-js", {
+    "particles": {
+        "number": { "value": 25 },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" } },
+        "opacity": { "value": 1, "random": true },
+        "size": { "value": 1.5, "random": false },
+        "line_linked": { "enable": false, },
+        "move": { "enable": true, "speed": 1.5, "direction": "top-right", "random": true, "straight": false, "out_mode": "out", "bounce": false, }
+    }
 });
 </script>

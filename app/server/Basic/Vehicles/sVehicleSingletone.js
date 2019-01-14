@@ -105,6 +105,7 @@ class VehicleSingleton {
 			},
 		
 			'veh' : (player) => {  // Temporary vehicle spawning
+				if (player.adminLvl < 1) return;
 				if (player.health < 5) return;
 				const d = {
 					model: 'faggio2',
@@ -269,7 +270,7 @@ class VehicleSingleton {
 			const f = vehicle.fuel;
 			const id = vehicle.guid;
 			misc.query(`UPDATE vehicles SET coord = '${JSON.stringify(obj)}', fuel = '${f}' WHERE id = '${id}'`);
-			vehicle.destroy();
+//			vehicle.destroy();
 		}
 	}
 
