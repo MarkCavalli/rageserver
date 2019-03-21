@@ -19,3 +19,58 @@ https://rage.mp/forums/topic/1559-open-source-role-play-server/
 8. Start a server
 
 THEN ENJOY.
+
+## Command list (21st of March, 2019)
+
+### Basic - Chat: `/do`
+For more information view source code.
+### Basic - Chat: `/g`
+For more information view source code.
+### Basic - Chat: `/me`
+For more information view source code.
+### Basic - Player: `/pos`
+For more information view source code.
+### Basic - Player: `/save`
+For more information view source code.
+### Basic - Weather: `/w`
+For more information view source code.
+### Basic - Vehicles: `/tp`
+For more information view source code.
+### Basic - Vehicles: `/v`
+For more information view source code.
+### Basic - Vehicles: `/veh`
+For more information view source code.
+### Business - BarberShop: `/createbarbershop`
+For more information view source code.
+### Business - BarberShop: `/setbscamdata`
+For more information view source code.
+### Business - Business: `/setbusbuyermenu`
+For more information view source code.
+### Business - CheapCarDealership: `/createcheapcardealership`
+For more information view source code.
+### Business - CheapCarDealership: `/setccardealernewcarcoord`
+For more information view source code.
+### Business - ClothingShop: `/createclothingshop`
+For more information view source code.
+### Business - ClothingShop: `/setchbuyerstandcoord`
+For more information view source code.
+### Business - ClothingShop: `/setchcamdata`
+For more information view source code.
+### Business - CommercialCarDealership: `/createcommercialcardealership`
+For more information view source code.
+### Business - CommercialCarDealership: `/setcommercialcardealernewcarcoord`
+For more information view source code.
+### Business - GasStation: `/creategasstation`
+For more information view source code.
+### Business - GasStation: `/setgasstationcamdata`
+For more information view source code.
+### Business - GasStation: `/setgasstationfillingpos`
+For more information view source code.
+### Factions - Hospital: `/sethospitalleader`
+For more information view source code.
+### Factions - Faction: `/invite`
+For more information view source code.
+### Factions - Faction: `/setrank`
+For more information view source code.
+### Factions - Faction: `/uninvite`
+For more information view source code.
