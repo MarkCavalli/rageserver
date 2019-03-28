@@ -190,7 +190,7 @@ class VehicleSingleton {
 		await seller.changeMoney(price);
 		buyer.vehicle.ownerId = buyer.guid;
 		buyer.vehicle.whoCanOpen = [buyer.guid];
-		await misc.query(`UPDATE vehcles SET ownerId = '${buyer.guid}', whoCanOpen = '${JSON.stringify([buyer.guid])}' WHERE id = '${buyer.vehicle.guid}' LIMIT 1`);
+		await misc.query(`UPDATE vehicles SET ownerId = '${buyer.guid}', whoCanOpen = '${JSON.stringify([buyer.guid])}' WHERE id = '${buyer.vehicle.guid}' LIMIT 1`);
 
 		seller.notify(`~g~${buyer.name} ${i18n.get('basic', 'confirmedYourOffer', seller.lang)}!`);
 		buyer.notify(`~g~${i18n.get('basic', 'youConfirmedOffer', buyer.lang)} ${seller.name}!`);
