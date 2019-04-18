@@ -8,7 +8,7 @@ class Prison {
 		mp.events.add({
 			"playerDeath" : (player, reason, killer) => {
 				if (!killer || player === killer) return;
-				this.addViolation(killer, 5, "You killed a civilian");
+				killer.addViolation(5, "You killed a civilian");
 			},
 
 		});
