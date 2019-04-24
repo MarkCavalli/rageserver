@@ -236,7 +236,7 @@ keys.bind(k.F4_KEY, false, function() {
     mp.events.callRemote('sKeys-F4');
 });
 
-keys.bind(k.ADD_KEY, function() {
+keys.bind(k.ADD_KEY, false, function() {
     if (mp.gui.cursor.visible) return;
     mp.events.callRemote('sKeys-Num+');
 });
