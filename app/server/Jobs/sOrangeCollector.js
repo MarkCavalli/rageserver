@@ -167,9 +167,9 @@ class OrangeCollector extends Job {
     }
 
     finishWork(player) {
-        super.finishWork(player);
         this.hideActiveCheckPoint(player);
         this.dropMarker.hideFor(player);
+        super.finishWork(player);
     }
 
     
