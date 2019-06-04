@@ -8,6 +8,7 @@ const i18n = {
 			br: 'Sucesso', 
 			zhs: '成功',
 			zht: '成功',
+			cs: 'Úspěch',
 		},
 
 		pressE: {
@@ -17,6 +18,7 @@ const i18n = {
 			br: 'Pressione ~b~E ~s~', 
 			zhs: '按 ~b~E ~s~',
 			zht: '按 ~b~E ~s~',
+			cs: 'Stiskni ~b~E ~s~',
 		},
 
 		pressEToOpenMenu: {
@@ -26,6 +28,7 @@ const i18n = {
 			br: 'Pressione ~b~E ~s~para abrir o menu', 
 			zhs: '按 ~b~E ~s~打开菜单',
 			zht: '按 ~b~E ~s~開啟選單',
+			cs: 'Stiskni ~b~E ~s~pro otevření menu',
 		},
 
 		workingOnOtherJob: {
@@ -35,6 +38,7 @@ const i18n = {
 			br: 'Você já está trabalhando em alguma empresa', 
 			zhs: '你正在做这个工作了',
 			zht: '妳正在做這個工作了',
+			cs: 'Již pracuješ v jiné práci',
 		},
 
 		earned1: {
@@ -44,6 +48,7 @@ const i18n = {
 			br: 'Você ganhou', 
 			zhs: '你已赚了',
 			zht: '妳已賺了',
+			cs: 'Vydělal jsi',
 		},
 
 		earned2: {
@@ -53,6 +58,7 @@ const i18n = {
 			br: 'Continue assim, bom trabalho', 
 			zhs: '继续保持',
 			zht: '繼續保持',
+			cs: 'Jen tak dál',
 		},
 
 		needMoreLoyality1: {
@@ -62,6 +68,7 @@ const i18n = {
 			br: 'Você precisa de pelo menos', 
 			zhs: '你需要至少',
 			zht: '你需要至少',
+			cs: 'Potřebuješ alespoň',
 		},
 
 		needMoreLoyality2: {
@@ -71,6 +78,7 @@ const i18n = {
 			br: 'pontos de fidelidade', 
 			zhs: '忠诚点数',
 			zht: '忠誠點數',
+			cs: 'věrnostní body',
 		},
 
 		tooFarAway: {
@@ -80,6 +88,7 @@ const i18n = {
 			br: 'muito longe de você', 
 			zhs: '这离你太远了',
 			zht: '這離你太遠了',
+			cs: 'příliš daleko od tebe',
 		},
 
 		wait: {
@@ -89,6 +98,7 @@ const i18n = {
 			br: 'Aguarde', 
 			zhs: '等待',
 			zht: '等待',
+			cs: 'Čekej',
 		},
 
 		seconds: {
@@ -98,6 +108,7 @@ const i18n = {
 			br: 'segundos', 
 			zhs: '秒',
 			zht: '秒',
+			cs 'sekund',
 		},
 
 		toEnter: {
@@ -107,6 +118,7 @@ const i18n = {
 			br: 'para entrar', 
 			zhs: '进入',
 			zht: '進入',
+			cs: 'pro vstup',
 		},
 
 		toExit: {
@@ -116,6 +128,7 @@ const i18n = {
 			br: 'para sair', 
 			zhs: '离开',
 			zht: '離開',
+			cs: 'pro odchod',
 		},
 
 		toEnterGarage: {
@@ -125,6 +138,7 @@ const i18n = {
 			br: 'para entrar na garagem', 
 			zhs: '进入车库',
 			zht: '進入車庫',
+			cs: 'pro vstup do garáže',
 		},
 
 		toExitGarage: {
@@ -134,6 +148,7 @@ const i18n = {
 			br: 'para sair da garagem', 
 			zhs: '离开车库',
 			zht: '離開車庫',
+			cs 'pro odchod z garáže',
 		},
 
 		toCallLift: {
@@ -143,6 +158,7 @@ const i18n = {
 			br: 'chamar elevador', 
 			zhs: '使用电梯',
 			zht: '使用電梯',
+			cs: 'pro zavolání výtahu',
 		},
 
 		someVehicleIsBlocking: {
@@ -152,6 +168,7 @@ const i18n = {
 			br: 'Alguns veículos estão bloqueando a área', 
 			zhs: '一些载具阻挡了这个区域',
 			zht: '一些載具阻擋了這個區域',
+			cs: 'Nějaké vozidlo blokuje oblast',
 		},
 
 		somePlayerIsBlocking: {
@@ -161,6 +178,7 @@ const i18n = {
 			br: 'Algum jogador está bloqueando a área', 
 			zhs: '一些玩家阻挡了这个区域',
 			zht: '一些玩家阻擋了這個區域',
+			cs 'Nějaký hráč blokuje oblast',
 		},
 
 		youRejectedOffer: {
@@ -170,6 +188,7 @@ const i18n = {
 			br: 'Você rejeitou a oferta pelo jogador', 
 			zhs: '你拒绝了offer（来自玩家',
 			zht: '你拒絕了offer（來自玩家',
+			cs: 'Odmítnul jsi nabídku od hráče',
 		},
 
 		rejectedYourOffer: {
@@ -179,6 +198,7 @@ const i18n = {
 			br: 'rejeitou sua oferta', 
 			zhs: '拒绝了你的offer',
 			zht: '拒絕了你的offer',
+			cs: 'odmítnul tvou nabídku',
 		},
 
 		confirmedYourOffer: {
@@ -188,6 +208,7 @@ const i18n = {
 			br: 'confirmou sua oferta', 
 			zhs: '接受了你的offer',
 			zht: '接受了你的offer',
+			cs: 'potvrdil tvou nabídkuu',
 		},
 
 		youConfirmedOffer: {
@@ -197,6 +218,7 @@ const i18n = {
 			br: 'Você confirmou a oferta pelo jogador', 
 			zhs: '你接受了offer（来自玩家',
 			zht: '你接受了offer（來自玩家',
+			cs: 'Potvrdil jsi nabídku od hráče',
 		},
 
 
@@ -210,6 +232,7 @@ const i18n = {
 			br: '', 
 			zhs: '请注意查收邮件。',
 			zht: '請注意查收郵件。',
+		        cs: 'Prosím zkontroluj svůj e-mail',
 		},    
     
 
@@ -223,6 +246,7 @@ const i18n = {
 			br: 'conectado', 
 			zhs: '已上线',
 			zht: '已上線',
+		        cs: 'připojeno',
 		},    
     
    		disconnected: {
@@ -232,6 +256,7 @@ const i18n = {
 			br: 'desconectou', 
 			zhs: '已下线',
 			zht: '已離線',
+			cs: 'odpojeno',
 		},
 		
 		annoucePlayerMenu: {
@@ -241,6 +266,7 @@ const i18n = {
 			br: '', 
 			zhs: 'M键开启菜单以获取更多帮助',
 			zht: 'M鍵開啟菜單以獲取更多幫助。',
+			cs: 'Stiskni tlačítko M pro otevření menu',
 		},
     
 		annouceSpawnVehicle: {
@@ -250,6 +276,7 @@ const i18n = {
 			br: 'Criar um veiculo: /veh', 
 			zhs: '请求一台载具：/veh',
 			zht: '请求一辆载具：/veh',
+			cs: 'Spawnutí vozidla /veh',
 		},
 		
 		annouceGlobalChat: {
@@ -259,6 +286,7 @@ const i18n = {
 			br: 'Chat Global: /g [mensagem]', 
 			zhs: '全局聊天：/g [message]',
 			zht: '全域聊天：/g [message]',
+			cs: 'Globální chat: /g [message]',
 		}, 
 	
 		annouceOldUser: {
@@ -268,6 +296,7 @@ const i18n = {
 			br: 'Se você tem conta na versão antiga do servidor e deseja restaurar os dados, escreva aqui no bate-papo seu nome antigo. Vou verificar nos logs', 
 			zhs: '如果你有旧版服务器账户且希望恢复它，在聊天栏留下你的用户名和需求。我会在日志中查阅。',
 			zht: '如果你有舊版服務器帳戶且希望恢復它，在聊天欄留下你的用戶名和需求。我會在日誌中檢查。',
+			cs: 'Pokud máš účet ze staré verze serveru a chceš obnovit data, napiš do chatu své staré jméno. Zkontroluji si to v logu',
 		},
 		
 		saveGame: {
@@ -277,6 +306,7 @@ const i18n = {
 			br: 'Conta salva com sucesso!', 
 			zhs: '帐号成功保存。',
 			zht: '帳戶成功保存。',
+			cs: 'Účet úspěšně uložen',
 		}, 
     
     accNotexist: {
@@ -286,6 +316,7 @@ const i18n = {
 			br: '', 
 			zhs: '帐号不存在。',
 			zht: '帳戶不存在。',
+	                cs: 'Tento účet neexistuje',
 		},
 
 	},
@@ -298,6 +329,7 @@ const i18n = {
 			br: 'Pressione ~b~E ~s~para abrir o menu do Caixa Eletrônico', 
 			zhs: '按 ~b~E ~s~ 键打开ATM菜单',
 			zht: '按 ~b~E ~s~ 鍵打開ATM菜單',
+			cs: 'Stiskni ~b~E ~s~pro otevření menu bankomatu',
 		},
 
 		notEnoughCash: {
@@ -307,6 +339,7 @@ const i18n = {
 			br: 'O dinheiro não é suficiente', 
 			zhs: '现金不足',
 			zht: '現金不足',
+			cs: 'Nedostatek peněz',
 		},
 
 		addBankMoney: {
@@ -316,6 +349,7 @@ const i18n = {
 			br: 'Novo pagamento', 
 			zhs: '新的支付',
 			zht: '新的支付',
+			cs: 'Nová platba',
 		},
 
 		payTaxOffline: {
@@ -325,6 +359,7 @@ const i18n = {
 			br: 'Novo pagamento de imposto', 
 			zhs: '新的税务支出',
 			zht: '新的稅務支出',
+			cs: 'Nová platba daní',
 		},
 
 		newFine: {
@@ -334,6 +369,7 @@ const i18n = {
 			br: 'Nova multa', 
 			zhs: '新的惩罚',
 			zht: '新的懲罰',
+			cs: 'Nová pokuta',
 		},
 	},
 
@@ -345,6 +381,7 @@ const i18n = {
 			br: 'Fidelidade', 
 			zhs: '忠诚值',
 			zht: '忠誠值',
+			cs: 'Věrnost',
 		},
 	},
 
@@ -356,6 +393,7 @@ const i18n = {
 			br: 'Alguém', 
 			zhs: '某人',
 			zht: '某人',
+			cs: 'Někdo',
 		},
 	},
 
@@ -367,6 +405,7 @@ const i18n = {
 			br: 'Você não pode possuir mais de 1 negócio', 
 			zhs: '你不能建立多于1个商业产业。',
 			zht: '妳不能建立多於1個商業產業。',
+			cs: 'Nemůžeš vlastnit více, než 1 společnost',
 		},
 
 		sale: {
@@ -376,6 +415,7 @@ const i18n = {
 			br: 'Venda de negócios', 
 			zhs: '商业销售',
 			zht: '商業銷售',
+			cs: 'Prodej společnosti',
 		},
 
 	},
@@ -388,6 +428,7 @@ const i18n = {
 			br: 'trancado', 
 			zhs: '锁住',
 			zht: '鎖住',
+			cs: 'zamčeno',
 		},
 
 		unlocked: {
@@ -397,6 +438,7 @@ const i18n = {
 			br: 'destrancado', 
 			zhs: '已开锁',
 			zht: '已開鎖',
+			cs: 'odemčeno',
 		},
     
 		helpUnlock: {
@@ -406,6 +448,7 @@ const i18n = {
 			br: 'Destravar: num +', 
 			zhs: '开锁: 数字小键盘 +',
 			zht: '開鎖: 數字小鍵盤 +',
+			cs: 'Odemčít: num +',
 		},
 		
 		helpEngine: {
@@ -415,6 +458,7 @@ const i18n = {
 			br: 'Ligar o motor: num 0', 
 			zhs: '切换发动机：数字小键盘 0',
 			zht: '切換引擎: 數字小鍵盤 0',
+			cs: 'Nastartovat: num 0',
 		},
 		
 		spawnedFaggio2: {
@@ -424,6 +468,7 @@ const i18n = {
 			br: 'Ligar o motor: num 0', 
 			zhs: '切换发动机：数字小键盘 0',
 			zht: '切換引擎: 數字小鍵盤 0',
+			cs: 'Nastartovat: num 0',
 		},
 
 		sellVehicle: {
@@ -433,6 +478,7 @@ const i18n = {
 			br: '', 
 			zhs: '销售载具',
 			zht: '銷售載具',
+			cs: 'Prodej vozidla',
 		},
 
 		wantsSellVehicleToPlayer: {
@@ -442,6 +488,7 @@ const i18n = {
 			br: '', 
 			zhs: '希望能卖给你一个',
 			zht: '希望能賣給你一個',
+			cs: 'ti chce prodat',
 		},
 	},
 
@@ -453,6 +500,7 @@ const i18n = {
 			br: 'Por favor desligue o motor', 
 			zhs: '请熄火',
 			zht: '請熄火',
+			cs: 'Vypni motor prosím',
 		},
 
 		fuelPrice: {
@@ -462,6 +510,7 @@ const i18n = {
 			br: 'Preço por litro', 
 			zhs: '每升油价',
 			zht: '每升油價',
+			cs: 'Cena za litr',
 		},
 
 		goodJourney: {
@@ -471,6 +520,7 @@ const i18n = {
 			br: 'Tenha uma boa viagem', 
 			zhs: '祝你旅途愉快',
 			zht: '祝妳旅途愉快',
+			cs: 'Šťastnou cestu',
 		},
 
 		passengersDropOff: {
@@ -480,6 +530,7 @@ const i18n = {
 			br: 'Por favor, deixe os passageiros', 
 			zhs: '请让乘客下车',
 			zht: '請讓乘客下車',
+			cs: 'Vysaď pasažéry, prosím',
 		},
 
 	},
@@ -492,6 +543,7 @@ const i18n = {
 			br: 'trocar de roupa', 
 			zhs: '更换衣服',
 			zht: '更換衣服',
+			cs: 'pro změnu oblečení',
 		},
 
 		setNewRank: {
@@ -501,6 +553,7 @@ const i18n = {
 			br: 'Você definiu uma nova classificação para o jogador', 
 			zhs: '',
 			zht: '',
+			cs: 'Nastavil jsi novou hodnost hráči',
 		},
 
 		changedYourRank: {
@@ -510,6 +563,7 @@ const i18n = {
 			br: 'mudou sua classificação para', 
 			zhs: '',
 			zht: '',
+			cs: 'Změnil tvou hodnost na',
 		},
 
 		invited: {
@@ -519,6 +573,7 @@ const i18n = {
 			br: 'convidou você para', 
 			zhs: '邀请你',
 			zht: '邀請你',
+			cs: 'tě pozval do',
 		},
 
 		leader: {
@@ -528,6 +583,7 @@ const i18n = {
 			br: 'Agora você é líder em', 
 			zhs: '',
 			zht: '',
+			cs: 'Nyní jsi vedoucí v',
 		},
 
 		uninvited: {
@@ -537,6 +593,7 @@ const i18n = {
 			br: 'sem ser convidado de', 
 			zhs: '把你踢出了',
 			zht: '把你踢出了',
+			cs: 'zrušil tvé pozvání z',
 		},
 	},
 
@@ -548,6 +605,7 @@ const i18n = {
 			br: 'Você precisa de ajuda médica', 
 			zhs: '你需要医疗救治',
 			zht: '你需要醫療救治',
+			cs: 'Potřebuješ zzdravotní pomoc',
 		},
 
 		toStartHealing: {
@@ -557,6 +615,7 @@ const i18n = {
 			br: 'para começar a curar', 
 			zhs: '开始救治',
 			zht: '開始救治',
+			cs: 'pro uzdrabvení',
 		},
 
 		transferTo: {
@@ -566,6 +625,7 @@ const i18n = {
 			br: 'Transferência para o hospital', 
 			zhs: '转送到医院',
 			zht: '轉送到醫院',
+			cs: 'Převézt do nemocnice',
 		},
 
 		startedHealing: {
@@ -575,6 +635,7 @@ const i18n = {
 			br: 'Você começou o processo de tratamento', 
 			zhs: '你开始治疗了',
 			zht: '你開始治療了',
+			cs: 'Započal jsi proces uzdravení',
 		},
 
 		finishedHealing: {
@@ -584,6 +645,7 @@ const i18n = {
 			br: 'Você terminou o processo de cicatrização', 
 			zhs: '你结束了治疗过程',
 			zht: '你結束了治療過程',
+			cs: 'Dokončil jsi proces uzdravení',
 		},
 
 		isntHealing: {
@@ -593,6 +655,7 @@ const i18n = {
 			br: 'não está curando agora', 
 			zhs: '不在治疗中',
 			zht: '不在治療中',
+			cs: 'se nyní neuzdravuje',
 		},
 
 		youArentHealing: {
@@ -602,6 +665,7 @@ const i18n = {
 			br: 'Você não está curando agora', 
 			zhs: '你现在不在治疗中',
 			zht: '你現在不在治療中',
+			cs: 'Nyní se neuzdravuješ',
 		},
 
 		wantsIncreaseHealing: {
@@ -611,6 +675,7 @@ const i18n = {
 			br: 'Quer aumentar a velocidade de cicatrização', 
 			zhs: '希望加快治疗',
 			zht: '希望加快治療',
+			cs: 'Chce zvýšit rychlost uzdravení',
 		},
 
 		wantsHeal: {
@@ -620,6 +685,7 @@ const i18n = {
 			br: 'Quer curar você', 
 			zhs: '想治疗你',
 			zht: '想治療你',
+			cs: 'Tě chce uzdravit',
 		},
 
 	},
@@ -632,6 +698,7 @@ const i18n = {
 			br: '', 
 			zhs: '你开始担任',
 			zht: '你開始擔任',
+			cs: 'Nyní pracuješ jako',
 		},
 
 
@@ -642,6 +709,7 @@ const i18n = {
 			br: '', 
 			zhs: '你不再担任',
 			zht: '你不再擔任',
+			cs: 'Dokončil jsi práci v',
 		},
 
 	},
@@ -655,6 +723,7 @@ const i18n = {
 			br: 'Você tem', 
 			zhs: '你有',
 			zht: '妳有',
+			cs: 'Máš',
 		},
 
 		collected2: {
@@ -664,6 +733,7 @@ const i18n = {
 			br: 'laranjas no seu balde', 
 			zhs: '个橙子在篮子里',
 			zht: '個橙子在籃子裏',
+			cs: 'pomerančů v tvém kyblíku',
 		},
 
 		full: {
@@ -673,6 +743,7 @@ const i18n = {
 			br: 'Seu balde está cheio! Leve para o trailer', 
 			zhs: '你的篮子满了，把东西拉到车上吧',
 			zht: '妳的籃子滿了，把東西拉到車上吧',
+			cs: 'Tvůj kyblík je plný! Vezmi ho k návěsu',
 		},
 
 		empty: {
@@ -682,6 +753,7 @@ const i18n = {
 			br: 'Seu balde está vazio', 
 			zhs: '你的篮子是空的',
 			zht: '妳的籃子是空的',
+			cs: 'Tvůj kyblík je prázdný',
 		},		
 
 	},
@@ -694,6 +766,7 @@ const i18n = {
 			br: 'Pressione ~b~E~s~, para começar a trabalhar como entregador', 
 			zhs: '按~b~E~s~键报名农场工人。',
 			zht: '按~b~E~s~鍵報名農場工人。',
+			cs: 'Stiskni ~b~E ~s~pro začátek práce jako kurýr'',
 		},
 
 		uninvite: {
@@ -703,6 +776,7 @@ const i18n = {
 			br: 'Pressione ~b~E~s~, para encerrar o trabalho como entregador', 
 			zhs: '按~b~E~s~键辞工',
 			zht: '按~b~E~s~鍵辭工',
+			cs: 'Stiskni ~b~E ~s~ pro dokončení práce jako kurýr',
 		},
 
 		cantGetNewOrder: {
@@ -712,6 +786,7 @@ const i18n = {
 			br: 'Você não pode conseguir um novo pedido', 
 			zhs: '我们无法获取新订单',
 			zht: '我們無法獲取新訂單',
+			cs: 'Nemůžeš si vzít jinou objednávku',
 		},
 
 		getNewOrder: {
@@ -721,6 +796,7 @@ const i18n = {
 			br: 'Pressione ~b~E~s~, para pegar um novo pedido', 
 			zhs: '按 ~b~E ~s~ 获取新的指示',
 			zht: '按 ~b~E ~s~ 獲取新的指示',
+			cs: 'Stiskni ~b~E ~s~pro získání nové objednávky',
 		},
 
 		haveUndeliveredOrder: {
@@ -730,6 +806,7 @@ const i18n = {
 			br: 'Você tem ordem não entregue! Você vai pagar $500 terminando agora!', 
 			zhs: '你有未派送的订单！ 你需要支付 $500 来马上完成!',
 			zht: '妳有未派送的訂單！ 妳需要支付 $500 來馬上完成!',
+			cs: 'Máš nedoručenou objednávku! Zaplatíš $500 za dokončení',
 		},
 
 		started: {
@@ -739,6 +816,7 @@ const i18n = {
 			br: 'Você começou o trabalho de entrega da Cluckin Bell! Você pode obter um novo pedido no lado esquerdo', 
 			zhs: '你已经开始了Cluckin Bell派送任务！你可以在左边获取新订单',
 			zht: '妳已經開始了Cluckin Bell派送任務！妳可以在左邊獲取新訂單',
+			cs: 'Začal jsi doruučování v Cluckin Bell! Můžeš si převzít objednávku na levé straně',
 		},
 
 		finished: {
@@ -748,6 +826,7 @@ const i18n = {
 			br: 'Você encerrou o trabalho de entrega da Cluckin Bell', 
 			zhs: '你完成了 Cluckin Bell派所任务',
 			zht: '妳完成了 Cluckin Bell派所任務',
+			cs: 'Dokončil jsi doručovací práci v Cluckin Bell',
 		},
 
 		deliver: {
@@ -757,6 +836,7 @@ const i18n = {
 			br: 'Entregue seu pedido', 
 			zhs: '派送你的订单',
 			zht: '派送妳的訂單',
+			cs: 'Doruč svou objednávku',
 		},
 
 		undelivered: {
@@ -766,6 +846,7 @@ const i18n = {
 			br: 'Ordem não entregue', 
 			zhs: '取消派送订单',
 			zht: '取消派送訂單',
+			cs: 'Nedoručená objednávka',
 		},
 
 	},
@@ -778,6 +859,7 @@ const i18n = {
 			br: '', 
 			zhs: '错误的旧密码',
 			zht: '錯誤的舊密碼',
+			cs: 'Zadal jsi staré heslo',
 		},
 
 	},
