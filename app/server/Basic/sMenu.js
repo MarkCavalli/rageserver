@@ -22,7 +22,7 @@ class Menu {
             },
             
             "sMenu-SetLang" : (player, id) => {
-                const languages = ['eng', 'rus', 'ger', 'br', 'zhs', 'zht'];
+                const languages = ['eng', 'rus', 'ger', 'br', 'zhs', 'zht', 'cs',];
                 const lang = languages[id];
                 if (!lang) return;
                 player.notify(`~g~${i18n.get('basic', 'success', player.lang)}!`);
