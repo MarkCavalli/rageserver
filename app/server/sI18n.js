@@ -108,7 +108,7 @@ const i18n = {
 			br: 'segundos', 
 			zhs: '秒',
 			zht: '秒',
-			cs 'sekund',
+			cs: 'sekund',
 		},
 
 		toEnter: {
