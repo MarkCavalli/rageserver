@@ -108,7 +108,7 @@ const i18n = {
 			br: 'segundos', 
 			zhs: '秒',
 			zht: '秒',
-			cs 'sekund',
+			cs: 'sekund',
 		},
 
 		toEnter: {
@@ -148,7 +148,7 @@ const i18n = {
 			br: 'para sair da garagem', 
 			zhs: '离开车库',
 			zht: '離開車庫',
-			cs 'pro odchod z garáže',
+			cs: 'pro odchod z garáže',
 		},
 
 		toCallLift: {
@@ -178,7 +178,7 @@ const i18n = {
 			br: 'Algum jogador está bloqueando a área', 
 			zhs: '一些玩家阻挡了这个区域',
 			zht: '一些玩家阻擋了這個區域',
-			cs 'Nějaký hráč blokuje oblast',
+			cs: 'Nějaký hráč blokuje oblast',
 		},
 
 		youRejectedOffer: {
@@ -766,7 +766,7 @@ const i18n = {
 			br: 'Pressione ~b~E~s~, para começar a trabalhar como entregador', 
 			zhs: '按~b~E~s~键报名农场工人。',
 			zht: '按~b~E~s~鍵報名農場工人。',
-			cs: 'Stiskni ~b~E ~s~pro začátek práce jako kurýr'',
+			cs: 'Stiskni ~b~E ~s~pro začátek práce jako kurýr',
 		},
 
 		uninvite: {
