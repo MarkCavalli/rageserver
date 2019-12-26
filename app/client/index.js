@@ -9,6 +9,7 @@ require('./Business/cBarberShop');
 require('./Business/cGasStation');
 require('./Basic/cVehicle');
 require('./Jobs/cOrangeCollector');
+require('./Jobs/cMariaCollector');
 require('./Factions/cGarage.js');
 require('./Factions/cHospital.js');
 require('./Factions/cPolice.js');

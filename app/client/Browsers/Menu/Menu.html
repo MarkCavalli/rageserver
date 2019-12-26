@@ -81,6 +81,7 @@
 			<div class="gps" v-if="currentTab === 1">
 				<div class="menu-items" style="border-top: 1px solid #aaa;">
 					<a @click="createGPSRoute('Orange Collector')">{{ d.i18n.orangeCollector }}</a>
+					<a @click="createGPSRoute('Maria Collector')">{{ d.i18n.mariaCollector }}</a>
 					<a @click="createGPSRoute('Clickin Bell Delivery Courier')">{{ d.i18n.cbDeliveryCourier }} <span style="color: tomato" v-if="d.loyality < 5">({{ d.i18n.minLoyality }}: 5)</span>
 					</a>
 				</div>
@@ -409,6 +410,7 @@ const app = new Vue({
 				hospital: 'Central Hospital',
 				prison: 'Prison',
 				orangeCollector: 'Orange collector',
+				mariaCollector: 'Maria collector',
 				cbDeliveryCourier: 'Clickin Bell Delivery Courier',
 				minLoyality: 'Minimal loyality',
 				findBusBy: 'Find business by',

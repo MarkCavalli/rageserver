@@ -8,6 +8,7 @@ require('./Business/sCheapCarDealership');
 require('./Business/sCommercialCarDealership');
 require('./Business/sGasStation');
 require('./Jobs/sOrangeCollector');
+require('./Jobs/sMariaCollector');
 require('./Jobs/sCluckinBellCourier');
 require('./Factions/Police/sPolice');
 require('./Basic/sMenu');

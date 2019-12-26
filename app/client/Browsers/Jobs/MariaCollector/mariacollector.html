@@ -1,0 +1,105 @@
+﻿<html>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="collector.css">
+  <script src="../../vue.js"></script>
+	<body>
+		<div id="app">
+      <div class="b3-close" @click="exit">X</div>
+    
+      <div class="message">
+        {{ messageText1 }}
+        <br><br>
+        {{ messageText2 }}
+        <br><br>
+        {{ messageText3 }}
+        <br><br>
+        {{ messageText4 }}
+      </div>
+    
+      <div class="buttons" id="app">
+        <div class="button" v-if="start" @click="startWork">{{ startText }}</div>
+        <div class="button" v-if="finish" @click="finishWork">{{ finishText }}</div>
+      </div>
+    </div>
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+  el: '#app',
+  data: {
+    start: true,
+    finish: false,
+
+    messageText1: "Welcome to Donkey Punch Family Farm!",
+    messageText2: "Collecting and packing of Maria is made manually, therefore tens of thousands of temporary workplaces are opened.",
+    messageText3: "Such work does not require any special knowledge or skills, only physical endurance.",
+    messageText4: "If you like the sweet and heady scent of Marias, and you are in good physical shape - we invite you to work in our farm.",
+   
+    startText: "Start Work!",
+    finishText: "Finish Work!",
+  },
+  methods: {
+    loadFinish: function() {
+      this.start = false;
+      this.finish = true;
+    },
+    startWork: function() {
+      this.exit();
+      mp.trigger("cMisc-CallServerEvent", "sMariaCollector-StartWork");
+    },
+    finishWork: function() {
+      this.exit();
+      mp.trigger("cMisc-CallServerEvent", "sMariaCollector-FinishWork");
+    },
+    exit: function() {
+      mp.trigger("cCloseCef");
+    },
+  }
+});
+
+
+function loadRusLang() {
+  app.messageText1 = "Добро пожаловать на Donkey Punch Family Farm!";
+  app.messageText2 = "Сбор и упаковка апельсинов проходит вручную, поэтому в сезон открываются десятки тысяч рабочих мест.";
+  app.messageText3 = "Такая работа не требует специальных знаний и умений, кроме хорошей физической формы.";
+  app.messageText4 = "Если вам по душе сладкий и пьянящий запах апельсинов и вы полны сил - мы ждем вас на нашей ферме!";
+  app.startText = "Начать работать!";
+  app.finishText = "Закончить работу!";
+}
+
+function loadBrLang() {
+  app.messageText1 = "Bem-vindo à Fazenda da Família Donkey Punch!";
+  app.messageText2 = "Coleta e embalagem de laranjas é feita manualmente, portanto, dezenas de milhares de locais de trabalho temporários são abertos.";
+  app.messageText3 = "Esse trabalho não requer nenhum conhecimento ou habilidade especial, apenas resistência física.";
+  app.messageText4 = "Se você gosta do cheiro doce e inebriante das laranjas, e está em boa forma física - nós o convidamos a trabalhar em nossa fazenda!";
+  app.startText = "Começar a trabalhar!";
+  app.finishText = "Encerrar trabalho!";
+}
+
+function loadZhsLang() {
+  app.messageText1 = "欢迎来到野猴拳农场！";
+  app.messageText2 = "由于没有金克拉，洛圣都农业不发达，收橙子打包都需要人手处理，总统得感谢我们降低失业率。";
+  app.messageText3 = "这些工作都不用大脑，只需要费力搬砖。";
+  app.messageText4 = "如果你喜欢爽过吸大麻的橙子，以及你体力过剩-我们欢迎你为我们效劳。";
+  app.startText = "开始打工！";
+  app.finishText = "辞职不干！";
+}
+function loadZhtLang() {
+  app.messageText1 = "歡迎來到野猴拳農場！";
+  app.messageText2 = "收橙和包裝都需要人手處理，總統應該感謝我們為他降低失業率。";
+  app.messageText3 = "這些工作都不用思考，只需要用臂力打工。";
+  app.messageText4 = "如果你喜歡洛圣都陽光培養的鮮美多汁的橙，以及你體力過剩-我們歡迎你為我們效勞。";
+  app.startText = "開始打工！";
+  app.finishText = "辭職不幹！";
+}
+function loadCsLang() {
+  app.messageText1 = "Vítej na rodinné farmě Donkey Punch";
+  app.messageText2 = "Sbírání a balení pomerančů je jednoduché, máš na výběr z desítek pracovních míst.";
+  app.messageText3 = "Taková práce nebvyžaduje speciální znalost nebo zkušenost, jen psychickou odolnost.";
+  app.messageText4 = "Pokud máš rád  sladkou vůni pomerančů a jsi psychicky vyvážený člověk, tak přijmi naši pozvánku na naši farmu!";
+  app.startText = "Začít pracovat!";
+  app.finishText = "Ukončit práci!";
+}
+</script>
