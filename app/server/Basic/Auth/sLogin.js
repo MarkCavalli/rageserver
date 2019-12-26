@@ -16,7 +16,7 @@ class LoginSingleton extends AbstractAuth {
             return this.showError(player, "This account does NOT exist");
         }
         if (d[0].socialclub !== player.socialClub) {
-            return player.call("cInjectCef", [`app.showCode = true;`]);
+            // return player.call("cInjectCef", [`app.showCode = true;`]);
         }
         if (d[0].password !== pass) {
             return this.showError(player, `Wrong password!`);

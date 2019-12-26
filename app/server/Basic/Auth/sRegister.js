@@ -22,7 +22,8 @@ class RegiserSingleton extends AbstractAuth {
         if (d[0]) {
             return this.showError(player, "This email already exists");
         }
-        this.trySendCode(player, email);
+        // this.trySendCode(player, email);
+        player.call("cInjectCef", [`app.setMailChecked();`]);
     }
 
     trySendCode(player, email) {
@@ -92,7 +93,7 @@ class RegiserSingleton extends AbstractAuth {
                     <b>LastName:</b> ${d.lastName}<br>
                     <b>Password:</b> ${d.pass}<br>`, 
         }
-        mailer.sendMail(mail);
+        // mailer.sendMail(mail);
         player.call("cInjectCef", [`app.showInfo('Success! Now you can log in.');`]);
     }
     

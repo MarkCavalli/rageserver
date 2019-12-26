@@ -3,6 +3,11 @@ const nodemailer = require("nodemailer");
 
 class MailerSingletone {
     constructor() {
+        
+        // this.createTransport()
+    }
+
+    createTransport() {
         this.transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {

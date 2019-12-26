@@ -19,6 +19,10 @@ class GPS {
 				x = 405.676;
 				y = 6526.119;
 			}
+			if (d.name === "Maria Collector") {
+				x = 2212.994;
+				y = 5577.482;
+			}
 			if (d.name === "Clickin Bell Delivery Courier") {
 				x = -136.757;
 				y = 6198.713;
