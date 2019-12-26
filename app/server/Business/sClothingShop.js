@@ -89,7 +89,7 @@ mp.events.add({
 
 mp.events.addCommand({
 	'createclothingshop' : async (player, enteredprice) => {
-		if (player.adminLvl < 1) return;
+		if (player.adminlvl < 1) return;
 		const id = business.getCountOfBusinesses() + 1;
 		const coord = misc.getPlayerCoordJSON(player);
 		const price = Number(enteredprice.replace(/\D+/g,""));
@@ -100,14 +100,14 @@ mp.events.addCommand({
 	},	
 
 	'setchbuyerstandcoord' : async (player, id) => {
-		if (player.adminLvl < 1) return;
+		if (player.adminlvl < 1) return;
 		const coord = misc.getPlayerCoordJSON(player);
 		await misc.query(`UPDATE clothingshop SET buyerStandCoord = '${coord}' WHERE id = ${id}`);
 		player.notify(`~g~${i18n.get('basic', 'success', player.lang)}!`);
 	},
 
 	'setchcamdata' : async (player, id) => {
-		if (player.adminLvl < 1) return;
+		if (player.adminlvl < 1) return;
 		const shop = business.getBusiness(+id);
 		shop.updateCamData(player);
 	},	

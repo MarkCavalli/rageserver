@@ -4,36 +4,14 @@ const Job = require('./sJob');
 
 
 
-class OrangeCollector extends Job {
+class MariaCollector extends Job {
     constructor() {
-        const d = { name: "Orange Collector", x: 405.676, y: 6526.119, z: 27.709, rot: 0, dim: 0 }
-        misc.log.debug("Orange Collector : " + d);
+        const d = { name: "Maria Collector", x: 2212.994, y: 5577.482, z: 53.786, rot: 0, dim: 0 }
+        misc.log.debug("Maria Collector : " + d);
         super(d);
-        this.posToDrop = {x: 331.74, y: 6541.576, z: 28.417};
+        this.posToDrop = {x: 2196.048, y: 5588.626, z: 53.537};
         this.checkPoints = [
-            {x: 378.583, y: 6517.85, z: 27.7 },
-            {x: 378.304, y: 6506.14, z: 27.7 },
-            {x: 370.188, y: 6506.349, z: 27.7 },
-            {x: 370.455, y: 6517.792, z: 27.7 },
-            {x: 368.892, y: 6531.863, z: 27.7 },
-            {x: 362.015, y: 6531.501, z: 27.7 },
-            {x: 363.063, y: 6517.922, z: 27.7 },
-            {x: 363.256, y: 6506.289, z: 27.7 },
-            {x: 354.857, y: 6504.864, z: 27.7 },
-            {x: 355.179, y: 6516.821, z: 27.7 },
-            {x: 354.111, y: 6530.424, z: 27.7 },
-            {x: 345.973, y: 6530.799, z: 27.7 },
-            {x: 347.625, y: 6517.124, z: 27.7 },
-            {x: 348.232, y: 6505.646, z: 27.7 },
-            {x: 340.024, y: 6505.893, z: 27.7 },
-            {x: 338.755, y: 6517.642, z: 27.7 },
-            {x: 338.543, y: 6530.713, z: 27.7 },
-            {x: 329.836, y: 6531.433, z: 27.7 },
-            {x: 329.830, y: 6517.543, z: 27.7 },
-            {x: 330.540, y: 6506.052, z: 27.7 },
-            {x: 321.837, y: 6504.873, z: 27.7 },
-            {x: 321.420, y: 6517.296, z: 27.7 },
-            {x: 321.355, y: 6530.995, z: 27.7 },
+            {x: 2234.38, y: 5577.286, z: 53.932 },
         ];
         this.treeMarkersList = [];
 
@@ -41,29 +19,29 @@ class OrangeCollector extends Job {
         mp.events.add({
             "playerEnterColshape" : (player, shape) => {
                 if (!player.loggedIn || player.vehicle || !this.isPlayerWorksHere(player)) return;
-                if (shape.orangeCollectorTree === player.job.activeTree) {
+                if (shape.mariaCollectorTree === player.job.activeTree) {
                     player.playAnimation('anim@mp_snowball', 'pickup_snowball', 1, 47);
-                    player.call("cMisc-CallServerEvenWithTimeout", ["sOrangeCollector-EnteredTreeShape", 2400]);
+                    player.call("cMisc-CallServerEvenWithTimeout", ["sMariaCollector-EnteredTreeShape", 2400]);
                     }
                 else if (shape === this.dropShape) {
                     player.playAnimation('anim@mp_snowball', 'pickup_snowball', 1, 47);
-                    player.call("cMisc-CallServerEvenWithTimeout", ["sOrangeCollector-EnteredDropShape", 2400]);
+                    player.call("cMisc-CallServerEvenWithTimeout", ["sMariaCollector-EnteredDropShape", 2400]);
                 }
             },
 
-            "sOrangeCollector-EnteredTreeShape" : (player) => {
+            "sMariaCollector-EnteredTreeShape" : (player) => {
                 this.enteredTreeShape(player);
             },
 
-            "sOrangeCollector-EnteredDropShape" : (player) => {
+            "sMariaCollector-EnteredDropShape" : (player) => {
                 this.enteredDropShape(player);
             },
         
-            "sOrangeCollector-StartWork" : (player) => {
+            "sMariaCollector-StartWork" : (player) => {
                 this.startWork(player);
             },
         
-            "sOrangeCollector-FinishWork" : (player) => {
+            "sMariaCollector-FinishWork" : (player) => {
                 this.finishWork(player);
             },
         
@@ -94,17 +72,17 @@ class OrangeCollector extends Job {
                 color: [255, 165, 0, 50],
                 visible: false,
             });
-            marker.orangeCollectorTree = i;
+            marker.mariaCollectorTree = i;
             this.treeMarkersList.push(marker);
             const colshape = mp.colshapes.newSphere(this.checkPoints[i].x, this.checkPoints[i].y, this.checkPoints[i].z, 3);
-            colshape.orangeCollectorTree = i;
+            colshape.mariaCollectorTree = i;
         }
     }
 
     pressedKeyOnMainShape(player) {
         let execute = '';
         if (player.job.name === this.name) execute = `app.loadFinish();`;
-        player.call("cOrangeCollector-OpenMainMenu", [player.lang, execute]);
+        player.call("cMariaCollector-OpenMainMenu", [player.lang, execute]);
     }
 
     startWork(player) {
@@ -149,20 +127,20 @@ class OrangeCollector extends Job {
     enteredTreeShape(player) {
         player.stopAnimation();
         player.job.collected += misc.getRandomInt(1, 2);
-        player.notify(`${i18n.get('sOrangeCollector', 'collected1', player.lang)} ~g~${player.job.collected} ~w~${i18n.get('sOrangeCollector', 'collected2', player.lang)}!`);
+        player.notify(`${i18n.get('sMariaCollector', 'collected1', player.lang)} ~g~${player.job.collected} ~w~${i18n.get('sMariaCollector', 'collected2', player.lang)}!`);
         if (player.job.collected < 20) return this.createRandomCheckPoint(player);
         this.hideActiveCheckPoint(player);
-        player.notify(`~g~${i18n.get('sOrangeCollector', 'full', player.lang)}!`);
+        player.notify(`~g~${i18n.get('sMariaCollector', 'full', player.lang)}!`);
     }
 
     enteredDropShape(player) {
         player.stopAnimation();
-        if (player.job.collected === 0) return player.notify(`${i18n.get('sOrangeCollector', 'empty', player.lang)}!`);
+        if (player.job.collected === 0) return player.notify(`${i18n.get('sMariaCollector', 'empty', player.lang)}!`);
         const earnedMoney = player.job.collected * 160;
         player.changeMoney(earnedMoney);
         player.notify(`${i18n.get('basic', 'earned1', player.lang)} ~g~$${earnedMoney}! ~w~${i18n.get('basic', 'earned2', player.lang)}!`);
         if (player.loyality < 50) player.addLoyality(player.job.collected / 10);
-        misc.log.debug(`${player.name} earned $${earnedMoney} at orange collector job!`);
+        misc.log.debug(`${player.name} earned $${earnedMoney} at maria collector job!`);
         player.job.collected = 0;
         if (!player.job.activeTree) this.createRandomCheckPoint(player);
     }
@@ -175,4 +153,4 @@ class OrangeCollector extends Job {
 
     
 }
-new OrangeCollector();
+new MariaCollector();

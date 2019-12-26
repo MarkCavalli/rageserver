@@ -758,6 +758,49 @@ const i18n = {
 
 	},
 
+	sMariaCollector: {
+		collected1: {
+			eng: 'You have',
+			rus: 'У вас в корзине',
+			ger: 'Du hast',
+			br: 'Você tem', 
+			zhs: '你有',
+			zht: '妳有',
+			cs: 'Máš',
+		},
+
+		collected2: {
+			eng: 'maria in your bucket',
+			rus: 'апельсинов',
+			ger: 'marien in deinem eimer',
+			br: 'laranjas no seu balde', 
+			zhs: '个橙子在篮子里',
+			zht: '個橙子在籃子裏',
+			cs: 'pomerančů v tvém kyblíku',
+		},
+
+		full: {
+			eng: 'Your bucket is full! Take it to the trailer',
+			rus: 'Ваша корзина заполнена! Отнесите ее к трейлеру',
+			ger: 'Dein Eimer ist voll! Bring es zum Trailer',
+			br: 'Seu balde está cheio! Leve para o trailer', 
+			zhs: '你的篮子满了，把东西拉到车上吧',
+			zht: '妳的籃子滿了，把東西拉到車上吧',
+			cs: 'Tvůj kyblík je plný! Vezmi ho k návěsu',
+		},
+
+		empty: {
+			eng: 'Your bucket is empty',
+			rus: 'Ваша корзина пуста',
+			ger: 'Dein Eimer ist leer',
+			br: 'Seu balde está vazio', 
+			zhs: '你的篮子是空的',
+			zht: '妳的籃子是空的',
+			cs: 'Tvůj kyblík je prázdný',
+		},		
+
+	},
+
 	sCBDeliveryMen: {
 		invite: {
 			eng: 'Press ~b~E ~s~to start work as a Delivery Men',

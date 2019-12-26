@@ -86,7 +86,7 @@ module.exports = weatherSingleton;
 mp.events.addCommand(
 {
 	'w' : (player, fullText, id) => {
-		if (player.adminLvl < 1) {
+		if (player.adminlvl < 1) {
 			return;
 		}
 		weatherSingleton.changeWeatherTo(+id);
