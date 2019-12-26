@@ -169,7 +169,7 @@ loadShops();
 
 mp.events.addCommand({
 	'creategasstation' : async (player, enteredprice) => {
-		if (player.adminLvl < 1) return;
+		if (player.adminlvl < 1) return;
 		const id = business.getCountOfBusinesses() + 1;
 		const coord = misc.getPlayerCoordJSON(player);
 		const price = Number(enteredprice.replace(/\D+/g,""));
@@ -180,13 +180,13 @@ mp.events.addCommand({
 	},	
 
 	'setgasstationfillingpos' : async (player, fullText, id, radius) => {
-		if (player.adminLvl < 1) return;
+		if (player.adminlvl < 1) return;
 		const shop = business.getBusiness(+id);
 		shop.updateFillingData(player, radius);
 	},	
 
 	'setgasstationcamdata' : async (player, fullText, id, viewangle) => {
-		if (player.adminLvl < 1) return;
+		if (player.adminlvl < 1) return;
 		const shop = business.getBusiness(+id);
 		shop.updateCamData(player, viewangle);
 	},	

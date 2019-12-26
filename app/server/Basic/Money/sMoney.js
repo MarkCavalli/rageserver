@@ -94,7 +94,7 @@ module.exports = moneySingletone;
 
 mp.events.addCommand({	
 	'givecash' : (admin, fullText, id, value) => {
-		if (admin.adminLvl < 1) return;
+		if (admin.adminlvl < 1) return;
 		const player = mp.players.at(+id);
 		if (!player) return admin.outputChatBox(`!{200, 0, 0}Player does not exist!`);
 		player.changeMoney(+value);

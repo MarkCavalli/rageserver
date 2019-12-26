@@ -36,7 +36,7 @@ loadShops();
 
 mp.events.addCommand({
 	'createcheapcardealership' : async (player, enteredprice) => {
-		if (player.adminLvl < 1) return;
+		if (player.adminlvl < 1) return;
 		const id = business.getCountOfBusinesses() + 1;
 		const coord = misc.getPlayerCoordJSON(player);
 		const price = Number(enteredprice.replace(/\D+/g,""));
@@ -48,7 +48,7 @@ mp.events.addCommand({
 	},	
 
 	'setccardealernewcarcoord' : async (player, id) => {
-		if (player.adminLvl < 1) return;
+		if (player.adminlvl < 1) return;
 		if (!player.vehicle) return player.notify(`~r~You're not in vehicle!`);
 		const coord = misc.getPlayerCoordJSON(player);
 		await misc.query(`UPDATE cheapcardealership SET newCarCoord = '${coord}' WHERE id = ${id}`);

@@ -81,7 +81,7 @@ class VehicleSingleton {
 
 		mp.events.addCommand({	
 			'v' : (player, fullText, model) => {
-				if (player.adminLvl < 1) return;
+				if (player.adminlvl < 1) return;
 				if (!model) return player.notify("Model required");
 				const d = {
 					model,
@@ -105,7 +105,7 @@ class VehicleSingleton {
 			},
 		
 			'veh' : (player) => {  // Temporary vehicle spawning
-				if (player.adminLvl < 1) return;
+				if (player.adminlvl < 1) return;
 				if (player.health < 5) return;
 				const d = {
 					model: 'faggio2',
@@ -130,7 +130,7 @@ class VehicleSingleton {
 			},
 		
 			'tp' : (player, fullText, a, b, c) => { 
-				if (player.adminLvl < 1) return;
+				if (player.adminlvl < 1) return;
 				player.position = new mp.Vector3(+a, +b, +c);
 			},
 		

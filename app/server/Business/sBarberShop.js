@@ -106,7 +106,7 @@ mp.events.add({
 
 mp.events.addCommand({
 	'createbarbershop' : async (player, enteredprice) => {
-		if (player.adminLvl < 1) return;
+		if (player.adminlvl < 1) return;
 		const id = business.getCountOfBusinesses() + 1;
 		const coord = misc.getPlayerCoordJSON(player);
 		const price = Number(enteredprice.replace(/\D+/g,""));
@@ -117,7 +117,7 @@ mp.events.addCommand({
 	},	
 
 	'setbscamdata' : async (player, id) => {
-		if (player.adminLvl < 1) return;
+		if (player.adminlvl < 1) return;
 		const shop = business.getBusiness(+id);
 		shop.updateCamData(player);
 	},	
