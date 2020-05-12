@@ -132,7 +132,7 @@ class PlayerSingleton {
         }
 
         player.isDriver = function() {
-            if (!this.vehicle || this.seat !== -1) return false;
+            if (!this.vehicle || this.seat !== 0) return false;
             return true;
         }
         
