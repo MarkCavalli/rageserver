@@ -13,11 +13,11 @@ mp.events.add({
         misc.injectCef(inject);
     },
 
-    "createCluckinBellBlip": (i) => {
+    "createCluckinBellBlip": (i, blipname) => {
         deliveryPointsListClient = [];
         for (const pos of i) {
             const blip = mp.blips.new(1, new mp.Vector3(pos.x, pos.y, pos.z), {
-                name: 'Entrega',
+                name: blipname,
                 shortRange: true,
                 scale: 0.7,
                 color: 60,
@@ -37,9 +37,9 @@ mp.events.add({
         blip.destroy();
     },
 
-    "routeCluckinBellBlip": (pos) => {
+    "routeCluckinBellBlip": (pos, blipname) => {
         blip = mp.blips.new(1, new mp.Vector3(pos.x, pos.y, pos.z), {
-                name: 'Entrega',
+                name: blipname,
                 shortRange: true,
                 scale: 0.7,
                 color: 60,
@@ -48,4 +48,4 @@ mp.events.add({
 
         blip.setRoute(true);
     },
-});       
+});

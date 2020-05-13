@@ -71,8 +71,12 @@ class ClickinBellCourier extends Job {
                     }
                     else
                     {
+                        //player.notify(`~g~Você entregou todas as encomendas!`);
 						player.notify(`~g~${i18n.get('sCBDeliveryMen', 'deliver1', player.lang)}!`);
-						player.notify(`~g~${i18n.get('sCBDeliveryMen', 'deliver2', player.lang)}!`);					
+                        //player.notify(`~g~Volte a sede para pegar mais entregas.`);
+						player.notify(`~g~${i18n.get('sCBDeliveryMen', 'deliver2', player.lang)}!`);
+						
+                        //player.notify(`Você ganhou ~g~$${player.job.money}! ~w~pelas encomendas!`);
 						player.notify(`${i18n.get('sCBDeliveryMen', 'deliver3', player.lang)} ~g~${player.job.money}$`);
                     }
                 }
@@ -143,6 +147,7 @@ class ClickinBellCourier extends Job {
     }
 
     pressedKeyOnMainShape(player) {
+		player.notify(`Tentou entrar no emprego: ${player.job.name}`);
         let execute = '';
         if (player.job.name === this.name) execute = `app.loadFinish();`;
         player.call("cCluckinBellCourier-OpenMainMenu", [player.lang, execute]);
@@ -195,6 +200,8 @@ class ClickinBellCourier extends Job {
         }
         else
         {
+            //var entregas = (player.job.orders > 1 ? "entregas" : "entrega");
+            //player.notify(`~g~Você ainda tem ${player.job.orders} ${entregas} para realizar!`);
 			player.notify(`~g~${i18n.get('sCBDeliveryMen', 'deliver4', player.lang)} ${player.job.orders} ${i18n.get('sCBDeliveryMen', 'deliver5', player.lang)}`);
         }
     }
