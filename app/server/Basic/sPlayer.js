@@ -40,6 +40,17 @@ class PlayerSingleton {
         player.tp(JSON.parse(d[0].position));
         player.health = d[0].health;
         player.call("cCloseCefAndDestroyCam");
+		
+		player.job = { 
+			name: i18n.get('sJob', 'unemployed', player.lang),
+			id: 0,
+			idjob: 0,
+			xp: 0,
+			ammount: 0,
+			maxammount: 0,
+			active: 0,
+			money: 0,
+		};
 
 
         const q1 = moneySingleton.loadUser(player);
@@ -75,7 +86,17 @@ class PlayerSingleton {
         player.faction = {};
         player.canOpen = {};
         player.canEnter = {};
-        player.job = {};
+        player.job = {
+            id: 0,
+            idjob: 0,
+            name: i18n.get('sJob', 'unemployed', player.lang),
+            xp: 0,
+            ammount: 0,
+            maxammount: 0,
+            money: 0,
+            active: 0,
+            deliveryPointsPlayer: [],
+        };
 
 
         player.updateName = function() {

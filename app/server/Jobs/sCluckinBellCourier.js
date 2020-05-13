@@ -50,8 +50,6 @@ class ClickinBellCourier extends Job {
             {x: -290.511, y: 6320.165, z: 32.513 },
             {x: -269.89, y: 6353.946, z: 32.49 },
             {x: -269.945, y: 6400.332, z: 31.342 },
-
-
         ];
         this.deliveryPointsList = [];
 
@@ -60,7 +58,23 @@ class ClickinBellCourier extends Job {
                 if (player.vehicle || !player.loggedIn || !this.isPlayerWorksHere(player)) return;
                 if (shape === this.getOrderColshape) this.playerEntersGetOrderShape(player);
                 else if (typeof player.job.currentOrder === "number" && shape === this.deliveryPointsList[player.job.currentOrder].colshape) {
-                   this.successDeliver(player);
+                   player.job.orders -= 1;
+                    
+                    player.job.ammount = player.job.maxammount - player.job.orders;
+                    player.job.xp += 1;
+                    
+                    this.successDeliver(player);
+                    if (player.job.orders > 0)
+                    {
+                        player.notify(`~g~${i18n.get('sCBDeliveryMen', 'deliver', player.lang)}!`);
+                        this.generateNewOrder(player);
+                    }
+                    else
+                    {
+						player.notify(`~g~${i18n.get('sCBDeliveryMen', 'deliver1', player.lang)}!`);
+						player.notify(`~g~${i18n.get('sCBDeliveryMen', 'deliver2', player.lang)}!`);					
+						player.notify(`${i18n.get('sCBDeliveryMen', 'deliver3', player.lang)} ~g~${player.job.money}$`);
+                    }
                 }
             },
         
@@ -77,6 +91,16 @@ class ClickinBellCourier extends Job {
             "playerQuit" : (player, exitType, reason) => {
                 if (!player.loggedIn) return;
                 if (this.isPlayerWorksHere(player)) this.finishWork(player);
+            },
+			
+			"sCluckinBellCourier-StartWork": (player) => {
+                this.startWork(player);
+            },
+            "sCluckinBellCourier-FinishWork": (player) => {
+                this.finishWork(player);
+            },
+            "sCluckinBellCourier-NewOrderFromClient": (player) => {
+                this.generateNewOrder(player)
             },
         
         });
@@ -104,12 +128,7 @@ class ClickinBellCourier extends Job {
                 visible: false,
             });
             const colshape = mp.colshapes.newSphere(pos.x, pos.y, pos.z, 1);
-            const blip = mp.blips.new(1, new mp.Vector3(pos.x, pos.y, pos.z), {	
-                shortRange: true,
-                scale: 0,
-                color: 60,
-            });
-            const obj = { blip, marker, colshape }
+            const obj = { marker, colshape }
             this.deliveryPointsList.push(obj);
         }
 
@@ -124,14 +143,16 @@ class ClickinBellCourier extends Job {
     }
 
     pressedKeyOnMainShape(player) {
-        if (this.isPlayerWorksHere(player)) this.finishWork(player);
-        else if (this.isPlayerWorksOnOtherJob(player)) player.notify(`~r~${i18n.get('basic', 'workingOnOtherJob', player.lang)}!`);
-        else this.startWork(player);
+        let execute = '';
+        if (player.job.name === this.name) execute = `app.loadFinish();`;
+        player.call("cCluckinBellCourier-OpenMainMenu", [player.lang, execute]);
     }
 
     finishWork(player) {
         if (typeof player.job.currentOrder === "number") {
-            player.newFine(500, `Cluckin Bell - ${i18n.get('sCBDeliveryMen', 'undelivered', player.lang)}`);
+            var rest = player.job.maxammount - player.job.ammount;
+            var taxpay = 30 * rest;
+            player.newFine(taxpay, `Cluckin Bell - ${i18n.get('sCBDeliveryMen', 'undelivered', player.lang)}`);
             player.removeLoyality(10);
         }
         this.cancelCurrentOrder(player);
@@ -139,9 +160,19 @@ class ClickinBellCourier extends Job {
     }
 
     startWork(player) {
-        if (player.loyality < 5) return player.notify(`~r~${i18n.get('basic', 'needMoreLoyality1', player.lang)} 5 ${i18n.get('basic', 'needMoreLoyality2', player.lang)}!`);
         super.startWork(player);
-        player.job = { name: this.name, currentOrder: false, canGetNewOrder: false };
+		
+        player.job.name = this.name;
+        player.job.currentOrder = false;
+        player.job.canGetNewOrder = false;
+        player.job.orders = 0;
+        player.job.deliveryPoints = [];
+		
+		player.job.ammount = 0;
+        player.job.maxammount = 0;
+        player.job.active = 1;
+        player.job.money = 0;
+		
         this.getOrderMarker.showFor(player);
     }
 
@@ -153,8 +184,19 @@ class ClickinBellCourier extends Job {
     }
 
     playerPressedKeyOnNewOrderShape(player) {
-        player.notify(`~g~${i18n.get('sCBDeliveryMen', 'deliver', player.lang)}!`);
-        this.generateNewOrder(player);
+        if (player.job.orders == 0) {
+            player.job.orders = 10;
+            player.job.ammount = 0;
+            player.job.money = 0;
+            player.job.maxammount = player.job.orders;
+            player.notify(`~g~${i18n.get('sCBDeliveryMen', 'deliver', player.lang)}!`);
+			
+            player.call('createCluckinBellBlip', [this.deliveryPoints, i18n.get('sCBDeliveryMen', 'deliverblip', player.lang)]);
+        }
+        else
+        {
+			player.notify(`~g~${i18n.get('sCBDeliveryMen', 'deliver4', player.lang)} ${player.job.orders} ${i18n.get('sCBDeliveryMen', 'deliver5', player.lang)}`);
+        }
     }
 
     generateNewOrder(player) {
@@ -162,16 +204,16 @@ class ClickinBellCourier extends Job {
         if (i === player.job.currentOrder) return this.generateNewOrder(player);
         this.cancelCurrentOrder(player);
         this.deliveryPointsList[i].marker.showFor(player);
-        this.deliveryPointsList[i].blip.routeFor(player, 60, 0.7);
-        player.job.currentOrder = i
+        player.call('routeCluckinBellBlip', [this.deliveryPoints[i], i18n.get('sCBDeliveryMen', 'deliverblip', player.lang)]);
+        player.job.currentOrder = i        
         return i;
     }
 
     cancelCurrentOrder(player) {
         if (typeof player.job.currentOrder !== "number") return;
         const i = player.job.currentOrder;
-        this.deliveryPointsList[i].marker.hideFor(player);
-        this.deliveryPointsList[i].blip.unrouteFor(player);
+        this.deliveryPointsList[i].marker.hideFor(player);     
+        player.call('unrouteCluckinBellBlip', [i]);
         player.job.currentOrder = false;
     }
 
@@ -180,13 +222,15 @@ class ClickinBellCourier extends Job {
     }
 
     successDeliver(player) {
-        const prize = misc.getRandomInt(500, 1000);
-        const earnedMoney = 837 + prize;
+        const prize = misc.getRandomInt(3, 10);
+        const earnedMoney = 5 + prize;
+		
+        player.job.money += earnedMoney;
         player.changeMoney(earnedMoney);
+		
         player.notify(`${i18n.get('basic', 'earned1', player.lang)} ~g~$${earnedMoney}! ~w~${i18n.get('basic', 'earned2', player.lang)}!`);
         if (player.loyality < 150) player.addLoyality(1);
         this.cancelCurrentOrder(player);
-        misc.log.debug(`${player.name} earned $${earnedMoney}`);
     }
     
 }
