@@ -8,6 +8,7 @@ require('./Business/cClothingShop');
 require('./Business/cBarberShop');
 require('./Business/cGasStation');
 require('./Basic/cVehicle');
+require('./Jobs/cCluckinBellCourier');
 require('./Jobs/cOrangeCollector');
 require('./Jobs/cMariaCollector');
 require('./Factions/cGarage.js');

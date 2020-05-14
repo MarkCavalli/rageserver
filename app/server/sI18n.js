@@ -711,6 +711,16 @@ const i18n = {
 			zht: '你不再擔任',
 			cs: 'Dokončil jsi práci v',
 		},
+		
+		unemployed: {
+			eng: 'Unemployed',
+			rus: '',
+			ger: '',
+			br: 'Desempregado', 
+			zhs: '',
+			zht: '',
+			cs: '',
+		},
 
 	},
 
@@ -890,6 +900,66 @@ const i18n = {
 			zhs: '取消派送订单',
 			zht: '取消派送訂單',
 			cs: 'Nedoručená objednávka',
+		},
+		
+		deliver1: {
+			eng: 'You have delivered all orders',
+			rus: '',
+			ger: '',
+			br: 'Você entregou todas as encomendas!', 
+			zhs: '',
+			zht: '',
+			cs: '',
+		},
+		
+		deliver2: {
+			eng: 'Go back to company headquarters to pick up more deliveries',
+			rus: '',
+			ger: '',
+			br: 'Volte a sede para pegar mais entregas.', 
+			zhs: '',
+			zht: '',
+			cs: '',
+		},
+		
+		deliver3: {
+			eng: 'You received',
+			rus: '',
+			ger: '',
+			br: 'Você recebeu', 
+			zhs: '',
+			zht: '',
+			cs: '',
+		},
+		
+		deliver4: {
+			eng: 'You still have to deliver',
+			rus: '',
+			ger: '',
+			br: 'Você ainda tem que entregar', 
+			zhs: '',
+			zht: '',
+			cs: '',
+		},
+		
+		deliver5: {
+			eng: 'packages.',
+			rus: '',
+			ger: '',
+			br: 'pacote(s).', 
+			zhs: '',
+			zht: '',
+			cs: '',
+		},
+		
+		deliverblip: {
+			eng: 'Destination',
+			rus: '',
+			ger: '',
+			br: 'Entrega', 
+			zhs: '',
+			zht: '',
+			cs: '',
 		},
 
 	},

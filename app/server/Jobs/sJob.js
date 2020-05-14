@@ -29,7 +29,7 @@ mp.events.add({
     
     "sKeys-E" : (player) => {
         if (!player.loggedIn || !player.canOpen.job) return;
-        if (player.job.name && player.job.name !== player.canOpen.job) return player.notify(`~r~${i18n.get('basic', 'workingOnOtherJob', player.lang)}!`);
+        if (player.job.name !== i18n.get('sJob', 'unemployed', player.lang) && player.job.name !== player.canOpen.job) return player.notify(`~r~${i18n.get('basic', 'workingOnOtherJob', player.lang)}!`);
         const job = getJobByName(player.canOpen.job);
         job.pressedKeyOnMainShape(player);
     },
@@ -86,10 +86,10 @@ class Job {
         
     }
 
-    finishWork(player) {
-        player.job = {};
+    finishWork(player) {        
         player.outputChatBox(`!{200, 0, 0}${i18n.get('sJob', 'finish', player.lang)} ${this.name}`);
         misc.log.debug(`${player.name} finished works as ${this.name}`);
+		player.job = {name: i18n.get('sJob', 'unemployed', player.lang) };
         clothes.loadPlayerClothes(player);
     }
 
@@ -99,7 +99,7 @@ class Job {
     }
 
     isPlayerWorksOnOtherJob(player) {
-        if (player.job.name && player.job.name !== this.name) return true;
+        if (player.job.name !== i18n.get('sJob', 'unemployed', player.lang) && player.job.name !== player.canOpen.job) return true;
         return false;
     }
 

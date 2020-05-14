@@ -1,0 +1,105 @@
+﻿<html>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="cluckinbellcourier.css">
+  <script src="../../vue.js"></script>
+	<body>
+		<div id="app">
+      <div class="b3-close" @click="exit">X</div>
+    
+      <div class="message">
+        {{ messageText1 }}
+        <br><br>
+        {{ messageText2 }}
+        <br><br>
+        {{ messageText3 }}
+        <br><br>
+        {{ messageText4 }}
+      </div>
+    
+      <div class="buttons" id="app">
+        <div class="button" v-if="start" @click="startWork">{{ startText }}</div>
+        <div class="button" v-if="finish" @click="finishWork">{{ finishText }}</div>
+      </div>
+    </div>
+	</body>
+</html>
+
+
+<script>
+const app = new Vue({
+  el: '#app',
+  data: {
+    start: true,
+    finish: false,
+
+    messageText1: "Welcome to Cluckin Bell!",
+    messageText2: "We serve the best meals!",
+    messageText3: "We are the best and for that we need to provide cutting edge service and fast deliveries.",
+    messageText4: "If you enjoy speed and skill, this is the ideal job for you! Be one of our couriers and bring happiness to others!",
+   
+    startText: "Start Work!",
+    finishText: "Finish Work!",
+  },
+  methods: {
+    loadFinish: function() {
+      this.start = false;
+      this.finish = true;
+    },
+    startWork: function() {
+      this.exit();
+        mp.trigger("cMisc-CallServerEvent", "sCluckinBellCourier-StartWork");
+    },
+    finishWork: function() {
+      this.exit();
+        mp.trigger("cMisc-CallServerEvent", "sCluckinBellCourier-FinishWork");
+    },
+    exit: function() {
+      mp.trigger("cCloseCef");
+    },
+  }
+});
+
+
+function loadRusLang() {
+  app.messageText1 = "";
+  app.messageText2 = "";
+  app.messageText3 = "";
+  app.messageText4 = "";
+  app.startText = "Начать работать!";
+  app.finishText = "Закончить работу!";
+}
+
+function loadBrLang() {
+  app.messageText1 = "Bem-vindo à Cluckin Bell!";
+  app.messageText2 = "Servimos as melhores refeições do ramo!";
+  app.messageText3 = "Somos os melhores e para isto precisamos fornercer um serviço de ponta e entregas rápidas.";
+  app.messageText4 = "Se você curte velocidade e tem habilidade, este é o emprego ideal para você! Seja um de nossos entregadores e leve felicidade pros outros!";
+  app.startText = "Começar a trabalhar!";
+  app.finishText = "Encerrar trabalho!";
+}
+
+function loadZhsLang() {
+  app.messageText1 = "";
+  app.messageText2 = "";
+  app.messageText3 = "";
+  app.messageText4 = "";
+  app.startText = "开始打工！";
+  app.finishText = "辞职不干！";
+}
+function loadZhtLang() {
+  app.messageText1 = "";
+  app.messageText2 = "";
+  app.messageText3 = "";
+  app.messageText4 = "";
+  app.startText = "開始打工！";
+  app.finishText = "辭職不幹！";
+}
+function loadCsLang() {
+  app.messageText1 = "";
+  app.messageText2 = "";
+  app.messageText3 = "";
+  app.messageText4 = "";
+  app.startText = "Začít pracovat!";
+  app.finishText = "Ukončit práci!";
+}
+</script>
