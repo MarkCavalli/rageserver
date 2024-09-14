@@ -814,7 +814,7 @@ const i18n = {
 	sCBDeliveryMen: {
 		invite: {
 			eng: 'Press ~b~E ~s~to start work as a Delivery Men',
-			rus: 'Нажмите ~b~E~s~, чтобы устроиться курьером в Clickin Bell',
+			rus: 'Нажмите ~b~E~s~, чтобы устроиться курьером в Cluckin Bell',
 			ger: 'Drücken Sie ~b~ E ~s~, um mit der Arbeit als Delivery Men zu beginnen',
 			br: 'Pressione ~b~E~s~, para começar a trabalhar como entregador', 
 			zhs: '按~b~E~s~键报名农场工人。',
@@ -824,7 +824,7 @@ const i18n = {
 
 		uninvite: {
 			eng: 'Press ~b~E ~s~to finish work as a Delivery Men',
-			rus: 'Нажмите ~b~E~s~, чтобы уволиться из Clickin Bell',
+			rus: 'Нажмите ~b~E~s~, чтобы уволиться из Cluckin Bell',
 			ger: 'Drücken Sie ~b~ E ~s~, um die Arbeit als Delivery Men abzuschließen',
 			br: 'Pressione ~b~E~s~, para encerrar o trabalho como entregador', 
 			zhs: '按~b~E~s~键辞工',

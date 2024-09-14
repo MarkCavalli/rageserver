@@ -23,7 +23,7 @@ class GPS {
 				x = 2212.994;
 				y = 5577.482;
 			}
-			if (d.name === "Clickin Bell Delivery Courier") {
+			if (d.name === "Cluckin Bell Delivery Courier") {
 				x = -136.757;
 				y = 6198.713;
 			}

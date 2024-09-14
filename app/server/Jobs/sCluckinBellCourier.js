@@ -3,7 +3,7 @@ const i18n = require('../sI18n');
 const Job = require('./sJob');
 
 
-class ClickinBellCourier extends Job {
+class CluckinBellCourier extends Job {
     constructor() {
         const d = { name: "Cluckin Bell Courier", x: -145.918, y: 6303.983, z: 31.559, rot: 131.94, dim: 0 }
         super(d);
@@ -234,4 +234,4 @@ class ClickinBellCourier extends Job {
     }
     
 }
-new ClickinBellCourier();
+new CluckinBellCourier();
